@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TNT_Blue
+  m_Controller: {fileID: 9100000, guid: 9f37e7227cf70894484b19a18147579f, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 6db0e76e4426cce4482b8288f329c5d6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f60d94c6dc4a92a448152e9c6e4caf6c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a7f0167ad2999254fab699fcfd37834b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ed8cf61ba2ffc1b4ebf8511d51f581cc, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7084f717883a40b4fa71acdb9d4d12c0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bff7ece26e493dd4e9e786526a9561b9, type: 2}
