@@ -89,14 +89,14 @@ namespace Assets.Scripts.Concrete.Controllers
             currentArrowSpeed = arrowSpeed;
 
             // Invoke
-            InvokeRepeating(nameof(OptimumDetechTargets), 0.1f, detechTargetPerTime);
+            InvokeRepeating(nameof(OptimumDetechTargets), .5f, detechTargetPerTime);
             InvokeRepeating(nameof(OptimumAITurnDirection), 0.1f, turnDirectionPerTime);
 
         }
 
         private void Update()
         {
-            //Unit Behaviours
+            //Unit Orders
             attackRangePosition = transform.GetChild(0).position;
             if (unitOrderEnum == UnitOrderEnum.AttackOrder)
                 attackOrder.AttackMode();
@@ -129,7 +129,7 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             followTargets = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetLayer);
         }
-      
+
         void OptimumAITurnDirection()
         {
             if (pF2D.moveCommand || order.DetechNearestTarget() == null) return;
