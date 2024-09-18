@@ -13,6 +13,8 @@ namespace Assets.Scripts.Concrete.Controllers
 
         [Header("UNIT TYPE")]
         public UnitTypeEnum unitTypeEnum;
+        public bool isSeleceted;
+
         [Header("Worrior")]
         public float attackRadius;
         public Transform worriorAttackPoint;
@@ -21,6 +23,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [Header("Archer")]
         public GameObject arrow;
         public float arrowSpeed;
+
 
         [Space(30)]
         [Header("UNIT")]
@@ -37,7 +40,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
         public Collider2D[] followTargets;
         public Collider2D[] hitTargets;
-        public LayerMask targetLayer;
+        public LayerMask enemy;
 
         public int currentDamage;
         public float currentSpeed;
@@ -89,15 +92,22 @@ namespace Assets.Scripts.Concrete.Controllers
             currentArrowSpeed = arrowSpeed;
 
             // Invoke
-            InvokeRepeating(nameof(OptimumDetechTargets), .5f, detechTargetPerTime);
+            InvokeRepeating(nameof(OptimumDetechEnemies), .5f, detechTargetPerTime);
             InvokeRepeating(nameof(OptimumAITurnDirection), 0.1f, turnDirectionPerTime);
 
         }
 
         private void Update()
         {
-            //Unit Orders
             attackRangePosition = transform.GetChild(0).position;
+
+            if (unitTypeEnum == UnitTypeEnum.Villager)
+            {
+                sightRangePosition = transform.GetChild(0).position;
+                return;
+            }
+
+            //Unit Orders
             if (unitOrderEnum == UnitOrderEnum.AttackOrder)
                 attackOrder.AttackMode();
             if (unitOrderEnum == UnitOrderEnum.DefendOrder)
@@ -125,13 +135,15 @@ namespace Assets.Scripts.Concrete.Controllers
             }
 
         }
-        void OptimumDetechTargets()
+        void OptimumDetechEnemies()
         {
-            followTargets = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetLayer);
+            if (unitTypeEnum == UnitTypeEnum.Villager) return;
+            followTargets = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemy);
         }
 
         void OptimumAITurnDirection()
         {
+            if (unitTypeEnum == UnitTypeEnum.Villager) return;
             if (pF2D.moveCommand || order.DetechNearestTarget() == null) return;
             if (unitTypeEnum == UnitTypeEnum.Archer)
                 direction.Turn8Direction(order.DetechNearestTarget().transform.position);

@@ -8,7 +8,7 @@ namespace Assets.Scripts.Concrete.Controllers
     internal class BarrackController : MonoBehaviour
     {
         [SerializeField] GameObject unit;
-        [SerializeField] Vector3 trainedUnitPos;
+        public Vector3 trainedUnitPos;
         public Image timerFillImage;
         PanelController panelController;
         ButtonController buttonController;
@@ -29,8 +29,7 @@ namespace Assets.Scripts.Concrete.Controllers
             barrack = new Barrack(unit, transform.position + trainedUnitPos, panelController, buttonController, this);
         }
         private void Update()
-        {
-            
+        {           
             barrack.TrainUnit();
         }
 

@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 2140753509579492637}
   m_Layer: 6
   m_Name: Warrior
-  m_TagString: Untagged
+  m_TagString: Worrior
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitTypeEnum: 0
+  isSeleceted: 0
   attackRadius: 0.7
   worriorAttackPoint: {fileID: 5029577231755023350}
   worriorAttackPointDistance: 0.2
@@ -210,7 +211,7 @@ MonoBehaviour:
   turnDirectionPerTime: 0.2
   followTargets: []
   hitTargets: []
-  targetLayer:
+  enemy:
     serializedVersion: 2
     m_Bits: 8192
   currentDamage: 0

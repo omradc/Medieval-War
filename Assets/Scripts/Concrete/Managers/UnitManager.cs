@@ -17,7 +17,6 @@ namespace Assets.Scripts.Concrete.Managers
         public float distanceBetweenUnits;
 
         [Header("Setups")]
-        [SerializeField] List<GameObject> selectedObjs;
         [SerializeField] LayerMask troopLayer;
 
         Select select;
@@ -27,7 +26,7 @@ namespace Assets.Scripts.Concrete.Managers
         private void Awake()
         {
             Singelton();
-            select = new Select(selectedObjs, troopLayer, this);
+            select = new Select(troopLayer, this);
             ıMove = new Move(select);
             ıInput = new PcInput();
         }

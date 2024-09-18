@@ -1,5 +1,6 @@
 using Assets.Scripts.Concrete.Buildings;
 using Assets.Scripts.Concrete.Controllers;
+using Assets.Scripts.Concrete.Resources;
 using UnityEngine;
 
 class Barrack : Building
@@ -14,7 +15,7 @@ class Barrack : Building
     float currentTime;
 
 
-    public Barrack(GameObject troop, Vector3 pos,PanelController panelController,ButtonController buttonController,BarrackController barrackController)
+    public Barrack(GameObject troop, Vector3 pos, PanelController panelController, ButtonController buttonController, BarrackController barrackController)
     {
         this.troop = troop;
         this.pos = pos;
@@ -32,13 +33,16 @@ class Barrack : Building
             barrackController.timerFillImage.fillAmount = currentTime / barrackController.trainingTime;
             if (currentTime >= barrackController.trainingTime)
             {
-                Object.Instantiate(troop, pos, Quaternion.identity);
+                GameObject trainedUnit = Object.Instantiate(troop, pos, Quaternion.identity);
                 currentTime = 0;
                 timeToTraining = false;
                 buttonController.trainUnitButton = false;
                 panelController.TrainTimeVisibility(false);
+                if (trainedUnit.CompareTag("Villager"))
+                    trainedUnit.GetComponent<CollectResources>().homePos = pos;
             }
 
         }
+
     }
 }

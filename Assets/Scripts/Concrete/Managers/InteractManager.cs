@@ -16,8 +16,10 @@ namespace Assets.Scripts.Concrete.Managers
         [SerializeField] LayerMask castleLayer;
         [SerializeField] LayerMask unitLayer;
         Interact ınteract;
-        [HideInInspector] public GameObject ınteractedObj;
-        [HideInInspector] public GameObject ınteractedUnit;
+        [HideInInspector] public GameObject interactedObj;
+        [HideInInspector] public GameObject interactedUnit;
+        public GameObject interactedMine;
+        public GameObject interactedTree;
         IInput ıInput;
         private void Awake()
         {
@@ -46,17 +48,23 @@ namespace Assets.Scripts.Concrete.Managers
 
                 // mouse ile tıklanan obje ile etkileşime girilir
                 ınteract.InteractClickedObj();
-                if (ınteractedObj != null)
+                if (interactedObj != null)
                 {
                     // Etkileşim olan obje baraka ise, birlik basma ekranı açılır
-                    if (ınteractedObj.layer == 8)
-                        ınteractedObj.GetComponent<PanelController>().TrainUnitVisibility(true);
+                    if (interactedObj.layer == 8)
+                        interactedObj.GetComponent<PanelController>().TrainUnitVisibility(true);
 
                     // Etkileşim olan obje, birim ise,
-                    if (ınteractedObj.layer == 6)
-                        ınteractedUnit = ınteractedObj;
+                    if (interactedObj.layer == 6)
+                        interactedUnit = interactedObj;
 
+                    // Etkileşim olan obje, maden ise,
+                    if (interactedObj.layer == 14)
+                        interactedMine = interactedObj;
 
+                    // Etkileşim olan obje, ağaç ise,
+                    if (interactedObj.layer == 15)
+                        interactedMine = interactedObj;
 
 
                 }
@@ -64,8 +72,9 @@ namespace Assets.Scripts.Concrete.Managers
 
             if (ıInput.GetButtonUp0)
             {
-                ınteractedObj = null;
-                ınteractedUnit = null;
+                interactedObj = null;
+                interactedUnit = null;
+                interactedMine = null;
 
             }
         }

@@ -18,12 +18,12 @@ namespace Assets.Scripts.Concrete.SelectSystem
         Vector2 endPos;
         UnitManager unitManager;
         public bool isDragging;
-        public Select(List<GameObject> _objs, LayerMask unitLayer, UnitManager unitManager)
+        public Select(LayerMask unitLayer, UnitManager unitManager)
         {
             ıInput = new PcInput();
-            objs = _objs;
             this.unitLayer = unitLayer;
             this.unitManager = unitManager;
+            objs = new List<GameObject>();
         }
         public void SelectOneByOne()
         {
@@ -35,7 +35,9 @@ namespace Assets.Scripts.Concrete.SelectSystem
                 if (hit.collider != null)
                 {
                     currentObj = hit.collider.gameObject;
-                    currentObj.GetComponent<UnitController>().workOnce = true;
+                    UnitController uC = currentObj.GetComponent<UnitController>();
+                    uC.workOnce = true;
+                    uC.isSeleceted = true;
                     // Aynı nesneyi tekrar diziye atma
                     if (!objs.Contains(currentObj))
                         objs.Add(currentObj);
@@ -82,6 +84,7 @@ namespace Assets.Scripts.Concrete.SelectSystem
                     UnitController uC = objs[i].gameObject.GetComponent<UnitController>();
                     uC.unitOrderEnum = unitManager.unitOrderEnum;
                     uC.workOnce = true;
+                    uC.isSeleceted = true;
                     SelectedObjColor(0.5f, currentObj);
                 }
 
@@ -99,7 +102,15 @@ namespace Assets.Scripts.Concrete.SelectSystem
         public void ClearSelectedObjs()
         {
             if (ıInput.GetButtonUp0)
-                objs.Clear();
+            {
+                for (int i = 0; i < objs.Count; i++)
+                {
+                    objs[i].GetComponent<UnitController>().isSeleceted = false;
+                }
+
+                if (!ıInput.GetButton1)
+                    objs.Clear();
+            }
         }
         void SelectedObjColor(float alphaValue, GameObject obj)
         {

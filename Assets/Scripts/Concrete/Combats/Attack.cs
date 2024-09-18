@@ -58,7 +58,7 @@ namespace Assets.Scripts.Concrete.Combats
         }
         void WorriorAttack()
         {
-            uC.hitTargets = Physics2D.OverlapCircleAll(uC.worriorAttackPoint.position, uC.currentAttackRadius, uC.targetLayer);
+            uC.hitTargets = Physics2D.OverlapCircleAll(uC.worriorAttackPoint.position, uC.currentAttackRadius, uC.enemy);
             for (int i = 0; i < uC.hitTargets.Length; i++)
             {
                 if (uC.hitTargets != null)

@@ -28,9 +28,9 @@ namespace Assets.Scripts.Concrete.Orders
         {
             if (uC.unitOrderEnum == UnitOrderEnum.FollowOrder)
             {
-                if (uC.workOnce && InteractManager.Instance.ınteractedUnit != null)
+                if (uC.workOnce && InteractManager.Instance.interactedUnit != null)
                 {
-                    followingObj = InteractManager.Instance.ınteractedUnit;
+                    followingObj = InteractManager.Instance.interactedUnit;
                     uC.workOnce = false;
                 }
                 if (!uC.workOnce)

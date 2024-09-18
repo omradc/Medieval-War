@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3415527731126551328}
+  - component: {fileID: 5172850137317991820}
+  - component: {fileID: 8946508643519506239}
   - component: {fileID: 2418029241015782227}
   - component: {fileID: 1376407962236483775}
   - component: {fileID: 1351704705479308060}
-  - component: {fileID: 5172850137317991820}
-  - component: {fileID: 8946508643519506239}
-  - component: {fileID: 3724882387064550949}
   - component: {fileID: 1961826129281843446}
+  - component: {fileID: 3724882387064550949}
   m_Layer: 0
   m_Name: '[GameManager]'
   m_TagString: Untagged
@@ -38,63 +38,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2418029241015782227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6696413502318872325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ded3729f0113204479cc6877929fb0b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1376407962236483775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6696413502318872325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b3c2f9ca91df654780b98ab3082dd1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  barrackLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  towerLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  castleLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  unitLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  "\u0131nteractedObj": {fileID: 0}
-  "\u0131nteractedUnit": {fileID: 0}
---- !u!114 &1351704705479308060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6696413502318872325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c85261585c6268428c896c0223b34cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  troopFormation: 2
-  distanceBetweenUnits: 0.8
-  selectedObjs: []
-  troopLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  unitOrderEnum: 0
 --- !u!120 &5172850137317991820
 LineRenderer:
   serializedVersion: 2
@@ -211,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935b2c44574ad264ab524c07411e0e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3724882387064550949
+--- !u!114 &2418029241015782227
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -220,9 +163,55 @@ MonoBehaviour:
   m_GameObject: {fileID: 6696413502318872325}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 527ec654f72fd864b85f7d6e96c3d90d, type: 3}
+  m_Script: {fileID: 11500000, guid: ded3729f0113204479cc6877929fb0b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1376407962236483775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6696413502318872325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b3c2f9ca91df654780b98ab3082dd1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrackLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  towerLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  castleLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  unitLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  interactedObj: {fileID: 0}
+  interactedUnit: {fileID: 0}
+  interactedMine: {fileID: 0}
+  interactedTree: {fileID: 0}
+--- !u!114 &1351704705479308060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6696413502318872325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c85261585c6268428c896c0223b34cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  troopFormation: 2
+  distanceBetweenUnits: 0.8
+  troopLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  unitOrderEnum: 0
 --- !u!114 &1961826129281843446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,3 +226,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   formationDropdown: {fileID: 0}
   orderDropdown: {fileID: 0}
+--- !u!114 &3724882387064550949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6696413502318872325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 527ec654f72fd864b85f7d6e96c3d90d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

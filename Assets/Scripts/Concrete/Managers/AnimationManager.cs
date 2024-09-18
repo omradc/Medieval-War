@@ -84,6 +84,15 @@ namespace Assets.Scripts.Concrete.Managers
             }
         }
 
+        public void RunCarry(Animator animator, float speed)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Run_0"))
+            {
+                animator.speed = speed;
+                animator.Play("Run_0");
+            }
+        }
+
 
     }
 }

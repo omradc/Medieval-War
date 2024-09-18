@@ -6,10 +6,10 @@ namespace Assets.Scripts.Concrete.SelectSystem
 {
     internal class Interact
     {
-        InteractManager ınteractController;
+        InteractManager ınteractManager;
         public Interact(InteractManager ınteractController)
         {
-            this.ınteractController = ınteractController;
+            this.ınteractManager = ınteractController;
         }
 
         public void InteractClickedObj()
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Concrete.SelectSystem
 
             if (hitObj.collider != null)
             {
-                ınteractController.ınteractedObj = hitObj.collider.gameObject;
+                ınteractManager.interactedObj = hitObj.collider.gameObject;
             }
         }
     }
