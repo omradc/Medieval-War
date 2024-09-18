@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
-    internal class UnitController : Unit
+    internal class UnitController : MonoBehaviour
     {
 
         [Header("UNIT TYPE")]

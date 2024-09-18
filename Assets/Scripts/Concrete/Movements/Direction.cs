@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Movements
@@ -7,14 +8,14 @@ namespace Assets.Scripts.Concrete.Movements
     internal class Direction
     {
         PathFinding2D pF2D;
-        Unit uC;
+        UnitController uC;
         float xPos;
         float yPos;
-       
+
 
         Vector3 rightDirection = new Vector3(1, 1, 1);
         Vector3 leftDirection = new Vector3(-1, 1, 1);
-        public Direction(PathFinding2D pF2D, Unit uC)
+        public Direction(PathFinding2D pF2D, UnitController uC)
         {
             this.pF2D = pF2D;
             this.uC = uC;

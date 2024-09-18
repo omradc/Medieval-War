@@ -32,7 +32,7 @@ namespace Assets.Scripts.Concrete.Movements
         public bool upLeft;
         public bool downRight;
         public bool downLeft;
-        Unit uC;
+        UnitController uC;
         [HideInInspector] public Direction direction;
         public bool isPathFinding;
         public bool isPathEnd;
@@ -44,7 +44,7 @@ namespace Assets.Scripts.Concrete.Movements
         {
             pathfinder = new Pathfinder<Vector2>(GetDistance, GetNeighbourNodes, 1000); //increase patience or gridSize for larger maps
             animator = transform.GetChild(0).GetComponent<Animator>();
-            uC = GetComponent<Unit>();
+            uC = GetComponent<UnitController>();
             direction = new(this, uC);
         }
 
