@@ -63,6 +63,7 @@ namespace Assets.Scripts.Concrete.Resources
                 if (!villagers.Contains(collision.gameObject))
                     villagers.Add(collision.gameObject);
                 villagerNumber++;
+
                 if (villagerNumber > 0)
                     Activated();
 
@@ -75,6 +76,8 @@ namespace Assets.Scripts.Concrete.Resources
             if (collision.gameObject.CompareTag("Villager"))
             {
                 villagerNumber--;
+
+                //Maden bittiyse
                 if (currentMineAmount <= 0)
                 {
                     Destroyed();
@@ -88,9 +91,9 @@ namespace Assets.Scripts.Concrete.Resources
                         Destroy(colliders[i]);
                     }
                     return;
-
                 }
 
+                // Köylü kalmadıysa
                 if (villagerNumber == 0)
                     Inactivated();
             }

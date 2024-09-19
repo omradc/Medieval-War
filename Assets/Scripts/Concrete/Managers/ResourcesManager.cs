@@ -14,5 +14,9 @@ namespace Assets.Scripts.Concrete.Managers
         public static int wood;
         public static int food;
 
+        private void FixedUpdate()
+        {
+            print(gold);
+        }
     }
 }

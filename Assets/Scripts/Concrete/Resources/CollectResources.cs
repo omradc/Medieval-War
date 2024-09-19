@@ -1,6 +1,9 @@
-﻿using Assets.Scripts.Concrete.Controllers;
+﻿using Assets.Scripts.Abstracts.Inputs;
+using Assets.Scripts.Concrete.Controllers;
+using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
+using System.Security.Cryptography;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Resources
@@ -9,8 +12,8 @@ namespace Assets.Scripts.Concrete.Resources
     {
         public GameObject targetResource;
         public Vector3 homePos;
-        public GameObject goldBag;
-        public GameObject rockBag;
+        public GameObject resourceGold;
+        public GameObject resourceRock;
 
         UnitController uC;
         PathFinding2D pF2D;
@@ -18,6 +21,7 @@ namespace Assets.Scripts.Concrete.Resources
         Animator animator;
         GameObject goldIdle;
         GameObject rockIdle;
+        IInput ıInput;
         public float miningTime;
         public float returnHomeTime;
         public int collectGoldAmount;
@@ -26,7 +30,12 @@ namespace Assets.Scripts.Concrete.Resources
         float tReturnHome;
         bool returnHome;
         bool workOnce;
+        bool workOnce2;
         public bool isMineEmpty;
+        bool isMine;
+        bool isTree;
+        bool isSheep;
+
         private void Awake()
         {
             uC = GetComponent<UnitController>();
@@ -35,6 +44,7 @@ namespace Assets.Scripts.Concrete.Resources
             animator = transform.GetChild(0).GetComponent<Animator>();
             goldIdle = transform.GetChild(1).gameObject;
             rockIdle = transform.GetChild(2).gameObject;
+            ıInput = new PcInput();
         }
         private void Start()
         {
@@ -42,26 +52,64 @@ namespace Assets.Scripts.Concrete.Resources
         }
         private void Update()
         {
-            GoToResource();
+            // Eğer elinde kaynak varken seçip, başka bir yere gönderirsen. Kaynak yere düşer.
+            if (ıInput.GetButtonDown0 && uC.isSeleceted)
+            {
+                if (goldIdle.activeSelf)
+                {
+                    Instantiate(resourceGold, transform.position, Quaternion.identity);
+                    goldIdle.SetActive(false);
+                }
+                if (rockIdle.activeSelf)
+                {
+                    Instantiate(resourceRock, transform.position, Quaternion.identity);
+                    rockIdle.SetActive(false);
+                }
+            }
+
+            SelectResourceType();
+            GoToMine();
+            // GoToTree();
             GoToHome();
         }
-
-        void GoToResource()
+        void SelectResourceType()
         {
-
             // Eğer köylü seçiliyse ve hedef kaynağa tıkladıysa, seçili köylünün hedefi seçili kaynaktır
             if (uC.isSeleceted)
             {
-                isMineEmpty = false;
-                returnHome = false;
-                villagerSpriteRenderer.enabled = true;
                 targetResource = null;
+
+
                 if (InteractManager.Instance.interactedMine != null)
                 {
+                    isTree = false;
+                    isSheep = false;
+                    returnHome = false;
                     targetResource = InteractManager.Instance.interactedMine;
+                    isMine = true;
+                }
+                if (InteractManager.Instance.interactedTree != null)
+                {
+                    isMine = false;
+                    isSheep = false;
+                    returnHome = false;
+                    targetResource = InteractManager.Instance.interactedTree;
+                    isTree = true;
                 }
             }
+        }
+        void GoToMine()
+        {
+            if (uC.isSeleceted)
+            {
+                villagerSpriteRenderer.enabled = true;
+                isMineEmpty = false;
+                if (!isMine) return;
+            }
+
+            // Eğer Maden bittiyse
             if (isMineEmpty) return;
+
             // Hedef varsa ona git
             if (targetResource != null && !returnHome)
             {
@@ -87,7 +135,7 @@ namespace Assets.Scripts.Concrete.Resources
                         if (mine.CompareTag("GoldMine"))
                         {
                             mine.currentMineAmount -= collectGoldAmount;
-                            mine.mineAmountFillValue.fillAmount=mine.currentMineAmount/mine.mineAmount;
+                            mine.mineAmountFillValue.fillAmount = mine.currentMineAmount / mine.mineAmount;
                         }
                         if (mine.CompareTag("RockMine"))
                         {
@@ -97,22 +145,19 @@ namespace Assets.Scripts.Concrete.Resources
                         villagerSpriteRenderer.enabled = true;
                         returnHome = true;
                         workOnce = true;
+                        workOnce2 = true;
                         tMining = 0;
                     }
 
                 }
             }
-
-
         }
         void GoToHome()
         {
-
-            if (uC.isSeleceted) return;
+            // Köylüyü madende çalışırken çağrılırsa, tekarar görünür olur
             if (isMineEmpty)
-            {
                 villagerSpriteRenderer.enabled = true;
-            }
+
             if (returnHome)
             {
                 // Hedefe ulaşınca dur
@@ -123,38 +168,53 @@ namespace Assets.Scripts.Concrete.Resources
                         pF2D.AIGetMoveCommand(homePos);
                         AnimationManager.Instance.RunCarry(animator, 1);
                         workOnce = false;
-                        
-                        Mine mine = targetResource.GetComponent<Mine>();
-                        if (mine.CompareTag("GoldMine"))
-                            goldIdle.SetActive(true);
-                        if (mine.CompareTag("RockMine"))
-                            rockIdle.SetActive(true);
-
+                        CollectResource();
                     }
                 }
 
                 // Hedefe ulaşıldı
                 else
                 {
-                    // Kaynakları eve bırak
-                    Mine mine = targetResource.GetComponent<Mine>();
-                    if (mine.CompareTag("GoldMine"))
-                    {
-                        ResourcesManager.gold += collectGoldAmount;
-                        Instantiate(goldBag, homePos, Quaternion.identity);
-                        goldIdle.SetActive(false);
-                    }
-                    if (mine.CompareTag("RockMine"))
-                    {
-                        ResourcesManager.rock += collectRockAmount;
-                        Instantiate(rockBag, homePos, Quaternion.identity);
-                        rockIdle.SetActive(false);
-                    }
-                    villagerSpriteRenderer.enabled = true;
+                    DropResource(isMine);
                     returnHome = false;
-
                 }
             }
         }
+        void CollectResource()
+        {
+            if (isMine)
+            {
+                Mine mine = targetResource.GetComponent<Mine>();
+                if (mine.CompareTag("GoldMine"))
+                    goldIdle.SetActive(true);
+                if (mine.CompareTag("RockMine"))
+                    rockIdle.SetActive(true);
+            }
+        }
+
+        void DropResource(bool _isMine)
+        {
+            // Kaynakları eve bırak
+            if (_isMine && workOnce2)
+            {
+                workOnce2 = false;
+                print("Dropped");
+
+                if (goldIdle.activeSelf)
+                {
+                    ResourcesManager.gold += collectGoldAmount;
+                    Instantiate(resourceGold, homePos, Quaternion.identity);
+                    goldIdle.SetActive(false);
+                }
+                if (rockIdle.activeSelf)
+                {
+                    ResourcesManager.rock += collectRockAmount;
+                    Instantiate(resourceRock, homePos, Quaternion.identity);
+                    rockIdle.SetActive(false);
+                }
+                villagerSpriteRenderer.enabled = true;
+            }
+        }
+
     }
 }
