@@ -63,7 +63,7 @@ namespace Assets.Scripts.Concrete.Controllers
         StayOrder stayOrder;
         FollowOrder followOrder;
         Attack attack;
-        Direction direction;
+        [HideInInspector] public Direction direction;
 
 
 

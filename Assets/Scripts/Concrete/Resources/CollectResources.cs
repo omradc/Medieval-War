@@ -15,13 +15,7 @@ namespace Assets.Scripts.Concrete.Resources
         public GameObject resourceGold;
         public GameObject resourceRock;
 
-        UnitController uC;
-        PathFinding2D pF2D;
-        SpriteRenderer villagerSpriteRenderer;
-        Animator animator;
-        GameObject goldIdle;
-        GameObject rockIdle;
-        IInput ıInput;
+
         public float miningTime;
         public float returnHomeTime;
         public int collectGoldAmount;
@@ -36,6 +30,17 @@ namespace Assets.Scripts.Concrete.Resources
         bool isTree;
         bool isSheep;
 
+        UnitController uC;
+        PathFinding2D pF2D;
+        SpriteRenderer villagerSpriteRenderer;
+        Animator animator;
+        GameObject goldIdle;
+        GameObject rockIdle;
+        Direction direction;
+        IInput ıInput;
+
+
+
         private void Awake()
         {
             uC = GetComponent<UnitController>();
@@ -48,6 +53,8 @@ namespace Assets.Scripts.Concrete.Resources
         }
         private void Start()
         {
+            direction = uC.direction;
+            InvokeRepeating(nameof(OptimumTurn2Direction),.1f,.5f);
 
         }
         private void Update()
@@ -214,6 +221,15 @@ namespace Assets.Scripts.Concrete.Resources
                 }
                 villagerSpriteRenderer.enabled = true;
             }
+        }
+
+        void OptimumTurn2Direction()
+        {
+            if (targetResource != null && !returnHome)
+                direction.Turn2Direction(targetResource.transform.position.x);
+            if (returnHome)
+                direction.Turn2Direction(homePos.x);
+
         }
 
     }
