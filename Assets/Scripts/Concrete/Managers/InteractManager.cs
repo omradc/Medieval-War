@@ -64,7 +64,7 @@ namespace Assets.Scripts.Concrete.Managers
 
                     // Etkileşim olan obje, ağaç ise,
                     if (interactedObj.layer == 15)
-                        interactedMine = interactedObj;
+                        interactedTree = interactedObj;
 
 
                 }

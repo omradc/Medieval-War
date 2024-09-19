@@ -84,12 +84,28 @@ namespace Assets.Scripts.Concrete.Managers
             }
         }
 
-        public void RunCarry(Animator animator, float speed)
+        public void RunCarryAnim(Animator animator, float speed)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Run_0"))
             {
                 animator.speed = speed;
                 animator.Play("Run_0");
+            }
+        }
+
+        public void DestroyedTreeAnim(Animator animator)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Destroyed"))
+            {
+                animator.Play("Destroyed");
+            }
+        }
+
+        public void IdleTreeAnim(Animator animator)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            {
+                animator.Play("Idle");
             }
         }
 
