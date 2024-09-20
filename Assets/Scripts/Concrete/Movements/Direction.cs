@@ -31,7 +31,7 @@ namespace Assets.Scripts.Concrete.Movements
             pF2D.downRight = false;
             pF2D.downLeft = false;
         }
-        public void Turn2Direction(float lookXPos)
+        public int Turn2Direction(float lookXPos)
         {
             if (pF2D.transform.position.x > lookXPos)
             {
@@ -50,6 +50,9 @@ namespace Assets.Scripts.Concrete.Movements
                 SetBooleans();
                 pF2D.right = true;
             }
+            if (pF2D.left)
+                return 1;
+            return -1;
         }
         public void Turn4Direction(Vector2 target)
         {

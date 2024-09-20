@@ -3,6 +3,7 @@ using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.SelectSystem;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Managers
@@ -10,17 +11,22 @@ namespace Assets.Scripts.Concrete.Managers
     internal class InteractManager : MonoBehaviour
     {
         public static InteractManager Instance { get; private set; }
-
-        [SerializeField] LayerMask barrackLayer;
-        [SerializeField] LayerMask towerLayer;
-        [SerializeField] LayerMask castleLayer;
         [SerializeField] LayerMask unitLayer;
         Interact ınteract;
         [HideInInspector] public GameObject interactedObj;
         [HideInInspector] public GameObject interactedUnit;
         public GameObject interactedMine;
         public GameObject interactedTree;
+        public GameObject interactedSheep;
         IInput ıInput;
+
+        public List<GameObject> selectedUnits;
+        GameObject currentObj;
+        public Vector2 startPos;
+        Vector2 endPos;
+        public bool isDragging;
+
+
         private void Awake()
         {
             Singelton();
@@ -43,6 +49,10 @@ namespace Assets.Scripts.Concrete.Managers
         }
         private void Update()
         {
+            SelectOneByOne();
+            SelectMultiple();
+            ClearSelectedObjs();
+
             if (ıInput.GetButtonDown0)
             {
 
@@ -66,17 +76,105 @@ namespace Assets.Scripts.Concrete.Managers
                     if (interactedObj.layer == 15)
                         interactedTree = interactedObj;
 
-
+                    // Etkileşim olan obje, koyun ise,
+                    if (interactedObj.layer == 16)
+                        interactedSheep = interactedObj;
                 }
             }
-
             if (ıInput.GetButtonUp0)
             {
                 interactedObj = null;
                 interactedUnit = null;
                 interactedMine = null;
+                interactedTree = null;
+                interactedSheep = null;
+            }
+        }
+
+        public void SelectOneByOne()
+        {
+            if (ıInput.GetButtonDown1)
+            {
+                // Ekran koordinatlarını dünya koordinatlarına çevir
+                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(worldPosition, Vector2.zero, 1, unitLayer);
+                if (hit.collider != null)
+                {
+                    currentObj = hit.collider.gameObject;
+                    UnitController uC = currentObj.GetComponent<UnitController>();
+                    uC.workOnce = true;
+                    uC.isSeleceted = true;
+                    // Aynı nesneyi tekrar diziye atma
+                    if (!selectedUnits.Contains(currentObj))
+                        selectedUnits.Add(currentObj);
+
+                    SelectedObjColor(0.5f, currentObj);
+
+                }
 
             }
+            if (ıInput.GetButtonDown0)
+            {
+                for (int i = 0; i < selectedUnits.Count; i++)
+                {
+                    selectedUnits[i].GetComponent<UnitController>().unitOrderEnum = UnitManager.Instance.unitOrderEnum;
+                    SelectedObjColor(1f, selectedUnits[i]);
+                }
+
+            }
+
+
+        }
+        public void SelectMultiple()
+        {
+            if (ıInput.GetButtonDown1)
+            {
+                startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                isDragging = true;
+            }
+
+
+            if (ıInput.GetButtonUp1)
+            {
+                endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                isDragging = false;
+                Collider2D[] hits = Physics2D.OverlapAreaAll(startPos, endPos, unitLayer);
+                for (int i = 0; i < hits.Length; i++)
+                {
+
+                    currentObj = hits[i].gameObject;
+
+                    // Aynı nesneyi tekrar diziye atma
+                    if (!selectedUnits.Contains(currentObj))
+                        selectedUnits.Add(currentObj);
+                    UnitController uC = selectedUnits[i].gameObject.GetComponent<UnitController>();
+                    uC.unitOrderEnum = UnitManager.Instance.unitOrderEnum;
+                    uC.workOnce = true;
+                    uC.isSeleceted = true;
+                    SelectedObjColor(0.5f, currentObj);
+                }
+
+            }
+
+            if (ıInput.GetButtonDown0)
+            {
+                for (int i = 0; i < selectedUnits.Count; i++)
+                {
+                    selectedUnits[i].GetComponent<UnitController>().unitOrderEnum = UnitManager.Instance.unitOrderEnum;
+                }
+
+            }
+        }
+        public void ClearSelectedObjs()
+        {
+            if (ıInput.GetButtonUp0 && !ıInput.GetButton1)
+                selectedUnits.Clear();
+        }
+        void SelectedObjColor(float alphaValue, GameObject obj)
+        {
+            Color color = obj.transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+            color.a = alphaValue;
+            obj.transform.GetChild(0).GetComponent<SpriteRenderer>().color = color;
         }
 
     }

@@ -263,14 +263,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetResource: {fileID: 0}
+  nearestTree: {fileID: 0}
   treeDamagePoint: 1
   chopTime: 1
   chopTreeSightRange: 10
   treeLayer:
     serializedVersion: 2
     m_Bits: 32768
-  trees: []
   distanceToTreePos: {x: 0, y: 0, z: 0}
+  trees: []
   miningTime: 1
   collectGoldAmount: 10
   collectRockAmount: 10
@@ -279,7 +280,10 @@ MonoBehaviour:
   resourceRock: {fileID: 7890745954856160017, guid: b126d0ab62845c24fb2bda03133fc8ad, type: 3}
   resourceWood: {fileID: 3246526810110024777, guid: f98d572d09a17bf4597ea080e739b3f1, type: 3}
   homePos: {x: 0, y: 0, z: 0}
+  workOnce4: 0
   isMineEmpty: 0
+  isTree: 0
+  isMine: 0
 --- !u!1 &1505308617181909231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,6 +1122,7 @@ GameObject:
   - component: {fileID: 8182662122632831647}
   - component: {fileID: 1621241167496932998}
   - component: {fileID: 1103426188888614186}
+  - component: {fileID: 7531272132396330162}
   m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
@@ -1213,3 +1218,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7531272132396330162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7693729057919683629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd23bc4847eb7b647ac65a1e0dd5a2b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

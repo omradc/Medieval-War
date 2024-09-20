@@ -71,8 +71,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1985627084138758908}
-  - component: {fileID: 4241488879608301705}
   - component: {fileID: 783394881091990907}
+  - component: {fileID: 4241488879608301705}
+  - component: {fileID: 2255334297144948177}
   m_Layer: 15
   m_Name: Tree
   m_TagString: Untagged
@@ -98,23 +99,6 @@ Transform:
   - {fileID: 597554203303735315}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4241488879608301705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1257819338774987640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1290c4a1047e6c4d8716b6f47aff1d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitPoint: 3
-  currentHitPoint: 0
-  destruct: 0
-  growTime: 6
-  currentTime: 0
 --- !u!58 &783394881091990907
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -147,9 +131,38 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.21}
+  m_Offset: {x: 0, y: 0.82}
   serializedVersion: 2
-  m_Radius: 2.66
+  m_Radius: 0.85
+--- !u!114 &4241488879608301705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257819338774987640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1290c4a1047e6c4d8716b6f47aff1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoint: 2
+  currentHitPoint: 0
+  destruct: 0
+  growTime: 15
+  currentTime: 0
+--- !u!114 &2255334297144948177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257819338774987640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd23bc4847eb7b647ac65a1e0dd5a2b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4217053266244315779
 GameObject:
   m_ObjectHideFlags: 0

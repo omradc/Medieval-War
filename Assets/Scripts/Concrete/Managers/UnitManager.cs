@@ -19,15 +19,13 @@ namespace Assets.Scripts.Concrete.Managers
         [Header("Setups")]
         [SerializeField] LayerMask troopLayer;
 
-        Select select;
         IMove ıMove;
         IInput ıInput;
         public UnitOrderEnum unitOrderEnum;
         private void Awake()
         {
             Singelton();
-            select = new Select(troopLayer, this);
-            ıMove = new Move(select);
+            ıMove = new Move();
             ıInput = new PcInput();
         }
         void Singelton()
@@ -42,10 +40,6 @@ namespace Assets.Scripts.Concrete.Managers
 
         private void Update()
         {
-            select.SelectOneByOne();
-            select.SelectMultiple();
-            select.ClearSelectedObjs();
-
             if (ıInput.GetButtonDown0)
             {
                 ıMove.MoveCommand();

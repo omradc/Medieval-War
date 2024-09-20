@@ -38,7 +38,7 @@ namespace Assets.Scripts.Concrete.Combats
                     AnimationManager.Instance.IdleAnim(pF2D.animator);
                 return;
             }
-            // Düşman saldırı menzilindeyse, yöne göre animasyonlar oynatılır. Animasyonlar saldırıları event ile tetikler
+            // Düşman saldırı menzilindeyse, yöne göre animasyonlar oynatılır. Animasyonlar, saldırıları event ile tetikler
             if (Vector2.Distance(uC.attackRangePosition, order.DetechNearestTarget().transform.position) < uC.currentAttackRange)
             {
                 if (pF2D.right || pF2D.left)

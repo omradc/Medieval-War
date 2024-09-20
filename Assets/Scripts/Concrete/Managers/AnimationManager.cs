@@ -84,15 +84,7 @@ namespace Assets.Scripts.Concrete.Managers
             }
         }
 
-        public void RunCarryAnim(Animator animator, float speed)
-        {
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Run_0"))
-            {
-                animator.speed = speed;
-                animator.Play("Run_0");
-            }
-        }
-
+        // Tree
         public void DestroyedTreeAnim(Animator animator)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Destroyed"))
@@ -106,6 +98,33 @@ namespace Assets.Scripts.Concrete.Managers
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             {
                 animator.Play("Idle");
+            }
+        }
+
+        public void GetHitTreeAnim(Animator animator, float speed)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"))
+            {
+                animator.speed = speed;
+                animator.Play("GetHit");
+            }
+        }
+
+        //Villager
+        public void RunCarryAnim(Animator animator, float speed)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Run_0"))
+            {
+                animator.speed = speed;
+                animator.Play("Run_0");
+            }
+        }
+        public void ChopAnim(Animator animator, float speed)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Chop"))
+            {
+                animator.speed = speed;
+                animator.Play("Chop");
             }
         }
 

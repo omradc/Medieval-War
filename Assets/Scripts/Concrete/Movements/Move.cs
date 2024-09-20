@@ -10,13 +10,6 @@ namespace Assets.Scripts.Concrete.Movements
 {
     internal class Move : IMove
     {
-        Select select;
-        public Move(Select _select)
-        {
-            select = _select;
-
-        }
-
 
         public void MoveCommand()
         {
@@ -38,9 +31,9 @@ namespace Assets.Scripts.Concrete.Movements
                 float xPos = 0;
                 PathFinding2D pF2D = null;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                for (int i = 0; i < select.objs.Count; i++)
+                for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
                 {
-                    GameObject selectedObj = select.objs[i];
+                    GameObject selectedObj = InteractManager.Instance.selectedUnits[i];
                     if (i == 0)
                     {
                         pF2D = selectedObj.GetComponent<PathFinding2D>();
@@ -63,9 +56,9 @@ namespace Assets.Scripts.Concrete.Movements
                 float yPos = 0;
                 PathFinding2D pF2D = null;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                for (int i = 0; i < select.objs.Count; i++)
+                for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
                 {
-                    GameObject selectedObj = select.objs[i];
+                    GameObject selectedObj = InteractManager.Instance.selectedUnits[i];
                     if (i == 0)
                     {
                         pF2D = selectedObj.GetComponent<PathFinding2D>();
@@ -90,13 +83,13 @@ namespace Assets.Scripts.Concrete.Movements
             {
                 float xPos = 0;
                 float yPos = 0;
-                float xTroopNumber = Mathf.Ceil(Mathf.Sqrt(select.objs.Count));
+                float xTroopNumber = Mathf.Ceil(Mathf.Sqrt(InteractManager.Instance.selectedUnits.Count));
                 float firstXtroopNumber = xTroopNumber;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 PathFinding2D pF2D = null;
-                for (int i = 0; i < select.objs.Count; i++)
+                for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
                 {
-                    GameObject selectedObj = select.objs[i];
+                    GameObject selectedObj = InteractManager.Instance.selectedUnits[i];
 
                     // Yatay sıraya ekle
                     if (i < xTroopNumber)
@@ -129,9 +122,9 @@ namespace Assets.Scripts.Concrete.Movements
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
-                for (int i = 0; i < select.objs.Count; i++)
+                for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
                 {
-                    GameObject selectedObj = select.objs[i];
+                    GameObject selectedObj = InteractManager.Instance.selectedUnits[i];
 
                     if (i == 0)
                     {
@@ -168,9 +161,9 @@ namespace Assets.Scripts.Concrete.Movements
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
-                for (int i = 0; i < select.objs.Count; i++)
+                for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
                 {
-                    GameObject selectedObj = select.objs[i];
+                    GameObject selectedObj = InteractManager.Instance.selectedUnits[i];
 
                     if (i == 0)
                     {
@@ -206,9 +199,9 @@ namespace Assets.Scripts.Concrete.Movements
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
-                for (int i = 0; i < select.objs.Count; i++)
+                for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
                 {
-                    GameObject selectedObj = select.objs[i];
+                    GameObject selectedObj = InteractManager.Instance.selectedUnits[i];
 
                     if (i == 0)
                     {
@@ -244,9 +237,9 @@ namespace Assets.Scripts.Concrete.Movements
                 PathFinding2D pF2D = null;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                for (int i = 0; i < select.objs.Count; i++)
+                for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
                 {
-                    GameObject selectedObj = select.objs[i];
+                    GameObject selectedObj = InteractManager.Instance.selectedUnits[i];
 
                     if (i == 0)
                     {
@@ -282,9 +275,9 @@ namespace Assets.Scripts.Concrete.Movements
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
-                for (int i = 0; i < select.objs.Count; i++)
+                for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
                 {
-                    GameObject selectedObj = select.objs[i];
+                    GameObject selectedObj = InteractManager.Instance.selectedUnits[i];
 
                     if (i == 0)
                     {

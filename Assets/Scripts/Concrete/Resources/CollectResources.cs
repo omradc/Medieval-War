@@ -13,14 +13,14 @@ namespace Assets.Scripts.Concrete.Resources
     {
         public GameObject targetResource;
         [Header("Tree")]
+        public GameObject nearestTree;
+        Vector2 nearestTreeChopPos;
         public int treeDamagePoint;
         public float chopTime;
         public float chopTreeSightRange;
         public LayerMask treeLayer;
         public Vector3 distanceToTreePos;
-        public bool searchTree;
         public Collider2D[] trees;
-        GameObject targetTree;
 
         [Header("Mine")]
         public float miningTime;
@@ -33,7 +33,6 @@ namespace Assets.Scripts.Concrete.Resources
 
 
         [HideInInspector] public Vector3 homePos;
-        [HideInInspector] public bool isMine;
         float currentChopTreeSightRange;
         int currentTreeDamagePoint;
         float tMining;
@@ -42,9 +41,12 @@ namespace Assets.Scripts.Concrete.Resources
         bool returnHome;
         bool workOnce;
         bool workOnce2;
-        public bool isMineEmpty;
-        bool isTree;
+        bool workOnce3 = true;
+        public bool workOnce4;
 
+        public bool isMineEmpty;
+        public bool isTree;
+        public bool isMine;
         UnitController uC;
         PathFinding2D pF2D;
         SpriteRenderer villagerSpriteRenderer;
@@ -53,6 +55,7 @@ namespace Assets.Scripts.Concrete.Resources
         GameObject rockIdle;
         GameObject woodIdle;
         Direction direction;
+        AnimationEventController animationEventController;
         IInput ıInput;
 
 
@@ -67,17 +70,25 @@ namespace Assets.Scripts.Concrete.Resources
             rockIdle = transform.GetChild(2).gameObject;
             woodIdle = transform.GetChild(3).gameObject;
             ıInput = new PcInput();
+            animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
         }
         private void Start()
         {
             direction = uC.direction;
             currentTreeDamagePoint = treeDamagePoint;
             currentChopTreeSightRange = chopTreeSightRange;
+            animationEventController.ChopEvent += Chop;
+            animationEventController.GetHitTreeEvent += GetHitTree;
             InvokeRepeating(nameof(OptimumTurn2Direction), .1f, .5f);
 
         }
         private void Update()
         {
+            if (ıInput.GetButtonDown1)
+            {
+                workOnce4 = true;
+            }
+
             // Eğer elinde kaynak varken seçip, başka bir yere gönderirsen. Kaynak yere düşer.
             if (ıInput.GetButtonDown0 && uC.isSeleceted)
             {
@@ -97,7 +108,6 @@ namespace Assets.Scripts.Concrete.Resources
                     woodIdle.SetActive(false);
                 }
             }
-
             SelectResourceType();
             GoToMine();
             GoToTree();
@@ -105,30 +115,41 @@ namespace Assets.Scripts.Concrete.Resources
         }
         void SelectResourceType()
         {
+            // UPDATE İLE ÇALIŞIR
             // Eğer köylü seçiliyse ve hedef kaynağa tıkladıysa, seçili köylünün hedefi seçili kaynaktır
             if (uC.isSeleceted)
             {
                 targetResource = null;
+                nearestTree = null;
+                villagerSpriteRenderer.enabled = true;
                 isMine = false;
+                isMineEmpty = false;
                 isTree = false;
 
-                if (InteractManager.Instance.interactedMine != null)
+                print("Update");
+                // Maden
+                if (InteractManager.Instance.interactedMine != null && workOnce4)
                 {
-                    //isSheep = false;
+                    // SADECE 1 KEZ ÇALIŞIR
+                    print("MADEN");
                     isTree = false;
                     returnHome = false;
                     targetResource = InteractManager.Instance.interactedMine;
                     isMine = true;
+                    uC.isSeleceted = false;
+
                 }
-                if (InteractManager.Instance.interactedTree != null)
+                // Ağaç
+                if (InteractManager.Instance.interactedTree != null && workOnce4)
                 {
-                    //isSheep = false;
+                    // SADECE 1 KEZ ÇALIŞIR
+                    print("AĞAÇ");
                     isMine = false;
                     returnHome = false;
                     targetResource = InteractManager.Instance.interactedTree;
-                    RefreshTrees();
                     isTree = true;
-                    searchTree = true;
+                    uC.isSeleceted = false;
+                    workOnce3 = true;
                 }
             }
         }
@@ -140,17 +161,9 @@ namespace Assets.Scripts.Concrete.Resources
         }
         void GoToMine()
         {
-            if (isTree) return;
-            if (uC.isSeleceted)
-            {
-                villagerSpriteRenderer.enabled = true;
-                isMineEmpty = false;
-                if (!isMine) return;
-            }
-
-            // Eğer Maden bittiyse
-            if (isMineEmpty) return;
-
+            //ağaç seçliyse veya maden boşsa veya maden seçilmediyse, madene gitme
+            if (isTree || isMineEmpty || !isMine) return;
+            print("GoToMine");
             // Hedef varsa ona git
             if (targetResource != null && !returnHome)
             {
@@ -193,6 +206,69 @@ namespace Assets.Scripts.Concrete.Resources
                 }
             }
         }
+        void GoToTree()
+        {
+            // Ağaç seçilmediyse veya maden seçildiyse ağaç kesmeye gitme.
+            if (!isTree || isMine) return;
+            print("GoToTree");
+            // Hedef varsa ona git
+            if (targetResource != null && !returnHome)
+            {
+                //1 Kere çalışır
+                if (workOnce3)
+                {
+                    print("Assigned");
+                    RefreshTrees();
+                    nearestTree = DetechNearestTree();
+                    if (nearestTree != null)
+                        nearestTreeChopPos = CalculateNearestChopPos(nearestTree);
+                    workOnce3 = false;
+                }
+
+                // Hedef boşsa çalışma
+                if (nearestTree == null) return;
+                // Kullanıcı komutu bittiği zaman, kendi kendine ağaca doğru gider
+                if (Vector2.Distance(transform.position, nearestTreeChopPos) > .1f)
+                {
+                    pF2D.AIGetMoveCommand(nearestTreeChopPos);
+                    AnimationManager.Instance.RunAnim(animator, 1);
+                }
+
+                // Hedefe ulaşıldı
+                if (Vector2.Distance(transform.position, nearestTreeChopPos) < .1f)
+                {
+                    AnimationManager.Instance.ChopAnim(animator, 1);
+                }
+            }
+        }
+
+        // Animasyon oynarken, Chop event i ile tetiklenir
+        void Chop()
+        {
+            // Ağacı kes
+            if (nearestTree != null)
+            {
+                Tree tree = nearestTree.GetComponent<Tree>();
+                tree.GetHit(currentTreeDamagePoint);
+                //Ağaç yıkıldıysa eve dön
+                if (tree.destruct)
+                {
+                    returnHome = true;
+                    DetechNearestTree().layer = default;
+                }
+            }
+
+            workOnce = true;
+            workOnce2 = true;
+        }
+
+        // Animasyon oynarken, GetHitTree event i ile tetiklenir
+        void GetHitTree()
+        {
+            Tree tree = nearestTree.GetComponent<Tree>();
+            tree.GetHitTreeAnim(direction.Turn2Direction(nearestTree.transform.position.x));
+        }
+
         void GoToHome()
         {
             // Köylüyü madende çalışırken maden biterse, tekarar görünür olur
@@ -216,48 +292,9 @@ namespace Assets.Scripts.Concrete.Resources
                 // Hedefe ulaşıldı
                 else
                 {
-                    DropResource(isMine, isTree);
+                    DropResource();
                     returnHome = false;
-                }
-            }
-        }
-        void GoToTree()
-        {
-            if (!isTree) return;
-            // Hedef varsa ona git
-            if (targetResource != null && !returnHome)
-            {
-                RefreshTrees();
-                if (DetechNearestTree() == null)
-                    return;
-                targetTree = DetechNearestTree();
-                // Hedefe ulaşınca dur
-                if (Vector2.Distance(transform.position, CalculateNearestChopPos(targetTree)) > .1f)
-                {
-                    pF2D.AIGetMoveCommand(CalculateNearestChopPos(targetTree));
-                    AnimationManager.Instance.RunAnim(animator, 1);
-                }
-
-                // Hedefe ulaşıldı
-                else
-                {
-                    tChop += Time.deltaTime;
-                    if (tChop > chopTime)
-                    {
-                        Tree tree = targetTree.GetComponent<Tree>();
-                        tree.GetHit(currentTreeDamagePoint);
-
-                        //Ağaç yıkıldıysa eve dön
-                        if (tree.destruct)
-                        {
-                            returnHome = true;
-                            targetTree.layer = default;
-                        }
-                        workOnce = true;
-                        workOnce2 = true;
-                        tChop = 0;
-                    }
-
+                    workOnce3 = true;
                 }
             }
         }
@@ -274,13 +311,11 @@ namespace Assets.Scripts.Concrete.Resources
             if (isTree)
                 woodIdle.SetActive(true);
         }
-        void DropResource(bool _isMine, bool _isTree)
+        void DropResource()
         {
             // Kaynakları eve bırak
             if (workOnce2)
             {
-                print("Dropped");
-
                 if (goldIdle.activeSelf)
                 {
                     ResourcesManager.gold += collectGoldAmount;
@@ -293,9 +328,7 @@ namespace Assets.Scripts.Concrete.Resources
                     Instantiate(resourceRock, homePos, Quaternion.identity);
                     rockIdle.SetActive(false);
                 }
-
-
-                if (_isTree && woodIdle.activeSelf)
+                if (woodIdle.activeSelf)
                 {
                     ResourcesManager.wood += collectWoodAmount;
                     for (int i = 0; i < 3; i++)
@@ -311,14 +344,19 @@ namespace Assets.Scripts.Concrete.Resources
         {
             if (targetResource == null) return;
             if (!returnHome)
-                direction.Turn2Direction(targetResource.transform.position.x);
+            {
+                if (isMine)
+                    direction.Turn2Direction(targetResource.transform.position.x);
+                if (isTree && nearestTree != null)
+                    direction.Turn2Direction(nearestTree.transform.position.x);
+            }
             if (returnHome)
                 direction.Turn2Direction(homePos.x);
 
         }
-      
         GameObject DetechNearestTree()
         {
+            print("DetechNearestTree");
             GameObject nearestTarget = null;
             float shortestDistance = Mathf.Infinity;
 
@@ -338,9 +376,11 @@ namespace Assets.Scripts.Concrete.Resources
 
             return nearestTarget;
         }
+
         // Hedefin kesilecek noktalarından en yakınını bulur
         Vector2 CalculateNearestChopPos(GameObject obj)
         {
+            print("CalculateNearestChopPos");
             float distance1 = Vector2.Distance(obj.transform.GetChild(1).position, transform.position);
             float distance2 = Vector2.Distance(obj.transform.GetChild(2).position, transform.position);
             if (distance1 < distance2)

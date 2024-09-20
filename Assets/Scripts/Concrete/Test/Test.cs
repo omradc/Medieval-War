@@ -16,9 +16,9 @@ public class Test : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Chop"))
             {
-                animator.Play("Run");
+                animator.Play("Chop");
             }
         }
         else

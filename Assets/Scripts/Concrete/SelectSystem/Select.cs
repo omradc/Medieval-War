@@ -101,12 +101,19 @@ namespace Assets.Scripts.Concrete.SelectSystem
         }
         public void ClearSelectedObjs()
         {
-            if (ıInput.GetButtonUp0)
+            if (ıInput.GetButtonDown0)
             {
                 for (int i = 0; i < objs.Count; i++)
                 {
                     objs[i].GetComponent<UnitController>().isSeleceted = false;
                 }
+            }
+            if (ıInput.GetButtonUp0)
+            {
+                //for (int i = 0; i < objs.Count; i++)
+                //{
+                //    objs[i].GetComponent<UnitController>().isSeleceted = false;
+                //}
 
                 if (!ıInput.GetButton1)
                     objs.Clear();
