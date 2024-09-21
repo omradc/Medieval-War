@@ -134,7 +134,6 @@ namespace Assets.Scripts.Concrete.Resources
                 if (InteractManager.Instance.interactedMine != null)
                 {
                     // SADECE 1 KEZ ÇALIŞIR
-                    print("MADEN");
                     isTree = false;
                     returnHome = false;
                     targetResource = InteractManager.Instance.interactedMine;
@@ -146,7 +145,6 @@ namespace Assets.Scripts.Concrete.Resources
                 if (InteractManager.Instance.interactedTree != null)
                 {
                     // SADECE 1 KEZ ÇALIŞIR
-                    print("AĞAÇ");
                     isMine = false;
                     returnHome = false;
                     targetResource = InteractManager.Instance.interactedTree;
@@ -166,30 +164,25 @@ namespace Assets.Scripts.Concrete.Resources
         {
             //ağaç seçliyse veya maden boşsa veya maden seçilmediyse, madene gitme
             if (isTree || isMineEmpty || !isMine) return;
-            print("GoToMine");
             // Hedef varsa ona git
             if (targetResource != null && !returnHome)
             {
                 // Hedefe ulaşınca dur
                 if (Vector2.Distance(transform.position, targetResource.transform.position) > .5f)
                 {
-                    print(0);
                     pF2D.AIGetMoveCommand(targetResource.transform.position);
-                    //goldIdle.SetActive(false);
                     AnimationManager.Instance.RunAnim(animator, 1);
                 }
 
                 // Hedefe ulaşıldı
                 else
                 {
-                    print(1);
                     if (!returnHome)
                         villagerSpriteRenderer.enabled = false;
 
                     tMining += Time.deltaTime;
                     if (tMining > miningTime)
                     {
-
                         // Madenden alınan kaynakları eksilt
                         Mine mine = targetResource.GetComponent<Mine>();
                         if (mine.CompareTag("GoldMine"))
@@ -306,7 +299,7 @@ namespace Assets.Scripts.Concrete.Resources
                 if (Vector2.Distance(transform.position, homePos) > .5f)
                 {
                     tCollect += Time.deltaTime;
-                    if (workOnce && tCollect > collectTime)
+                    if (workOnce && tCollect > collectTime && isTree || isMine)
                     {
                         pF2D.AIGetMoveCommand(homePos);
                         AnimationManager.Instance.RunCarryAnim(animator, 1);

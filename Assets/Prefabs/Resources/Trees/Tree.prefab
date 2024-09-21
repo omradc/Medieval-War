@@ -91,7 +91,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4513673956882977550}
@@ -147,10 +147,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceWood: {fileID: 3246526810110024777, guid: f98d572d09a17bf4597ea080e739b3f1, type: 3}
-  hitPoint: 2
+  hitPoint: 10
   currentHitPoint: 0
   destruct: 0
-  growTime: 40
+  growTime: 60
   currentTime: 0
   isTreeAlreadyCutted: 0
 --- !u!114 &2255334297144948177
