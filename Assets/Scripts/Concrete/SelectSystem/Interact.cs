@@ -7,9 +7,10 @@ namespace Assets.Scripts.Concrete.SelectSystem
     internal class Interact
     {
         InteractManager ınteractManager;
-        public Interact(InteractManager ınteractController)
+        public Interact(InteractManager ınteractManager)
         {
-            this.ınteractManager = ınteractController;
+            this.ınteractManager = ınteractManager;
+
         }
 
         public void InteractClickedObj()
@@ -17,11 +18,10 @@ namespace Assets.Scripts.Concrete.SelectSystem
             // Ekran koordinatlarını dünya koordinatlarına çevir
             Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hitObj = Physics2D.Raycast(mouseWorldPosition, Vector2.zero, 1);
-
+            
             if (hitObj.collider != null)
-            {
                 ınteractManager.interactedObj = hitObj.collider.gameObject;
-            }
+            
         }
     }
 }

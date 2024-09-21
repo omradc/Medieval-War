@@ -146,11 +146,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1290c4a1047e6c4d8716b6f47aff1d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceWood: {fileID: 3246526810110024777, guid: f98d572d09a17bf4597ea080e739b3f1, type: 3}
   hitPoint: 2
   currentHitPoint: 0
   destruct: 0
-  growTime: 15
+  growTime: 40
   currentTime: 0
+  isTreeAlreadyCutted: 0
 --- !u!114 &2255334297144948177
 MonoBehaviour:
   m_ObjectHideFlags: 0

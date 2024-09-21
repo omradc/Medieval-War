@@ -11,10 +11,11 @@ namespace Assets.Scripts.Concrete.Managers
     internal class InteractManager : MonoBehaviour
     {
         public static InteractManager Instance { get; private set; }
+        [SerializeField] LayerMask terrainLayer;
         [SerializeField] LayerMask unitLayer;
         Interact ınteract;
-        [HideInInspector] public GameObject interactedObj;
-        [HideInInspector] public GameObject interactedUnit;
+        public GameObject interactedObj;
+        public GameObject interactedUnit;
         public GameObject interactedMine;
         public GameObject interactedTree;
         public GameObject interactedSheep;

@@ -28,7 +28,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [Space(30)]
         [Header("UNIT")]
         public int damage;
-        [Range(0, 10f)] public float speed;
+        [Range(0.1f, 2f)] public float speed;
         public float attackSpeed;
         public float attackDelay;
         public float attackRange;

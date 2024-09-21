@@ -73,10 +73,11 @@ namespace Assets.Scripts.Concrete.Movements
                 isPathFinding = false;
                 moveCommand = false;
                 uC.currentAttackRange = uC.attackRange;
-                //if (uC.followTargets.Length <= 0)
-                //{
-                //    AnimationManager.Instance.IdleAnim(animator);
-                //}
+                if (uC.followTargets.Length <= 0)
+                {
+                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Chop"))
+                        AnimationManager.Instance.IdleAnim(animator);
+                }
             }
 
 

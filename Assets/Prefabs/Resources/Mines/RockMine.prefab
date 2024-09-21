@@ -935,8 +935,8 @@ GameObject:
   - component: {fileID: 4604139343062931107}
   - component: {fileID: 5052161600036003574}
   - component: {fileID: 4103409144785976019}
-  - component: {fileID: 5737223740965960741}
   - component: {fileID: 7159108851158787339}
+  - component: {fileID: 5737223740965960741}
   m_Layer: 14
   m_Name: RockMine
   m_TagString: RockMine
@@ -1033,22 +1033,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &5737223740965960741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1868172810865433411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c7fa28678ac94c4b8181fb96b75d4ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mineAmount: 30
-  currentMineAmount: 0
-  villagers: []
-  mineAmountFillValue: {fileID: 7723230998286888586}
 --- !u!50 &7159108851158787339
 Rigidbody2D:
   serializedVersion: 4
@@ -1076,6 +1060,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5737223740965960741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868172810865433411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7fa28678ac94c4b8181fb96b75d4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mineAmount: 30
+  currentMineAmount: 0
+  villagers: []
+  mineAmountFillValue: {fileID: 7723230998286888586}
 --- !u!1 &2220750609109608300
 GameObject:
   m_ObjectHideFlags: 0

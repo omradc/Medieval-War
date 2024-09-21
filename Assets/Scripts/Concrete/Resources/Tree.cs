@@ -10,11 +10,13 @@ namespace Assets.Scripts.Concrete.Resources
 {
     internal class Tree : MonoBehaviour
     {
+        public GameObject resourceWood;
         public int hitPoint;
         public int currentHitPoint;
         public bool destruct;
         public float growTime;
         public float currentTime;
+        public bool isTreeAlreadyCutted;
         Animator animator;
         Vector3 normal = new Vector3(1, 1, 1);
         Vector3 reverse = new Vector3(-1, 1, 1);
@@ -24,40 +26,47 @@ namespace Assets.Scripts.Concrete.Resources
             animator = transform.GetChild(0).GetComponent<Animator>();
         }
 
-        private void GetHitAnim()
-        {
-            print("GetHitAnim");
-            AnimationManager.Instance.GetHitTreeAnim(animator, 1);
-        }
+
+
+
 
         void Update()
         {
             GrowUp();
 
         }
-        public void GetHit(int treeDamagePoint/*, int direction*/)
+
+
+        public void GetHit(int treeDamagePoint, float collectTime) // Köylü Chop animasyoununda, tam ağaca vurduğu anda event ile tetikler
         {
-            //if (direction == 1)
-            //    transform.localScale = normal;
-            //else
-            //    transform.localScale = reverse;
-            //GetHitAnim();
             currentHitPoint -= treeDamagePoint;
             if (currentHitPoint <= 0)
-                Destruct();
+                Destruct(collectTime);
         }
-        public void GetHitTreeAnim( int direction)
+        public void GetHitTreeAnim(int direction, float chopSpeed) // Köylü Chop animasyoununda, tam ağaca vurduğu anda event ile tetikler
         {
             if (direction == 1)
                 transform.localScale = normal;
             else
                 transform.localScale = reverse;
-            GetHitAnim();
 
+            AnimationManager.Instance.GetHitTreeAnim(animator, chopSpeed);
         }
-        void Destruct()
+        public void IsTreeAlreadyCutted(bool value)
         {
+            isTreeAlreadyCutted = value;
+            gameObject.layer = default;
+        }
+
+        void Destruct(float collectTime)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject wood = Instantiate(resourceWood, transform.position + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0), Quaternion.identity);
+                Destroy(wood, collectTime);
+            }
             destruct = true;
+            gameObject.layer = default;
             AnimationManager.Instance.DestroyedTreeAnim(animator);
         }
 
@@ -70,6 +79,7 @@ namespace Assets.Scripts.Concrete.Resources
                 {
                     currentTime = 0;
                     destruct = false;
+                    isTreeAlreadyCutted = false;
                     AnimationManager.Instance.IdleTreeAnim(animator);
                     gameObject.layer = 15;
                     currentHitPoint = hitPoint;

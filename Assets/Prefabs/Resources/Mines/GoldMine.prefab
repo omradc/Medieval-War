@@ -95,8 +95,8 @@ GameObject:
   - component: {fileID: 4475153313919298364}
   - component: {fileID: 8967713370675581905}
   - component: {fileID: 330749103139454650}
-  - component: {fileID: 6540951524822952607}
   - component: {fileID: -6829096131175091404}
+  - component: {fileID: 6540951524822952607}
   m_Layer: 14
   m_Name: GoldMine
   m_TagString: GoldMine
@@ -193,22 +193,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &6540951524822952607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1777926609881761062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 009dc2bf23d14b34eb34fa507f6895d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mineAmount: 30
-  currentMineAmount: 0
-  villagers: []
-  mineAmountFillValue: {fileID: 4179102288498814172}
 --- !u!50 &-6829096131175091404
 Rigidbody2D:
   serializedVersion: 4
@@ -236,6 +220,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6540951524822952607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777926609881761062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 009dc2bf23d14b34eb34fa507f6895d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mineAmount: 30
+  currentMineAmount: 0
+  villagers: []
+  mineAmountFillValue: {fileID: 4179102288498814172}
 --- !u!1 &3169212402825835401
 GameObject:
   m_ObjectHideFlags: 0

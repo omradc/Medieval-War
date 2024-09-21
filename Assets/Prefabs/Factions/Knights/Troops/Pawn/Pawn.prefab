@@ -211,7 +211,7 @@ MonoBehaviour:
   arrow: {fileID: 0}
   arrowSpeed: 0
   damage: 0
-  speed: 1.3
+  speed: 0.5
   attackSpeed: 0
   attackDelay: 0
   attackRange: 1
@@ -265,7 +265,8 @@ MonoBehaviour:
   targetResource: {fileID: 0}
   nearestTree: {fileID: 0}
   treeDamagePoint: 1
-  chopTime: 1
+  chopSpeed: 1
+  collectTime: 0.6
   chopTreeSightRange: 10
   treeLayer:
     serializedVersion: 2
@@ -280,7 +281,6 @@ MonoBehaviour:
   resourceRock: {fileID: 7890745954856160017, guid: b126d0ab62845c24fb2bda03133fc8ad, type: 3}
   resourceWood: {fileID: 3246526810110024777, guid: f98d572d09a17bf4597ea080e739b3f1, type: 3}
   homePos: {x: 0, y: 0, z: 0}
-  workOnce4: 0
   isMineEmpty: 0
   isTree: 0
   isMine: 0
@@ -645,8 +645,8 @@ Transform:
   m_GameObject: {fileID: 3522190856913876772}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.078, y: 0.795, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.012, y: 0.802, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8048881358486412310}

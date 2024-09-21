@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: c5b7d539ca5809d4993426eacc192953, type: 2}
+    - target: {fileID: 7546119847674145893, guid: 4947e7c065bf021469287a62b2c9f52d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7549339857797525462, guid: 4947e7c065bf021469287a62b2c9f52d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -72,7 +76,8 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7546119847674145893, guid: 4947e7c065bf021469287a62b2c9f52d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
