@@ -12,7 +12,7 @@ namespace Assets.Scripts.Concrete.Managers
         public static int gold;
         public static int rock;
         public static int wood;
-        public static int food;
+        public static int meat;
 
         //private void FixedUpdate()
         //{

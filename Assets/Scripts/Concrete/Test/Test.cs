@@ -16,17 +16,11 @@ public class Test : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Chop"))
-            {
-                animator.Play("Chop");
-            }
+            Debug.Log("ýasfgwepyýufgwþegfwe");
         }
-        else
+        if (Input.GetMouseButton(1))
         {
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-            {
-                animator.Play("Idle");
-            }
+            print("ýasfgwepyýufgwþegfwe");
 
         }
 

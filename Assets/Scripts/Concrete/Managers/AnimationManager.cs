@@ -89,6 +89,7 @@ namespace Assets.Scripts.Concrete.Managers
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Destroyed"))
             {
+                animator.speed = 1f;
                 animator.Play("Destroyed");
             }
         }
@@ -97,6 +98,7 @@ namespace Assets.Scripts.Concrete.Managers
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             {
+                animator.speed = 1f;
                 animator.Play("Idle");
             }
         }
@@ -125,6 +127,16 @@ namespace Assets.Scripts.Concrete.Managers
             {
                 animator.speed = speed;
                 animator.Play("Chop");
+            }
+        }
+
+        //Sheep
+        public void HappyAnim(Animator animator)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Happy"))
+            {
+                animator.speed = 1f;
+                animator.Play("Happy");
             }
         }
 

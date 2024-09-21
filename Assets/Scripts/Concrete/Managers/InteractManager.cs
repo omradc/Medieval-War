@@ -19,6 +19,7 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject interactedMine;
         public GameObject interactedTree;
         public GameObject interactedSheep;
+        public GameObject interactedFences;
         IInput ıInput;
 
         public List<GameObject> selectedUnits;
@@ -80,6 +81,11 @@ namespace Assets.Scripts.Concrete.Managers
                     // Etkileşim olan obje, koyun ise,
                     if (interactedObj.layer == 16)
                         interactedSheep = interactedObj;
+
+                    // Etkileşim olan obje, çitler ise,
+                    if (interactedObj.layer == 12)
+                        interactedFences = interactedObj;
+
                 }
             }
             if (ıInput.GetButtonUp0)
@@ -89,6 +95,7 @@ namespace Assets.Scripts.Concrete.Managers
                 interactedMine = null;
                 interactedTree = null;
                 interactedSheep = null;
+                interactedFences = null;
             }
         }
 
