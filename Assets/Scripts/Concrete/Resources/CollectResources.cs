@@ -268,7 +268,7 @@ namespace Assets.Scripts.Concrete.Resources
             if (targetResource != null && !returnFences && !returnHome)
             {
 
-                // Hedefe ulaşınca dur
+                // Koyuna ulaşınca dur
                 if (Vector2.Distance(transform.position, targetResource.transform.GetChild(1).position) > .1f)
                 {
                     pF2D.AIGetMoveCommand(targetResource.transform.GetChild(1).position);
@@ -285,12 +285,15 @@ namespace Assets.Scripts.Concrete.Resources
                     //Koyun evcilleştiyse, çite gönder
                     if (sheep.isDomestic && !sheep.inFence)
                         returnFences = true;
-                    //Koyun çitteyse ve kaynağı dolu ise, koyundan kaynak al
+                    //Koyun çitteyse ve kaynağı dolu ise, eve dnüşü bekle
                     if (sheep.inFence && sheep.giveMeat)
                     {
-                        sheep.giveMeat = false;
                         workOnce = true;
+                        workOnce2 = true;
                         returnHome = true;
+                        tCollect = 0;
+                        sheep.giveMeat = false;
+                        sheep.DropMeat(collectTime);
                     }
 
 
@@ -325,34 +328,37 @@ namespace Assets.Scripts.Concrete.Resources
 
             if (returnHome)
             {
-                // Hedefe ulaşınca dur
+                // Eve ulaşınca dur
                 if (Vector2.Distance(transform.position, homePos) > .5f)
                 {
                     tCollect += Time.deltaTime;
                     if (workOnce)
                     {
-                        if (tCollect > collectTime && isTree || isMine || tCollect > collectTime && isSheep)
+                        // Kaynak al
+                        if (tCollect > collectTime && isTree || isMine || tCollect > collectTime && sheep)
                         {
+                            print("Take resource");
                             pF2D.AIGetMoveCommand(homePos);
                             AnimationManager.Instance.RunCarryAnim(animator, 1);
-                            TakeResource();
+                            CollectResource();
                             workOnce = false;
                             tCollect = 0;
-
+                            
                         }
                     }
                 }
 
-                // Hedefe ulaşıldı
+                // Eve ulaşıldı
                 else
                 {
-                    CollectResource();
+                    print("home");
+                    DropResourceToHome();
                     returnHome = false;
                     workOnce3 = true;
                 }
             }
         }
-        void TakeResource()
+        void CollectResource()
         {
             if (isMine)
             {
@@ -368,7 +374,7 @@ namespace Assets.Scripts.Concrete.Resources
                 meatIdle.SetActive(true);
 
         }
-        void CollectResource() // Kaynakları depola
+        void DropResourceToHome() // Kaynakları depola
         {
             if (workOnce2)
             {
@@ -433,6 +439,8 @@ namespace Assets.Scripts.Concrete.Resources
         }
         void OptimumTurn2Direction()
         {
+            if (returnFences && fence != null && isSheep)
+                direction.Turn2Direction(fence.transform.position.x);
             if (targetResource == null) return;
             if (!returnHome)
             {
@@ -440,6 +448,8 @@ namespace Assets.Scripts.Concrete.Resources
                     direction.Turn2Direction(targetResource.transform.position.x);
                 if (isTree && nearestTree != null)
                     direction.Turn2Direction(nearestTree.transform.position.x);
+                if (isSheep && !returnFences)
+                    direction.Turn2Direction(targetResource.transform.position.x);
             }
             if (returnHome)
                 direction.Turn2Direction(homePos.x);

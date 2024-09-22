@@ -16,6 +16,7 @@ namespace Assets.Scripts.Concrete.Resources
         public bool goFence;
         public bool giveMeat;
         public bool inFence;
+        [SerializeField] GameObject resourceMeat;
         GameObject fence;
         Animator animator;
         GameObject villager;
@@ -101,7 +102,6 @@ namespace Assets.Scripts.Concrete.Resources
                 }
             }
         }
-
         void ReadyToGiveMeat()
         {
             if (inFence && !giveMeat)
@@ -115,6 +115,12 @@ namespace Assets.Scripts.Concrete.Resources
                 }
             }
         }
+        public void DropMeat(float lifeTime)
+        {
+            GameObject meat = Instantiate(resourceMeat, transform.position, Quaternion.identity);
+            Destroy(meat, lifeTime);
+        }
+
         void OptimumSetDirection()
         {
             if (isDomestic && villager != null)
