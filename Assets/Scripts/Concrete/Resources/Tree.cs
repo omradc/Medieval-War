@@ -17,6 +17,7 @@ namespace Assets.Scripts.Concrete.Resources
         public float growTime;
         public float currentTime;
         public bool isTreeAlreadyCutted;
+        bool destructOnce;
         Animator animator;
         Vector3 normal = new Vector3(1, 1, 1);
         Vector3 reverse = new Vector3(-1, 1, 1);
@@ -60,14 +61,18 @@ namespace Assets.Scripts.Concrete.Resources
 
         void Destruct(float collectTime)
         {
-            for (int i = 0; i < 3; i++)
+            if (!destructOnce)
             {
-                GameObject wood = Instantiate(resourceWood, transform.position + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0), Quaternion.identity);
-                Destroy(wood, collectTime);
+                for (int i = 0; i < 3; i++)
+                {
+                    GameObject wood = Instantiate(resourceWood, transform.position + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0), Quaternion.identity);
+                    Destroy(wood, collectTime);
+                }
+                destruct = true;
+                gameObject.layer = default;
+                AnimationManager.Instance.DestroyedTreeAnim(animator);
+                destructOnce = true;
             }
-            destruct = true;
-            gameObject.layer = default;
-            AnimationManager.Instance.DestroyedTreeAnim(animator);
         }
 
         void GrowUp()
@@ -80,6 +85,7 @@ namespace Assets.Scripts.Concrete.Resources
                     currentTime = 0;
                     destruct = false;
                     isTreeAlreadyCutted = false;
+                    destructOnce = false;
                     AnimationManager.Instance.IdleTreeAnim(animator);
                     gameObject.layer = 15;
                     currentHitPoint = hitPoint;

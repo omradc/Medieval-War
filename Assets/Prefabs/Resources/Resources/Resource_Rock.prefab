@@ -513,7 +513,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4588656974948689877}
-  - component: {fileID: -8268461224069992847}
   m_Layer: 0
   m_Name: Resource_Rock
   m_TagString: Untagged
@@ -537,19 +536,6 @@ Transform:
   - {fileID: 3971737586353153320}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-8268461224069992847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7890745954856160017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adb41bb7b7e003143ba5005c04fb99b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyTime: 3
 --- !u!1001 &6907069171245091582
 PrefabInstance:
   m_ObjectHideFlags: 0

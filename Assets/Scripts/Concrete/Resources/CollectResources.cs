@@ -215,11 +215,13 @@ namespace Assets.Scripts.Concrete.Resources
         void RefreshTrees()
         {
             trees = Physics2D.OverlapCircleAll(targetResource.transform.position, currentChopTreeSightRange, treeLayer);
+            nearestTree = DetechNearestTree();
             if (trees.Length == 0)
                 isTree = false;
         }
         void GoToTree()
         {
+
             // Ağaç seçilmediyse veya maden seçildiyse ağaç kesmeye gitme.
             if (!isTree || isMine || isSheep) return;
 
@@ -230,7 +232,7 @@ namespace Assets.Scripts.Concrete.Resources
                 if (workOnce3)
                 {
                     RefreshTrees();
-                    nearestTree = DetechNearestTree();
+
                     if (nearestTree != null)
                     {
                         nearestTreeChopPos = CalculateNearestChopPos(nearestTree);
@@ -331,19 +333,25 @@ namespace Assets.Scripts.Concrete.Resources
                 // Eve ulaşınca dur
                 if (Vector2.Distance(transform.position, homePos) > .5f)
                 {
-                    tCollect += Time.deltaTime;
+                    //tCollect += Time.deltaTime;
                     if (workOnce)
                     {
                         // Kaynak al
-                        if (tCollect > collectTime && isTree || isMine || tCollect > collectTime && sheep)
+                        if (tCollect > collectTime && isTree  || tCollect > collectTime && sheep)
                         {
-                            print("Take resource");
                             pF2D.AIGetMoveCommand(homePos);
                             AnimationManager.Instance.RunCarryAnim(animator, 1);
                             CollectResource();
                             workOnce = false;
                             tCollect = 0;
-                            
+
+                        }
+                        if(isMine)
+                        {
+                            pF2D.AIGetMoveCommand(homePos);
+                            AnimationManager.Instance.RunCarryAnim(animator, 1);
+                            CollectResource();
+                            workOnce = false;
                         }
                     }
                 }
@@ -351,7 +359,6 @@ namespace Assets.Scripts.Concrete.Resources
                 // Eve ulaşıldı
                 else
                 {
-                    print("home");
                     DropResourceToHome();
                     returnHome = false;
                     workOnce3 = true;
@@ -503,13 +510,17 @@ namespace Assets.Scripts.Concrete.Resources
                 }
 
             }
+            if (nearestTree == null)
+            {
+                AnimationManager.Instance.IdleAnim(animator);
+            }
 
             workOnce = true;
             workOnce2 = true;
         }
         void GetHitTree() // Ağaç kesme animasyonu oynadığında; GetHitTree event i ile tetiklenir
         {
-            if (nearestTree != null)
+            if (nearestTree != null && !tree.isTreeAlreadyCutted)
             {
                 tree = nearestTree.GetComponent<Tree>();
                 tree.GetHitTreeAnim(direction.Turn2Direction(nearestTree.transform.position.x), chopSpeed);
