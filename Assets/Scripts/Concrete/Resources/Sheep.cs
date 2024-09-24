@@ -1,7 +1,5 @@
-﻿using Assets.Scripts.Concrete.Enums;
-using Assets.Scripts.Concrete.Managers;
+﻿using Assets.Scripts.Concrete.Managers;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Assets.Scripts.Concrete.Resources
 {

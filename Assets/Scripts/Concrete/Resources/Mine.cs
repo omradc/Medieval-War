@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Concrete.Controllers;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +17,7 @@ namespace Assets.Scripts.Concrete.Resources
         Collider2D[] colliders;
         public List<GameObject> villagers;
         public Image mineAmountFillValue;
-        CollectResources collectResources;
+        CollectResourcesController collectResources;
         private void Start()
         {
             inactivited = transform.GetChild(0).gameObject;
@@ -84,7 +81,7 @@ namespace Assets.Scripts.Concrete.Resources
                     minePanel.SetActive(false);
                     for (int i = 0; i < villagers.Count; i++)
                     {
-                        collectResources = villagers[i].GetComponent<CollectResources>();
+                        collectResources = villagers[i].GetComponent<CollectResourcesController>();
                         collectResources.isMineEmpty = true;
                         collectResources.isMine = false;
                     }

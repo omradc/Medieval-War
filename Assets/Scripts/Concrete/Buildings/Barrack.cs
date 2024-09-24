@@ -39,7 +39,7 @@ class Barrack : Building
                 buttonController.trainUnitButton = false;
                 panelController.TrainTimeVisibility(false);
                 if (trainedUnit.CompareTag("Villager"))
-                    trainedUnit.GetComponent<CollectResources>().homePos = pos;
+                    trainedUnit.GetComponent<CollectResourcesController>().homePos = pos;
             }
 
         }
