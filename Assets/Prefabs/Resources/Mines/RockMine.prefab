@@ -936,7 +936,7 @@ GameObject:
   - component: {fileID: 5052161600036003574}
   - component: {fileID: 4103409144785976019}
   - component: {fileID: 7159108851158787339}
-  - component: {fileID: 5737223740965960741}
+  - component: {fileID: 3213347972675174741}
   m_Layer: 14
   m_Name: RockMine
   m_TagString: RockMine
@@ -1060,7 +1060,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5737223740965960741
+--- !u!114 &3213347972675174741
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1868172810865433411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c7fa28678ac94c4b8181fb96b75d4ec, type: 3}
+  m_Script: {fileID: 11500000, guid: b1b9d690551583d48981afe36ec265fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mineAmount: 50

@@ -26,6 +26,7 @@ namespace Assets.Scripts.Concrete.Resources
                 cR.isMineEmpty = false;
                 cR.isTree = false;
                 cR.isSheep = false;
+                cR.returnFences = false;
 
                 // Maden
                 if (InteractManager.Instance.interactedMine != null)
@@ -35,6 +36,7 @@ namespace Assets.Scripts.Concrete.Resources
                     cR.isSheep = false;
                     cR.returnHome = false;
                     cR.targetResource = InteractManager.Instance.interactedMine;
+                    cR.mine = cR.targetResource.GetComponent<Mine>();
                     cR.isMine = true;
                     cR.uC.isSeleceted = false;
 
@@ -48,7 +50,8 @@ namespace Assets.Scripts.Concrete.Resources
                     cR.returnHome = false;
                     cR.targetResource = InteractManager.Instance.interactedTree;
                     cR.isTree = true;
-                    cR.workOnce3 = true;
+                    cR.workOnceForTree = true;
+                    cR.tCollect = 0;
                     cR.uC.isSeleceted = false;
                 }
                 //Koyun
@@ -61,6 +64,7 @@ namespace Assets.Scripts.Concrete.Resources
                     cR.targetResource = InteractManager.Instance.interactedSheep;
                     cR.sheep = cR.targetResource.GetComponent<Sheep>();
                     cR.isSheep = true;
+                    cR.tCollect = 0;
                     cR.uC.isSeleceted = false;
                 }
                 if (InteractManager.Instance.interactedFences != null)
@@ -68,9 +72,9 @@ namespace Assets.Scripts.Concrete.Resources
                     // SADECE 1 KEZ ÇALIŞIR
                     cR.isMine = false;
                     cR.isTree = false;
-                    cR.isSheep = false;
-                    cR.fence = InteractManager.Instance.interactedFences;
-
+                    cR.fenceObj = InteractManager.Instance.interactedFences;
+                    cR.fence = cR.fenceObj.GetComponent<Fence>();
+                   
                 }
             }
         }
@@ -85,27 +89,8 @@ namespace Assets.Scripts.Concrete.Resources
                 // Eve ulaşınca dur
                 if (Vector2.Distance(cR.transform.position, cR.homePos) > .5f)
                 {
-                    cR.tCollect += Time.deltaTime;
-                    if (cR.workOnce)
-                    {
-                        // Kaynak al
-                        if (cR.tCollect > cR.collectTime && cR.isTree || cR.tCollect > cR.collectTime && cR.sheep)
-                        {
-                            cR.pF2D.AIGetMoveCommand(cR.homePos);
-                            AnimationManager.Instance.RunCarryAnim(cR.animator, 1);
-                            CollectResource();
-                            cR.workOnce = false;
-                            cR.tCollect = 0;
-
-                        }
-                        if (cR.isMine)
-                        {
-                            cR.pF2D.AIGetMoveCommand(cR.homePos);
-                            AnimationManager.Instance.RunCarryAnim(cR.animator, 1);
-                            CollectResource();
-                            cR.workOnce = false;
-                        }
-                    }
+                    // Kaynak al
+                    CollectResource();
                 }
 
                 // Eve ulaşıldı
@@ -113,12 +98,19 @@ namespace Assets.Scripts.Concrete.Resources
                 {
                     DropResourceToHome();
                     cR.returnHome = false;
-                    cR.workOnce3 = true;
+                    cR.workOnceForTree = true;
                 }
             }
         }
         public void CollectResource()
         {
+            if (cR.isTree)
+                cR.tCollect += Time.deltaTime;
+            if (cR.isSheep)
+                cR.tCollect += Time.deltaTime;
+
+            if (!cR.workOnce) return;
+
             if (cR.isMine)
             {
                 Mine mine = cR.targetResource.GetComponent<Mine>();
@@ -126,12 +118,27 @@ namespace Assets.Scripts.Concrete.Resources
                     cR.goldIdle.SetActive(true);
                 if (mine.CompareTag("RockMine"))
                     cR.rockIdle.SetActive(true);
+                cR.pF2D.AIGetMoveCommand(cR.homePos);
+                AnimationManager.Instance.RunCarryAnim(cR.animator, 1);
+                cR.workOnce = false;
             }
-            if (cR.isTree)
+            if (cR.tCollect > cR.woodCollectTime && cR.isTree)
+            {
                 cR.woodIdle.SetActive(true);
-            if (cR.isSheep)
-                cR.meatIdle.SetActive(true);
+                cR.pF2D.AIGetMoveCommand(cR.homePos);
+                AnimationManager.Instance.RunCarryAnim(cR.animator, 1);
+                cR.workOnce = false;
+                cR.tCollect = 0;
 
+            }
+            if (cR.tCollect > cR.meatCollectTime && cR.sheep)
+            {
+                cR.meatIdle.SetActive(true);
+                cR.pF2D.AIGetMoveCommand(cR.homePos);
+                AnimationManager.Instance.RunCarryAnim(cR.animator, 1);
+                cR.workOnce = false;
+                cR.tCollect = 0;
+            }
         }
         void DropResourceToHome() // Kaynakları depola
         {
@@ -160,6 +167,7 @@ namespace Assets.Scripts.Concrete.Resources
                     ResourcesManager.meat += cR.collectMeatCount;
                     DropMeat(cR.homePos, cR.dropResourceLifeTime);
                     cR.meatIdle.SetActive(false);
+                    cR.isSheep = false;
                 }
                 cR.workOnce2 = false;
             }

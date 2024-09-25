@@ -80,7 +80,10 @@ namespace Assets.Scripts.Concrete.Managers
 
                     // Etkileşim olan obje, koyun ise,
                     if (interactedObj.layer == 16)
+                    {
+                        Debug.Log("Interacted Sheep");
                         interactedSheep = interactedObj;
+                    }
 
                     // Etkileşim olan obje, çitler ise,
                     if (interactedObj.layer == 12)

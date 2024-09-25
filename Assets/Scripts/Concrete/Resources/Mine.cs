@@ -93,7 +93,7 @@ namespace Assets.Scripts.Concrete.Resources
                 }
 
                 // Köylü kalmadıysa
-                if (villagerNumber == 0)
+                if (villagerNumber <= 0)
                     Inactivated();
             }
         }

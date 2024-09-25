@@ -14,9 +14,10 @@ namespace Assets.Scripts.Concrete.Managers
         public static int wood;
         public static int meat;
 
-        //private void FixedUpdate()
-        //{
-        //    print(gold);
-        //}
+        private void FixedUpdate()
+        {
+            print($"gold: {gold} / rock: {rock} / wood: {wood} / meat: {meat}");
+
+        }
     }
 }

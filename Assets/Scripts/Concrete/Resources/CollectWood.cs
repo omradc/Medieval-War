@@ -33,7 +33,7 @@ namespace Assets.Scripts.Concrete.Resources
             if (cR.targetResource != null && !cR.returnHome)
             {
                 // İlk ağacı bulur
-                if (cR.workOnce3)
+                if (cR.workOnceForTree)
                 {
                     RefreshTrees();
 
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Concrete.Resources
                         cR.nearestTreeChopPos = CalculateNearestChopPos(cR.nearestTree);
                         tree = cR.nearestTree.GetComponent<Tree>();
                     }
-                    cR.workOnce3 = false;
+                    cR.workOnceForTree = false;
                 }
 
                 // Hedef boşsa çalışma
@@ -55,7 +55,7 @@ namespace Assets.Scripts.Concrete.Resources
 
                     if (tree.isTreeAlreadyCutted)
                     {
-                        cR.workOnce3 = true;
+                        cR.workOnceForTree = true;
                         return;
                     }
                 }
@@ -73,7 +73,7 @@ namespace Assets.Scripts.Concrete.Resources
             if (cR.nearestTree != null)
             {
                 tree = cR.nearestTree.GetComponent<Tree>();
-                tree.GetHit(cR.currentTreeDamagePoint, cR.collectTime);
+                tree.GetHit(cR.currentTreeDamagePoint, cR.woodCollectTime);
                 //Ağaç yıkıldıysa eve dön
                 if (tree.destruct)
                 {
@@ -87,7 +87,7 @@ namespace Assets.Scripts.Concrete.Resources
 
                     if (tree.isTreeAlreadyCutted)
                     {
-                        cR.workOnce3 = true;
+                        cR.workOnceForTree = true;
                     }
                 }
 

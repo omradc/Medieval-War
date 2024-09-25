@@ -10,13 +10,13 @@ namespace Assets.Scripts.Concrete.Controllers
     {
         public GameObject targetResource;
         public float dropResourceLifeTime = 3;
-        [Header("Tree")]
+        [Header("TREE")]
         public GameObject nearestTree;
         public Vector2 nearestTreeChopPos;
         public int treeDamagePoint;
         public float chopSpeed;
-        public float collectTime;
         public float chopTreeSightRange;
+        public float woodCollectTime;
         public LayerMask treeLayer;
         public Vector3 distanceToTreePos;
         public Collider2D[] trees;
@@ -24,17 +24,21 @@ namespace Assets.Scripts.Concrete.Controllers
         public int collectWoodAmount;
         public int collectMeatCount;
 
-        [Header("Mine")]
+        [Header("MİNE")]
         public float miningTime;
         public int collectGoldAmount;
         public int collectRockAmount;
         public GameObject resourceGold;
         public GameObject resourceRock;
+        public Mine mine;
 
 
-        [Header("Sheep")]
-        public GameObject fence;
+        [Header("SHEEP")]
+        public Fence fence;
+        public GameObject fenceObj;
         public GameObject resourceMeat;
+        public float meatCollectTime;
+        
 
         public Vector3 homePos;
         public float currentChopTreeSightRange;
@@ -46,30 +50,30 @@ namespace Assets.Scripts.Concrete.Controllers
         public bool returnFences;
         public bool workOnce;
         public bool workOnce2;
-        public bool workOnce3 = true;
+        public bool workOnceForTree = true;
         public bool isMineEmpty;
         public bool isTree;
         public bool isMine;
         public bool isSheep;
 
 
-        public UnitController uC;
-        public PathFinding2D pF2D;
+        [HideInInspector] public UnitController uC;
+        [HideInInspector] public PathFinding2D pF2D;
         [HideInInspector] public SpriteRenderer villagerSpriteRenderer;
         [HideInInspector] public Animator animator;
-        public GameObject goldIdle;
-        public GameObject rockIdle;
-        public GameObject woodIdle;
-        public GameObject meatIdle;
-        public Direction direction;
+        [HideInInspector] public GameObject goldIdle;
+        [HideInInspector] public GameObject rockIdle;
+        [HideInInspector] public GameObject woodIdle;
+        [HideInInspector] public GameObject meatIdle;
+        [HideInInspector] public Direction direction;
+        [HideInInspector] public IInput ıInput;
+        [HideInInspector] public Sheep sheep;
         AnimationEventController animationEventController;
         Resources.Tree tree;
-        public Sheep sheep;
         CollectResources collectResources;
         CollectGoldOrRock goldAndRock;
         CollectWood collectWood;
         CollectFood collectFood;
-        public IInput ıInput;
 
         private void Awake()
         {
@@ -112,8 +116,8 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         public void OptimumTurn2Direction()
         {
-            if (returnFences && fence != null && isSheep)
-                direction.Turn2Direction(fence.transform.position.x);
+            if (returnFences && fenceObj != null && isSheep)
+                direction.Turn2Direction(fenceObj.transform.position.x);
             if (targetResource == null) return;
             if (!returnHome)
             {

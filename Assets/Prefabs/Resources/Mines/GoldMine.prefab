@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 8967713370675581905}
   - component: {fileID: 330749103139454650}
   - component: {fileID: -6829096131175091404}
-  - component: {fileID: 6540951524822952607}
+  - component: {fileID: 8893597557583320804}
   m_Layer: 14
   m_Name: GoldMine
   m_TagString: GoldMine
@@ -220,7 +220,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6540951524822952607
+--- !u!114 &8893597557583320804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1777926609881761062}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 009dc2bf23d14b34eb34fa507f6895d5, type: 3}
+  m_Script: {fileID: 11500000, guid: b1b9d690551583d48981afe36ec265fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mineAmount: 50

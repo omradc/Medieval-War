@@ -175,7 +175,7 @@ MonoBehaviour:
   gridSize: 0.5
   obstacles:
     serializedVersion: 2
-    m_Bits: 1792
+    m_Bits: 1920
   searchShortcut: 0
   snapToGrid: 0
   drawDebugLines: 1
@@ -269,8 +269,8 @@ MonoBehaviour:
   nearestTreeChopPos: {x: 0, y: 0}
   treeDamagePoint: 1
   chopSpeed: 1
-  collectTime: 0.6
   chopTreeSightRange: 10
+  woodCollectTime: 0.6
   treeLayer:
     serializedVersion: 2
     m_Bits: 32768
@@ -278,14 +278,17 @@ MonoBehaviour:
   trees: []
   resourceWood: {fileID: 3246526810110024777, guid: f98d572d09a17bf4597ea080e739b3f1, type: 3}
   collectWoodAmount: 10
-  collectMeatCount: 0
+  collectMeatCount: 10
   miningTime: 1
   collectGoldAmount: 10
   collectRockAmount: 10
   resourceGold: {fileID: 3246526810110024777, guid: 089bd63877a5aa74ba78fd23f843fdb3, type: 3}
   resourceRock: {fileID: 7890745954856160017, guid: b126d0ab62845c24fb2bda03133fc8ad, type: 3}
+  mine: {fileID: 0}
   fence: {fileID: 0}
+  fenceObj: {fileID: 0}
   resourceMeat: {fileID: 3246526810110024777, guid: 305c2a09551e4324985e3671a16eaae1, type: 3}
+  meatCollectTime: 0.6
   homePos: {x: 0, y: 0, z: 0}
   currentChopTreeSightRange: 0
   currentTreeDamagePoint: 0
@@ -296,13 +299,19 @@ MonoBehaviour:
   returnFences: 0
   workOnce: 0
   workOnce2: 0
-  workOnce3: 1
+  workOnceForTree: 1
   isMineEmpty: 0
   isTree: 0
   isMine: 0
   isSheep: 0
+  uC: {fileID: 0}
+  pF2D: {fileID: 0}
   villagerSpriteRenderer: {fileID: 0}
   animator: {fileID: 0}
+  goldIdle: {fileID: 0}
+  rockIdle: {fileID: 0}
+  woodIdle: {fileID: 0}
+  meatIdle: {fileID: 0}
   sheep: {fileID: 0}
 --- !u!1 &1505308617181909231
 GameObject:

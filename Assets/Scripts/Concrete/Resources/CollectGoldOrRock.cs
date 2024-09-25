@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Resources
 {
-    internal class CollectGoldOrRock 
+    internal class CollectGoldOrRock
     {
         CollectResourcesController cR;
         PathFinding2D pF2D;
@@ -17,13 +17,12 @@ namespace Assets.Scripts.Concrete.Resources
         }
         public void GoToMine()
         {
-            //ağaç seçliyse veya maden boşsa veya maden seçilmediyse, madene gitme
             if (cR.isTree || cR.isMineEmpty || !cR.isMine || cR.isSheep) return;
             // Hedef varsa ona git
-            if (cR.targetResource != null && !cR.returnHome)
+            if (cR.targetResource != null && !cR.returnHome && cR.mine.currentMineAmount > 0)
             {
                 // Hedefe ulaşınca dur
-                if (Vector2.Distance(cR.transform.position, cR.targetResource.transform.position) > .5f)
+                if (Vector2.Distance(cR.transform.position, cR.targetResource.transform.position) > .1f)
                 {
                     pF2D.AIGetMoveCommand(cR.targetResource.transform.position);
                     AnimationManager.Instance.RunAnim(cR.animator, 1);
@@ -32,23 +31,22 @@ namespace Assets.Scripts.Concrete.Resources
                 // Hedefe ulaşıldı
                 else
                 {
-                    if (!cR.returnHome)
-                        cR.villagerSpriteRenderer.enabled = false;
+                    if (cR.mine.currentMineAmount == 0) return;
+                    cR.villagerSpriteRenderer.enabled = false;
 
                     cR.tMining += Time.deltaTime;
                     if (cR.tMining > cR.miningTime)
                     {
                         // Madenden alınan kaynakları eksilt
-                        Mine mine = cR.targetResource.GetComponent<Mine>();
-                        if (mine.CompareTag("GoldMine"))
+                        if (cR.mine.CompareTag("GoldMine"))
                         {
-                            mine.currentMineAmount -= cR.collectGoldAmount;
-                            mine.mineAmountFillValue.fillAmount = mine.currentMineAmount / mine.mineAmount;
+                            cR.mine.currentMineAmount -= cR.collectGoldAmount;
+                            cR.mine.mineAmountFillValue.fillAmount = cR.mine.currentMineAmount / cR.mine.mineAmount;
                         }
-                        if (mine.CompareTag("RockMine"))
+                        if (cR.mine.CompareTag("RockMine"))
                         {
-                            mine.currentMineAmount -= cR.collectRockAmount;
-                            mine.mineAmountFillValue.fillAmount = mine.currentMineAmount / mine.mineAmount;
+                            cR.mine.currentMineAmount -= cR.collectRockAmount;
+                            cR.mine.mineAmountFillValue.fillAmount = cR.mine.currentMineAmount / cR.mine.mineAmount;
                         }
                         cR.villagerSpriteRenderer.enabled = true;
                         cR.returnHome = true;
