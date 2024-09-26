@@ -27,10 +27,8 @@ namespace Assets.Scripts.Concrete.Resources
                 cR.isTree = false;
                 cR.isSheep = false;
                 cR.returnFences = false;
-                cR.returnHome = false;
 
-                Debug.Log("!!!!!!!!!!!!");
-                if (InteractManager.Instance.interactedObj!=null)
+                if (InteractManager.Instance.interactedObj != null)
                 {
                     cR.uC.isSeleceted = false;
                 }
@@ -72,7 +70,6 @@ namespace Assets.Scripts.Concrete.Resources
                     cR.isSheep = true;
                     cR.tCollect = 0;
                     cR.uC.isSeleceted = false;
-                    Debug.Log("ok");
                 }
                 if (InteractManager.Instance.interactedFences != null)
                 {
@@ -93,6 +90,7 @@ namespace Assets.Scripts.Concrete.Resources
 
             if (cR.returnHome)
             {
+                Debug.Log("returnHome");
                 // Eve ulaşınca dur
                 if (Vector2.Distance(cR.transform.position, cR.homePos) > .5f)
                 {
@@ -117,36 +115,40 @@ namespace Assets.Scripts.Concrete.Resources
             if (cR.isSheep)
                 cR.tCollect += Time.deltaTime;
 
-            if (!cR.workOnce) return;
+            if (cR.workOnce)
+            {
+                if (cR.isMine)
+                {
+                    Mine mine = cR.targetResource.GetComponent<Mine>();
+                    if (mine.CompareTag("GoldMine"))
+                        cR.goldIdle.SetActive(true);
+                    if (mine.CompareTag("RockMine"))
+                        cR.rockIdle.SetActive(true);
+                    cR.pF2D.AIGetMoveCommand(cR.homePos);
+                    AnimationManager.Instance.RunCarryAnim(cR.animator, 1);
+                    cR.workOnce = false;
+                }
+                if (cR.tCollect > cR.woodCollectTime && cR.isTree)
+                {
+                    cR.woodIdle.SetActive(true);
+                    cR.pF2D.AIGetMoveCommand(cR.homePos);
+                    AnimationManager.Instance.RunCarryAnim(cR.animator, 1);
+                    cR.workOnce = false;
+                    cR.tCollect = 0;
 
-            if (cR.isMine)
-            {
-                Mine mine = cR.targetResource.GetComponent<Mine>();
-                if (mine.CompareTag("GoldMine"))
-                    cR.goldIdle.SetActive(true);
-                if (mine.CompareTag("RockMine"))
-                    cR.rockIdle.SetActive(true);
-                cR.pF2D.AIGetMoveCommand(cR.homePos);
-                AnimationManager.Instance.RunCarryAnim(cR.animator, 1);
-                cR.workOnce = false;
+                }
+                if (cR.tCollect > cR.meatCollectTime && cR.sheep)
+                {
+                    cR.meatIdle.SetActive(true);
+                    cR.pF2D.AIGetMoveCommand(cR.homePos);
+                    AnimationManager.Instance.RunCarryAnim(cR.animator, 1);
+                    cR.workOnce = false;
+                    cR.tCollect = 0;
+                }
             }
-            if (cR.tCollect > cR.woodCollectTime && cR.isTree)
-            {
-                cR.woodIdle.SetActive(true);
-                cR.pF2D.AIGetMoveCommand(cR.homePos);
-                AnimationManager.Instance.RunCarryAnim(cR.animator, 1);
-                cR.workOnce = false;
-                cR.tCollect = 0;
 
-            }
-            if (cR.tCollect > cR.meatCollectTime && cR.sheep)
-            {
-                cR.meatIdle.SetActive(true);
-                cR.pF2D.AIGetMoveCommand(cR.homePos);
-                AnimationManager.Instance.RunCarryAnim(cR.animator, 1);
-                cR.workOnce = false;
-                cR.tCollect = 0;
-            }
+            if (!cR.workOnce && !cR.rockIdle.activeSelf && !cR.goldIdle.activeSelf && !cR.woodIdle.activeSelf && !cR.meatIdle.activeSelf)
+                cR.returnHome = false;
         }
         void DropResourceToHome() // Kaynakları depola
         {
