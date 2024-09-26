@@ -75,7 +75,6 @@ namespace Assets.Scripts.Concrete.Resources
                     cR.sheep.goFence = true;
                     cR.returnFences = false;
                     cR.isSheep = false;
-                    Debug.Log("Go to fence, isSheep = false");
                 }
             }
         }

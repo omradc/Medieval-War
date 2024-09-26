@@ -27,7 +27,13 @@ namespace Assets.Scripts.Concrete.Resources
                 cR.isTree = false;
                 cR.isSheep = false;
                 cR.returnFences = false;
+                cR.returnHome = false;
 
+                Debug.Log("!!!!!!!!!!!!");
+                if (InteractManager.Instance.interactedObj!=null)
+                {
+                    cR.uC.isSeleceted = false;
+                }
                 // Maden
                 if (InteractManager.Instance.interactedMine != null)
                 {
@@ -66,6 +72,7 @@ namespace Assets.Scripts.Concrete.Resources
                     cR.isSheep = true;
                     cR.tCollect = 0;
                     cR.uC.isSeleceted = false;
+                    Debug.Log("ok");
                 }
                 if (InteractManager.Instance.interactedFences != null)
                 {
@@ -74,7 +81,7 @@ namespace Assets.Scripts.Concrete.Resources
                     cR.isTree = false;
                     cR.fenceObj = InteractManager.Instance.interactedFences;
                     cR.fence = cR.fenceObj.GetComponent<Fence>();
-                   
+
                 }
             }
         }
@@ -96,6 +103,7 @@ namespace Assets.Scripts.Concrete.Resources
                 // Eve ulaşıldı
                 else
                 {
+
                     DropResourceToHome();
                     cR.returnHome = false;
                     cR.workOnceForTree = true;
