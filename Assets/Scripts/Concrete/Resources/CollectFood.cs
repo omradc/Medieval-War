@@ -9,8 +9,8 @@ namespace Assets.Scripts.Concrete.Resources
     internal class CollectFood
     {
         CollectResourcesController cR;
-        PathFinding2D pF2D;
-        public CollectFood(CollectResourcesController collectResources, PathFinding2D pathFinding2D)
+        UnitPathFinding2D pF2D;
+        public CollectFood(CollectResourcesController collectResources, UnitPathFinding2D pathFinding2D)
         {
             cR = collectResources;
             pF2D = pathFinding2D;

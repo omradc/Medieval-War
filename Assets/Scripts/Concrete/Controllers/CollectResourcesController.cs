@@ -12,7 +12,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public float dropResourceLifeTime = 3;
         [Header("TREE")]
         public GameObject nearestTree;
-        public Vector2 nearestTreeChopPos;
+        public Vector2 treeChopPos;
         public int treeDamagePoint;
         public float chopSpeed;
         public float chopTreeSightRange;
@@ -58,14 +58,14 @@ namespace Assets.Scripts.Concrete.Controllers
 
 
         [HideInInspector] public UnitController uC;
-        [HideInInspector] public PathFinding2D pF2D;
+        [HideInInspector] public UnitPathFinding2D pF2D;
         [HideInInspector] public SpriteRenderer villagerSpriteRenderer;
         [HideInInspector] public Animator animator;
         [HideInInspector] public GameObject goldIdle;
         [HideInInspector] public GameObject rockIdle;
         [HideInInspector] public GameObject woodIdle;
         [HideInInspector] public GameObject meatIdle;
-        [HideInInspector] public Direction direction;
+        [HideInInspector] public UnitDirection direction;
         [HideInInspector] public IInput ıInput;
         [HideInInspector] public Sheep sheep;
         AnimationEventController animationEventController;
@@ -78,7 +78,7 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Awake()
         {
             uC = GetComponent<UnitController>();
-            pF2D = GetComponent<PathFinding2D>();
+            pF2D = GetComponent<UnitPathFinding2D>();
             villagerSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
             animator = transform.GetChild(0).GetComponent<Animator>();
             goldIdle = transform.GetChild(1).gameObject;
@@ -101,8 +101,6 @@ namespace Assets.Scripts.Concrete.Controllers
             //  Events
             animationEventController.ChopEvent += collectWood.Chop;
             animationEventController.GetHitTreeEvent += collectWood.GetHitTree;
-
-            InvokeRepeating(nameof(OptimumTurn2Direction), .1f, .5f);
         }
         private void Update()
         {
@@ -113,24 +111,6 @@ namespace Assets.Scripts.Concrete.Controllers
             collectFood.GoToSheep();
             collectFood.GoToFences();
             collectResources.GoToHome();
-        }
-        public void OptimumTurn2Direction()
-        {
-            if (returnFences && fenceObj != null && isSheep)
-                direction.Turn2Direction(fenceObj.transform.position.x);
-            if (targetResource == null) return;
-            if (!returnHome)
-            {
-                if (isMine)
-                    direction.Turn2Direction(targetResource.transform.position.x);
-                if (isTree && nearestTree != null)
-                    direction.Turn2Direction(nearestTree.transform.position.x);
-                if (isSheep && !returnFences)
-                    direction.Turn2Direction(targetResource.transform.position.x);
-            }
-            if (returnHome)
-                direction.Turn2Direction(homePos.x);
-
         }
         private void OnDrawGizmos()
         {

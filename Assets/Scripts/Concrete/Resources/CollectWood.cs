@@ -9,9 +9,9 @@ namespace Assets.Scripts.Concrete.Resources
     internal class CollectWood
     {
         CollectResourcesController cR;
-        PathFinding2D pF2D;
+        UnitPathFinding2D pF2D;
         Tree tree;
-        public CollectWood(CollectResourcesController collectResources, PathFinding2D pathFinding2D)
+        public CollectWood(CollectResourcesController collectResources, UnitPathFinding2D pathFinding2D)
         {
             cR = collectResources;
             pF2D = pathFinding2D;
@@ -39,7 +39,7 @@ namespace Assets.Scripts.Concrete.Resources
 
                     if (cR.nearestTree != null)
                     {
-                        cR.nearestTreeChopPos = CalculateNearestChopPos(cR.nearestTree);
+                        cR.treeChopPos = cR.nearestTree.transform.GetChild(1).position;
                         tree = cR.nearestTree.GetComponent<Tree>();
                     }
                     cR.workOnceForTree = false;
@@ -48,9 +48,9 @@ namespace Assets.Scripts.Concrete.Resources
                 // Hedef boşsa çalışma
                 if (cR.nearestTree == null) return;
                 // Kullanıcı komutu bittiği zaman, kendi kendine ağaca doğru gider
-                if (Vector2.Distance(cR.transform.position, cR.nearestTreeChopPos) > .1f)
+                if (Vector2.Distance(cR.transform.position, cR.treeChopPos) > .1f)
                 {
-                    pF2D.AIGetMoveCommand(cR.nearestTreeChopPos);
+                    pF2D.AIGetMoveCommand(cR.treeChopPos);
                     AnimationManager.Instance.RunAnim(cR.animator, 1);
 
                     if (tree.isTreeAlreadyCutted)
@@ -61,7 +61,7 @@ namespace Assets.Scripts.Concrete.Resources
                 }
 
                 // Ağacı Kes
-                if (Vector2.Distance(cR.transform.position, cR.nearestTreeChopPos) < .1f)
+                if (Vector2.Distance(cR.transform.position, cR.treeChopPos) < .1f)
                 {
                     AnimationManager.Instance.ChopAnim(cR.animator, cR.chopSpeed);
                 }
@@ -105,7 +105,7 @@ namespace Assets.Scripts.Concrete.Resources
             if (cR.nearestTree != null && !tree.isTreeAlreadyCutted)
             {
                 tree = cR.nearestTree.GetComponent<Tree>();
-                tree.GetHitTreeAnim(cR.direction.Turn2Direction(cR.nearestTree.transform.position.x), cR.chopSpeed);
+                tree.GetHitTreeAnim(cR.chopSpeed);
 
             }
         }
@@ -129,18 +129,6 @@ namespace Assets.Scripts.Concrete.Resources
             }
 
             return nearestTarget;
-        }
-        Vector2 CalculateNearestChopPos(GameObject obj) // Hedefin kesilecek noktalarından en yakınını bulur
-        {
-            float distance1 = Vector2.Distance(obj.transform.GetChild(1).position, cR.transform.position);
-            float distance2 = Vector2.Distance(obj.transform.GetChild(2).position, cR.transform.position);
-            if (distance1 < distance2)
-            {
-                return obj.transform.GetChild(1).position;
-            }
-
-            else
-                return obj.transform.GetChild(2).position;
         }
     }
 }

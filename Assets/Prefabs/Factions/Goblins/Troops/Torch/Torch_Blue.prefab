@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 4f168f40b236cd24aa6506e5a8e59ccf, type: 2}
+    - target: {fileID: 867960422827618561, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
+      propertyPath: torchAttackPointDistance
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2031549052912269749, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
       propertyPath: m_Size.x
       value: 1.92
@@ -27,6 +31,34 @@ PrefabInstance:
     - target: {fileID: 2031549052912269749, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3857208795512620348, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
+      propertyPath: m_Size.x
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 3857208795512620348, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
+      propertyPath: m_Size.y
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 3857208795512620348, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -295564122, guid: 5b6ff5d8f56703f4d9e6cf1e19caff7e, type: 3}
+    - target: {fileID: 3857208795512620348, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5343080544880913662, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
+      propertyPath: health
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231263996334510809, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 4f168f40b236cd24aa6506e5a8e59ccf, type: 2}
+    - target: {fileID: 7687904460860879180, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 8054090689530960466, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
       propertyPath: m_Name
@@ -71,6 +103,10 @@ PrefabInstance:
     - target: {fileID: 9128161781817260426, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206674802785628241, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

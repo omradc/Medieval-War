@@ -29,21 +29,21 @@ namespace Assets.Scripts.Concrete.Movements
             if (horizontalLineFormation)
             {
                 float xPos = 0;
-                PathFinding2D pF2D = null;
+                UnitPathFinding2D pF2D = null;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
                 {
                     GameObject selectedObj = InteractManager.Instance.selectedUnits[i];
                     if (i == 0)
                     {
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos);
                     }
 
                     if (i > 0)
                     {
                         xPos += distance;
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, 0));
                     }
                 }
@@ -54,21 +54,21 @@ namespace Assets.Scripts.Concrete.Movements
             if (verticalLineFormation)
             {
                 float yPos = 0;
-                PathFinding2D pF2D = null;
+                UnitPathFinding2D pF2D = null;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
                 {
                     GameObject selectedObj = InteractManager.Instance.selectedUnits[i];
                     if (i == 0)
                     {
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos);
                     }
 
                     if (i > 0)
                     {
                         yPos += distance;
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(0, yPos));
                     }
 
@@ -86,7 +86,7 @@ namespace Assets.Scripts.Concrete.Movements
                 float xTroopNumber = Mathf.Ceil(Mathf.Sqrt(InteractManager.Instance.selectedUnits.Count));
                 float firstXtroopNumber = xTroopNumber;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                PathFinding2D pF2D = null;
+                UnitPathFinding2D pF2D = null;
                 for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
                 {
                     GameObject selectedObj = InteractManager.Instance.selectedUnits[i];
@@ -94,7 +94,7 @@ namespace Assets.Scripts.Concrete.Movements
                     // Yatay sıraya ekle
                     if (i < xTroopNumber)
                     {
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, yPos));
                         xPos += distance;
                     }
@@ -104,7 +104,7 @@ namespace Assets.Scripts.Concrete.Movements
                         xTroopNumber += firstXtroopNumber;
                         xPos = 0;
                         yPos -= distance;
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, yPos));
                         xPos += distance;
                     }
@@ -118,7 +118,7 @@ namespace Assets.Scripts.Concrete.Movements
                 float xPos = 0;
                 float yPos = 0;
                 bool reverse = false;
-                PathFinding2D pF2D = null;
+                UnitPathFinding2D pF2D = null;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
@@ -128,7 +128,7 @@ namespace Assets.Scripts.Concrete.Movements
 
                     if (i == 0)
                     {
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, yPos));
 
                     }
@@ -137,12 +137,12 @@ namespace Assets.Scripts.Concrete.Movements
                     {
                         xPos -= distance * distance;
                         yPos += distance;
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, yPos));
                     }
                     else if (!reverse)
                     {
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, -yPos));
                     }
 
@@ -157,7 +157,7 @@ namespace Assets.Scripts.Concrete.Movements
                 float xPos = 0;
                 float yPos = 0;
                 bool reverse = false;
-                PathFinding2D pF2D = null;
+                UnitPathFinding2D pF2D = null;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
@@ -167,7 +167,7 @@ namespace Assets.Scripts.Concrete.Movements
 
                     if (i == 0)
                     {
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, yPos));
                     }
 
@@ -175,12 +175,12 @@ namespace Assets.Scripts.Concrete.Movements
                     {
                         xPos += distance * distance;
                         yPos += distance;
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, yPos));
                     }
                     else if (!reverse)
                     {
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, -yPos));
                     }
 
@@ -195,7 +195,7 @@ namespace Assets.Scripts.Concrete.Movements
                 float xPos = 0;
                 float yPos = 0;
                 bool reverse = false;
-                PathFinding2D pF2D = null;
+                UnitPathFinding2D pF2D = null;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
@@ -205,7 +205,7 @@ namespace Assets.Scripts.Concrete.Movements
 
                     if (i == 0)
                     {
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, yPos));
                     }
 
@@ -213,12 +213,12 @@ namespace Assets.Scripts.Concrete.Movements
                     {
                         xPos += distance;
                         yPos -= distance * distance;
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, yPos));
                     }
                     else if (!reverse)
                     {
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(-xPos, yPos));
                     }
 
@@ -234,7 +234,7 @@ namespace Assets.Scripts.Concrete.Movements
                 float yPos = 0;
                 bool reverse = false;
 
-                PathFinding2D pF2D = null;
+                UnitPathFinding2D pF2D = null;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
                 for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
@@ -243,7 +243,7 @@ namespace Assets.Scripts.Concrete.Movements
 
                     if (i == 0)
                     {
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, yPos));
                     }
 
@@ -251,12 +251,12 @@ namespace Assets.Scripts.Concrete.Movements
                     {
                         xPos += distance;
                         yPos += distance * distance;
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, yPos));
                     }
                     else if (!reverse)
                     {
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(-xPos, yPos));
                     }
 
@@ -271,7 +271,7 @@ namespace Assets.Scripts.Concrete.Movements
                 float xPos = 0.5f;
                 float yPos = 0;
                 bool reverse = false;
-                PathFinding2D pF2D = null;
+                UnitPathFinding2D pF2D = null;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
@@ -281,7 +281,7 @@ namespace Assets.Scripts.Concrete.Movements
 
                     if (i == 0)
                     {
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, yPos));
                     }
 
@@ -290,12 +290,12 @@ namespace Assets.Scripts.Concrete.Movements
 
                         xPos *= distance;
                         yPos += distance;
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, yPos));
                     }
                     else if (!reverse)
                     {
-                        pF2D = selectedObj.GetComponent<PathFinding2D>();
+                        pF2D = selectedObj.GetComponent<UnitPathFinding2D>();
                         pF2D.GetMoveCommand(mousePos + new Vector2(xPos, -yPos));
                     }
 

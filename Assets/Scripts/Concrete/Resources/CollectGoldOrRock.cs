@@ -8,9 +8,9 @@ namespace Assets.Scripts.Concrete.Resources
     internal class CollectGoldOrRock
     {
         CollectResourcesController cR;
-        PathFinding2D pF2D;
+        UnitPathFinding2D pF2D;
 
-        public CollectGoldOrRock(CollectResourcesController collectResources, PathFinding2D pathFinding2D)
+        public CollectGoldOrRock(CollectResourcesController collectResources, UnitPathFinding2D pathFinding2D)
         {
             cR = collectResources;
             pF2D = pathFinding2D;

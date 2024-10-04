@@ -172,13 +172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9b1b0f1b7052745a71c828edb13530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 0.5
-  obstacles:
-    serializedVersion: 2
-    m_Bits: 1920
-  searchShortcut: 0
-  snapToGrid: 0
-  drawDebugLines: 1
   right: 0
   left: 0
   up: 0
@@ -190,6 +183,10 @@ MonoBehaviour:
   isPathFinding: 0
   isPathEnd: 0
   moveCommand: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 384
+  drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
 --- !u!114 &2195796025414383232

@@ -35,6 +35,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public float sightRange;
 
         [Header("UNIT SETTÝNGS")]
+        [Range(0.1f, 1f)] public float unitAIPerTime = 0.5f;
         [Range(0.1f, 1f)] public float detechTargetPerTime = 0.5f;
         [Range(0.1f, 1f)] public float followingTargetPerTime = 0.5f;
         [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
@@ -56,32 +57,32 @@ namespace Assets.Scripts.Concrete.Controllers
         public bool workOnce = true;
 
         AnimationEventController animationEventController;
-        PathFinding2D pF2D;
-        Order order;
-        AttackOrder attackOrder;
-        DefendOrder defendOrder;
-        StayOrder stayOrder;
-        FollowOrder followOrder;
-        Attack attack;
-        [HideInInspector] public Direction direction;
+        UnitPathFinding2D pF2D;
+        UnitAI unitAI;
+        AttackAI attackAI;
+        DefendAI defendAI;
+        StayAI stayAI;
+        FollowAI followAI;
+        UnitAttack unitAttack;
+        [HideInInspector] public UnitDirection direction;
 
 
 
 
         private void Awake()
         {
-            pF2D = GetComponent<PathFinding2D>();
-            direction = new Direction(pF2D, this);
-            order = new Order(this, pF2D);
-            attackOrder = new AttackOrder(this, pF2D);
-            defendOrder = new DefendOrder(this, pF2D);
-            stayOrder = new StayOrder(this, pF2D);
-            followOrder = new FollowOrder(this, pF2D);
+            pF2D = GetComponent<UnitPathFinding2D>();
+            direction = new UnitDirection(pF2D, this);
+            unitAI = new UnitAI(this, pF2D);
+            attackAI = new AttackAI(this, pF2D);
+            defendAI = new DefendAI(this, pF2D);
+            stayAI = new StayAI(this, pF2D);
+            followAI = new FollowAI(this, pF2D);
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
         }
         private void Start()
         {
-            attack = new Attack(this, order, pF2D, animationEventController);
+            unitAttack = new UnitAttack(this, unitAI, pF2D, animationEventController);
             currentSpeed = speed / 100;
             currentDamage = damage;
             currentAttackSpeed = attackSpeed;
@@ -92,12 +93,12 @@ namespace Assets.Scripts.Concrete.Controllers
             currentArrowSpeed = arrowSpeed;
 
             // Invoke
+            InvokeRepeating(nameof(OptimumUnitAI), 0.1f, unitAIPerTime);
             InvokeRepeating(nameof(OptimumDetechEnemies), .5f, detechTargetPerTime);
             InvokeRepeating(nameof(OptimumAITurnDirection), 0.1f, turnDirectionPerTime);
 
         }
-
-        private void Update()
+        void OptimumUnitAI()
         {
             attackRangePosition = transform.GetChild(0).position;
 
@@ -107,18 +108,54 @@ namespace Assets.Scripts.Concrete.Controllers
                 return;
             }
 
-            //Unit Orders
+            //Unit AI
             if (unitOrderEnum == UnitOrderEnum.AttackOrder)
-                attackOrder.AttackMode();
+                attackAI.AttackMode();
             if (unitOrderEnum == UnitOrderEnum.DefendOrder)
-                defendOrder.DefendMode();
+                defendAI.DefendMode();
             if (unitOrderEnum == UnitOrderEnum.StayOrder)
-                stayOrder.StaticMode();
+                stayAI.StaticMode();
             if (unitOrderEnum == UnitOrderEnum.FollowOrder)
-                followOrder.FollowMode();
+                followAI.FollowMode();
 
-            attack.AttackOn();
+            unitAttack.AttackOn();
         }
+
+        void OptimumDetechEnemies()
+        {
+            if (unitTypeEnum == UnitTypeEnum.Villager) return;
+            followTargets = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemy);
+        }
+
+        void OptimumAITurnDirection()
+        {
+
+
+            // Oyuncunun hareket emri her zaman önceliklidir
+            if (pF2D.moveCommand) return;
+
+            // pF2D.pathLeftToGo[0]; hedefe giderken kullandýðý yol
+            if (unitTypeEnum == UnitTypeEnum.Villager && pF2D.pathLeftToGo.Count > 0)
+                direction.Turn2Direction(pF2D.pathLeftToGo[0].x);
+
+            // Sadece düþman varsa çalýþýr
+            if (unitAI.DetechNearestTarget() == null) return;
+
+            if (unitTypeEnum == UnitTypeEnum.Archer)
+            {
+                // Durduðunda hadefe bak
+                if (pF2D.isPathEnd)
+                    direction.Turn8Direction(unitAI.DetechNearestTarget().transform.position);
+                // Ýlerlediðinde yola bak
+                else if (pF2D.pathLeftToGo.Count > 0)
+                    direction.Turn8Direction(pF2D.pathLeftToGo[0]);
+
+            }
+            if (unitTypeEnum == UnitTypeEnum.Worrior && pF2D.pathLeftToGo.Count > 0)
+                direction.Turn4Direction(pF2D.pathLeftToGo[0]);
+
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
@@ -134,21 +171,6 @@ namespace Assets.Scripts.Concrete.Controllers
 
             }
 
-        }
-        void OptimumDetechEnemies()
-        {
-            if (unitTypeEnum == UnitTypeEnum.Villager) return;
-            followTargets = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemy);
-        }
-
-        void OptimumAITurnDirection()
-        {
-            if (unitTypeEnum == UnitTypeEnum.Villager) return;
-            if (pF2D.moveCommand || order.DetechNearestTarget() == null) return;
-            if (unitTypeEnum == UnitTypeEnum.Archer)
-                direction.Turn8Direction(order.DetechNearestTarget().transform.position);
-            if (unitTypeEnum == UnitTypeEnum.Worrior)
-                direction.Turn4Direction(order.DetechNearestTarget().transform.position);
         }
     }
 }

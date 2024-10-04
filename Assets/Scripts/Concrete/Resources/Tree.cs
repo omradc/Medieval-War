@@ -21,31 +21,18 @@ namespace Assets.Scripts.Concrete.Resources
             currentHitPoint = hitPoint;
             animator = transform.GetChild(0).GetComponent<Animator>();
         }
-
-
-
-
-
         void Update()
         {
             GrowUp();
-
         }
-
-
         public void GetHit(int treeDamagePoint, float collectTime) // Köylü Chop animasyoununda, tam ağaca vurduğu anda event ile tetikler
         {
             currentHitPoint -= treeDamagePoint;
             if (currentHitPoint <= 0)
                 Destruct(collectTime);
         }
-        public void GetHitTreeAnim(int direction, float chopSpeed) // Köylü Chop animasyoununda, tam ağaca vurduğu anda event ile tetikler
+        public void GetHitTreeAnim(float chopSpeed) // Köylü Chop animasyoununda, tam ağaca vurduğu anda event ile tetikler
         {
-            if (direction == 1)
-                transform.localScale = normal;
-            else
-                transform.localScale = reverse;
-
             AnimationManager.Instance.GetHitTreeAnim(animator, chopSpeed);
         }
         public void IsTreeAlreadyCutted(bool value)

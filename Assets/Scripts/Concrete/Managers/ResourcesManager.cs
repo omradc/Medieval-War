@@ -16,8 +16,8 @@ namespace Assets.Scripts.Concrete.Managers
 
         private void Start()
         {
-            InvokeRepeating(nameof(DisplayResources), 0.1f, 0.5f);
-            InvokeRepeating(nameof(DisplayResources), 0.1f, 0.5f);
+            //InvokeRepeating(nameof(DisplayResources), 0.1f, 0.5f);
+            //InvokeRepeating(nameof(DisplayResources), 0.1f, 0.5f);
         }
         void DisplayResources()
         {

@@ -139,7 +139,5 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.Play("Happy");
             }
         }
-
-
     }
 }

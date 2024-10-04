@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1351704705479308060}
   - component: {fileID: 1961826129281843446}
   - component: {fileID: 3724882387064550949}
+  - component: {fileID: 4923174947444017873}
   m_Layer: 0
   m_Name: '[GameManager]'
   m_TagString: Untagged
@@ -178,15 +179,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3c2f9ca91df654780b98ab3082dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barrackLayer:
+  terrainLayer:
     serializedVersion: 2
-    m_Bits: 256
-  towerLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  castleLayer:
-    serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 8
   unitLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -194,6 +189,11 @@ MonoBehaviour:
   interactedUnit: {fileID: 0}
   interactedMine: {fileID: 0}
   interactedTree: {fileID: 0}
+  interactedSheep: {fileID: 0}
+  interactedFences: {fileID: 0}
+  selectedUnits: []
+  startPos: {x: 0, y: 0}
+  isDragging: 0
 --- !u!114 &1351704705479308060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,5 +236,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 527ec654f72fd864b85f7d6e96c3d90d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4923174947444017873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6696413502318872325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b8b4883d93fa44f858ad6b1154bc51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

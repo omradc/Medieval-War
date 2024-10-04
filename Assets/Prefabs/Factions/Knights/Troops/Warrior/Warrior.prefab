@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2330534295821619989}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0, z: 0}
+  m_LocalPosition: {x: 0.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 2715179878654275368}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -147,13 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9b1b0f1b7052745a71c828edb13530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 0.5
-  obstacles:
-    serializedVersion: 2
-    m_Bits: 1792
-  searchShortcut: 0
-  snapToGrid: 0
-  drawDebugLines: 1
+  pathLeftToGo: []
   right: 0
   left: 0
   up: 0
@@ -162,9 +156,13 @@ MonoBehaviour:
   upLeft: 0
   downRight: 0
   downLeft: 0
-  isPathFinding: 0
+  isUserPathFinding: 0
   isPathEnd: 0
   moveCommand: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 384
+  drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
 --- !u!114 &-5201736685492982202
@@ -197,15 +195,16 @@ MonoBehaviour:
   isSeleceted: 0
   attackRadius: 0.5
   worriorAttackPoint: {fileID: 5029577231755023350}
-  worriorAttackPointDistance: 0.2
+  worriorAttackPointDistance: 0.4
   arrow: {fileID: 0}
   arrowSpeed: 0
   damage: 1
   speed: 0.4
   attackSpeed: 1
   attackDelay: 0
-  attackRange: 0.7
+  attackRange: 1
   sightRange: 4
+  unitAIPerTime: 0.5
   detechTargetPerTime: 0.5
   followingTargetPerTime: 0.5
   turnDirectionPerTime: 0.2

@@ -32,6 +32,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel_Yellow
       objectReference: {fileID: 0}
+    - target: {fileID: 4496677667709503704, guid: 2ded578bf8eb62142babd03c7f1c1b4a, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: d46937280837b0547b8d591905dd3595, type: 2}
     - target: {fileID: 6304368153235747338, guid: 2ded578bf8eb62142babd03c7f1c1b4a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -71,6 +75,14 @@ PrefabInstance:
     - target: {fileID: 6304368153235747338, guid: 2ded578bf8eb62142babd03c7f1c1b4a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635113777096325598, guid: 2ded578bf8eb62142babd03c7f1c1b4a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -237178211, guid: 1ddafe0902bf88143a7c85a528f314da, type: 3}
+    - target: {fileID: 7635113777096325598, guid: 2ded578bf8eb62142babd03c7f1c1b4a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
