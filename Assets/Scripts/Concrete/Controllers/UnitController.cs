@@ -39,6 +39,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(0.1f, 1f)] public float detechTargetPerTime = 0.5f;
         [Range(0.1f, 1f)] public float followingTargetPerTime = 0.5f;
         [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
+        [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
         public Collider2D[] followTargets;
         public Collider2D[] hitTargets;
         public LayerMask enemy;

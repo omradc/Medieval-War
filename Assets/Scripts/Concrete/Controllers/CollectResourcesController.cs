@@ -38,7 +38,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public GameObject fenceObj;
         public GameObject resourceMeat;
         public float meatCollectTime;
-        
+
 
         public Vector3 homePos;
         public float currentChopTreeSightRange;
@@ -101,11 +101,19 @@ namespace Assets.Scripts.Concrete.Controllers
             //  Events
             animationEventController.ChopEvent += collectWood.Chop;
             animationEventController.GetHitTreeEvent += collectWood.GetHitTree;
+
+            //Invoke
+            InvokeRepeating(nameof(OptimumCollectResources), 0.1f, uC.collectResourcesPerTime);
         }
         private void Update()
         {
             collectResources.ReadyToNextCommand();
             collectResources.SelectResourceType();
+
+        }
+
+        void OptimumCollectResources()
+        {
             goldAndRock.GoToMine();
             collectWood.GoToTree();
             collectFood.GoToSheep();

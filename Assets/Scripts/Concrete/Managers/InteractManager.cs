@@ -119,22 +119,12 @@ namespace Assets.Scripts.Concrete.Managers
                     if (!selectedUnits.Contains(currentObj))
                         selectedUnits.Add(currentObj);
 
+                    // Seçli Objeleri soluklaştır
                     SelectedObjColor(0.5f, currentObj);
 
                 }
 
             }
-            if (ıInput.GetButtonDown0)
-            {
-                for (int i = 0; i < selectedUnits.Count; i++)
-                {
-                    selectedUnits[i].GetComponent<UnitController>().unitOrderEnum = UnitManager.Instance.unitOrderEnum;
-                    SelectedObjColor(1f, selectedUnits[i]);
-                }
-
-            }
-
-
         }
         public void SelectMultiple()
         {
@@ -162,6 +152,8 @@ namespace Assets.Scripts.Concrete.Managers
                     uC.unitOrderEnum = UnitManager.Instance.unitOrderEnum;
                     uC.workOnce = true;
                     uC.isSeleceted = true;
+
+                    // Seçli Objeleri soluklaştır
                     SelectedObjColor(0.5f, currentObj);
                 }
 
@@ -179,7 +171,15 @@ namespace Assets.Scripts.Concrete.Managers
         public void ClearSelectedObjs()
         {
             if (ıInput.GetButtonUp0 && !ıInput.GetButton1)
+            {
+                // Seçli Objeleri belirginleştir
+                for (int i = 0; i < selectedUnits.Count; i++)
+                {
+                    selectedUnits[i].GetComponent<UnitController>().unitOrderEnum = UnitManager.Instance.unitOrderEnum;
+                    SelectedObjColor(1f, selectedUnits[i]);
+                }
                 selectedUnits.Clear();
+            }
         }
         void SelectedObjColor(float alphaValue, GameObject obj)
         {

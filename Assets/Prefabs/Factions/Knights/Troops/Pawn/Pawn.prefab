@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9b1b0f1b7052745a71c828edb13530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathLeftToGo: []
   right: 0
   left: 0
   up: 0
@@ -180,7 +181,7 @@ MonoBehaviour:
   upLeft: 0
   downRight: 0
   downLeft: 0
-  isPathFinding: 0
+  isUserPathFinding: 0
   isPathEnd: 0
   moveCommand: 0
   obstacle:
@@ -214,9 +215,11 @@ MonoBehaviour:
   attackDelay: 0
   attackRange: 1
   sightRange: 4
+  unitAIPerTime: 0.5
   detechTargetPerTime: 0.5
   followingTargetPerTime: 0.5
   turnDirectionPerTime: 0.2
+  collectResourcesPerTime: 0.5
   followTargets: []
   hitTargets: []
   enemy:
@@ -263,7 +266,7 @@ MonoBehaviour:
   targetResource: {fileID: 0}
   dropResourceLifeTime: 3
   nearestTree: {fileID: 0}
-  nearestTreeChopPos: {x: 0, y: 0}
+  treeChopPos: {x: 0, y: 0}
   treeDamagePoint: 1
   chopSpeed: 1
   chopTreeSightRange: 10
@@ -276,7 +279,7 @@ MonoBehaviour:
   resourceWood: {fileID: 3246526810110024777, guid: f98d572d09a17bf4597ea080e739b3f1, type: 3}
   collectWoodAmount: 10
   collectMeatCount: 10
-  miningTime: 1
+  miningTime: 2
   collectGoldAmount: 10
   collectRockAmount: 10
   resourceGold: {fileID: 3246526810110024777, guid: 089bd63877a5aa74ba78fd23f843fdb3, type: 3}

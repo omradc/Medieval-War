@@ -34,7 +34,8 @@ namespace Assets.Scripts.Concrete.Resources
                     if (cR.mine.currentMineAmount == 0) return;
                     cR.villagerSpriteRenderer.enabled = false;
 
-                    cR.tMining += Time.deltaTime;
+                    //cR.tMining += Time.deltaTime;
+                    cR.tMining += 1;
                     if (cR.tMining > cR.miningTime)
                     {
                         // Madenden alınan kaynakları eksilt

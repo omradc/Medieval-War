@@ -2,11 +2,12 @@
 {
     internal interface IInput
     {
-        public bool GetButtonDown0 { get; }
-        public bool GetButtonUp0 { get; }
-        public bool GetButton0 { get; }
-        public bool GetButtonDown1 { get; }
-        public bool GetButtonUp1 { get; }
-        public bool GetButton1 { get; }
+        bool GetButtonDown0 { get; }
+        bool GetButtonUp0 { get; }
+        bool GetButton0 { get; }
+        bool GetButtonDown1 { get; }
+        bool GetButtonUp1 { get; }
+        bool GetButton1 { get; }
+        bool GetKeyDownEscape { get; }
     }
 }

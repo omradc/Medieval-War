@@ -35,7 +35,7 @@ namespace Assets.Scripts.Concrete.Resources
         {
             if (isDomestic) return;
 
-            currentTameTime += Time.deltaTime;
+            currentTameTime += 1;
             if (currentTameTime > tameTime)
             {
                 AnimationManager.Instance.HappyAnim(animator);

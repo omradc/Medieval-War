@@ -111,9 +111,11 @@ namespace Assets.Scripts.Concrete.Resources
         public void CollectResource()
         {
             if (cR.isTree)
-                cR.tCollect += Time.deltaTime;
+                //cR.tCollect += Time.deltaTime;
+                cR.tCollect += 1;
             if (cR.isSheep)
-                cR.tCollect += Time.deltaTime;
+                //cR.tCollect += Time.deltaTime;
+                cR.tCollect += 1;
 
             if (cR.workOnce)
             {
