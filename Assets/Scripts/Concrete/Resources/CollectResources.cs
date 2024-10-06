@@ -27,7 +27,7 @@ namespace Assets.Scripts.Concrete.Resources
                 cR.isTree = false;
                 cR.isSheep = false;
                 cR.returnFences = false;
-
+                cR.isFirstTree = false;
                 // Bir yere tıklandıysa
                 if (InteractManager.Instance.interactedObj != null)
                 {
@@ -57,6 +57,7 @@ namespace Assets.Scripts.Concrete.Resources
                     cR.workOnceForTree = true;
                     cR.tCollect = 0;
                     cR.uC.isSeleceted = false;
+                    cR.isFirstTree = true;
                 }
                 //Koyun
                 if (InteractManager.Instance.interactedSheep != null)

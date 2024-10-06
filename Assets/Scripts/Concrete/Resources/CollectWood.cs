@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 
@@ -39,8 +40,21 @@ namespace Assets.Scripts.Concrete.Resources
 
                     if (cR.nearestTree != null)
                     {
-                        cR.treeChopPos = cR.nearestTree.transform.GetChild(1).position;
-                        tree = cR.nearestTree.GetComponent<Tree>();
+                        // Seçilen ilk ağaca gider
+                        if (cR.isFirstTree)
+                        {
+                            cR.treeChopPos = cR.targetResource.transform.GetChild(1).position;
+                            tree = cR.targetResource.GetComponent<Tree>();
+                        }
+
+                        // Sonra en yakın ağaçlara gider
+                        else
+                        {
+                            cR.treeChopPos = cR.nearestTree.transform.GetChild(1).position;
+                            tree = cR.nearestTree.GetComponent<Tree>();
+
+                        }
+
                     }
                     cR.workOnceForTree = false;
                 }
@@ -72,11 +86,22 @@ namespace Assets.Scripts.Concrete.Resources
             // Ağacı kes
             if (cR.nearestTree != null)
             {
-                tree = cR.nearestTree.GetComponent<Tree>();
+                if (!cR.isFirstTree)
+                {
+                    tree = cR.nearestTree.GetComponent<Tree>();
+                    Debug.Log(tree.name);
+                }
+                if (cR.isFirstTree)
+                {
+                    tree = cR.targetResource.GetComponent<Tree>();
+                    Debug.Log(tree.name);
+                }
+
                 tree.GetHit(cR.currentTreeDamagePoint, cR.woodCollectTime);
                 //Ağaç yıkıldıysa eve dön
                 if (tree.destruct)
                 {
+                    cR.isFirstTree = false;
                     if (!tree.isTreeAlreadyCutted)
                     {
                         cR.returnHome = true;
@@ -104,9 +129,7 @@ namespace Assets.Scripts.Concrete.Resources
         {
             if (cR.nearestTree != null && !tree.isTreeAlreadyCutted)
             {
-                tree = cR.nearestTree.GetComponent<Tree>();
                 tree.GetHitTreeAnim(cR.chopSpeed);
-
             }
         }
         GameObject DetechNearestTree()

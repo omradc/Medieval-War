@@ -23,6 +23,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public GameObject resourceWood;
         public int collectWoodAmount;
         public int collectMeatCount;
+        public bool isFirstTree;
 
         [Header("MİNE")]
         public float miningTime;

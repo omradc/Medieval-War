@@ -29,7 +29,6 @@ namespace Assets.Scripts.Concrete.Managers
         IInput ıInput;
 
         public List<GameObject> selectedUnits;
-        public List<GameObject> selectedVillagers;
 
         GameObject currentObj;
         public Vector2 startPos;
@@ -217,6 +216,7 @@ namespace Assets.Scripts.Concrete.Managers
                 selectedUnits.Clear();
             }
 
+            // Sadece köylüleri siler
             if (ıInput.GetButtonDown0)
             {
                 int j = 0;
