@@ -145,6 +145,7 @@ namespace Assets.Scripts.Concrete.Managers
                 {
                     currentObj = hit.collider.gameObject;
                     UnitController uC = currentObj.GetComponent<UnitController>();
+                    uC.unitOrderEnum = UnitManager.Instance.unitOrderEnum;
                     uC.workOnce = true;
                     uC.followingObj = null;
                     uC.isSeleceted = true;
@@ -182,6 +183,7 @@ namespace Assets.Scripts.Concrete.Managers
                     if (!selectedUnits.Contains(currentObj))
                         selectedUnits.Add(currentObj);
                     UnitController uC = selectedUnits[i].gameObject.GetComponent<UnitController>();
+                    uC.unitOrderEnum = UnitManager.Instance.unitOrderEnum;
                     uC.workOnce = true;
                     uC.followingObj = null;
                     uC.isSeleceted = true;

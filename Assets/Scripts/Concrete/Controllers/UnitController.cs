@@ -15,10 +15,10 @@ namespace Assets.Scripts.Concrete.Controllers
         public UnitTypeEnum unitTypeEnum;
         public bool isSeleceted;
 
-        [Header("Worrior")]
+        [Header("Worrior And Villager")]
         public float attackRadius;
-        public Transform worriorAttackPoint;
-        public float worriorAttackPointDistance;
+        public Transform attackPoint;
+        public float attackPointDistance;
 
         [Header("Archer")]
         public GameObject arrow;
@@ -108,11 +108,11 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             attackRangePosition = transform.GetChild(0).position;
 
-            if (unitTypeEnum == UnitTypeEnum.Villager)
-            {
-                sightRangePosition = transform.GetChild(0).position;
-                return;
-            }
+            //if (unitTypeEnum == UnitTypeEnum.Villager)
+            //{
+            //    sightRangePosition = transform.GetChild(0).position;
+            //    return;
+            //}
 
             //Unit AI
             if (unitOrderEnum == UnitOrderEnum.AttackOrder)
@@ -129,7 +129,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         void OptimumDetechEnemies()
         {
-            if (unitTypeEnum == UnitTypeEnum.Villager) return;
+            //if (unitTypeEnum == UnitTypeEnum.Villager) return;
             followTargets = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemy);
         }
 
@@ -170,13 +170,12 @@ namespace Assets.Scripts.Concrete.Controllers
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(attackRangePosition, currentAttackRange);
 
-            if (unitTypeEnum == UnitTypeEnum.Worrior)
+            if (unitTypeEnum == UnitTypeEnum.Worrior || unitTypeEnum == UnitTypeEnum.Villager)
             {
                 Gizmos.color = Color.black;
-                Gizmos.DrawWireSphere(worriorAttackPoint.position, currentAttackRadius);
+                Gizmos.DrawWireSphere(attackPoint.position, currentAttackRadius);
 
             }
-
         }
     }
 }

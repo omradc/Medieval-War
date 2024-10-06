@@ -27,6 +27,8 @@ namespace Assets.Scripts.Concrete.Combats
                 animationEventController.AttackEvent += WorriorAttack;
             if (uC.unitTypeEnum == UnitTypeEnum.Archer)
                 animationEventController.AttackEvent += ArcherAttack;
+            if (uC.unitTypeEnum == UnitTypeEnum.Villager)
+                animationEventController.AttackEvent += VillagerAttack;
         }
         public void AttackOn()
         {
@@ -41,7 +43,12 @@ namespace Assets.Scripts.Concrete.Combats
             if (Vector2.Distance(uC.attackRangePosition, order.DetechNearestTarget().transform.position) < uC.currentAttackRange)
             {
                 if (pF2D.right || pF2D.left)
-                    AnimationManager.Instance.AttackFrontAnim(pF2D.animator, uC.currentAttackSpeed);
+                {
+                    if (uC.unitTypeEnum == UnitTypeEnum.Villager)
+                        AnimationManager.Instance.ChopAnim(pF2D.animator, uC.currentAttackSpeed);
+                    else
+                        AnimationManager.Instance.AttackFrontAnim(pF2D.animator, uC.currentAttackSpeed);
+                }
                 if (pF2D.up)
                     AnimationManager.Instance.AttackUpAnim(pF2D.animator, uC.currentAttackSpeed);
                 if (pF2D.down)
@@ -57,7 +64,16 @@ namespace Assets.Scripts.Concrete.Combats
         }
         void WorriorAttack()
         {
-            uC.hitTargets = Physics2D.OverlapCircleAll(uC.worriorAttackPoint.position, uC.currentAttackRadius, uC.enemy);
+            uC.hitTargets = Physics2D.OverlapCircleAll(uC.attackPoint.position, uC.currentAttackRadius, uC.enemy);
+            for (int i = 0; i < uC.hitTargets.Length; i++)
+            {
+                if (uC.hitTargets != null)
+                    uC.hitTargets[i].GetComponent<Health>().GetHit(uC.currentDamage);
+            }
+        }
+        void VillagerAttack()
+        {
+            uC.hitTargets = Physics2D.OverlapCircleAll(uC.attackPoint.position, uC.currentAttackRadius, uC.enemy);
             for (int i = 0; i < uC.hitTargets.Length; i++)
             {
                 if (uC.hitTargets != null)

@@ -194,8 +194,8 @@ MonoBehaviour:
   unitTypeEnum: 0
   isSeleceted: 0
   attackRadius: 0.5
-  worriorAttackPoint: {fileID: 5029577231755023350}
-  worriorAttackPointDistance: 0.5
+  attackPoint: {fileID: 5029577231755023350}
+  attackPointDistance: 0.6
   arrow: {fileID: 0}
   arrowSpeed: 0
   damage: 1
@@ -212,6 +212,8 @@ MonoBehaviour:
   enemy:
     serializedVersion: 2
     m_Bits: 8192
+  followingObj: {fileID: 0}
+  workOnce: 1
   currentDamage: 0
   currentSpeed: 0
   currentAttackSpeed: 0

@@ -45,7 +45,7 @@ namespace Assets.Scripts.Concrete.Movements
                 pF2D.transform.localScale = rightDirection;
 
                 if (uC.unitTypeEnum == UnitTypeEnum.Worrior)
-                    uC.worriorAttackPoint.localPosition = Vector3.right * uC.worriorAttackPointDistance;
+                    uC.attackPoint.localPosition = Vector3.right * uC.attackPointDistance;
 
                 SetBooleans();
                 pF2D.right = true;
@@ -73,7 +73,7 @@ namespace Assets.Scripts.Concrete.Movements
                 pF2D.transform.localScale = leftDirection;
                 // Savaşçının saldırı pozisyonunu belirler
                 if (uC.unitTypeEnum == UnitTypeEnum.Worrior)
-                    uC.worriorAttackPoint.localPosition = Vector3.right * uC.worriorAttackPointDistance;
+                    uC.attackPoint.localPosition = Vector3.right * uC.attackPointDistance;
             }
 
             //Up
@@ -82,7 +82,7 @@ namespace Assets.Scripts.Concrete.Movements
                 pF2D.up = true;
                 // Savaşçının saldırı pozisyonunu belirler
                 if (uC.unitTypeEnum == UnitTypeEnum.Worrior)
-                    uC.worriorAttackPoint.localPosition = Vector3.up * uC.worriorAttackPointDistance;
+                    uC.attackPoint.localPosition = Vector3.up * uC.attackPointDistance;
             }
 
             //Down
@@ -91,7 +91,7 @@ namespace Assets.Scripts.Concrete.Movements
                 pF2D.down = true;
                 // Savaşçının saldırı pozisyonunu belirler
                 if (uC.unitTypeEnum == UnitTypeEnum.Worrior)
-                    uC.worriorAttackPoint.localPosition = Vector3.down * uC.worriorAttackPointDistance;
+                    uC.attackPoint.localPosition = Vector3.down * uC.attackPointDistance;
             }
 
             //Right
@@ -102,7 +102,7 @@ namespace Assets.Scripts.Concrete.Movements
                 pF2D.transform.localScale = rightDirection;
                 // Savaşçının saldırı pozisyonunu belirler
                 if (uC.unitTypeEnum == UnitTypeEnum.Worrior)
-                    uC.worriorAttackPoint.localPosition = Vector3.right * uC.worriorAttackPointDistance;
+                    uC.attackPoint.localPosition = Vector3.right * uC.attackPointDistance;
             }
         }
         public void Turn8Direction(Vector2 target)

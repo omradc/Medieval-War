@@ -123,6 +123,7 @@ Transform:
   - {fileID: 6455459856702010694}
   - {fileID: 6431630272648868027}
   - {fileID: 4944044511631453861}
+  - {fileID: 351804459304480502}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &5296312539388257771
@@ -204,14 +205,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitTypeEnum: 2
   isSeleceted: 0
-  attackRadius: 0
-  worriorAttackPoint: {fileID: 0}
-  worriorAttackPointDistance: 0
+  attackRadius: 0.5
+  attackPoint: {fileID: 4240037878643666958}
+  attackPointDistance: 0.6
   arrow: {fileID: 0}
   arrowSpeed: 0
-  damage: 0
+  damage: 1
   moveSpeed: 0.7
-  attackSpeed: 0
+  attackSpeed: 1
   attackRange: 1
   sightRange: 4
   unitAIPerTime: 0.5
@@ -223,6 +224,8 @@ MonoBehaviour:
   enemy:
     serializedVersion: 2
     m_Bits: 8192
+  followingObj: {fileID: 0}
+  workOnce: 1
   currentDamage: 0
   currentSpeed: 0
   currentAttackSpeed: 0
@@ -275,6 +278,7 @@ MonoBehaviour:
   resourceWood: {fileID: 3246526810110024777, guid: f98d572d09a17bf4597ea080e739b3f1, type: 3}
   collectWoodAmount: 10
   collectMeatCount: 10
+  isFirstTree: 0
   miningTime: 2
   collectGoldAmount: 10
   collectRockAmount: 10
@@ -393,6 +397,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1660112284290005553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4240037878643666958}
+  m_Layer: 6
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4240037878643666958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660112284290005553}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.4, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 351804459304480502}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1849124209813671054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,6 +1085,38 @@ Transform:
   - {fileID: 9101513513485410628}
   - {fileID: 3498318548713770751}
   - {fileID: 8352474052883277625}
+  m_Father: {fileID: 4458816675811575864}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6282072662232096572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 351804459304480502}
+  m_Layer: 6
+  m_Name: AttackPointAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &351804459304480502
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6282072662232096572}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.32, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4240037878643666958}
   m_Father: {fileID: 4458816675811575864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6935765442805875166
