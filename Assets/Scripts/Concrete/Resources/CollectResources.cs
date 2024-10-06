@@ -28,6 +28,7 @@ namespace Assets.Scripts.Concrete.Resources
                 cR.isSheep = false;
                 cR.returnFences = false;
 
+                // Bir yere tıklandıysa
                 if (InteractManager.Instance.interactedObj != null)
                 {
                     cR.uC.isSeleceted = false;
@@ -43,7 +44,6 @@ namespace Assets.Scripts.Concrete.Resources
                     cR.mine = cR.targetResource.GetComponent<Mine>();
                     cR.isMine = true;
                     cR.uC.isSeleceted = false;
-
                 }
                 // Ağaç
                 if (InteractManager.Instance.interactedTree != null)
@@ -111,10 +111,8 @@ namespace Assets.Scripts.Concrete.Resources
         public void CollectResource()
         {
             if (cR.isTree)
-                //cR.tCollect += Time.deltaTime;
                 cR.tCollect += 1;
             if (cR.isSheep)
-                //cR.tCollect += Time.deltaTime;
                 cR.tCollect += 1;
 
             if (cR.workOnce)
@@ -209,7 +207,7 @@ namespace Assets.Scripts.Concrete.Resources
                     DropMeat(cR.transform.position, cR.dropResourceLifeTime);
                     cR.meatIdle.SetActive(false);
                 }
-                // Köylü seçili iken, etkileşimli olmayan bir nesne seçildiğinde seçim kalkar 
+                // köylü seçili iken, etkileşimli olmayan bir nesne seçildiğinde seçim kalkar 
                 if (InteractManager.Instance.interactedObj == null)
                 {
                     cR.uC.isSeleceted = false;

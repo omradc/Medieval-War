@@ -28,26 +28,26 @@ namespace Assets.Scripts.Concrete.Controllers
         [Space(30)]
         [Header("UNIT")]
         public int damage;
-        [Range(0.1f, 2f)] public float speed;
+        [Range(0.1f, 2f)] public float moveSpeed = .7f;
         public float attackSpeed;
-        public float attackDelay;
         public float attackRange;
         public float sightRange;
 
         [Header("UNIT SETTÝNGS")]
         [Range(0.1f, 1f)] public float unitAIPerTime = 0.5f;
         [Range(0.1f, 1f)] public float detechTargetPerTime = 0.5f;
-        [Range(0.1f, 1f)] public float followingTargetPerTime = 0.5f;
         [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
         [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
         public Collider2D[] followTargets;
         public Collider2D[] hitTargets;
         public LayerMask enemy;
 
+        public GameObject followingObj;
+        public bool workOnce = true;
+
         public int currentDamage;
         public float currentSpeed;
         public float currentAttackSpeed;
-        public float currentAttackDelay;
         public float currentAttackRange;
         public float currentSightRange;
         public float currentAttackRadius;
@@ -55,7 +55,6 @@ namespace Assets.Scripts.Concrete.Controllers
         public UnitOrderEnum unitOrderEnum;
         [HideInInspector] public Vector2 attackRangePosition;
         [HideInInspector] public Vector2 sightRangePosition;
-        public bool workOnce = true;
 
         AnimationEventController animationEventController;
         UnitPathFinding2D pF2D;
@@ -84,10 +83,9 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Start()
         {
             unitAttack = new UnitAttack(this, unitAI, pF2D, animationEventController);
-            currentSpeed = speed / 100;
+            currentSpeed = moveSpeed / 100;
             currentDamage = damage;
             currentAttackSpeed = attackSpeed;
-            currentAttackDelay = attackDelay;
             currentAttackRadius = attackRadius;
             currentSightRange = sightRange;
             currentAttackRange = attackRange;
@@ -98,6 +96,13 @@ namespace Assets.Scripts.Concrete.Controllers
             InvokeRepeating(nameof(OptimumDetechEnemies), .5f, detechTargetPerTime);
             InvokeRepeating(nameof(OptimumAITurnDirection), 0.1f, turnDirectionPerTime);
 
+        }
+
+        private void Update()
+        {
+            // Sadece takip edilecek birim atamasý yapýlýr
+            if (unitOrderEnum == UnitOrderEnum.FollowOrder)
+                followAI.SetFollowUnit();
         }
         void OptimumUnitAI()
         {

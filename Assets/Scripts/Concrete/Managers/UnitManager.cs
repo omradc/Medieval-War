@@ -18,7 +18,6 @@ namespace Assets.Scripts.Concrete.Managers
 
         [Header("Setups")]
         [SerializeField] LayerMask troopLayer;
-
         IMove ıMove;
         IInput ıInput;
         public UnitOrderEnum unitOrderEnum;
@@ -40,7 +39,7 @@ namespace Assets.Scripts.Concrete.Managers
 
         private void Update()
         {
-            if (ıInput.GetButtonDown0)
+            if (ıInput.GetButtonDown0 && !InteractManager.Instance.CheckUIElemnts())
             {
                 ıMove.MoveCommand();
             }

@@ -210,14 +210,12 @@ MonoBehaviour:
   arrow: {fileID: 0}
   arrowSpeed: 0
   damage: 0
-  speed: 0.5
+  moveSpeed: 0.7
   attackSpeed: 0
-  attackDelay: 0
   attackRange: 1
   sightRange: 4
   unitAIPerTime: 0.5
   detechTargetPerTime: 0.5
-  followingTargetPerTime: 0.5
   turnDirectionPerTime: 0.2
   collectResourcesPerTime: 0.5
   followTargets: []
@@ -228,7 +226,6 @@ MonoBehaviour:
   currentDamage: 0
   currentSpeed: 0
   currentAttackSpeed: 0
-  currentAttackDelay: 0
   currentAttackRange: 1
   currentSightRange: 4
   currentAttackRadius: 0
@@ -236,7 +233,6 @@ MonoBehaviour:
   unitOrderEnum: 0
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
-  workOnce: 1
 --- !u!114 &8729491755545881928
 MonoBehaviour:
   m_ObjectHideFlags: 0

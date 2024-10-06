@@ -8,8 +8,8 @@ namespace Assets.Scripts.Concrete.Orders
 {
     internal class FollowAI : UnitAI
     {
-        GameObject followingObj;
-        bool work = true;
+
+        bool followRange = true;
         float currentTime;
 
         public FollowAI(UnitController unitController, UnitPathFinding2D pF2D) : base(unitController, pF2D)
@@ -18,40 +18,32 @@ namespace Assets.Scripts.Concrete.Orders
 
         public void FollowMode()
         {
-            FollowUnit();
             CatchNeraestTarget();
             StopWhenAttackDistance();
             SetRanges();
             ReturnAtYourPosition();
         }
-        void FollowUnit()
+        public void SetFollowUnit()
         {
-            if (uC.unitOrderEnum == UnitOrderEnum.FollowOrder)
+            // Hedef boş ise, hedefi belirle, sadece 1 kez
+            if (InteractManager.Instance.interactedUnit != null && uC.workOnce)
             {
-                if (uC.workOnce && InteractManager.Instance.interactedUnit != null)
-                {
-                    followingObj = InteractManager.Instance.interactedUnit;
-                    uC.workOnce = false;
-                }
-                if (!uC.workOnce)
-                {
-                    currentTime += Time.deltaTime;
-                    if (currentTime > uC.followingTargetPerTime)
-                    {
-                        uC.sightRangePosition = followingObj.transform.position;
-                        currentTime = 0;
-                    }
-                }
-
+                uC.followingObj = InteractManager.Instance.interactedUnit;
+                uC.workOnce = false;
             }
+
         }
         void SetRanges()
         {
-            if (work)
+            if (followRange)
             {
                 uC.currentSightRange = uC.sightRange + uC.currentAttackRange / 2;
-                work = false;
+                followRange = false;
             }
+
+            // Hedef belirlendiyse menzilini ona ver ve takip et
+            if (uC.followingObj != null)
+                uC.sightRangePosition = uC.followingObj.transform.position;
         }
         void ReturnAtYourPosition()
         {
@@ -68,7 +60,7 @@ namespace Assets.Scripts.Concrete.Orders
             {
                 if (DetechNearestTarget() == null) return;
                 pF2D.AIGetMoveCommand(DetechNearestTarget().transform.position);
-                work = true;
+                followRange = true;
             }
         }
         void StopCloseToSightRange()
@@ -86,7 +78,7 @@ namespace Assets.Scripts.Concrete.Orders
                 pF2D.isPathEnd = true;
                 AnimationManager.Instance.IdleAnim(pF2D.animator);
 
-                if (!work)
+                if (!followRange)
                     // menzilini eski haline getir
                     uC.currentSightRange = uC.sightRange;
             }

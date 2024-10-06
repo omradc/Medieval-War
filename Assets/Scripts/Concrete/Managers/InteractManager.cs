@@ -1,15 +1,21 @@
 ﻿using Assets.Scripts.Abstracts.Inputs;
 using Assets.Scripts.Concrete.Controllers;
+using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.SelectSystem;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Concrete.Managers
 {
     internal class InteractManager : MonoBehaviour
     {
+        public GraphicRaycaster raycaster; // Sahnedeki UI'yi taramak için
+        public EventSystem eventSystem;    // EventSystem'i kullanarak raycast işlemi yapmak için
+        private PointerEventData pointerEventData; // Pointer verilerini tutar
         public static InteractManager Instance { get; private set; }
         [SerializeField] LayerMask terrainLayer;
         [SerializeField] LayerMask unitLayer;
@@ -23,6 +29,8 @@ namespace Assets.Scripts.Concrete.Managers
         IInput ıInput;
 
         public List<GameObject> selectedUnits;
+        public List<GameObject> selectedVillagers;
+
         GameObject currentObj;
         public Vector2 startPos;
         Vector2 endPos;
@@ -54,10 +62,9 @@ namespace Assets.Scripts.Concrete.Managers
             SelectOneByOne();
             SelectMultiple();
             ClearSelectedObjs();
-
+            GiveOrder();
             if (ıInput.GetButtonDown0)
             {
-
                 // mouse ile tıklanan obje ile etkileşime girilir
                 ınteract.InteractClickedObj();
                 if (interactedObj != null)
@@ -94,14 +101,40 @@ namespace Assets.Scripts.Concrete.Managers
             if (ıInput.GetButtonUp0)
             {
                 interactedObj = null;
-                interactedUnit = null;
                 interactedMine = null;
                 interactedTree = null;
                 interactedSheep = null;
                 interactedFences = null;
+                interactedUnit = null; //follow AI da boşa düşürüldü
             }
+
+
         }
 
+        public bool CheckUIElemnts()
+        {
+            // Sol fare tuşuna basıldığında
+            if (Input.GetMouseButtonDown(0))
+            {
+                // Pointer event datası oluşturuyoruz ve fare pozisyonunu alıyoruz
+                pointerEventData = new PointerEventData(eventSystem);
+                pointerEventData.position = Input.mousePosition;
+
+                // Raycast sonuçlarını tutmak için bir liste
+                List<RaycastResult> results = new List<RaycastResult>();
+
+                // UI nesnelerine raycast yapıyoruz
+                raycaster.Raycast(pointerEventData, results);
+
+                // Eğer raycast sonucu varsa, bir UI nesnesine tıklanmıştır
+                if (results.Count > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
         public void SelectOneByOne()
         {
             if (ıInput.GetButtonDown1)
@@ -114,16 +147,17 @@ namespace Assets.Scripts.Concrete.Managers
                     currentObj = hit.collider.gameObject;
                     UnitController uC = currentObj.GetComponent<UnitController>();
                     uC.workOnce = true;
+                    uC.followingObj = null;
                     uC.isSeleceted = true;
-                    // Aynı nesneyi tekrar diziye atma
+
+                    // Aynı birimi tekrar diziye atma
                     if (!selectedUnits.Contains(currentObj))
                         selectedUnits.Add(currentObj);
 
-                    // Seçli Objeleri soluklaştır
+                    // Seçili birimi vurgula
                     SelectedObjColor(0.5f, currentObj);
 
                 }
-
             }
         }
         public void SelectMultiple()
@@ -149,37 +183,59 @@ namespace Assets.Scripts.Concrete.Managers
                     if (!selectedUnits.Contains(currentObj))
                         selectedUnits.Add(currentObj);
                     UnitController uC = selectedUnits[i].gameObject.GetComponent<UnitController>();
-                    uC.unitOrderEnum = UnitManager.Instance.unitOrderEnum;
                     uC.workOnce = true;
+                    uC.followingObj = null;
                     uC.isSeleceted = true;
 
-                    // Seçli Objeleri soluklaştır
+                    // Seçili birimi vurgula
                     SelectedObjColor(0.5f, currentObj);
                 }
 
             }
-
+        }
+        void GiveOrder()
+        {
             if (ıInput.GetButtonDown0)
             {
                 for (int i = 0; i < selectedUnits.Count; i++)
                 {
                     selectedUnits[i].GetComponent<UnitController>().unitOrderEnum = UnitManager.Instance.unitOrderEnum;
                 }
-
             }
         }
-        public void ClearSelectedObjs()
+        void ClearSelectedObjs()
         {
-            if (ıInput.GetButtonUp0 && !ıInput.GetButton1)
+            // Bütün seçili birimleri siler
+            if (ıInput.GetKeyDownEscape)
             {
-                // Seçli Objeleri belirginleştir
                 for (int i = 0; i < selectedUnits.Count; i++)
                 {
-                    selectedUnits[i].GetComponent<UnitController>().unitOrderEnum = UnitManager.Instance.unitOrderEnum;
-                    SelectedObjColor(1f, selectedUnits[i]);
+                    SelectedObjColor(1, selectedUnits[i]);
+                    selectedUnits[i].GetComponent<UnitController>().isSeleceted = false;
                 }
+
                 selectedUnits.Clear();
             }
+
+            if (ıInput.GetButtonDown0)
+            {
+                int j = 0;
+                int selectedUnitsCount = selectedUnits.Count;
+                for (int i = 0; i < selectedUnitsCount; i++)
+                {
+                    print(j);
+                    if (selectedUnits[j].GetComponent<UnitController>().unitTypeEnum == UnitTypeEnum.Villager)
+                    {
+                        SelectedObjColor(1, selectedUnits[j]);
+                        selectedUnits.RemoveAt(j);
+                    }
+                    else
+                        j++;
+
+                }
+
+            }
+
         }
         void SelectedObjColor(float alphaValue, GameObject obj)
         {
