@@ -36,7 +36,6 @@ namespace Assets.Scripts.Concrete.Orders
 
                     }
                 }
-
                 return nearestTarget;
             }
             else

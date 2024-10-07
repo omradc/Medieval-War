@@ -43,12 +43,7 @@ namespace Assets.Scripts.Concrete.Combats
             if (Vector2.Distance(uC.attackRangePosition, order.DetechNearestTarget().transform.position) < uC.currentAttackRange)
             {
                 if (pF2D.right || pF2D.left)
-                {
-                    if (uC.unitTypeEnum == UnitTypeEnum.Villager)
-                        AnimationManager.Instance.ChopAnim(pF2D.animator, uC.currentAttackSpeed);
-                    else
-                        AnimationManager.Instance.AttackFrontAnim(pF2D.animator, uC.currentAttackSpeed);
-                }
+                    AnimationManager.Instance.AttackFrontAnim(pF2D.animator, uC.currentAttackSpeed);
                 if (pF2D.up)
                     AnimationManager.Instance.AttackUpAnim(pF2D.animator, uC.currentAttackSpeed);
                 if (pF2D.down)
@@ -78,6 +73,7 @@ namespace Assets.Scripts.Concrete.Combats
             {
                 if (uC.hitTargets != null)
                     uC.hitTargets[i].GetComponent<Health>().GetHit(uC.currentDamage);
+                Debug.Log(uC.hitTargets[i].name);
             }
         }
         void ArcherAttack()

@@ -108,12 +108,6 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             attackRangePosition = transform.GetChild(0).position;
 
-            //if (unitTypeEnum == UnitTypeEnum.Villager)
-            //{
-            //    sightRangePosition = transform.GetChild(0).position;
-            //    return;
-            //}
-
             //Unit AI
             if (unitOrderEnum == UnitOrderEnum.AttackOrder)
                 attackAI.AttackMode();

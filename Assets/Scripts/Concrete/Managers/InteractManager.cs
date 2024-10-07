@@ -225,7 +225,6 @@ namespace Assets.Scripts.Concrete.Managers
                 int selectedUnitsCount = selectedUnits.Count;
                 for (int i = 0; i < selectedUnitsCount; i++)
                 {
-                    print(j);
                     if (selectedUnits[j].GetComponent<UnitController>().unitTypeEnum == UnitTypeEnum.Villager)
                     {
                         SelectedObjColor(1, selectedUnits[j]);
