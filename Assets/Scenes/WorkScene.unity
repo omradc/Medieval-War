@@ -547,17 +547,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2349746412074591692, guid: b58d45a1ad711974fb60b815381380aa, type: 3}
   m_PrefabInstance: {fileID: 685743959}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &273325845 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3458360867119537226, guid: b58d45a1ad711974fb60b815381380aa, type: 3}
-  m_PrefabInstance: {fileID: 685743959}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1f63c9f73dbb49488b99b92668875e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &274069711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,7 +1031,7 @@ Tilemap:
       - {fileID: -1543196435, guid: 4f8d607b2b5f91940a32b18335370119, type: 3}
       - {fileID: -1663078772, guid: 4f8d607b2b5f91940a32b18335370119, type: 3}
       - {fileID: 1056141605, guid: 4f8d607b2b5f91940a32b18335370119, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 5, y: 0, z: 0}
@@ -1562,14 +1551,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorriorHouse_Yellow
       objectReference: {fileID: 0}
-    - target: {fileID: 1955287299159029239, guid: 8ca5ee3b54b04f042806f21537496ff6, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2061591259}
-    - target: {fileID: 1955287299159029239, guid: 8ca5ee3b54b04f042806f21537496ff6, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: TrainUnitButton
-      objectReference: {fileID: 0}
     - target: {fileID: 2349746412074591692, guid: 8ca5ee3b54b04f042806f21537496ff6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.35
@@ -1609,14 +1590,6 @@ PrefabInstance:
     - target: {fileID: 2349746412074591692, guid: 8ca5ee3b54b04f042806f21537496ff6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7816519114009191675, guid: 8ca5ee3b54b04f042806f21537496ff6, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2061591259}
-    - target: {fileID: 7816519114009191675, guid: 8ca5ee3b54b04f042806f21537496ff6, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CloseButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1780,7 +1753,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13, y: -2, z: -10}
+  m_LocalPosition: {x: -15.33, y: -2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2097,14 +2070,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorriorHouse_Purple
       objectReference: {fileID: 0}
-    - target: {fileID: 1955287299159029239, guid: b58d45a1ad711974fb60b815381380aa, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 273325845}
-    - target: {fileID: 1955287299159029239, guid: b58d45a1ad711974fb60b815381380aa, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: TrainUnitButton
-      objectReference: {fileID: 0}
     - target: {fileID: 2349746412074591692, guid: b58d45a1ad711974fb60b815381380aa, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.35
@@ -2144,14 +2109,6 @@ PrefabInstance:
     - target: {fileID: 2349746412074591692, guid: b58d45a1ad711974fb60b815381380aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7816519114009191675, guid: b58d45a1ad711974fb60b815381380aa, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 273325845}
-    - target: {fileID: 7816519114009191675, guid: b58d45a1ad711974fb60b815381380aa, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CloseButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3672,17 +3629,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f5747719410df45a9f91ccc496173b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1061222318 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3458360867119537226, guid: 0f57ba5f33bf63847aed5c176d681f52, type: 3}
-  m_PrefabInstance: {fileID: 2040686941}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1f63c9f73dbb49488b99b92668875e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1079674489 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2578939877005451611, guid: 065a13aec618bfb4684796439f395a10, type: 3}
@@ -3761,6 +3707,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9082226746122473133, guid: f6842a6950646d148a15afdb768352dd, type: 3}
   m_PrefabInstance: {fileID: 238651434}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1139020778
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 447345125501323559, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_Name
+      value: Warrior_Blue
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
 --- !u!1 &1179612585
 GameObject:
   m_ObjectHideFlags: 0
@@ -9580,7 +9583,7 @@ Tilemap:
       - {fileID: 766629742, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 53322940, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 724742919, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -6, y: -3, z: 0}
@@ -9685,7 +9688,7 @@ Tilemap:
       - {fileID: 766629742, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 53322940, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 724742919, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 0, y: -2, z: 0}
@@ -9850,7 +9853,7 @@ Tilemap:
       - {fileID: 766629742, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 53322940, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 724742919, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -13, y: 4, z: 0}
@@ -10127,10 +10130,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorriorHouse_Blue
       objectReference: {fileID: 0}
-    - target: {fileID: 1788705377013864551, guid: 32a193ccd4caaae449b8dae5aad7e3ac, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2349746412074591692, guid: 32a193ccd4caaae449b8dae5aad7e3ac, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.35
@@ -10171,10 +10170,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8898715030737417027, guid: 32a193ccd4caaae449b8dae5aad7e3ac, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10191,14 +10186,6 @@ PrefabInstance:
     - target: {fileID: 1788705377013864551, guid: 0f57ba5f33bf63847aed5c176d681f52, type: 3}
       propertyPath: m_Name
       value: WorriorHouse_Red
-      objectReference: {fileID: 0}
-    - target: {fileID: 1955287299159029239, guid: 0f57ba5f33bf63847aed5c176d681f52, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1061222318}
-    - target: {fileID: 1955287299159029239, guid: 0f57ba5f33bf63847aed5c176d681f52, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: TrainUnitButton
       objectReference: {fileID: 0}
     - target: {fileID: 2349746412074591692, guid: 0f57ba5f33bf63847aed5c176d681f52, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10239,14 +10226,6 @@ PrefabInstance:
     - target: {fileID: 2349746412074591692, guid: 0f57ba5f33bf63847aed5c176d681f52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7816519114009191675, guid: 0f57ba5f33bf63847aed5c176d681f52, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1061222318}
-    - target: {fileID: 7816519114009191675, guid: 0f57ba5f33bf63847aed5c176d681f52, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CloseButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10331,17 +10310,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2349746412074591692, guid: 8ca5ee3b54b04f042806f21537496ff6, type: 3}
   m_PrefabInstance: {fileID: 360767311}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2061591259 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3458360867119537226, guid: 8ca5ee3b54b04f042806f21537496ff6, type: 3}
-  m_PrefabInstance: {fileID: 360767311}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1f63c9f73dbb49488b99b92668875e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2063945566 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8075693366828144315, guid: 596e320294d394c4aa06b68cc268c42e, type: 3}
@@ -10686,6 +10654,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockMine
       objectReference: {fileID: 0}
+    - target: {fileID: 2329828777415325597, guid: 7786a988be8f9e546bfea48449c2bc6a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4604139343062931107, guid: 7786a988be8f9e546bfea48449c2bc6a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.6707067
@@ -10724,6 +10696,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4604139343062931107, guid: 7786a988be8f9e546bfea48449c2bc6a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8277620801563922064, guid: 7786a988be8f9e546bfea48449c2bc6a, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -10814,3 +10790,4 @@ SceneRoots:
   - {fileID: 286387029}
   - {fileID: 8617177998534655618}
   - {fileID: 1890476827}
+  - {fileID: 1139020778}
