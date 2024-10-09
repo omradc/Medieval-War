@@ -36,7 +36,7 @@ namespace Assets.Scripts.Concrete.Movements
             {
                 Vector3 dir = (Vector3)pathLeftToGo[0] - transform.position;
                 transform.position += dir.normalized * uC.currentSpeed;
-                //pathLeftToGo[0]; hedefe giderken kullandýðý yol
+                //pathLeftToGo[0]; hedefe giderken kullandýðý yola bakmasýný saðlar
                 direction.Turn2Direction(pathLeftToGo[0].x);
 
                 if (((Vector2)transform.position - pathLeftToGo[0]).sqrMagnitude < uC.currentSpeed * uC.currentSpeed)

@@ -110,11 +110,21 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             collectResources.ReadyToNextCommand();
             collectResources.SelectResourceType();
-
         }
 
         void OptimumCollectResources()
         {
+            //Düşman varsa kaynak toplama
+            if (uC.unitAI.DetechNearestTarget() != null)
+            {
+                // Elinde herhangi bir kaynak varsa onu yere at
+                collectResources.DropAnyResources();
+                return;
+            }
+
+            //Düşman yoksa işine devam et
+            if (uC.unitAI.DetechNearestTarget() == null) pF2D.isPathEnd = false;
+
             goldAndRock.GoToMine();
             collectWood.GoToTree();
             collectFood.GoToSheep();

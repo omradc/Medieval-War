@@ -6,6 +6,8 @@ namespace Assets.Scripts.Concrete.Resources
     internal class Tree : MonoBehaviour
     {
         public GameObject resourceWood;
+        public GameObject sleepingTorch;
+        GameObject torch;
         public int hitPoint;
         public int currentHitPoint;
         public bool destruct;
@@ -50,6 +52,7 @@ namespace Assets.Scripts.Concrete.Resources
                     GameObject wood = Instantiate(resourceWood, transform.position + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0), Quaternion.identity);
                     Destroy(wood, collectTime);
                 }
+
                 destruct = true;
                 gameObject.layer = default;
                 AnimationManager.Instance.DestroyedTreeAnim(animator);

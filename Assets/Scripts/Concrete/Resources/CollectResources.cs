@@ -188,26 +188,7 @@ namespace Assets.Scripts.Concrete.Resources
             // Eğer elinde kaynak varken seçip, başka bir yere gönderirsen. Kaynak yere düşer.
             if (cR.ıInput.GetButtonDown0 && cR.uC.isSeleceted)
             {
-                if (cR.goldIdle.activeSelf)
-                {
-                    DropGold(cR.transform.position, cR.dropResourceLifeTime);
-                    cR.goldIdle.SetActive(false);
-                }
-                if (cR.rockIdle.activeSelf)
-                {
-                    DropRock(cR.transform.position, cR.dropResourceLifeTime);
-                    cR.rockIdle.SetActive(false);
-                }
-                if (cR.woodIdle.activeSelf)
-                {
-                    DropWood(cR.transform.position, cR.dropResourceLifeTime);
-                    cR.woodIdle.SetActive(false);
-                }
-                if (cR.meatIdle.activeSelf)
-                {
-                    DropMeat(cR.transform.position, cR.dropResourceLifeTime);
-                    cR.meatIdle.SetActive(false);
-                }
+                DropAnyResources();
                 // köylü seçili iken, etkileşimli olmayan bir nesne seçildiğinde seçim kalkar 
                 if (InteractManager.Instance.interactedObj == null)
                 {
@@ -215,6 +196,31 @@ namespace Assets.Scripts.Concrete.Resources
                 }
             }
         }
+
+        public void DropAnyResources()
+        {
+            if (cR.goldIdle.activeSelf)
+            {
+                DropGold(cR.transform.position, cR.dropResourceLifeTime);
+                cR.goldIdle.SetActive(false);
+            }
+            if (cR.rockIdle.activeSelf)
+            {
+                DropRock(cR.transform.position, cR.dropResourceLifeTime);
+                cR.rockIdle.SetActive(false);
+            }
+            if (cR.woodIdle.activeSelf)
+            {
+                DropWood(cR.transform.position, cR.dropResourceLifeTime);
+                cR.woodIdle.SetActive(false);
+            }
+            if (cR.meatIdle.activeSelf)
+            {
+                DropMeat(cR.transform.position, cR.dropResourceLifeTime);
+                cR.meatIdle.SetActive(false);
+            }
+        }
+
         void DropWood(Vector3 pos, float lifeTime)
         {
             for (int i = 0; i < 3; i++)

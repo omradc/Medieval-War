@@ -419,6 +419,10 @@ PrefabInstance:
       propertyPath: hitPoint
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4241488879608301705, guid: 6727fa4fb299f9c45954f7a355d61397, type: 3}
+      propertyPath: sleepingTorch
+      value: 
+      objectReference: {fileID: 4992413997479346119, guid: f72f6682981188540a9c90ba1e265c99, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1038,7 +1042,7 @@ Tilemap:
       - {fileID: -1543196435, guid: 4f8d607b2b5f91940a32b18335370119, type: 3}
       - {fileID: -1663078772, guid: 4f8d607b2b5f91940a32b18335370119, type: 3}
       - {fileID: 1056141605, guid: 4f8d607b2b5f91940a32b18335370119, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 5, y: 0, z: 0}
@@ -1390,6 +1394,10 @@ PrefabInstance:
       propertyPath: hitPoint
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4241488879608301705, guid: 6727fa4fb299f9c45954f7a355d61397, type: 3}
+      propertyPath: sleepingTorch
+      value: 
+      objectReference: {fileID: 4992413997479346119, guid: f72f6682981188540a9c90ba1e265c99, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1411,6 +1419,10 @@ PrefabInstance:
     - target: {fileID: 2504565384238677463, guid: 0c106a13fe1d7ce4d85dc6f660944df8, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2569425881325054637, guid: 0c106a13fe1d7ce4d85dc6f660944df8, type: 3}
+      propertyPath: health
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 2776156620278420628, guid: 0c106a13fe1d7ce4d85dc6f660944df8, type: 3}
       propertyPath: m_Enabled
@@ -1529,6 +1541,10 @@ PrefabInstance:
       propertyPath: hitPoint
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4241488879608301705, guid: 6727fa4fb299f9c45954f7a355d61397, type: 3}
+      propertyPath: sleepingTorch
+      value: 
+      objectReference: {fileID: 4992413997479346119, guid: f72f6682981188540a9c90ba1e265c99, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2447,6 +2463,10 @@ PrefabInstance:
       propertyPath: hitPoint
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4241488879608301705, guid: 6727fa4fb299f9c45954f7a355d61397, type: 3}
+      propertyPath: sleepingTorch
+      value: 
+      objectReference: {fileID: 4992413997479346119, guid: f72f6682981188540a9c90ba1e265c99, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2508,6 +2528,10 @@ PrefabInstance:
       propertyPath: hitPoint
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4241488879608301705, guid: 6727fa4fb299f9c45954f7a355d61397, type: 3}
+      propertyPath: sleepingTorch
+      value: 
+      objectReference: {fileID: 4992413997479346119, guid: f72f6682981188540a9c90ba1e265c99, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4467,6 +4491,10 @@ PrefabInstance:
       propertyPath: hitPoint
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4241488879608301705, guid: 6727fa4fb299f9c45954f7a355d61397, type: 3}
+      propertyPath: sleepingTorch
+      value: 
+      objectReference: {fileID: 4992413997479346119, guid: f72f6682981188540a9c90ba1e265c99, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9537,7 +9565,7 @@ Tilemap:
       - {fileID: 766629742, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 53322940, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 724742919, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -7, y: -3, z: 0}
@@ -9552,7 +9580,7 @@ Tilemap:
       - {fileID: 766629742, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 53322940, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 724742919, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -6, y: -3, z: 0}
@@ -9657,7 +9685,7 @@ Tilemap:
       - {fileID: 766629742, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 53322940, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 724742919, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 0, y: -2, z: 0}
@@ -9822,7 +9850,7 @@ Tilemap:
       - {fileID: 766629742, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 53322940, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 724742919, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -13, y: 4, z: 0}
@@ -10451,6 +10479,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1340967441}
     m_Modifications:
+    - target: {fileID: 2569425881325054637, guid: b88d1a31c4ee91540b7f6ae227beed98, type: 3}
+      propertyPath: health
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4992413997479346119, guid: b88d1a31c4ee91540b7f6ae227beed98, type: 3}
       propertyPath: m_Name
       value: Torch_Red
@@ -10461,11 +10493,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6062056325615197215, guid: b88d1a31c4ee91540b7f6ae227beed98, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.49
+      value: -12.301
       objectReference: {fileID: 0}
     - target: {fileID: 6062056325615197215, guid: b88d1a31c4ee91540b7f6ae227beed98, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.05
+      value: -5.192
       objectReference: {fileID: 0}
     - target: {fileID: 6062056325615197215, guid: b88d1a31c4ee91540b7f6ae227beed98, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10477,15 +10509,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6062056325615197215, guid: b88d1a31c4ee91540b7f6ae227beed98, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6062056325615197215, guid: b88d1a31c4ee91540b7f6ae227beed98, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6062056325615197215, guid: b88d1a31c4ee91540b7f6ae227beed98, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6062056325615197215, guid: b88d1a31c4ee91540b7f6ae227beed98, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

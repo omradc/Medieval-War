@@ -58,7 +58,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         AnimationEventController animationEventController;
         UnitPathFinding2D pF2D;
-        UnitAI unitAI;
+        public UnitAI unitAI;
         AttackAI attackAI;
         DefendAI defendAI;
         StayAI stayAI;
@@ -97,7 +97,6 @@ namespace Assets.Scripts.Concrete.Controllers
             InvokeRepeating(nameof(OptimumAITurnDirection), 0.1f, turnDirectionPerTime);
 
         }
-
         private void Update()
         {
             // Sadece takip edilecek birim atamasý yapýlýr
@@ -120,26 +119,24 @@ namespace Assets.Scripts.Concrete.Controllers
 
             unitAttack.AttackOn();
         }
-
         void OptimumDetechEnemies()
         {
             //if (unitTypeEnum == UnitTypeEnum.Villager) return;
             followTargets = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemy);
         }
-
         void OptimumAITurnDirection()
         {
-
-
-            // Oyuncunun hareket emri her zaman önceliklidir
-            if (pF2D.moveCommand) return;
+            // Oyuncunun hareket emri her zaman önceliklidir || Sadece düþman varsa çalýþýr
+            if (pF2D.moveCommand || unitAI.DetechNearestTarget() == null) return;
 
             // pF2D.pathLeftToGo[0]; hedefe giderken kullandýðý yol
-            if (unitTypeEnum == UnitTypeEnum.Villager && pF2D.pathLeftToGo.Count > 0)
-                direction.Turn2Direction(pF2D.pathLeftToGo[0].x);
-
-            // Sadece düþman varsa çalýþýr
-            if (unitAI.DetechNearestTarget() == null) return;
+            if (unitTypeEnum == UnitTypeEnum.Villager)
+            {
+                if (pF2D.isPathEnd)
+                    direction.Turn2Direction(unitAI.DetechNearestTarget().transform.position.x);
+                else if (pF2D.pathLeftToGo.Count > 0)
+                    direction.Turn2Direction(pF2D.pathLeftToGo[0].x);
+            }
 
             if (unitTypeEnum == UnitTypeEnum.Archer)
             {
@@ -151,11 +148,17 @@ namespace Assets.Scripts.Concrete.Controllers
                     direction.Turn8Direction(pF2D.pathLeftToGo[0]);
 
             }
-            if (unitTypeEnum == UnitTypeEnum.Worrior && pF2D.pathLeftToGo.Count > 0)
-                direction.Turn4Direction(pF2D.pathLeftToGo[0]);
+            if (unitTypeEnum == UnitTypeEnum.Worrior)
+            {
+                // Durduðunda hadefe bak
+                if (pF2D.isPathEnd)
+                    direction.Turn4Direction(unitAI.DetechNearestTarget().transform.position);
+                // Ýlerlediðinde yola bak
+                else if (pF2D.pathLeftToGo.Count > 0)
+                    direction.Turn4Direction(pF2D.pathLeftToGo[0]);
+            }
 
         }
-
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
