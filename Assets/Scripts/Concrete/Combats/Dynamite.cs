@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Concrete.Managers;
+﻿using Assets.Scripts.Concrete.Controllers;
+using Assets.Scripts.Concrete.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,12 @@ namespace Assets.Scripts.Concrete.Combats
 {
     internal class Dynamite : MonoBehaviour
     {
-        public GameObject target;
-        public LayerMask targetLayer;
-        public int damage = 0;
-        public float radius = 0.5f;
-        public float dynamiteSpeed = 10;
-        public Collider2D[] hits;
+        [HideInInspector] public GameObject target;
+        [HideInInspector] public LayerMask targetLayer;
+        [HideInInspector] public int damage = 0;
+        [HideInInspector] public float radius = 0.5f;
+        [HideInInspector] public float dynamiteSpeed = 10;
+        Collider2D[] hits;
         float dynamiteExplosionDistance = 0.3f;
         bool isExploded;
         public float rotateValue;
@@ -67,7 +68,7 @@ namespace Assets.Scripts.Concrete.Combats
                 hits = Physics2D.OverlapCircleAll(transform.position, radius, targetLayer);
                 for (int i = 0; i < hits.Length; i++)
                 {
-                    hits[i].GetComponent<Health>().GetHit(damage);
+                    hits[i].GetComponent<HealthController>().GetHit(damage);
                 }
 
                 explosion.SetActive(true);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Concrete.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,7 +47,7 @@ namespace Assets.Scripts.Concrete.Combats
             {
                 transform.GetChild(0).gameObject.SetActive(false);
                 // Hasar ver
-                Health health = target.GetComponent<Health>();
+                HealthController health = target.GetComponent<HealthController>();
                 health.GetHit(damage);
 
                 // Hedefe saplanınca dur

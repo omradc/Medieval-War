@@ -35,7 +35,8 @@ namespace Assets.Scripts.Concrete.Combats
             if (order.DetechNearestTarget() == null)
             {
                 //Düşman yoksa ve saldırı animasyonu oynarsa, idle oynar
-                if (pF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Front") || pF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Up") || pF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Down"))
+                if (pF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Front") || pF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Up") || pF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Down")
+                    || pF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_UpFront") || pF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_DownFront"))
                     AnimationManager.Instance.IdleAnim(pF2D.animator);
                 return;
             }
@@ -63,7 +64,7 @@ namespace Assets.Scripts.Concrete.Combats
             for (int i = 0; i < uC.hitTargets.Length; i++)
             {
                 if (uC.hitTargets != null)
-                    uC.hitTargets[i].GetComponent<Health>().GetHit(uC.currentDamage);
+                    uC.hitTargets[0].GetComponent<HealthController>().GetHit(uC.currentDamage);
             }
         }
         void VillagerAttack()
@@ -72,7 +73,7 @@ namespace Assets.Scripts.Concrete.Combats
             for (int i = 0; i < uC.hitTargets.Length; i++)
             {
                 if (uC.hitTargets != null)
-                    uC.hitTargets[i].GetComponent<Health>().GetHit(uC.currentDamage);
+                    uC.hitTargets[i].GetComponent<HealthController>().GetHit(uC.currentDamage);
                 Debug.Log(uC.hitTargets[i].name);
             }
         }

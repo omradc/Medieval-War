@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Concrete.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,10 +10,10 @@ namespace Assets.Scripts.Concrete.Combats
 {
     internal class Explosion : MonoBehaviour
     {
-        public int damage = 0;
-        public float radius = 0.5f;
-        public Collider2D[] hits;
-        public LayerMask targetLayer;
+        [HideInInspector] public int damage = 0;
+        [HideInInspector] public float radius = 0.5f;
+        [HideInInspector] public LayerMask targetLayer;
+        Collider2D[] hits;
         private void Start()
         {
             transform.localScale = new Vector2(radius * 2, radius * 2);
@@ -20,7 +21,7 @@ namespace Assets.Scripts.Concrete.Combats
             hits = Physics2D.OverlapCircleAll(transform.position, radius, targetLayer);
             for (int i = 0; i < hits.Length; i++)
             {
-                hits[i].GetComponent<Health>().GetHit(damage);
+                hits[i].GetComponent<HealthController>().GetHit(damage);
             }
             Destroy(gameObject, 0.67f);
         }

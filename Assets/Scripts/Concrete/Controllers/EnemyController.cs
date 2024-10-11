@@ -52,7 +52,9 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
         public Collider2D[] playerUnits;
         public Collider2D[] playerBuildings;
+        public Collider2D[] playerObjs;
         public Collider2D[] hitTargets;
+        public LayerMask targetAll;
         public LayerMask targetUnits;
         public LayerMask targetBuildings;
         [HideInInspector] public Vector2 attackRangePosition;
@@ -102,13 +104,18 @@ namespace Assets.Scripts.Concrete.Controllers
 
         void OptimumDetech()
         {
-            playerUnits = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetUnits);
             if (enemyTypeEnum == EnemyTypeEnum.Barrel)
+            {
+                playerUnits = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetUnits);
                 playerBuildings = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetBuildings);
+            }
+            else
+                playerObjs = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetAll);
         }
 
         void OptimumAITurnDirection()
         {
+            print(enemyAI.DetechNearestTarget());
             // ePF2D.pathLeftToGo[0]; hedefe giderken kullandığı yol
             if (enemyAI.DetechNearestTarget() == null) return;
             if (enemyTypeEnum == EnemyTypeEnum.Dynamite || enemyTypeEnum == EnemyTypeEnum.Barrel)

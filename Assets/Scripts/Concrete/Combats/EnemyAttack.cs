@@ -56,17 +56,18 @@ namespace Assets.Scripts.Concrete.Combats
         }
         void TorchAttack()
         {
-            eC.hitTargets = Physics2D.OverlapCircleAll(eC.torchAttackPoint.position, eC.currentAttackRadius, eC.targetUnits);
+            eC.hitTargets = Physics2D.OverlapCircleAll(eC.torchAttackPoint.position, eC.currentAttackRadius, eC.targetAll);
             for (int i = 0; i < eC.hitTargets.Length; i++)
             {
                 if (eC.hitTargets != null)
-                    eC.hitTargets[i].GetComponent<Health>().GetHit(eC.currentDamage);
+                    eC.hitTargets[0].GetComponent<HealthController>().GetHit(eC.currentDamage);
             }
         }
         void DynamiteAttack()
         {
             GameObject obj = Object.Instantiate(eC.dynamite, eC.attackRangePosition, Quaternion.identity);
             Dynamite dynamite = obj.GetComponent<Dynamite>();
+            dynamite.targetLayer = eC.targetAll;
             dynamite.target = enemyAI.DetechNearestTarget();
             dynamite.damage = eC.currentDamage;
             dynamite.radius = eC.currentDynamiteExplosionRadius;
@@ -76,6 +77,7 @@ namespace Assets.Scripts.Concrete.Combats
         {
             GameObject obj = Object.Instantiate(eC.explosion, eC.attackRangePosition, Quaternion.identity);
             Explosion explosion = obj.GetComponent<Explosion>();
+            explosion.targetLayer = eC.targetAll;
             explosion.damage = eC.currentDamage;
             explosion.radius = eC.currentBarrelExplosionRadius;
             Object.Destroy(eC.gameObject);

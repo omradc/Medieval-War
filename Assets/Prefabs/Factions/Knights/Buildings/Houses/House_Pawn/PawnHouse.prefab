@@ -394,8 +394,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc81ccb732316a409f31fe78ccab9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthObj: {fileID: 7604016141280451264}
   health: 10
   currentHealth: 0
+  visibileTime: 3
+  currentTime: 0
 --- !u!1 &8767804651574092585
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,6 +617,11 @@ GameObject:
 --- !u!224 &5109552084489560326 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6513960741865516999, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+  m_PrefabInstance: {fileID: 2057857253458874049}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7604016141280451264 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8433023426544473089, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
   m_PrefabInstance: {fileID: 2057857253458874049}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &7757900011624172198 stripped
