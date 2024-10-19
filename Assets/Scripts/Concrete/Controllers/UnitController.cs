@@ -46,7 +46,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public bool workOnce = true;
 
         public int currentDamage;
-        public float currentSpeed;
+        public float currentMoveSpeed;
         public float currentAttackSpeed;
         public float currentAttackRange;
         public float currentSightRange;
@@ -83,7 +83,7 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Start()
         {
             unitAttack = new UnitAttack(this, unitAI, pF2D, animationEventController);
-            currentSpeed = moveSpeed / 100;
+            //currentSpeed = moveSpeed / 100;
             currentDamage = damage;
             currentAttackSpeed = attackSpeed;
             currentAttackRadius = attackRadius;
@@ -99,6 +99,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Update()
         {
+            currentMoveSpeed = moveSpeed * Time.deltaTime;
             // Sadece takip edilecek birim atamasý yapýlýr
             if (unitOrderEnum == UnitOrderEnum.FollowOrder)
                 followAI.SetFollowUnit();

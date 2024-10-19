@@ -117,7 +117,12 @@ MonoBehaviour:
   healthObj: {fileID: 5668565058135566213}
   health: 10
   currentHealth: 0
-  visibileTime: 3
+  regeneration: 1
+  isTakeDamage: 0
+  takeDamageTime: 5
+  regrenationTime: 1
+  currentTakeDamageTime: 0
+  currentRegrenationTime: 0
 --- !u!114 &6509422717109881787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,14 +144,14 @@ MonoBehaviour:
   dynamiteExplosionRadius: 0.5
   explosion: {fileID: 5760141080254190359, guid: 8daf93f34db32dc47827a45011fa44ba, type: 3}
   barrelExplosionRadius: 2
-  speed: 0.4
+  moveSpeed: 1
   damage: 10
   attackSpeed: 1
   attackDelay: 0
   sightRange: 8
   attackRange: 1
   currentDamage: 0
-  currentSpeed: 0
+  currentMoveSpeed: 0
   currentAttackSpeed: 0
   currentAttackDelay: 0
   currentAttackRange: 0

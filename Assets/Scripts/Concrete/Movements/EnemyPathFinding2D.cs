@@ -35,8 +35,8 @@ namespace Assets.Scripts.Concrete.Movements
             if (pathLeftToGo.Count > 0) //if the target is not yet reached
             {
                 Vector3 dir = (Vector3)pathLeftToGo[0] - transform.position;
-                transform.position += dir.normalized * eC.currentSpeed;
-                if (((Vector2)transform.position - pathLeftToGo[0]).sqrMagnitude < eC.currentSpeed * eC.currentSpeed)
+                transform.position += dir.normalized * eC.currentMoveSpeed;
+                if (((Vector2)transform.position - pathLeftToGo[0]).sqrMagnitude < eC.currentMoveSpeed * eC.currentMoveSpeed)
                 {
                     transform.position = pathLeftToGo[0];
                     pathLeftToGo.RemoveAt(0);

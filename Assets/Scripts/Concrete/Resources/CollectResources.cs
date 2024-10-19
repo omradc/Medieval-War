@@ -91,7 +91,6 @@ namespace Assets.Scripts.Concrete.Resources
 
             if (cR.returnHome)
             {
-                Debug.Log("returnHome");
                 // Eve ulaşınca dur
                 if (Vector2.Distance(cR.transform.position, cR.homePos) > .5f)
                 {

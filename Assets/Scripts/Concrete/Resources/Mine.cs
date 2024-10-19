@@ -9,7 +9,7 @@ namespace Assets.Scripts.Concrete.Resources
     {
         int villagerNumber;
         public int mineAmount;
-        [HideInInspector] public float currentMineAmount;
+        public float currentMineAmount;
         GameObject activated;
         GameObject inactivited;
         GameObject destroyed;

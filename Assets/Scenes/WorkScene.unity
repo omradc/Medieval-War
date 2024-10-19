@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &55776571
 Transform:
   m_ObjectHideFlags: 0
@@ -1030,7 +1030,7 @@ Tilemap:
       - {fileID: 1816328106, guid: 15d444c86e36db44bb6479d7c0f853c5, type: 3}
       - {fileID: 451902486, guid: 15d444c86e36db44bb6479d7c0f853c5, type: 3}
       - {fileID: 1073742873, guid: 15d444c86e36db44bb6479d7c0f853c5, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -13, y: -1, z: 0}
@@ -1393,6 +1393,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2776156620278420628, guid: 0c106a13fe1d7ce4d85dc6f660944df8, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776156620278420628, guid: 0c106a13fe1d7ce4d85dc6f660944df8, type: 3}
+      propertyPath: moveSpeed
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4992413997479346119, guid: 0c106a13fe1d7ce4d85dc6f660944df8, type: 3}
@@ -4106,6 +4110,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1985627084138758908, guid: 6727fa4fb299f9c45954f7a355d61397, type: 3}
   m_PrefabInstance: {fileID: 1583082563}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1496386988
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339055801934857768, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 447345125501323559, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: m_Name
+      value: Warrior_Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430360497908541152, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: moveSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5580466120689005838, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: upLeft
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5580466120689005838, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+      propertyPath: moveSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
 --- !u!4 &1509685696 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5738778097776825618, guid: d5a60040e76b6a340a75ecdc4c6b63f6, type: 3}
@@ -4305,6 +4378,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 55776571}
     m_Modifications:
+    - target: {fileID: 2776156620278420628, guid: f72f6682981188540a9c90ba1e265c99, type: 3}
+      propertyPath: moveSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4992413997479346119, guid: f72f6682981188540a9c90ba1e265c99, type: 3}
       propertyPath: m_Name
       value: Torch_Blue
@@ -9563,7 +9640,7 @@ Tilemap:
       - {fileID: 766629742, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 53322940, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
       - {fileID: 724742919, guid: b720ddc2a29d75e448e5851422ea113b, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 1, y: 2, z: 0}
@@ -9824,6 +9901,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 55776571}
     m_Modifications:
+    - target: {fileID: 2776156620278420628, guid: bb7fc969d87d2fd4e99568e7e49e312c, type: 3}
+      propertyPath: moveSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4992413997479346119, guid: bb7fc969d87d2fd4e99568e7e49e312c, type: 3}
       propertyPath: m_Name
       value: Torch_Purple
@@ -10218,6 +10299,10 @@ PrefabInstance:
       propertyPath: health
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2776156620278420628, guid: b88d1a31c4ee91540b7f6ae227beed98, type: 3}
+      propertyPath: moveSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4992413997479346119, guid: b88d1a31c4ee91540b7f6ae227beed98, type: 3}
       propertyPath: m_Name
       value: Torch_Red
@@ -10557,3 +10642,4 @@ SceneRoots:
   - {fileID: 286387029}
   - {fileID: 8617177998534655618}
   - {fileID: 1890476827}
+  - {fileID: 1496386988}

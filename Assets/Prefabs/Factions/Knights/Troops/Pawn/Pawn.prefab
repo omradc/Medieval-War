@@ -212,7 +212,7 @@ MonoBehaviour:
   arrow: {fileID: 0}
   arrowSpeed: 0
   damage: 1
-  moveSpeed: 0.7
+  moveSpeed: 1
   attackSpeed: 1
   attackRange: 0.7
   sightRange: 4
@@ -228,7 +228,7 @@ MonoBehaviour:
   followingObj: {fileID: 0}
   workOnce: 1
   currentDamage: 0
-  currentSpeed: 0
+  currentMoveSpeed: 0
   currentAttackSpeed: 0
   currentAttackRange: 0.7
   currentSightRange: 4
@@ -249,9 +249,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc81ccb732316a409f31fe78ccab9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthObj: {fileID: 1816513376359016223}
   health: 10
   currentHealth: 0
-  fillImage: {fileID: 3590715909129449509}
+  regeneration: 1
+  isTakeDamage: 0
+  takeDamageTime: 5
+  regrenationTime: 1
+  currentTakeDamageTime: 0
+  currentRegrenationTime: 0
 --- !u!114 &-9060488368643723994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1505,17 +1511,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c63b495cb0c527748b5ca667952ffe74, type: 3}
---- !u!114 &3590715909129449509 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9162000930103680896, guid: c63b495cb0c527748b5ca667952ffe74, type: 3}
+--- !u!1 &1816513376359016223 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6324376724142164154, guid: c63b495cb0c527748b5ca667952ffe74, type: 3}
   m_PrefabInstance: {fileID: 5688396343360483237}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &5752915865177637034 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 83114464382988047, guid: c63b495cb0c527748b5ca667952ffe74, type: 3}

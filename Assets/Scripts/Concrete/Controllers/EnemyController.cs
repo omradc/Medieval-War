@@ -27,7 +27,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public float barrelExplosionRadius = 2;
 
         [Header("ENEMY UNİT")]
-        [Range(0.1f, 2f)] public float speed;
+        [Range(0.1f, 2f)] public float moveSpeed;
         public int damage;
         public float attackSpeed;
         public float attackDelay;
@@ -36,7 +36,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
 
         public int currentDamage;
-        public float currentSpeed;
+        public float currentMoveSpeed;
         public float currentAttackSpeed;
         public float currentAttackDelay;
         public float currentAttackRange;
@@ -76,7 +76,6 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Start()
         {
             enemyAttack = new(this, enemyAI, ePF2D, animationEventController);
-            currentSpeed = speed / 100;
             currentDamage = damage;
             currentAttackSpeed = attackSpeed;
             currentAttackDelay = attackDelay;
@@ -91,6 +90,11 @@ namespace Assets.Scripts.Concrete.Controllers
             InvokeRepeating(nameof(OptimumEnemyAI), .1f, enemyAIPerTime);
             InvokeRepeating(nameof(OptimumDetech), .5f, detechTargetPerTime);
             InvokeRepeating(nameof(OptimumAITurnDirection), 0.1f, turnDirectionPerTime);
+        }
+
+        private void Update()
+        {
+            currentMoveSpeed = moveSpeed * Time.deltaTime;
         }
         void OptimumEnemyAI()
         {
