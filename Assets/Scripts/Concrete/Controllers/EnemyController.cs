@@ -119,7 +119,6 @@ namespace Assets.Scripts.Concrete.Controllers
 
         void OptimumAITurnDirection()
         {
-            print(enemyAI.DetechNearestTarget());
             // ePF2D.pathLeftToGo[0]; hedefe giderken kullandığı yol
             if (enemyAI.DetechNearestTarget() == null) return;
             if (enemyTypeEnum == EnemyTypeEnum.Dynamite || enemyTypeEnum == EnemyTypeEnum.Barrel)
