@@ -50,7 +50,7 @@ namespace Assets.Scripts.Concrete.Resources
                 for (int i = 0; i < 3; i++)
                 {
                     GameObject wood = Instantiate(resourceWood, transform.position + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0), Quaternion.identity);
-                    Destroy(wood, collectTime);
+                    Destroy(wood, collectTime - 0.5f); // 0.5 saniye erken yok olur
                 }
 
                 destruct = true;

@@ -10,20 +10,21 @@ namespace Assets.Scripts.Concrete.Controllers
     {
         public GameObject targetResource;
         public float dropResourceLifeTime = 3;
+
         [Header("TREE")]
-        public GameObject nearestTree;
-        public Vector2 treeChopPos;
+        [HideInInspector] public GameObject nearestTree;
+        [HideInInspector] public Vector2 treeChopPos;
         public int treeDamagePoint;
         public float chopSpeed;
         public float chopTreeSightRange;
         public float woodCollectTime;
         public LayerMask treeLayer;
-        public Vector3 distanceToTreePos;
-        public Collider2D[] trees;
+        [HideInInspector] public Vector3 distanceToTreePos;
+        [HideInInspector] public Collider2D[] trees;
         public GameObject resourceWood;
         public int collectWoodAmount;
         public int collectMeatCount;
-        public bool isFirstTree;
+        [HideInInspector] public bool isFirstTree;
 
         [Header("MİNE")]
         public float miningTime;
@@ -31,31 +32,31 @@ namespace Assets.Scripts.Concrete.Controllers
         public int collectRockAmount;
         public GameObject resourceGold;
         public GameObject resourceRock;
-        public Mine mine;
+        [HideInInspector] public Mine mine;
 
 
         [Header("SHEEP")]
-        public Fence fence;
-        public GameObject fenceObj;
+        [HideInInspector] public Fence fence;
+        [HideInInspector] public GameObject fenceObj;
         public GameObject resourceMeat;
         public float meatCollectTime;
 
 
-        public Vector3 homePos;
-        public float currentChopTreeSightRange;
-        public int currentTreeDamagePoint;
-        public float tChop;
-        public float tCollect;
-        public float tMining;
-        public bool returnHome;
-        public bool returnFences;
-        public bool workOnce;
-        public bool workOnce2;
-        public bool workOnceForTree = true;
-        public bool isMineEmpty;
-        public bool isTree;
-        public bool isMine;
-        public bool isSheep;
+        [HideInInspector] public Vector3 homePos;
+        [HideInInspector] public float currentChopTreeSightRange;
+        [HideInInspector] public int currentTreeDamagePoint;
+        [HideInInspector] public float tChop;
+        [HideInInspector] public float tCollect;
+        [HideInInspector] public float tMining;
+        [HideInInspector] public bool returnHome;
+        [HideInInspector] public bool returnFences;
+        [HideInInspector] public bool workOnce;
+        [HideInInspector] public bool workOnce2;
+        [HideInInspector] public bool workOnceForTree = true;
+        [HideInInspector] public bool isMineEmpty;
+        [HideInInspector] public bool isTree;
+        [HideInInspector] public bool isMine;
+        [HideInInspector] public bool isSheep;
 
 
         [HideInInspector] public UnitController uC;

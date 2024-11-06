@@ -10,9 +10,9 @@ namespace Assets.Scripts.Concrete.Controllers
         [SerializeField] GameObject unit;
         public Vector3 trainedUnitPos;
         public Image timerFillImage;
+        public float currentTime;
         PanelController panelController;
         ButtonController buttonController;
-        public float currentTime;
         public float trainingTime;
         Barrack barrack;
         IInput ıInput;

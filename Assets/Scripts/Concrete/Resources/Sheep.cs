@@ -30,6 +30,13 @@ namespace Assets.Scripts.Concrete.Resources
             InvokeRepeating(nameof(OptimumSetDirection), 0.1f, .5f);
         }
 
+        private void Update()
+        {
+            FollowTheVillager();
+            GoFence();
+            ReadyToGiveMeat();
+        }
+
         // Köylü koyunu bulunca onu evcilleştirir
         public void TameSheep(GameObject villager, GameObject fenceObj)
         {
@@ -48,12 +55,6 @@ namespace Assets.Scripts.Concrete.Resources
 
 
             }
-        }
-        private void Update()
-        {
-            FollowTheVillager();
-            GoFence();
-            ReadyToGiveMeat();
         }
         void FollowTheVillager()
         {
@@ -119,7 +120,7 @@ namespace Assets.Scripts.Concrete.Resources
         public void DropMeat(float meatLifeTime)
         {
             GameObject meat = Instantiate(resourceMeat, transform.position, Quaternion.identity);
-            Destroy(meat, meatLifeTime);
+            Destroy(meat, meatLifeTime - .5f); // 0.5 saniye erken yok olur
         }
         public void CheckFences()
         {

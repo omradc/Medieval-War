@@ -35,16 +35,16 @@ namespace Assets.Scripts.Concrete.Controllers
         public float attackRange;
 
 
-        public int currentDamage;
-        public float currentMoveSpeed;
-        public float currentAttackSpeed;
-        public float currentAttackDelay;
-        public float currentAttackRange;
-        public float currentSightRange;
-        public float currentAttackRadius;
-        public float currentDynamiteSpeed;
-        public float currentDynamiteExplosionRadius;
-        public float currentBarrelExplosionRadius;
+        [HideInInspector] public int currentDamage;
+        [HideInInspector] public float currentMoveSpeed;
+        [HideInInspector] public float currentAttackSpeed;
+        [HideInInspector] public float currentAttackDelay;
+        [HideInInspector] public float currentAttackRange;
+        [HideInInspector] public float currentSightRange;
+        [HideInInspector] public float currentAttackRadius;
+        [HideInInspector] public float currentDynamiteSpeed;
+        [HideInInspector] public float currentDynamiteExplosionRadius;
+        [HideInInspector] public float currentBarrelExplosionRadius;
 
         [Header("UNIT SETTİNGS")]
         [Range(0.1f, 1f)] public float enemyAIPerTime = 0.5f;

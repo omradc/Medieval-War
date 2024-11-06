@@ -17,10 +17,9 @@ namespace Assets.Scripts.Concrete.Managers
         public float distanceBetweenUnits;
 
         [Header("Setups")]
-        [SerializeField] LayerMask troopLayer;
+        public UnitOrderEnum unitOrderEnum;
         IMove ıMove;
         IInput ıInput;
-        public UnitOrderEnum unitOrderEnum;
         private void Awake()
         {
             Singelton();

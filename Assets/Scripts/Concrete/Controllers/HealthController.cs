@@ -11,11 +11,11 @@ namespace Assets.Scripts.Concrete.Controllers
         [SerializeField] float health;
         [SerializeField] float currentHealth;
         [SerializeField] float regeneration = 1;
-        public bool isTakeDamage;
         public float takeDamageTime = 5;
-        public float regrenationTime = 1;
-        public float currentTakeDamageTime;
-        public float currentRegrenationTime;
+        public float regrenationPerTime = 1;
+        [HideInInspector] public bool isTakeDamage;
+        [HideInInspector] public float currentTakeDamageTime;
+        [HideInInspector] public float currentRegrenationPerTime;
         Image fillImage;
         private void Awake()
         {
@@ -68,11 +68,11 @@ namespace Assets.Scripts.Concrete.Controllers
                 {
                     return;
                 }
-                currentRegrenationTime += 1;
-                if (currentRegrenationTime >= regrenationTime)
+                currentRegrenationPerTime += 1;
+                if (currentRegrenationPerTime >= regrenationPerTime)
                 {
                     currentHealth += regeneration;
-                    currentRegrenationTime = 0;
+                    currentRegrenationPerTime = 0;
                 }
             }
         }

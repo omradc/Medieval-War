@@ -15,20 +15,20 @@ namespace Assets.Scripts.Concrete.Movements
         protected bool snapToGrid = false;
         //protected Vector2 targetNode; //target in 2D space
         protected List<Vector2> path;
-        public List<Vector2> pathLeftToGo = new List<Vector2>();
+        [HideInInspector] public List<Vector2> pathLeftToGo = new List<Vector2>();
         protected bool drawDebugLines;
 
-        public bool right;
-        public bool left;
-        public bool up;
-        public bool down;
-        public bool upRight;
-        public bool upLeft;
-        public bool downRight;
-        public bool downLeft;
-        public bool isUserPathFinding;
-        public bool isPathEnd;
-        public bool moveCommand;
+        [HideInInspector] public bool right;
+        [HideInInspector] public bool left;
+        [HideInInspector] public bool up;
+        [HideInInspector] public bool down;
+        [HideInInspector] public bool upRight;
+        [HideInInspector] public bool upLeft;
+        [HideInInspector] public bool downRight;
+        [HideInInspector] public bool downLeft;
+        [HideInInspector] public bool isUserPathFinding;
+        [HideInInspector] public bool isPathEnd;
+        [HideInInspector] public bool moveCommand;
 
 
         //Update ile çalışamamalı, her karede yeni bir liste oluşturur

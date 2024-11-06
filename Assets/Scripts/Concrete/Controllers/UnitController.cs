@@ -13,7 +13,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         [Header("UNIT TYPE")]
         public UnitTypeEnum unitTypeEnum;
-        public bool isSeleceted;
+        [HideInInspector] public bool isSeleceted;
 
         [Header("Worrior And Villager")]
         public float attackRadius;
@@ -21,8 +21,8 @@ namespace Assets.Scripts.Concrete.Controllers
         public float attackPointDistance;
 
         [Header("Archer")]
-        public GameObject arrow;
         public float arrowSpeed;
+        [HideInInspector] public GameObject arrow;
 
 
         [Space(30)]
@@ -38,27 +38,27 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(0.1f, 1f)] public float detechTargetPerTime = 0.5f;
         [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
         [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
-        public Collider2D[] followTargets;
-        public Collider2D[] hitTargets;
         public LayerMask enemy;
 
-        public GameObject followingObj;
-        public bool workOnce = true;
+        [HideInInspector] public Collider2D[] followTargets;
+        [HideInInspector] public Collider2D[] hitTargets;
 
-        public int currentDamage;
-        public float currentMoveSpeed;
-        public float currentAttackSpeed;
-        public float currentAttackRange;
-        public float currentSightRange;
-        public float currentAttackRadius;
-        public float currentArrowSpeed;
-        public UnitOrderEnum unitOrderEnum;
+        [HideInInspector] public GameObject followingObj;
+        [HideInInspector] public bool workOnce = true;
+        [HideInInspector] public int currentDamage;
+        [HideInInspector] public float currentMoveSpeed;
+        [HideInInspector] public float currentAttackSpeed;
+        [HideInInspector] public float currentAttackRange;
+        [HideInInspector] public float currentSightRange;
+        [HideInInspector] public float currentAttackRadius;
+        [HideInInspector] public float currentArrowSpeed;
+        [HideInInspector] public UnitOrderEnum unitOrderEnum;
         [HideInInspector] public Vector2 attackRangePosition;
         [HideInInspector] public Vector2 sightRangePosition;
 
         AnimationEventController animationEventController;
         UnitPathFinding2D pF2D;
-        public UnitAI unitAI;
+        [HideInInspector] public UnitAI unitAI;
         AttackAI attackAI;
         DefendAI defendAI;
         StayAI stayAI;
