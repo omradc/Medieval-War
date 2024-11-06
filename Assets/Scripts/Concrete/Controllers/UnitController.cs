@@ -99,7 +99,9 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Update()
         {
+            // Hareket hýzýný fps farkýna göre ayarla
             currentMoveSpeed = moveSpeed * Time.deltaTime;
+
             // Sadece takip edilecek birim atamasý yapýlýr
             if (unitOrderEnum == UnitOrderEnum.FollowOrder)
                 followAI.SetFollowUnit();

@@ -127,5 +127,19 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             }
 
         }
+
+        public void TwoPointPatrolling()
+        {
+
+        }
+        public void CirclePatrolling()
+        {
+
+        }
+        public void RandomPatrolling()
+        {
+
+        }
+
     }
 }

@@ -94,6 +94,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         private void Update()
         {
+            // Hareket hızını fps farkına göre ayarla
             currentMoveSpeed = moveSpeed * Time.deltaTime;
         }
         void OptimumEnemyAI()
@@ -135,7 +136,6 @@ namespace Assets.Scripts.Concrete.Controllers
             if (enemyTypeEnum == EnemyTypeEnum.Torch && ePF2D.pathLeftToGo.Count > 0)
                 direction.Turn4Direction(ePF2D.pathLeftToGo[0]);
         }
-
 
         private void OnDrawGizmos()
         {
