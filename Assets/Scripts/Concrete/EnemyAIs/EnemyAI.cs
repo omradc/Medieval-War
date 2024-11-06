@@ -103,7 +103,6 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             else
                 return null;
         }
-
         public void CatchNeraestTarget()
         {
             if (DetechNearestTarget() == null) return;
