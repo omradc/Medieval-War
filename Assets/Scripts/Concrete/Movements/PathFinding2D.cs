@@ -15,7 +15,7 @@ namespace Assets.Scripts.Concrete.Movements
         protected bool snapToGrid = false;
         //protected Vector2 targetNode; //target in 2D space
         protected List<Vector2> path;
-        [HideInInspector] public List<Vector2> pathLeftToGo = new List<Vector2>();
+        public List<Vector2> pathLeftToGo = new List<Vector2>();
         protected bool drawDebugLines;
 
         [HideInInspector] public bool right;

@@ -2,8 +2,7 @@
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using System;
-using System.Linq;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.EnemyAIs
@@ -12,6 +11,8 @@ namespace Assets.Scripts.Concrete.EnemyAIs
     {
         EnemyController eC;
         EnemyPathFinding2D ePF2D;
+        Vector3 targetPoint;
+        float time;
         public EnemyAI(EnemyController enemyController, EnemyPathFinding2D enemyPathFinding2D)
         {
             eC = enemyController;
@@ -128,15 +129,39 @@ namespace Assets.Scripts.Concrete.EnemyAIs
 
         }
 
-        public void TwoPointPatrolling()
-        {
 
-        }
         public void CirclePatrolling()
         {
+            if (eC.patrolling)
+            {
+                eC.patrolling = false;
+                targetPoint = Vector2.zero;
+                targetPoint = new Vector3(Random.Range(-eC.patrollingDistance, eC.patrollingDistance), Random.Range(-eC.patrollingDistance, eC.patrollingDistance));
+                ePF2D.AIGetMoveCommand(targetPoint);
+                AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
+            }
+
+
+            Debug.Log(ePF2D.pathLeftToGo.Count);
+
+            if (ePF2D.pathLeftToGo.Count == 0)
+            {
+                time++;
+
+                if (time >= eC.waitingTime)
+                {
+                    time = 0;
+                    eC.patrolling = true;
+                }
+            }
+        }
+
+
+        public void RandomPatrolling()
+        {
 
         }
-        public void RandomPatrolling()
+        public void TwoPointPatrolling()
         {
 
         }

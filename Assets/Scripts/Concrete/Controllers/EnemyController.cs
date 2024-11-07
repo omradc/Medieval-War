@@ -12,17 +12,17 @@ namespace Assets.Scripts.Concrete.Controllers
         [Header("UNIT TYPE")]
         public EnemyTypeEnum enemyTypeEnum;
 
-        [Header("Torch")]
+        [Header("TORCH")]
         public float attackRadius;
         public Transform torchAttackPoint;
         public float torchAttackPointDistance;
 
-        [Header("Dynamite")]
+        [Header("DYNAMİTE")]
         public GameObject dynamite;
         public float dynamiteSpeed;
         public float dynamiteExplosionRadius = .5f;
 
-        [Header("Barrel")]
+        [Header("BARREL")]
         public GameObject explosion;
         public float barrelExplosionRadius = 2;
 
@@ -33,18 +33,6 @@ namespace Assets.Scripts.Concrete.Controllers
         public float attackDelay;
         public float sightRange;
         public float attackRange;
-
-
-        [HideInInspector] public int currentDamage;
-        [HideInInspector] public float currentMoveSpeed;
-        [HideInInspector] public float currentAttackSpeed;
-        [HideInInspector] public float currentAttackDelay;
-        [HideInInspector] public float currentAttackRange;
-        [HideInInspector] public float currentSightRange;
-        [HideInInspector] public float currentAttackRadius;
-        [HideInInspector] public float currentDynamiteSpeed;
-        [HideInInspector] public float currentDynamiteExplosionRadius;
-        [HideInInspector] public float currentBarrelExplosionRadius;
 
         [Header("UNIT SETTİNGS")]
         [Range(0.1f, 1f)] public float enemyAIPerTime = 0.5f;
@@ -60,7 +48,23 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public Vector2 attackRangePosition;
         [HideInInspector] public Vector2 sightRangePosition;
 
+        [Header("PATROLLİNG")]
+        public float patrollingDistance;
+        public bool patrolling = true;
+        public float waitingTime;
 
+
+
+        [HideInInspector] public int currentDamage;
+        [HideInInspector] public float currentMoveSpeed;
+        [HideInInspector] public float currentAttackSpeed;
+        [HideInInspector] public float currentAttackDelay;
+        [HideInInspector] public float currentAttackRange;
+        [HideInInspector] public float currentSightRange;
+        [HideInInspector] public float currentAttackRadius;
+        [HideInInspector] public float currentDynamiteSpeed;
+        [HideInInspector] public float currentDynamiteExplosionRadius;
+        [HideInInspector] public float currentBarrelExplosionRadius;
         [HideInInspector] public EnemyDirection direction;
         EnemyAttack enemyAttack;
         EnemyAI enemyAI;
@@ -104,6 +108,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
             enemyAI.CatchNeraestTarget();
             enemyAI.StopWhenAttackDistance();
+            enemyAI.CirclePatrolling();
             enemyAttack.Attack();
         }
 
@@ -152,6 +157,8 @@ namespace Assets.Scripts.Concrete.Controllers
 
             }
 
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(Vector3.zero, patrollingDistance);
         }
     }
 }
