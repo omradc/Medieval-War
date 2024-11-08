@@ -123,6 +123,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd23bc4847eb7b647ac65a1e0dd5a2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4230540001573677507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5226775457644410607}
+  - component: {fileID: 2022734392369459014}
+  m_Layer: 20
+  m_Name: ' Collider'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5226775457644410607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4230540001573677507}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.32, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9207717967758546230}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &2022734392369459014
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4230540001573677507}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.4
 --- !u!1 &7806918734919615237
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,6 +204,7 @@ GameObject:
   - component: {fileID: 9198134164485683074}
   - component: {fileID: 6551815883493310088}
   - component: {fileID: 4537086630207440346}
+  - component: {fileID: 4385215507399503550}
   m_Layer: 6
   m_Name: Archer
   m_TagString: Archer
@@ -158,6 +227,7 @@ Transform:
   m_Children:
   - {fileID: 3465459871678751952}
   - {fileID: 4330076903560421459}
+  - {fileID: 5226775457644410607}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &3342593141566905034
@@ -222,7 +292,7 @@ MonoBehaviour:
   moveCommand: 0
   obstacle:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 1048960
   drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
@@ -243,22 +313,22 @@ MonoBehaviour:
   attackRadius: 0
   attackPoint: {fileID: 0}
   attackPointDistance: 0
-  arrow: {fileID: 1411157220445716811, guid: 242c389db1e0b0940949f72e3804e8e3, type: 3}
   arrowSpeed: 25
+  arrow: {fileID: 1411157220445716811, guid: 242c389db1e0b0940949f72e3804e8e3, type: 3}
   damage: 1
   moveSpeed: 1
   attackSpeed: 1
   attackRange: 4
-  sightRange: 6
+  sightRange: 10
   unitAIPerTime: 0.5
   detechTargetPerTime: 0.5
   turnDirectionPerTime: 0.2
   collectResourcesPerTime: 1
-  followTargets: []
-  hitTargets: []
   enemy:
     serializedVersion: 2
     m_Bits: 8192
+  followTargets: []
+  hitTargets: []
   followingObj: {fileID: 0}
   workOnce: 1
   currentDamage: 0
@@ -271,6 +341,7 @@ MonoBehaviour:
   unitOrderEnum: 0
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
+  colliderController: {fileID: 0}
 --- !u!114 &4537086630207440346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,11 +358,24 @@ MonoBehaviour:
   health: 10
   currentHealth: 0
   regeneration: 1
-  isTakeDamage: 0
   takeDamageTime: 5
-  regrenationTime: 1
+  regrenationPerTime: 1
+  isTakeDamage: 0
   currentTakeDamageTime: 0
-  currentRegrenationTime: 0
+  currentRegrenationPerTime: 0
+--- !u!114 &4385215507399503550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7806918734919615237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 267ac8d03f452d34a92ac48db9d705e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderObj: {fileID: 4230540001573677507}
 --- !u!1001 &4409250718132277084
 PrefabInstance:
   m_ObjectHideFlags: 0

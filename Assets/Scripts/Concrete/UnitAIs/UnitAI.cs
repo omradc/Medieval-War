@@ -9,6 +9,7 @@ namespace Assets.Scripts.Concrete.Orders
     {
         protected UnitController uC;
         protected UnitPathFinding2D pF2D;
+
         public UnitAI(UnitController unitController, UnitPathFinding2D pF2D)
         {
             uC = unitController;
@@ -50,9 +51,16 @@ namespace Assets.Scripts.Concrete.Orders
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
                 if (Vector2.Distance(DetechNearestTarget().transform.position, uC.attackRangePosition) < uC.currentAttackRange) return;
+
                 AnimationManager.Instance.RunAnim(pF2D.animator, 1);
-                // 1 kez çalışır
+
+                // Hareket etmeden önce çarpıştırıcıyı kapalıdır
+                uC.colliderController.ColliderStatus(false);
+
                 pF2D.AIGetMoveCommand(DetechNearestTarget().transform.position);
+
+                // Hareket başladıktan sonra çarpıştırıcı açıktır
+                uC.colliderController.ColliderStatus(true);
             }
         }
 
@@ -63,6 +71,7 @@ namespace Assets.Scripts.Concrete.Orders
             {
                 if (Vector2.Distance(DetechNearestTarget().transform.position, uC.attackRangePosition) < uC.currentAttackRange)
                     pF2D.isPathEnd = true;
+
                 if (Vector2.Distance(DetechNearestTarget().transform.position, uC.attackRangePosition) > uC.currentAttackRange)
                     pF2D.isPathEnd = false;
             }

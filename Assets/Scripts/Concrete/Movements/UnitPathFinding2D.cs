@@ -74,6 +74,7 @@ namespace Assets.Scripts.Concrete.Movements
         public void GetMoveCommand(Vector2 mousePos)
         {
             Debug.Log("GetMoveCommand");
+            uC.colliderController.ColliderStatus(false);
             moveCommand = true;
             AnimationManager.Instance.RunAnim(animator, 1);
             isUserPathFinding = true;

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4501414675642522476}
   - component: {fileID: 80648527655793548}
   - component: {fileID: 6509422717109881787}
+  - component: {fileID: 3064926953733088082}
   m_Layer: 13
   m_Name: Barrel
   m_TagString: Untagged
@@ -35,6 +36,7 @@ Transform:
   m_Children:
   - {fileID: 1325029467472087578}
   - {fileID: 1749985826212413488}
+  - {fileID: 2555085916371998549}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &1875966729338327498
@@ -45,6 +47,7 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219787817441663146}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -68,9 +71,9 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.32}
-  serializedVersion: 2
   m_Radius: 0.4
 --- !u!114 &4501414675642522476
 MonoBehaviour:
@@ -98,7 +101,7 @@ MonoBehaviour:
   moveCommand: 0
   obstacle:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2097280
   drawLine: 0
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
@@ -118,11 +121,11 @@ MonoBehaviour:
   health: 10
   currentHealth: 0
   regeneration: 1
-  isTakeDamage: 0
   takeDamageTime: 5
-  regrenationTime: 1
+  regrenationPerTime: 1
+  isTakeDamage: 0
   currentTakeDamageTime: 0
-  currentRegrenationTime: 0
+  currentRegrenationPerTime: 0
 --- !u!114 &6509422717109881787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,18 +151,8 @@ MonoBehaviour:
   damage: 10
   attackSpeed: 1
   attackDelay: 0
-  sightRange: 8
+  sightRange: 15
   attackRange: 1
-  currentDamage: 0
-  currentMoveSpeed: 0
-  currentAttackSpeed: 0
-  currentAttackDelay: 0
-  currentAttackRange: 0
-  currentSightRange: 0
-  currentAttackRadius: 0
-  currentDynamiteSpeed: 0
-  currentDynamiteExplosionRadius: 0
-  currentBarrelExplosionRadius: 0
   enemyAIPerTime: 0.5
   detechTargetPerTime: 0.5
   turnDirectionPerTime: 0.2
@@ -176,8 +169,103 @@ MonoBehaviour:
   targetBuildings:
     serializedVersion: 2
     m_Bits: 1792
+  patrollingDistance: 0
+  patrolling: 1
+  waitingTime: 0
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
+  currentDamage: 0
+  currentMoveSpeed: 0
+  currentAttackSpeed: 0
+  currentAttackDelay: 0
+  currentAttackRange: 0
+  currentSightRange: 0
+  currentAttackRadius: 0
+  currentDynamiteSpeed: 0
+  currentDynamiteExplosionRadius: 0
+  currentBarrelExplosionRadius: 0
+  colliderController: {fileID: 0}
+--- !u!114 &3064926953733088082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219787817441663146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 267ac8d03f452d34a92ac48db9d705e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderObj: {fileID: 6196836791617047667}
+--- !u!1 &6196836791617047667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2555085916371998549}
+  - component: {fileID: 6202530734325275186}
+  m_Layer: 21
+  m_Name: ' Collider'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2555085916371998549
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6196836791617047667}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.32, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6304368153235747338}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &6202530734325275186
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6196836791617047667}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.4
 --- !u!1 &6627527999264788008
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +302,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4496677667709503704
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -228,6 +316,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -250,6 +339,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

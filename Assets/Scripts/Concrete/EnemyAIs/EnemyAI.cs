@@ -112,9 +112,15 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                 // hedef, saldırı menziline girerse; yakalamayı bırak
                 if (Vector2.Distance(DetechNearestTarget().transform.position, eC.attackRangePosition) < eC.currentAttackRange) return;
 
-                // 1 kez çalışır
                 AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
+
+                // Hareket etmeden önce çarpıştırıcıyı kapalıdır
+                eC.colliderController.ColliderStatus(false);
+
                 ePF2D.AIGetMoveCommand(DetechNearestTarget().transform.position);
+
+                // Hareket başladıktan sonra çarpıştırıcı açıktır
+                eC.colliderController.ColliderStatus(true);
             }
         }
         public void StopWhenAttackDistance() // Yapay zeka düşmanın tam koordinatlarına gider, fakat bu isPathEnd ile engellenir.
@@ -128,10 +134,10 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             }
 
         }
-
-
         public void CirclePatrolling()
         {
+            if (DetechNearestTarget() != null) return;
+
             if (eC.patrolling)
             {
                 eC.patrolling = false;
@@ -140,9 +146,6 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                 ePF2D.AIGetMoveCommand(targetPoint);
                 AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
             }
-
-
-            Debug.Log(ePF2D.pathLeftToGo.Count);
 
             if (ePF2D.pathLeftToGo.Count == 0)
             {

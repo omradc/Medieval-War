@@ -34,7 +34,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public float sightRange;
 
         [Header("UNIT SETTÝNGS")]
-        [Range(0.1f, 1f)] public float unitAIPerTime = 0.5f;
+        [Range(0.01f, 1f)] public float unitAIPerTime = 0.5f;
         [Range(0.1f, 1f)] public float detechTargetPerTime = 0.5f;
         [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
         [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
@@ -66,11 +66,12 @@ namespace Assets.Scripts.Concrete.Controllers
         UnitAttack unitAttack;
         [HideInInspector] public UnitDirection direction;
 
-
+        public ColliderController colliderController;
 
 
         private void Awake()
         {
+            colliderController = GetComponent<ColliderController>();
             pF2D = GetComponent<UnitPathFinding2D>();
             direction = new UnitDirection(pF2D, this);
             unitAI = new UnitAI(this, pF2D);
@@ -83,7 +84,6 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Start()
         {
             unitAttack = new UnitAttack(this, unitAI, pF2D, animationEventController);
-            //currentSpeed = moveSpeed / 100;
             currentDamage = damage;
             currentAttackSpeed = attackSpeed;
             currentAttackRadius = attackRadius;

@@ -45,8 +45,6 @@ namespace Assets.Scripts.Concrete.Controllers
         public LayerMask targetAll;
         public LayerMask targetUnits;
         public LayerMask targetBuildings;
-        [HideInInspector] public Vector2 attackRangePosition;
-        [HideInInspector] public Vector2 sightRangePosition;
 
         [Header("PATROLLİNG")]
         public float patrollingDistance;
@@ -55,6 +53,8 @@ namespace Assets.Scripts.Concrete.Controllers
 
 
 
+        [HideInInspector] public Vector2 attackRangePosition;
+        [HideInInspector] public Vector2 sightRangePosition;
         [HideInInspector] public int currentDamage;
         [HideInInspector] public float currentMoveSpeed;
         [HideInInspector] public float currentAttackSpeed;
@@ -66,12 +66,15 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public float currentDynamiteExplosionRadius;
         [HideInInspector] public float currentBarrelExplosionRadius;
         [HideInInspector] public EnemyDirection direction;
+        [HideInInspector] public ColliderController colliderController;
+
         EnemyAttack enemyAttack;
         EnemyAI enemyAI;
         EnemyPathFinding2D ePF2D;
         AnimationEventController animationEventController;
         private void Awake()
         {
+            colliderController = GetComponent<ColliderController>();
             ePF2D = GetComponent<EnemyPathFinding2D>();
             direction = new(ePF2D, this);
             enemyAI = new(this, ePF2D);
@@ -108,7 +111,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
             enemyAI.CatchNeraestTarget();
             enemyAI.StopWhenAttackDistance();
-            enemyAI.CirclePatrolling();
+            //enemyAI.CirclePatrolling();
             enemyAttack.Attack();
         }
 

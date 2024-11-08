@@ -63,6 +63,74 @@ Transform:
   - {fileID: 5029577231755023350}
   m_Father: {fileID: 4088060588445281749}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2773925327451402229
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 937442761776324041}
+  - component: {fileID: 5614983621250756373}
+  m_Layer: 20
+  m_Name: ' Collider'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &937442761776324041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2773925327451402229}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.32, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4088060588445281749}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &5614983621250756373
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2773925327451402229}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.4
 --- !u!1 &4195786962051834586
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,6 +144,7 @@ GameObject:
   - component: {fileID: -1045142597655863565}
   - component: {fileID: -5201736685492982202}
   - component: {fileID: 2140753509579492637}
+  - component: {fileID: 2997878722480277528}
   m_Layer: 6
   m_Name: Warrior
   m_TagString: Worrior
@@ -99,6 +168,7 @@ Transform:
   - {fileID: 7083811319005811188}
   - {fileID: 746775565014656043}
   - {fileID: 5896332405944818316}
+  - {fileID: 937442761776324041}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &-8081813939892308413
@@ -163,7 +233,7 @@ MonoBehaviour:
   moveCommand: 0
   obstacle:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 1048960
   drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
@@ -183,11 +253,11 @@ MonoBehaviour:
   health: 10
   currentHealth: 0
   regeneration: 1
-  isTakeDamage: 0
   takeDamageTime: 5
-  regrenationTime: 1
+  regrenationPerTime: 1
+  isTakeDamage: 0
   currentTakeDamageTime: 0
-  currentRegrenationTime: 0
+  currentRegrenationPerTime: 0
 --- !u!114 &2140753509579492637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,22 +275,22 @@ MonoBehaviour:
   attackRadius: 0.5
   attackPoint: {fileID: 5029577231755023350}
   attackPointDistance: 0.6
-  arrow: {fileID: 0}
   arrowSpeed: 0
+  arrow: {fileID: 0}
   damage: 1
   moveSpeed: 1
   attackSpeed: 1
   attackRange: 1
-  sightRange: 4
+  sightRange: 8
   unitAIPerTime: 0.5
   detechTargetPerTime: 0.5
   turnDirectionPerTime: 0.2
   collectResourcesPerTime: 1
-  followTargets: []
-  hitTargets: []
   enemy:
     serializedVersion: 2
     m_Bits: 8192
+  followTargets: []
+  hitTargets: []
   followingObj: {fileID: 0}
   workOnce: 1
   currentDamage: 0
@@ -233,6 +303,20 @@ MonoBehaviour:
   unitOrderEnum: 0
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
+  colliderController: {fileID: 0}
+--- !u!114 &2997878722480277528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195786962051834586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 267ac8d03f452d34a92ac48db9d705e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderObj: {fileID: 2773925327451402229}
 --- !u!1 &7966265824583163113
 GameObject:
   m_ObjectHideFlags: 0
