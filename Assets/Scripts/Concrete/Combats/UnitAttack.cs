@@ -74,7 +74,6 @@ namespace Assets.Scripts.Concrete.Combats
             {
                 if (uC.hitTargets != null)
                     uC.hitTargets[i].GetComponent<HealthController>().GetHit(uC.currentDamage);
-                Debug.Log(uC.hitTargets[i].name);
             }
         }
         void ArcherAttack()

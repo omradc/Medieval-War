@@ -18,12 +18,12 @@ namespace Assets.Scripts.Concrete.Controllers
         public float torchAttackPointDistance;
 
         [Header("DYNAMİTE")]
-        public GameObject dynamite;
+        [HideInInspector] public GameObject dynamite;
         public float dynamiteSpeed;
         public float dynamiteExplosionRadius = .5f;
 
         [Header("BARREL")]
-        public GameObject explosion;
+        [HideInInspector] public GameObject explosion;
         public float barrelExplosionRadius = 2;
 
         [Header("ENEMY UNİT")]
@@ -47,10 +47,11 @@ namespace Assets.Scripts.Concrete.Controllers
         public LayerMask targetBuildings;
 
         [Header("PATROLLİNG")]
-        public float patrollingDistance;
-        public bool patrolling = true;
+        public float patrollingRadius;
         public float waitingTime;
-
+        public PatrolTypeEnum patrolType;
+        public Transform path;
+        [HideInInspector] public Transform[] patrolPoints;
 
 
         [HideInInspector] public Vector2 attackRangePosition;
@@ -66,15 +67,14 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public float currentDynamiteExplosionRadius;
         [HideInInspector] public float currentBarrelExplosionRadius;
         [HideInInspector] public EnemyDirection direction;
-        [HideInInspector] public ColliderController colliderController;
 
         EnemyAttack enemyAttack;
         EnemyAI enemyAI;
         EnemyPathFinding2D ePF2D;
         AnimationEventController animationEventController;
+        Vector3 gizmosPos;
         private void Awake()
         {
-            colliderController = GetComponent<ColliderController>();
             ePF2D = GetComponent<EnemyPathFinding2D>();
             direction = new(ePF2D, this);
             enemyAI = new(this, ePF2D);
@@ -92,6 +92,9 @@ namespace Assets.Scripts.Concrete.Controllers
             currentDynamiteSpeed = dynamiteSpeed;
             currentDynamiteExplosionRadius = dynamiteExplosionRadius;
             currentBarrelExplosionRadius = barrelExplosionRadius;
+            gizmosPos = transform.position;
+            PatrolSetup();
+           
 
             // Invoke
             InvokeRepeating(nameof(OptimumEnemyAI), .1f, enemyAIPerTime);
@@ -109,12 +112,11 @@ namespace Assets.Scripts.Concrete.Controllers
             attackRangePosition = transform.GetChild(0).position;
             sightRangePosition = transform.GetChild(0).position;
 
+            enemyAI.Patrolling();
             enemyAI.CatchNeraestTarget();
             enemyAI.StopWhenAttackDistance();
-            //enemyAI.CirclePatrolling();
             enemyAttack.Attack();
         }
-
         void OptimumDetech()
         {
             if (enemyTypeEnum == EnemyTypeEnum.Barrel)
@@ -125,7 +127,6 @@ namespace Assets.Scripts.Concrete.Controllers
             else
                 playerObjs = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetAll);
         }
-
         void OptimumAITurnDirection()
         {
             // ePF2D.pathLeftToGo[0]; hedefe giderken kullandığı yol
@@ -144,7 +145,6 @@ namespace Assets.Scripts.Concrete.Controllers
             if (enemyTypeEnum == EnemyTypeEnum.Torch && ePF2D.pathLeftToGo.Count > 0)
                 direction.Turn4Direction(ePF2D.pathLeftToGo[0]);
         }
-
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
@@ -161,7 +161,17 @@ namespace Assets.Scripts.Concrete.Controllers
             }
 
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(Vector3.zero, patrollingDistance);
+            Gizmos.DrawWireSphere(gizmosPos, patrollingRadius);
+        }
+
+        void PatrolSetup()
+        {
+            if (path == null) return;
+            patrolPoints = new Transform[path.childCount];
+            for (int i = 0; i < path.childCount; i++)
+            {
+                patrolPoints[i] = path.GetChild(i);
+            }
         }
     }
 }

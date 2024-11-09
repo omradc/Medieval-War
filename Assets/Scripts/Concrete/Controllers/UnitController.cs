@@ -66,12 +66,10 @@ namespace Assets.Scripts.Concrete.Controllers
         UnitAttack unitAttack;
         [HideInInspector] public UnitDirection direction;
 
-        public ColliderController colliderController;
 
 
         private void Awake()
         {
-            colliderController = GetComponent<ColliderController>();
             pF2D = GetComponent<UnitPathFinding2D>();
             direction = new UnitDirection(pF2D, this);
             unitAI = new UnitAI(this, pF2D);

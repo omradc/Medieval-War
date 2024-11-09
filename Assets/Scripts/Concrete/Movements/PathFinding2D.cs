@@ -17,7 +17,7 @@ namespace Assets.Scripts.Concrete.Movements
         protected List<Vector2> path;
         public List<Vector2> pathLeftToGo = new List<Vector2>();
         protected bool drawDebugLines;
-
+        protected GameObject colliderObj;
         [HideInInspector] public bool right;
         [HideInInspector] public bool left;
         [HideInInspector] public bool up;
@@ -27,16 +27,15 @@ namespace Assets.Scripts.Concrete.Movements
         [HideInInspector] public bool downRight;
         [HideInInspector] public bool downLeft;
         [HideInInspector] public bool isUserPathFinding;
-        [HideInInspector] public bool isPathEnd;
+         public bool isPathEnd;
         [HideInInspector] public bool moveCommand;
-
 
         //Update ile çalışamamalı, her karede yeni bir liste oluşturur
         public void AIGetMoveCommand(Vector2 targetPos)
         {
             // Kullanıcının verdiği hareket emri, yapay zekanın verdiği hareket emrinden daha önceliklidir!
             if (isUserPathFinding) return;
-
+            ColliderStatus(false);
             Debug.Log("AIGetMoveCommand");
             searchShortcut = true;
             Vector2 closestNode = GetClosestNode(transform.position);
@@ -51,6 +50,7 @@ namespace Assets.Scripts.Concrete.Movements
                 }
 
             }
+            ColliderStatus(true);
         }
 
 
@@ -119,6 +119,14 @@ namespace Assets.Scripts.Concrete.Movements
             return newPath;
         }
 
+        public void ColliderStatus(bool colliderStatus)
+        {
+            if (colliderStatus)
+                colliderObj.SetActive(true);
+            else
+                colliderObj.SetActive(false);
 
+
+        }
     }
 }

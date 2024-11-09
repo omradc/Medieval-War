@@ -1,22 +1,28 @@
 ﻿using Aoiti.Pathfinding;
 using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Managers;
+using System.Security.Cryptography;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Movements
 {
     internal class EnemyPathFinding2D : PathFinding2D
     {
-        [SerializeField] LayerMask obstacle;
+        [SerializeField] new LayerMask obstacles; 
+        [SerializeField] new GameObject colliderObj;
         [SerializeField] bool drawLine;
         [HideInInspector] public Vector2 lastMousePos;
         [HideInInspector] public Animator animator;
         [HideInInspector] public EnemyDirection direction;
         EnemyController eC;
 
+        private void Awake()
+        {
+            base.colliderObj = colliderObj;
+        }
         private void Start()
         {
-            obstacles = obstacle;
+            base.obstacles = obstacles;
             drawDebugLines = drawLine;
             pathfinder = new Pathfinder<Vector2>(GetDistance, GetNeighbourNodes, 1000); //increase patience or gridSize for larger maps
             animator = transform.GetChild(0).GetComponent<Animator>();
@@ -67,6 +73,5 @@ namespace Assets.Scripts.Concrete.Movements
                 }
             }
         }
-
     }
 }

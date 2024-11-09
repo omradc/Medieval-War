@@ -54,13 +54,7 @@ namespace Assets.Scripts.Concrete.Orders
 
                 AnimationManager.Instance.RunAnim(pF2D.animator, 1);
 
-                // Hareket etmeden önce çarpıştırıcıyı kapalıdır
-                uC.colliderController.ColliderStatus(false);
-
                 pF2D.AIGetMoveCommand(DetechNearestTarget().transform.position);
-
-                // Hareket başladıktan sonra çarpıştırıcı açıktır
-                uC.colliderController.ColliderStatus(true);
             }
         }
 

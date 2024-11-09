@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4501414675642522476}
   - component: {fileID: 80648527655793548}
   - component: {fileID: 6509422717109881787}
-  - component: {fileID: 3064926953733088082}
   m_Layer: 13
   m_Name: Barrel
   m_TagString: Untagged
@@ -99,10 +98,11 @@ MonoBehaviour:
   isUserPathFinding: 0
   isPathEnd: 0
   moveCommand: 0
-  obstacle:
+  obstacles:
     serializedVersion: 2
     m_Bits: 2097280
-  drawLine: 0
+  colliderObj: {fileID: 6196836791617047667}
+  drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
 --- !u!114 &80648527655793548
@@ -153,7 +153,7 @@ MonoBehaviour:
   attackDelay: 0
   sightRange: 15
   attackRange: 1
-  enemyAIPerTime: 0.5
+  enemyAIPerTime: 0.1
   detechTargetPerTime: 0.5
   turnDirectionPerTime: 0.2
   playerUnits: []
@@ -169,9 +169,11 @@ MonoBehaviour:
   targetBuildings:
     serializedVersion: 2
     m_Bits: 1792
-  patrollingDistance: 0
-  patrolling: 1
-  waitingTime: 0
+  patrollingRadius: 3
+  waitingTime: 2
+  patrolType: 0
+  path: {fileID: 0}
+  patrolPoints: []
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
   currentDamage: 0
@@ -184,20 +186,6 @@ MonoBehaviour:
   currentDynamiteSpeed: 0
   currentDynamiteExplosionRadius: 0
   currentBarrelExplosionRadius: 0
-  colliderController: {fileID: 0}
---- !u!114 &3064926953733088082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219787817441663146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 267ac8d03f452d34a92ac48db9d705e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colliderObj: {fileID: 6196836791617047667}
 --- !u!1 &6196836791617047667
 GameObject:
   m_ObjectHideFlags: 0

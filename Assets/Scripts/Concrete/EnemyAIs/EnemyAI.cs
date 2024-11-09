@@ -12,11 +12,17 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         EnemyController eC;
         EnemyPathFinding2D ePF2D;
         Vector3 targetPoint;
+        readonly Vector3 firstPoint;
         float time;
+        bool patrol;
+        int index;
+
         public EnemyAI(EnemyController enemyController, EnemyPathFinding2D enemyPathFinding2D)
         {
             eC = enemyController;
             ePF2D = enemyPathFinding2D;
+            firstPoint = eC.transform.position;
+            targetPoint = firstPoint;
         }
         public GameObject DetechNearestTarget()
         {
@@ -111,16 +117,8 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
                 if (Vector2.Distance(DetechNearestTarget().transform.position, eC.attackRangePosition) < eC.currentAttackRange) return;
-
                 AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
-
-                // Hareket etmeden önce çarpıştırıcıyı kapalıdır
-                eC.colliderController.ColliderStatus(false);
-
                 ePF2D.AIGetMoveCommand(DetechNearestTarget().transform.position);
-
-                // Hareket başladıktan sonra çarpıştırıcı açıktır
-                eC.colliderController.ColliderStatus(true);
             }
         }
         public void StopWhenAttackDistance() // Yapay zeka düşmanın tam koordinatlarına gider, fakat bu isPathEnd ile engellenir.
@@ -132,17 +130,26 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                 if (Vector2.Distance(DetechNearestTarget().transform.position, eC.attackRangePosition) > eC.currentAttackRange)
                     ePF2D.isPathEnd = false;
             }
+            else
+                ePF2D.isPathEnd = false;
 
         }
-        public void CirclePatrolling()
+        public void Patrolling()
         {
+            CirclePatrollingAnchor();
+            CirclePatrollingFree();
+            PointPatrolling();
+            FindNearestPlayerUnit();
+        }
+        void CirclePatrollingAnchor()
+        {
+            if (eC.patrolType != PatrolTypeEnum.CirclePatrollingAnchor) return;
             if (DetechNearestTarget() != null) return;
-
-            if (eC.patrolling)
+            if (patrol)
             {
-                eC.patrolling = false;
-                targetPoint = Vector2.zero;
-                targetPoint = new Vector3(Random.Range(-eC.patrollingDistance, eC.patrollingDistance), Random.Range(-eC.patrollingDistance, eC.patrollingDistance));
+                patrol = false;
+                targetPoint = firstPoint;
+                targetPoint += new Vector3(Random.Range(-eC.patrollingRadius, eC.patrollingRadius), Random.Range(-eC.patrollingRadius, eC.patrollingRadius));
                 ePF2D.AIGetMoveCommand(targetPoint);
                 AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
             }
@@ -154,20 +161,61 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                 if (time >= eC.waitingTime)
                 {
                     time = 0;
-                    eC.patrolling = true;
+                    patrol = true;
                 }
             }
         }
-
-
-        public void RandomPatrolling()
+        void CirclePatrollingFree()
         {
+            if (eC.patrolType != PatrolTypeEnum.CirclePatrollingFree) return;
+            if (DetechNearestTarget() != null) return;
 
+            if (patrol)
+            {
+                patrol = false;
+                targetPoint += new Vector3(Random.Range(-eC.patrollingRadius, eC.patrollingRadius), Random.Range(-eC.patrollingRadius, eC.patrollingRadius));
+                ePF2D.AIGetMoveCommand(targetPoint);
+                AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
+            }
+
+            if (ePF2D.pathLeftToGo.Count == 0)
+            {
+                time++;
+
+                if (time >= eC.waitingTime)
+                {
+                    time = 0;
+                    patrol = true;
+                }
+            }
         }
-        public void TwoPointPatrolling()
+        void PointPatrolling()
         {
+            if (eC.patrolType != PatrolTypeEnum.PointPatrolling) return;
+            if (DetechNearestTarget() != null) return;
 
+            // Devriye gez
+            if (patrol)
+            {
+                targetPoint = eC.patrolPoints[index].position;
+                ePF2D.AIGetMoveCommand(targetPoint);
+                index++;
+                if (index == eC.patrolPoints.Length)
+                    index = 0;
+                AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
+                patrol = false;
+            }
+
+            // Devriye naktasına ulaşıldı
+            if (ePF2D.pathLeftToGo.Count == 0)
+                patrol = true;
         }
+        void FindNearestPlayerUnit()
+        {
+            if (eC.patrolType != PatrolTypeEnum.FindNearestPlayerUnit) return;
+            eC.currentSightRange = 100;
+        }
+
 
     }
 }

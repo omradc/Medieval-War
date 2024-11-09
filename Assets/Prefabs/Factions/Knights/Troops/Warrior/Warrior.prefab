@@ -144,7 +144,6 @@ GameObject:
   - component: {fileID: -1045142597655863565}
   - component: {fileID: -5201736685492982202}
   - component: {fileID: 2140753509579492637}
-  - component: {fileID: 2997878722480277528}
   m_Layer: 6
   m_Name: Warrior
   m_TagString: Worrior
@@ -231,9 +230,10 @@ MonoBehaviour:
   isUserPathFinding: 0
   isPathEnd: 0
   moveCommand: 0
-  obstacle:
+  obstacles:
     serializedVersion: 2
-    m_Bits: 1048960
+    m_Bits: 1050496
+  colliderObj: {fileID: 2773925327451402229}
   drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
@@ -282,7 +282,7 @@ MonoBehaviour:
   attackSpeed: 1
   attackRange: 1
   sightRange: 8
-  unitAIPerTime: 0.5
+  unitAIPerTime: 0.1
   detechTargetPerTime: 0.5
   turnDirectionPerTime: 0.2
   collectResourcesPerTime: 1
@@ -303,20 +303,6 @@ MonoBehaviour:
   unitOrderEnum: 0
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
-  colliderController: {fileID: 0}
---- !u!114 &2997878722480277528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4195786962051834586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 267ac8d03f452d34a92ac48db9d705e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colliderObj: {fileID: 2773925327451402229}
 --- !u!1 &7966265824583163113
 GameObject:
   m_ObjectHideFlags: 0

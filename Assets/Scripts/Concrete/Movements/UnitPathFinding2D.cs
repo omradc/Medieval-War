@@ -8,16 +8,21 @@ namespace Assets.Scripts.Concrete.Movements
 {
     internal class UnitPathFinding2D : PathFinding2D
     {
-        [SerializeField] LayerMask obstacle;
+        [SerializeField] new LayerMask obstacles;
+        [SerializeField] new GameObject colliderObj;
         [SerializeField] bool drawLine;
         [HideInInspector] public Vector2 lastMousePos;
         [HideInInspector] public Animator animator;
         [HideInInspector] public UnitDirection direction;
         UnitController uC;
 
+        private void Awake()
+        {
+            base.colliderObj = colliderObj;
+        }
         void Start()
         {
-            obstacles = obstacle;
+            base.obstacles = obstacles;
             drawDebugLines = drawLine;
             pathfinder = new Pathfinder<Vector2>(GetDistance, GetNeighbourNodes, 1000); //increase patience or gridSize for larger maps
             animator = transform.GetChild(0).GetComponent<Animator>();
@@ -74,7 +79,7 @@ namespace Assets.Scripts.Concrete.Movements
         public void GetMoveCommand(Vector2 mousePos)
         {
             Debug.Log("GetMoveCommand");
-            uC.colliderController.ColliderStatus(false);
+            ColliderStatus(false);
             moveCommand = true;
             AnimationManager.Instance.RunAnim(animator, 1);
             isUserPathFinding = true;

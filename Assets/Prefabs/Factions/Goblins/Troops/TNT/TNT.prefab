@@ -204,7 +204,6 @@ GameObject:
   - component: {fileID: 106888110390859989}
   - component: {fileID: -5524510914778358945}
   - component: {fileID: 8477463778476505287}
-  - component: {fileID: 3269955796611967344}
   m_Layer: 13
   m_Name: TNT
   m_TagString: Untagged
@@ -290,10 +289,11 @@ MonoBehaviour:
   isUserPathFinding: 0
   isPathEnd: 0
   moveCommand: 0
-  obstacle:
+  obstacles:
     serializedVersion: 2
     m_Bits: 2097280
-  drawLine: 0
+  colliderObj: {fileID: 2316955278750955796}
+  drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
 --- !u!114 &-5524510914778358945
@@ -344,7 +344,7 @@ MonoBehaviour:
   attackDelay: 0
   sightRange: 10
   attackRange: 4
-  enemyAIPerTime: 0.5
+  enemyAIPerTime: 0.1
   detechTargetPerTime: 0.5
   turnDirectionPerTime: 0.2
   playerUnits: []
@@ -360,9 +360,11 @@ MonoBehaviour:
   targetBuildings:
     serializedVersion: 2
     m_Bits: 1792
-  patrollingDistance: 0
-  patrolling: 1
-  waitingTime: 0
+  patrollingRadius: 3
+  waitingTime: 2
+  patrolType: 0
+  path: {fileID: 0}
+  patrolPoints: []
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
   currentDamage: 0
@@ -375,20 +377,6 @@ MonoBehaviour:
   currentDynamiteSpeed: 0
   currentDynamiteExplosionRadius: 0
   currentBarrelExplosionRadius: 0
-  colliderController: {fileID: 0}
---- !u!114 &3269955796611967344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3147751460133698815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 267ac8d03f452d34a92ac48db9d705e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colliderObj: {fileID: 2316955278750955796}
 --- !u!1001 &8430695043825126788
 PrefabInstance:
   m_ObjectHideFlags: 0

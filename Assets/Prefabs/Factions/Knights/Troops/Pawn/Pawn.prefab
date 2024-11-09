@@ -101,7 +101,6 @@ GameObject:
   - component: {fileID: 2195796025414383232}
   - component: {fileID: 8729491755545881928}
   - component: {fileID: -9060488368643723994}
-  - component: {fileID: 2541974818294973335}
   m_Layer: 6
   m_Name: Pawn
   m_TagString: Villager
@@ -192,9 +191,10 @@ MonoBehaviour:
   isUserPathFinding: 0
   isPathEnd: 0
   moveCommand: 0
-  obstacle:
+  obstacles:
     serializedVersion: 2
-    m_Bits: 1048960
+    m_Bits: 1050496
+  colliderObj: {fileID: 4375496542421474059}
   drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
@@ -222,7 +222,7 @@ MonoBehaviour:
   attackSpeed: 1
   attackRange: 0.7
   sightRange: 8
-  unitAIPerTime: 0.5
+  unitAIPerTime: 0.1
   detechTargetPerTime: 0.5
   turnDirectionPerTime: 0.2
   collectResourcesPerTime: 0.5
@@ -243,7 +243,6 @@ MonoBehaviour:
   unitOrderEnum: 0
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
-  colliderController: {fileID: 0}
 --- !u!114 &8729491755545881928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,19 +327,6 @@ MonoBehaviour:
   woodIdle: {fileID: 0}
   meatIdle: {fileID: 0}
   sheep: {fileID: 0}
---- !u!114 &2541974818294973335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 654264683168969111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 267ac8d03f452d34a92ac48db9d705e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colliderObj: {fileID: 4375496542421474059}
 --- !u!1 &1505308617181909231
 GameObject:
   m_ObjectHideFlags: 0
