@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2ebaddb355a726445985baa872ec9e47
+guid: 26fa7ad0a8df598489ba098b8d440ed5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,51 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Torch_Blue_0
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 870
+        width: 24
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34c564dd09cacd74e9ee077c73deaa32
+      internalID: -295564122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torch_Visual_0
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 861
+        width: 24
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82ca0adb20f9f954eb5f95845eeb6357
+      internalID: -1906712343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -122,7 +166,39 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Torch_Blue_0: -295564122
+      Torch_Blue_1: -1461216933
+      Torch_Blue_10: -1704610606
+      Torch_Blue_11: -2040529030
+      Torch_Blue_12: -2001967318
+      Torch_Blue_13: 342897998
+      Torch_Blue_14: 2039846905
+      Torch_Blue_15: -1948227189
+      Torch_Blue_16: -1637175855
+      Torch_Blue_17: 1458859264
+      Torch_Blue_18: -1101431473
+      Torch_Blue_19: -15601825
+      Torch_Blue_2: 2121428539
+      Torch_Blue_20: -1787616966
+      Torch_Blue_21: -340020969
+      Torch_Blue_22: 1489282684
+      Torch_Blue_23: 212962498
+      Torch_Blue_24: -753531251
+      Torch_Blue_25: 410710899
+      Torch_Blue_26: 1246301910
+      Torch_Blue_27: -1595137079
+      Torch_Blue_28: -1205850101
+      Torch_Blue_29: -1006684300
+      Torch_Blue_3: -901596978
+      Torch_Blue_30: -915807329
+      Torch_Blue_4: -1931672750
+      Torch_Blue_5: 556519032
+      Torch_Blue_6: 354921747
+      Torch_Blue_7: -623597252
+      Torch_Blue_8: 1962873414
+      Torch_Blue_9: 1122324774
+      Torch_Visual_0: -1906712343
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

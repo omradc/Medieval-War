@@ -288,7 +288,7 @@ MonoBehaviour:
   moveCommand: 0
   obstacles:
     serializedVersion: 2
-    m_Bits: 2097280
+    m_Bits: 31457408
   colliderObj: {fileID: 8108714406996974950}
   drawLine: 1
   lastMousePos: {x: 0, y: 0}
@@ -357,9 +357,9 @@ MonoBehaviour:
   targetBuildings:
     serializedVersion: 2
     m_Bits: 1792
-  patrollingRadius: 3
+  patrollingRadius: 4
   waitingTime: 2
-  patrolType: 0
+  patrolType: 2
   path: {fileID: 0}
   patrolPoints: []
   attackRangePosition: {x: 0, y: 0}

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2ebaddb355a726445985baa872ec9e47
+guid: a6de150fc3f755c45a114af9ac26de35
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,29 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Dynamite_Visual_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 10
+        width: 32
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 856378df2825eec4692c2975685631c4
+      internalID: 172842322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -122,7 +144,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Dynamite_0: 857926958
+      Dynamite_1: 903629352
+      Dynamite_2: 1429784261
+      Dynamite_3: 672434748
+      Dynamite_4: 173560306
+      Dynamite_5: 372433058
+      Dynamite_Visual_0: 172842322
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
