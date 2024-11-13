@@ -65,7 +65,7 @@ namespace Assets.Scripts.Concrete.Controllers
         FollowAI followAI;
         UnitAttack unitAttack;
         [HideInInspector] public UnitDirection direction;
-
+        Rigidbody2D rb2D;
 
 
         private void Awake()
@@ -88,6 +88,7 @@ namespace Assets.Scripts.Concrete.Controllers
             currentSightRange = sightRange;
             currentAttackRange = attackRange;
             currentArrowSpeed = arrowSpeed;
+            rb2D = GetComponent<Rigidbody2D>();
 
             // Invoke
             InvokeRepeating(nameof(OptimumUnitAI), 0.1f, unitAIPerTime);
@@ -119,6 +120,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 followAI.FollowMode();
 
             unitAttack.AttackOn();
+            unitAI.RigidbodyControl(rb2D);
         }
         void OptimumDetechEnemies()
         {

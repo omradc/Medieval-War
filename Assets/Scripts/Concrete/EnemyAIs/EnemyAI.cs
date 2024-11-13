@@ -216,6 +216,14 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             eC.currentSightRange = 100;
         }
 
+        public void RigidbodyControl(Rigidbody2D rb2D)
+        {
+            // Menzilde düşman yoksa ve kullanıcıdan emir almadıysa rigidbody aktif olur.
+            if (DetechNearestTarget() != null)
+                rb2D.bodyType = RigidbodyType2D.Dynamic;
+            else
+                rb2D.bodyType = RigidbodyType2D.Kinematic;
 
+        }
     }
 }

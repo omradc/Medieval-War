@@ -73,6 +73,7 @@ namespace Assets.Scripts.Concrete.Controllers
         EnemyPathFinding2D ePF2D;
         AnimationEventController animationEventController;
         Vector3 gizmosPos;
+        Rigidbody2D rb2D;
         private void Awake()
         {
             ePF2D = GetComponent<EnemyPathFinding2D>();
@@ -93,8 +94,9 @@ namespace Assets.Scripts.Concrete.Controllers
             currentDynamiteExplosionRadius = dynamiteExplosionRadius;
             currentBarrelExplosionRadius = barrelExplosionRadius;
             gizmosPos = transform.position;
+            rb2D = GetComponent<Rigidbody2D>();
             PatrolSetup();
-           
+
 
             // Invoke
             InvokeRepeating(nameof(OptimumEnemyAI), .1f, enemyAIPerTime);
@@ -116,6 +118,8 @@ namespace Assets.Scripts.Concrete.Controllers
             enemyAI.CatchNeraestTarget();
             enemyAI.StopWhenAttackDistance();
             enemyAttack.Attack();
+            enemyAI.RigidbodyControl(rb2D);
+
         }
         void OptimumDetech()
         {
@@ -163,7 +167,6 @@ namespace Assets.Scripts.Concrete.Controllers
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(gizmosPos, patrollingRadius);
         }
-
         void PatrolSetup()
         {
             if (path == null) return;

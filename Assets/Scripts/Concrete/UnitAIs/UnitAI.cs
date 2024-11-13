@@ -71,6 +71,16 @@ namespace Assets.Scripts.Concrete.Orders
             }
 
         }
+
+        public void RigidbodyControl(Rigidbody2D rb2D)
+        {
+            // Menzilde düşman yoksa ve kullanıcıdan emir almadıysa rigidbody aktif olur.
+            if (DetechNearestTarget() != null && !pF2D.isUserPathFinding)
+                rb2D.bodyType = RigidbodyType2D.Dynamic;
+            else
+                rb2D.bodyType = RigidbodyType2D.Kinematic;
+
+        }
     }
 }
 
