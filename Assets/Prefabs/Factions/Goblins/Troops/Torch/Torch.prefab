@@ -123,6 +123,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd23bc4847eb7b647ac65a1e0dd5a2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2956403656192852201
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1959159108024945930}
+  m_Layer: 13
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1959159108024945930
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2956403656192852201}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4619676746150632649}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4015194384118080314
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +214,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9206674802785628241}
+  - {fileID: 1959159108024945930}
   m_Father: {fileID: 9128161781817260426}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8054090689530960466
@@ -261,7 +292,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.32}
-  m_Radius: 0.4
+  m_Radius: 0.25
 --- !u!114 &598835991590901826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,9 +317,9 @@ MonoBehaviour:
   isUserPathFinding: 0
   isPathEnd: 0
   moveCommand: 0
-  obstacles:
+  obstacle:
     serializedVersion: 2
-    m_Bits: 29360256
+    m_Bits: 29360128
   drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
@@ -327,12 +358,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyTypeEnum: 0
   attackRadius: 0.5
-  torchAttackPoint: {fileID: 9206674802785628241}
+  torchAttackPoint: {fileID: 0}
   torchAttackPointDistance: 0.5
-  dynamite: {fileID: 0}
   dynamiteSpeed: 0
   dynamiteExplosionRadius: 0.5
-  explosion: {fileID: 0}
   barrelExplosionRadius: 2
   moveSpeed: 1
   damage: 1
@@ -340,9 +369,9 @@ MonoBehaviour:
   attackDelay: 0
   sightRange: 8
   attackRange: 1
-  enemyAIPerTime: 0.1
+  enemyAIPerTime: 0.5
   detechTargetPerTime: 0.5
-  turnDirectionPerTime: 0.2
+  turnDirectionPerTime: 0.5
   playerUnits: []
   playerBuildings: []
   playerObjs: []
@@ -358,9 +387,11 @@ MonoBehaviour:
     m_Bits: 1792
   patrollingRadius: 4
   waitingTime: 2
-  patrolType: 0
+  patrolType: 2
   path: {fileID: 0}
   patrolPoints: []
+  explosion: {fileID: 0}
+  dynamite: {fileID: 0}
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
   currentDamage: 0
@@ -400,37 +431,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!1 &8946916504073926061
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9206674802785628241}
-  m_Layer: 13
-  m_Name: AttackPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9206674802785628241
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8946916504073926061}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4619676746150632649}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4673381150033136589
 PrefabInstance:
   m_ObjectHideFlags: 0

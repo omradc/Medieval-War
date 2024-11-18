@@ -9,7 +9,7 @@ namespace Assets.Scripts.Concrete.Controllers
 {
     internal class EnemyController : MonoBehaviour
     {
-        [Header("UNIT TYPE")]
+        [Header("ENEMY TYPE")]
         public EnemyTypeEnum enemyTypeEnum;
 
         [Header("TORCH")]
@@ -18,12 +18,10 @@ namespace Assets.Scripts.Concrete.Controllers
         public float torchAttackPointDistance;
 
         [Header("DYNAMİTE")]
-        [HideInInspector] public GameObject dynamite;
         public float dynamiteSpeed;
         public float dynamiteExplosionRadius = .5f;
 
         [Header("BARREL")]
-        [HideInInspector] public GameObject explosion;
         public float barrelExplosionRadius = 2;
 
         [Header("ENEMY UNİT")]
@@ -34,7 +32,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public float sightRange;
         public float attackRange;
 
-        [Header("UNIT SETTİNGS")]
+        [Header("ENEMY SETTİNGS")]
         [Range(0.1f, 1f)] public float enemyAIPerTime = 0.5f;
         [Range(0.1f, 1f)] public float detechTargetPerTime = 0.5f;
         [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
@@ -54,15 +52,17 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public Transform[] patrolPoints;
 
 
+        [HideInInspector] public GameObject explosion;
+        [HideInInspector] public GameObject dynamite;
         [HideInInspector] public Vector2 attackRangePosition;
         [HideInInspector] public Vector2 sightRangePosition;
         [HideInInspector] public int currentDamage;
         [HideInInspector] public float currentMoveSpeed;
         [HideInInspector] public float currentAttackSpeed;
         [HideInInspector] public float currentAttackDelay;
-        [HideInInspector] public float currentAttackRange;
+        public float currentAttackRange;
         [HideInInspector] public float currentSightRange;
-        [HideInInspector] public float currentAttackRadius;
+        public float currentAttackRadius;
         [HideInInspector] public float currentDynamiteSpeed;
         [HideInInspector] public float currentDynamiteExplosionRadius;
         [HideInInspector] public float currentBarrelExplosionRadius;

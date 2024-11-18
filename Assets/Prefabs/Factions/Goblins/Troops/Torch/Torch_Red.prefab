@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 67ca36396f18d0a4f84a568d1cd688be, type: 2}
+    - target: {fileID: 867960422827618561, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
+      propertyPath: torchAttackPoint
+      value: 
+      objectReference: {fileID: 3584067122461665439}
     - target: {fileID: 2031549052912269749, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
       propertyPath: m_Size.x
       value: 1.92
@@ -97,3 +101,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
+--- !u!4 &3584067122461665439 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1959159108024945930, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
+  m_PrefabInstance: {fileID: 3066246400929408405}
+  m_PrefabAsset: {fileID: 0}

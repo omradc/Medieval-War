@@ -73,7 +73,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.32}
-  m_Radius: 0.4
+  m_Radius: 0.25
 --- !u!114 &4501414675642522476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,9 +98,9 @@ MonoBehaviour:
   isUserPathFinding: 0
   isPathEnd: 0
   moveCommand: 0
-  obstacles:
+  obstacle:
     serializedVersion: 2
-    m_Bits: 29360256
+    m_Bits: 29360128
   drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
@@ -141,10 +141,8 @@ MonoBehaviour:
   attackRadius: 0
   torchAttackPoint: {fileID: 0}
   torchAttackPointDistance: 0
-  dynamite: {fileID: 0}
   dynamiteSpeed: 0
   dynamiteExplosionRadius: 0.5
-  explosion: {fileID: 5760141080254190359, guid: 8daf93f34db32dc47827a45011fa44ba, type: 3}
   barrelExplosionRadius: 2
   moveSpeed: 1
   damage: 10
@@ -152,9 +150,9 @@ MonoBehaviour:
   attackDelay: 0
   sightRange: 15
   attackRange: 1
-  enemyAIPerTime: 0.1
+  enemyAIPerTime: 0.5
   detechTargetPerTime: 0.5
-  turnDirectionPerTime: 0.2
+  turnDirectionPerTime: 0.5
   playerUnits: []
   playerBuildings: []
   playerObjs: []
@@ -170,9 +168,11 @@ MonoBehaviour:
     m_Bits: 1792
   patrollingRadius: 3
   waitingTime: 2
-  patrolType: 0
+  patrolType: 2
   path: {fileID: 0}
   patrolPoints: []
+  explosion: {fileID: 5760141080254190359, guid: 8daf93f34db32dc47827a45011fa44ba, type: 3}
+  dynamite: {fileID: 0}
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
   currentDamage: 0

@@ -8,7 +8,7 @@ namespace Assets.Scripts.Concrete.Movements
 {
     internal class EnemyPathFinding2D : PathFinding2D
     {
-        [SerializeField] new LayerMask obstacles; 
+        [SerializeField] LayerMask obstacle;
         [SerializeField] bool drawLine;
         [HideInInspector] public Vector2 lastMousePos;
         [HideInInspector] public Animator animator;
@@ -17,7 +17,7 @@ namespace Assets.Scripts.Concrete.Movements
 
         private void Start()
         {
-            base.obstacles = obstacles;
+            base.obstacles = obstacle;
             drawDebugLines = drawLine;
             pathfinder = new Pathfinder<Vector2>(GetDistance, GetNeighbourNodes, 1000); //increase patience or gridSize for larger maps
             animator = transform.GetChild(0).GetComponent<Animator>();

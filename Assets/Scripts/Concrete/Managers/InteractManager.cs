@@ -26,6 +26,7 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject interactedTree;
         public GameObject interactedSheep;
         public GameObject interactedFences;
+        public GameObject interactedTower;
         IInput ıInput;
 
         public List<GameObject> selectedUnits;
@@ -95,6 +96,10 @@ namespace Assets.Scripts.Concrete.Managers
                     if (interactedObj.layer == 12)
                         interactedFences = interactedObj;
 
+                    // Etkileşim olan obje, kule ise,
+                    if (interactedObj.layer == 9)
+                        interactedTower = interactedObj;
+
                 }
             }
             if (ıInput.GetButtonUp0)
@@ -105,6 +110,7 @@ namespace Assets.Scripts.Concrete.Managers
                 interactedSheep = null;
                 interactedFences = null;
                 interactedUnit = null; //follow AI da boşa düşürüldü
+                interactedTower = null;
             }
 
 

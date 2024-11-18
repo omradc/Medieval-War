@@ -791,6 +791,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5228110553876610301, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
+      propertyPath: goblin
+      value: 
+      objectReference: {fileID: 1805286506873436646, guid: f5e6c59b12178d44ebb33bc14b77d5da, type: 3}
+    - target: {fileID: -5228110553876610301, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
+      propertyPath: goblins
+      value: 
+      objectReference: {fileID: 2812717013746587576}
+    - target: {fileID: -5228110553876610301, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
+      propertyPath: maxGoblin
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -5228110553876610301, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
+      propertyPath: spawnTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 101268934148524784, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
       propertyPath: m_Layer
       value: 24
@@ -910,5 +926,10 @@ PrefabInstance:
 --- !u!4 &1060515453385523077 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7891557031990098600, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
+  m_PrefabInstance: {fileID: 7148272953071387949}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2812717013746587576 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4916527095087780501, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
   m_PrefabInstance: {fileID: 7148272953071387949}
   m_PrefabAsset: {fileID: 0}

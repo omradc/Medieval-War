@@ -3,6 +3,7 @@ using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using Assets.Scripts.Concrete.Orders;
+using Assets.Scripts.Concrete.UnitAIs;
 using UnityEngine;
 
 
@@ -32,9 +33,8 @@ namespace Assets.Scripts.Concrete.Controllers
         public float attackSpeed;
         public float attackRange;
         public float sightRange;
-
         [Header("UNIT SETTÝNGS")]
-        [Range(0.01f, 1f)] public float unitAIPerTime = 0.5f;
+        [Range(0.1f, 1f)] public float unitAIPerTime = 0.5f;
         [Range(0.1f, 1f)] public float detechTargetPerTime = 0.5f;
         [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
         [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
@@ -55,17 +55,25 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public UnitOrderEnum unitOrderEnum;
         [HideInInspector] public Vector2 attackRangePosition;
         [HideInInspector] public Vector2 sightRangePosition;
+        [HideInInspector] public UnitAI unitAI;
+        [HideInInspector] public UnitDirection direction;
+        [HideInInspector] public Animator animator;
+        [HideInInspector] public bool aI = true;
+        public bool onBuilding;
+        public bool stayBuilding;
+        public bool goBuilding;
 
+
+        [HideInInspector] public CircleCollider2D circleCollider;
         AnimationEventController animationEventController;
         UnitPathFinding2D pF2D;
-        [HideInInspector] public UnitAI unitAI;
         AttackAI attackAI;
         DefendAI defendAI;
         StayAI stayAI;
         FollowAI followAI;
         UnitAttack unitAttack;
-        [HideInInspector] public UnitDirection direction;
         Rigidbody2D rb2D;
+        GoTower goTower;
 
 
         private void Awake()
@@ -77,6 +85,7 @@ namespace Assets.Scripts.Concrete.Controllers
             defendAI = new DefendAI(this, pF2D);
             stayAI = new StayAI(this, pF2D);
             followAI = new FollowAI(this, pF2D);
+            goTower = new GoTower(this, pF2D);
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
         }
         private void Start()
@@ -89,6 +98,8 @@ namespace Assets.Scripts.Concrete.Controllers
             currentAttackRange = attackRange;
             currentArrowSpeed = arrowSpeed;
             rb2D = GetComponent<Rigidbody2D>();
+            animator = transform.GetChild(0).GetComponent<Animator>();
+            circleCollider = GetComponent<CircleCollider2D>();
 
             // Invoke
             InvokeRepeating(nameof(OptimumUnitAI), 0.1f, unitAIPerTime);
@@ -104,23 +115,30 @@ namespace Assets.Scripts.Concrete.Controllers
             // Sadece takip edilecek birim atamasý yapýlýr
             if (unitOrderEnum == UnitOrderEnum.FollowOrder)
                 followAI.SetFollowUnit();
+
+            goTower.SelectTower();
         }
         void OptimumUnitAI()
         {
             attackRangePosition = transform.GetChild(0).position;
 
             //Unit AI
-            if (unitOrderEnum == UnitOrderEnum.AttackOrder)
-                attackAI.AttackMode();
-            if (unitOrderEnum == UnitOrderEnum.DefendOrder)
-                defendAI.DefendMode();
-            if (unitOrderEnum == UnitOrderEnum.StayOrder)
-                stayAI.StaticMode();
-            if (unitOrderEnum == UnitOrderEnum.FollowOrder)
-                followAI.FollowMode();
+            if (aI)
+            {
+                if (unitOrderEnum == UnitOrderEnum.AttackOrder)
+                    attackAI.AttackMode();
+                if (unitOrderEnum == UnitOrderEnum.DefendOrder)
+                    defendAI.DefendMode();
+                if (unitOrderEnum == UnitOrderEnum.StayOrder)
+                    stayAI.StaticMode();
+                if (unitOrderEnum == UnitOrderEnum.FollowOrder)
+                    followAI.FollowMode();
 
-            unitAttack.AttackOn();
-            unitAI.RigidbodyControl(rb2D);
+                unitAttack.AttackOn();
+
+            }
+            unitAI.RigidbodyControl(rb2D, onBuilding);
+            goTower.GoUpToTower();
         }
         void OptimumDetechEnemies()
         {
