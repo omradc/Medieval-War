@@ -13,6 +13,8 @@ namespace Assets.Scripts.Concrete.UnitAIs
         UnitController uC;
         PathFinding2D pF2D;
         TowerController towerController;
+        Vector2 gatePos;
+        Vector2 towerPos;
         bool workOnce;
         float time;
         float timeToGetOffTower = 1;
@@ -26,10 +28,12 @@ namespace Assets.Scripts.Concrete.UnitAIs
         {
             if (uC.isSeleceted)
             {
+                // Kuleye basılı tutulduğu sürece çalışır. Update.
                 if (InteractManager.Instance.interactedTower != null)
                 {
                     tower = InteractManager.Instance.interactedTower;
                     workOnce = true;
+                    uC.aI = false;
                 }
             }
 
@@ -43,42 +47,42 @@ namespace Assets.Scripts.Concrete.UnitAIs
                 // Kuleye git
                 if (workOnce)
                 {
-                    Debug.Log("Kuleye git");
-                    uC.aI = false;
+                    Debug.Log("kuleye git");
                     uC.unitOrderEnum = UnitOrderEnum.StayOrder;
+                    gatePos = tower.transform.GetChild(0).position;
+                    towerPos = tower.transform.GetChild(1).position;
                     towerController = tower.GetComponent<TowerController>();
-
                     if (towerController.hasUnit)
                     {
                         tower = null; // eğer birim kuledeyken, kuleye tıklarsa; kodun devamlılığını sağlar
                         return;
                     }
-                    pF2D.AIGetMoveCommand(tower.transform.GetChild(0).position);
+
+                    pF2D.AIGetMoveCommand(gatePos);
                     AnimationManager.Instance.RunAnim(uC.animator, 1);
                     uC.stayBuilding = true;
                     uC.goBuilding = true;
                     workOnce = false;
 
+
                 }
 
                 // Kuleye çık
-                if (Vector2.Distance(uC.transform.position, tower.transform.GetChild(0).position) < .3f)
+                if (Vector2.Distance(uC.transform.position, gatePos) < .3f)
                 {
                     uC.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+                   towerController.hasUnit = true; // Kulede birim var
                     time++;
                     if (time > timeToGetOffTower)
                     {
-
                         Debug.Log("Kuleye çık");
                         uC.aI = true;
                         uC.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
                         AnimationManager.Instance.IdleAnim(uC.animator);
-                        towerController.hasUnit = true; // Kulede birim var
                         pF2D.isPathEnd = true; // Dur
-                        uC.transform.position = tower.transform.GetChild(1).position;
+                        uC.transform.position = towerPos; // Birimi kuleye ışınla
                         uC.onBuilding = true;
                         uC.circleCollider.isTrigger = true; // kulenin çarpıştırıcısı ile etkileşime girmesin
-                        uC.goBuilding = false;
                         uC.gameObject.layer = 25; // ölümsüz ol
                         tower = null;
                         time = 0;
@@ -91,22 +95,23 @@ namespace Assets.Scripts.Concrete.UnitAIs
             {
                 uC.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
                 time++;
-                if (time > timeToGetOffTower && towerController != null)
+                if (time > timeToGetOffTower)
                 {
-                    uC.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
                     Debug.Log("Kuleden in");
+                    towerController.hasUnit = false; // Kulede birim var
+                    uC.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
                     uC.gameObject.layer = 6; // ölümlü ol
                     uC.onBuilding = false;
-                    uC.transform.position = towerController.transform.GetChild(0).position; // kulenin kapısına git
+                    uC.transform.position = gatePos; // kulenin kapısına git
                     uC.circleCollider.isTrigger = false;
                     uC.stayBuilding = false;
-                    towerController.hasUnit = false;
-                    towerController = null;
+                    uC.goBuilding = false;
                     time = 0;
                 }
+
             }
+
+
         }
-
-
     }
 }

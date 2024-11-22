@@ -58,7 +58,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public UnitAI unitAI;
         [HideInInspector] public UnitDirection direction;
         [HideInInspector] public Animator animator;
-        [HideInInspector] public bool aI = true;
+         public bool aI = true;
         public bool onBuilding;
         public bool stayBuilding;
         public bool goBuilding;
@@ -137,7 +137,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 unitAttack.AttackOn();
 
             }
-            unitAI.RigidbodyControl(rb2D, onBuilding);
+            unitAI.RigidbodyControl(rb2D, stayBuilding);
             goTower.GoUpToTower();
         }
         void OptimumDetechEnemies()

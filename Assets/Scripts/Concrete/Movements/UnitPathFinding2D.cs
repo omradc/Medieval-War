@@ -30,6 +30,8 @@ namespace Assets.Scripts.Concrete.Movements
         {
             if (isPathEnd)
             {
+                path.Clear();
+                pathLeftToGo.Clear();
                 return;
             }
             if (pathLeftToGo.Count > 0) //if the target is not yet reached

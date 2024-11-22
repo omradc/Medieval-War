@@ -31,7 +31,7 @@ namespace Assets.Scripts.Concrete.Managers
 
         public List<GameObject> selectedUnits;
 
-        GameObject currentObj;
+        GameObject currentUnit;
         public Vector2 startPos;
         Vector2 endPos;
         public bool isDragging;
@@ -149,19 +149,19 @@ namespace Assets.Scripts.Concrete.Managers
                 RaycastHit2D hit = Physics2D.Raycast(worldPosition, Vector2.zero, 1, unitLayer);
                 if (hit.collider != null)
                 {
-                    currentObj = hit.collider.gameObject;
-                    UnitController uC = currentObj.GetComponent<UnitController>();
+                    currentUnit = hit.collider.gameObject;
+                    UnitController uC = currentUnit.GetComponent<UnitController>();
                     uC.unitOrderEnum = UnitManager.Instance.unitOrderEnum;
                     uC.workOnce = true;
                     uC.followingObj = null;
                     uC.isSeleceted = true;
 
                     // Aynı birimi tekrar diziye atma
-                    if (!selectedUnits.Contains(currentObj))
-                        selectedUnits.Add(currentObj);
+                    if (!selectedUnits.Contains(currentUnit))
+                        selectedUnits.Add(currentUnit);
 
                     // Seçili birimi vurgula
-                    SelectedObjColor(0.5f, currentObj);
+                    SelectedObjColor(0.5f, currentUnit);
 
                 }
             }
@@ -183,11 +183,11 @@ namespace Assets.Scripts.Concrete.Managers
                 for (int i = 0; i < hits.Length; i++)
                 {
 
-                    currentObj = hits[i].gameObject;
+                    currentUnit = hits[i].gameObject;
 
                     // Aynı nesneyi tekrar diziye atma
-                    if (!selectedUnits.Contains(currentObj))
-                        selectedUnits.Add(currentObj);
+                    if (!selectedUnits.Contains(currentUnit))
+                        selectedUnits.Add(currentUnit);
                     UnitController uC = selectedUnits[i].gameObject.GetComponent<UnitController>();
                     uC.unitOrderEnum = UnitManager.Instance.unitOrderEnum;
                     uC.workOnce = true;
@@ -195,7 +195,7 @@ namespace Assets.Scripts.Concrete.Managers
                     uC.isSeleceted = true;
 
                     // Seçili birimi vurgula
-                    SelectedObjColor(0.5f, currentObj);
+                    SelectedObjColor(0.5f, currentUnit);
                 }
 
             }

@@ -235,8 +235,10 @@ MonoBehaviour:
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
   animator: {fileID: 0}
-  onTheBuilding: 0
-  goToTheBuilding: 0
+  aI: 1
+  onBuilding: 0
+  stayBuilding: 0
+  goBuilding: 0
   circleCollider: {fileID: 0}
 --- !u!50 &-5882422694534515164
 Rigidbody2D:
