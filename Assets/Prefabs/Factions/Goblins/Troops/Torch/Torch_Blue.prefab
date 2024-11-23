@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 4f168f40b236cd24aa6506e5a8e59ccf, type: 2}
+    - target: {fileID: 7485362444082039687, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
+      propertyPath: torchAttackPoint
+      value: 
+      objectReference: {fileID: 3584067122461665439}
     - target: {fileID: 7687904460860879180, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.32
@@ -112,7 +116,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0.4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 867960422827618561, guid: 238159431e124224abc7c9c13ff0e323, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -14,7 +14,7 @@ namespace Assets.Scripts.Concrete.Movements
         protected bool searchShortcut = false;
         protected bool snapToGrid = false;
         //protected Vector2 targetNode; //target in 2D space
-        protected List<Vector2> path;
+        public List<Vector2> path;
         public List<Vector2> pathLeftToGo = new List<Vector2>();
         protected bool drawDebugLines;
         [HideInInspector] public bool right;
@@ -34,6 +34,7 @@ namespace Assets.Scripts.Concrete.Movements
         {
             // Kullanıcının verdiği hareket emri, yapay zekanın verdiği hareket emrinden daha önceliklidir!
             if (isUserPathFinding) return;
+
             Debug.Log("AIGetMoveCommand");
             searchShortcut = true;
             Vector2 closestNode = GetClosestNode(transform.position);
