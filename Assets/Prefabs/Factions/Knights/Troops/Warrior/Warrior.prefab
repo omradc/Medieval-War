@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9b1b0f1b7052745a71c828edb13530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: []
   pathLeftToGo: []
   right: 0
   left: 0
@@ -184,11 +185,13 @@ MonoBehaviour:
   health: 10
   currentHealth: 0
   regeneration: 1
+  regenerationValue: 1
   takeDamageTime: 5
   regrenationPerTime: 1
   isTakeDamage: 0
   currentTakeDamageTime: 0
   currentRegrenationPerTime: 0
+  isDead: 0
 --- !u!114 &2140753509579492637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,13 +208,13 @@ MonoBehaviour:
   isSeleceted: 0
   attackRadius: 0.5
   attackPoint: {fileID: 5029577231755023350}
-  attackPointDistance: 0.6
+  attackPointDistance: 0.5
   arrowSpeed: 0
   arrow: {fileID: 0}
   damage: 1
   moveSpeed: 1
   attackSpeed: 1
-  attackRange: 1
+  attackRange: 0.8
   sightRange: 8
   unitAIPerTime: 0.5
   detechTargetPerTime: 0.5

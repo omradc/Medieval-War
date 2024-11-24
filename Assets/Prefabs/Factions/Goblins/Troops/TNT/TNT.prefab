@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51866786cb78fdc4db0123c891121a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: []
   pathLeftToGo: []
   right: 0
   left: 0
@@ -243,11 +244,13 @@ MonoBehaviour:
   health: 10
   currentHealth: 0
   regeneration: 1
+  regenerationValue: 1
   takeDamageTime: 5
   regrenationPerTime: 1
   isTakeDamage: 0
   currentTakeDamageTime: 0
   currentRegrenationPerTime: 0
+  isDead: 0
 --- !u!114 &8477463778476505287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +294,7 @@ MonoBehaviour:
     m_Bits: 1792
   patrollingRadius: 3
   waitingTime: 2
-  patrolType: 2
+  patrolType: 0
   path: {fileID: 0}
   patrolPoints: []
   explosion: {fileID: 0}

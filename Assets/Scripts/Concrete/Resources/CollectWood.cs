@@ -11,7 +11,7 @@ namespace Assets.Scripts.Concrete.Resources
     {
         CollectResourcesController cR;
         UnitPathFinding2D pF2D;
-        Tree tree;
+        Trees tree;
         public CollectWood(CollectResourcesController collectResources, UnitPathFinding2D pathFinding2D)
         {
             cR = collectResources;
@@ -44,14 +44,14 @@ namespace Assets.Scripts.Concrete.Resources
                         if (cR.isFirstTree)
                         {
                             cR.treeChopPos = cR.targetResource.transform.GetChild(1).position;
-                            tree = cR.targetResource.GetComponent<Tree>();
+                            tree = cR.targetResource.GetComponent<Trees>();
                         }
 
                         // Sonra en yakın ağaçlara gider
                         else
                         {
                             cR.treeChopPos = cR.nearestTree.transform.GetChild(1).position;
-                            tree = cR.nearestTree.GetComponent<Tree>();
+                            tree = cR.nearestTree.GetComponent<Trees>();
 
                         }
 
@@ -88,12 +88,12 @@ namespace Assets.Scripts.Concrete.Resources
             {
                 if (!cR.isFirstTree)
                 {
-                    tree = cR.nearestTree.GetComponent<Tree>();
+                    tree = cR.nearestTree.GetComponent<Trees>();
                     Debug.Log(tree.name);
                 }
                 if (cR.isFirstTree)
                 {
-                    tree = cR.targetResource.GetComponent<Tree>();
+                    tree = cR.targetResource.GetComponent<Trees>();
                     Debug.Log(tree.name);
                 }
 

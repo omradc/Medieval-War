@@ -64,6 +64,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3385381502950362692, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 35a3a1cbe1c4e4c4abbf8d26113ed405, type: 3}
+    - target: {fileID: 3385381502950362692, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6953768916415678342, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
       propertyPath: m_Size.x
       value: 1.28
@@ -84,8 +92,44 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tower_Purple
       objectReference: {fileID: 0}
+    - target: {fileID: 8069887300678372388, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
+      propertyPath: healthObj
+      value: 
+      objectReference: {fileID: 3302530749008932528}
+    - target: {fileID: 9091022010365361897, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
+      propertyPath: col1
+      value: 
+      objectReference: {fileID: 2561413289994224924}
+    - target: {fileID: 9091022010365361897, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
+      propertyPath: col2
+      value: 
+      objectReference: {fileID: 547157720088726587}
+    - target: {fileID: 9091022010365361897, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
+      propertyPath: col3
+      value: 
+      objectReference: {fileID: 6100258811928223201}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
+--- !u!58 &547157720088726587 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 832615791935866799, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
+  m_PrefabInstance: {fileID: 871990420655541140}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &2561413289994224924 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 3427830278690016904, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
+  m_PrefabInstance: {fileID: 871990420655541140}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3302530749008932528 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2435634434595939620, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
+  m_PrefabInstance: {fileID: 871990420655541140}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &6100258811928223201 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 6391056176776877685, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
+  m_PrefabInstance: {fileID: 871990420655541140}
+  m_PrefabAsset: {fileID: 0}

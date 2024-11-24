@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Abstracts.Inputs;
 using Assets.Scripts.Concrete.Inputs;
+using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using Assets.Scripts.Concrete.Resources;
 using UnityEngine;
@@ -71,7 +72,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public IInput ıInput;
         [HideInInspector] public Sheep sheep;
         AnimationEventController animationEventController;
-        Resources.Tree tree;
+        Trees tree;
         CollectResources collectResources;
         CollectGoldOrRock goldAndRock;
         CollectWood collectWood;

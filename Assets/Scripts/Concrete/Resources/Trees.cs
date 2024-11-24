@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Resources
 {
-    internal class Tree : MonoBehaviour
+    internal class Trees : MonoBehaviour
     {
         public GameObject resourceWood;
         public GameObject sleepingTorch;

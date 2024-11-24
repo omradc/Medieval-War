@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Concrete.KnightBuildings
+﻿using UnityEngine;
+
+namespace Assets.Scripts.Concrete.KnightBuildings
 {
     internal class Building
     {
@@ -9,7 +11,7 @@
 
         protected void Destruct()
         {
-
+            
         }
 
         protected void Upgrade()

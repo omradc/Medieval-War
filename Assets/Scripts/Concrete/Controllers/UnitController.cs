@@ -14,7 +14,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         [Header("UNIT TYPE")]
         public UnitTypeEnum unitTypeEnum;
-        [HideInInspector] public bool isSeleceted;
+        public bool isSeleceted;
 
         [Header("Worrior And Villager")]
         public float attackRadius;
@@ -58,7 +58,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public UnitAI unitAI;
         [HideInInspector] public UnitDirection direction;
         [HideInInspector] public Animator animator;
-         public bool aI = true;
+        public bool aI = true;
         public bool onBuilding;
         public bool stayBuilding;
         public bool goBuilding;
@@ -73,7 +73,7 @@ namespace Assets.Scripts.Concrete.Controllers
         FollowAI followAI;
         UnitAttack unitAttack;
         Rigidbody2D rb2D;
-        GoTower goTower;
+        TowerAI towerAI;
 
 
         private void Awake()
@@ -85,7 +85,7 @@ namespace Assets.Scripts.Concrete.Controllers
             defendAI = new DefendAI(this, pF2D);
             stayAI = new StayAI(this, pF2D);
             followAI = new FollowAI(this, pF2D);
-            goTower = new GoTower(this, pF2D);
+            towerAI = new TowerAI(this, pF2D);
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
         }
         private void Start()
@@ -116,7 +116,8 @@ namespace Assets.Scripts.Concrete.Controllers
             if (unitOrderEnum == UnitOrderEnum.FollowOrder)
                 followAI.SetFollowUnit();
 
-            goTower.SelectTower();
+            towerAI.SelectTower();
+            towerAI.DestructTower();
         }
         void OptimumUnitAI()
         {
@@ -138,11 +139,10 @@ namespace Assets.Scripts.Concrete.Controllers
 
             }
             unitAI.RigidbodyControl(rb2D, stayBuilding);
-            goTower.GoUpToTower();
+            towerAI.GoTower();
         }
         void OptimumDetechEnemies()
         {
-            //if (unitTypeEnum == UnitTypeEnum.Villager) return;
             followTargets = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemy);
         }
         void OptimumAITurnDirection()
@@ -153,8 +153,10 @@ namespace Assets.Scripts.Concrete.Controllers
             // pF2D.pathLeftToGo[0]; hedefe giderken kullandýðý yol
             if (unitTypeEnum == UnitTypeEnum.Villager)
             {
+                // Durduðunda hadefe bak
                 if (pF2D.isPathEnd)
                     direction.Turn2Direction(unitAI.DetechNearestTarget().transform.position.x);
+                // Ýlerlediðinde yola bak
                 else if (pF2D.pathLeftToGo.Count > 0)
                     direction.Turn2Direction(pF2D.pathLeftToGo[0].x);
             }

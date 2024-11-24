@@ -8,19 +8,20 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.UnitAIs
 {
-    internal class GoTower
+    internal class TowerAI
     {
         GameObject tower;
         UnitController uC;
         PathFinding2D pF2D;
         TowerController towerController;
+        SpriteRenderer unitSpriteRenderer;
         Vector2 gatePos;
         Vector2 towerPos;
-        SpriteRenderer unitSpriteRenderer;
         bool workOnce;
         float time;
         float timeToGetOffTower = 1;
-        public GoTower(UnitController uC, PathFinding2D pF2D)
+
+        public TowerAI(UnitController uC, PathFinding2D pF2D)
         {
             this.uC = uC;
             this.pF2D = pF2D;
@@ -47,8 +48,9 @@ namespace Assets.Scripts.Concrete.UnitAIs
         }
 
         // Optimum
-        public void GoUpToTower()
+        public void GoTower()
         {
+
             if (tower != null)
             {
                 // Kuleye git
@@ -78,11 +80,19 @@ namespace Assets.Scripts.Concrete.UnitAIs
                 if (Vector2.Distance(uC.transform.position, gatePos) < .3f)
                 {
                     unitSpriteRenderer.enabled = false;
-                    towerController.hasUnit = true; // Kulede birim var
+                    if (towerController.hasUnit)
+                    {
+                        unitSpriteRenderer.enabled = true;
+                        time = 0;
+                        return;
+                    }
+
                     time++;
-                    if (time > timeToGetOffTower)
+                    // Kulede birim yoksa, çık
+                    if (time > timeToGetOffTower && !towerController.hasUnit)
                     {
                         Debug.Log("Kuleye çık");
+                        towerController.hasUnit = true; // Kulede birim var
                         unitSpriteRenderer.enabled = true;
                         uC.aI = true;
                         pF2D.isPathEnd = true; // Dur
@@ -115,10 +125,25 @@ namespace Assets.Scripts.Concrete.UnitAIs
                     towerController.hasUnit = false; // Kulede birim var
                     time = 0;
                 }
+            }
+        }
+
+        public void DestructTower()
+        {
+            if (towerController == null) return;
+            if (towerController.destruct && uC.onBuilding)
+            {
+                Debug.Log("Kuleden in");
+                unitSpriteRenderer.enabled = true;
+                uC.gameObject.layer = 6; // ölümlü ol
+                uC.onBuilding = false;
+                uC.transform.position = gatePos; // kulenin kapısına git
+                uC.circleCollider.isTrigger = false;
+                uC.stayBuilding = false;
+                uC.goBuilding = false;
+                towerController.hasUnit = false; // Kulede birim var
 
             }
-
-
         }
     }
 }

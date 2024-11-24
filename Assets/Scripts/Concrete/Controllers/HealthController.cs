@@ -10,12 +10,15 @@ namespace Assets.Scripts.Concrete.Controllers
         [SerializeField] GameObject healthObj;
         [SerializeField] float health;
         [SerializeField] float currentHealth;
-        [SerializeField] float regeneration = 1;
+        [SerializeField] bool regeneration;
+        [SerializeField] float regenerationValue = 1;
+
         public float takeDamageTime = 5;
         public float regrenationPerTime = 1;
         [HideInInspector] public bool isTakeDamage;
         [HideInInspector] public float currentTakeDamageTime;
         [HideInInspector] public float currentRegrenationPerTime;
+        [HideInInspector] public bool isDead;
         Image fillImage;
         private void Awake()
         {
@@ -25,23 +28,20 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Start()
         {
-            DisplayHealthBar();
-            Visibility(false);
+            UpdateHealthBar();
+            HealthBarVisibility(false);
 
             InvokeRepeating(nameof(Regeneration), 0, 1);
             InvokeRepeating(nameof(WhenHealthIsFullSetVisibility), 0, 5);
         }
-        //private void Update()
-        //{
-        //    Regeneration();
-        //}
+
         public void GetHit(int attackDamage)
         {
             currentTakeDamageTime = 0;
             isTakeDamage = true;
-            Visibility(true);
+            HealthBarVisibility(true);
             currentHealth -= attackDamage;
-            DisplayHealthBar();
+            UpdateHealthBar();
             if (currentHealth <= 0)
             {
                 // oyucu birimi ise, seçili birimlerden kaldır
@@ -54,8 +54,9 @@ namespace Assets.Scripts.Concrete.Controllers
 
         void Regeneration()
         {
+            if (!regeneration) return;
             currentTakeDamageTime += 1;
-            DisplayHealthBar();
+            UpdateHealthBar();
             if (currentTakeDamageTime >= takeDamageTime)
             {
                 isTakeDamage = false;
@@ -71,7 +72,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 currentRegrenationPerTime += 1;
                 if (currentRegrenationPerTime >= regrenationPerTime)
                 {
-                    currentHealth += regeneration;
+                    currentHealth += regenerationValue;
                     currentRegrenationPerTime = 0;
                 }
             }
@@ -80,20 +81,30 @@ namespace Assets.Scripts.Concrete.Controllers
         void WhenHealthIsFullSetVisibility()
         {
             if (currentHealth >= health)
-                Visibility(false);
+                HealthBarVisibility(false);
         }
-        void Visibility(bool visibility)
+        public void HealthBarVisibility(bool visibility)
         {
             healthObj.SetActive(visibility);
         }
 
         public void Dead()
         {
-            Destroy(gameObject);
+            isDead = true;
+
+            // Oyuncu veya düşman birimleri yok olur
+            if (gameObject.layer == 6 || gameObject.layer == 13)
+                Destroy(gameObject);
         }
-        void DisplayHealthBar()
+        void UpdateHealthBar()
         {
             fillImage.fillAmount = currentHealth / health;
+        }
+
+        public void FillHealth()
+        {
+            currentHealth = health;
+            isDead = false;
         }
     }
 }

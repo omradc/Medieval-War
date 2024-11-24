@@ -332,6 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51866786cb78fdc4db0123c891121a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: []
   pathLeftToGo: []
   right: 0
   left: 0
@@ -366,11 +367,13 @@ MonoBehaviour:
   health: 10
   currentHealth: 0
   regeneration: 1
+  regenerationValue: 1
   takeDamageTime: 5
   regrenationPerTime: 1
   isTakeDamage: 0
   currentTakeDamageTime: 0
   currentRegrenationPerTime: 0
+  isDead: 0
 --- !u!114 &7485362444082039687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,7 +389,7 @@ MonoBehaviour:
   enemyTypeEnum: 0
   attackRadius: 0.5
   torchAttackPoint: {fileID: 0}
-  torchAttackPointDistance: 0.6
+  torchAttackPointDistance: 0.5
   dynamiteSpeed: 0
   dynamiteExplosionRadius: 0.5
   barrelExplosionRadius: 2
@@ -395,7 +398,7 @@ MonoBehaviour:
   attackSpeed: 1
   attackDelay: 0
   sightRange: 8
-  attackRange: 1
+  attackRange: 0.8
   enemyAIPerTime: 0.5
   detechTargetPerTime: 0.5
   turnDirectionPerTime: 0.5
@@ -414,7 +417,7 @@ MonoBehaviour:
     m_Bits: 1792
   patrollingRadius: 4
   waitingTime: 2
-  patrolType: 2
+  patrolType: 0
   path: {fileID: 0}
   patrolPoints: []
   explosion: {fileID: 0}
