@@ -45,32 +45,37 @@ namespace Assets.Scripts.Concrete.Orders
         }
         protected void CatchNeraestTarget()
         {
-            if (DetechNearestTarget() == null) return;
-            if (Vector2.Distance(DetechNearestTarget().transform.position, uC.sightRangePosition) < uC.currentSightRange)
+            GameObject nearestTarget = DetechNearestTarget();
+            if (nearestTarget == null) return;
+            if (Vector2.Distance(nearestTarget.transform.position, uC.sightRangePosition) < uC.currentSightRange)
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
-                if (Vector2.Distance(DetechNearestTarget().transform.position, uC.attackRangePosition) < uC.currentAttackRange) return;
+                if (Vector2.Distance(nearestTarget.transform.position, uC.attackRangePosition) < uC.currentAttackRange) return;
 
                 AnimationManager.Instance.RunAnim(pF2D.animator, 1);
 
-                pF2D.AIGetMoveCommand(DetechNearestTarget().transform.position);
+                pF2D.AIGetMoveCommand(nearestTarget.transform.position);
             }
         }
         protected void StopWhenAttackDistance() // Yapay zeka düşmanın tam koordinatlarına gider, fakat bu isPathEnd ile engellenir.
         {
-            if(uC.stayBuilding) // Kuleye gidiyorsa durmaz
+            GameObject nearestTarget = DetechNearestTarget();
+            if (uC.stayBuilding) // Kuleye gidiyorsa durmaz
             {
                 pF2D.isPathEnd = false;
                 return;
             }
-            if (DetechNearestTarget() != null)
+            if (nearestTarget != null)
             {
-                if (Vector2.Distance(DetechNearestTarget().transform.position, uC.attackRangePosition) < uC.currentAttackRange)
+                if (Vector2.Distance(nearestTarget.transform.position, uC.attackRangePosition) < uC.currentAttackRange)
                     pF2D.isPathEnd = true;
 
-                if (Vector2.Distance(DetechNearestTarget().transform.position, uC.attackRangePosition) > uC.currentAttackRange)
+                if (Vector2.Distance(nearestTarget.transform.position, uC.attackRangePosition) > uC.currentAttackRange)
                     pF2D.isPathEnd = false;
             }
+
+            //else
+            //    pF2D.isPathEnd = false;
 
         } 
         public void RigidbodyControl(Rigidbody2D rb2D, bool stayBuilding)

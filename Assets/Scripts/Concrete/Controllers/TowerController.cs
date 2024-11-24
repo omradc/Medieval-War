@@ -14,6 +14,7 @@ namespace Assets.Scripts.Concrete.Controllers
         GameObject visualTower;
         GameObject visualDestructed;
         bool workOnce = true;
+        [HideInInspector] public int unitValue;
 
         HealthController healthController;
         private void Awake()
@@ -30,7 +31,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 destruct = true;
             }
 
-            if(destruct)
+            if (destruct)
             {
                 Destruct();
             }

@@ -11,6 +11,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
     {
         EnemyController eC;
         EnemyPathFinding2D ePF2D;
+        Transform nearestAttackPoint;
         Vector3 targetPoint;
         readonly Vector3 firstPoint;
         float time;
@@ -112,22 +113,30 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         }
         public void CatchNeraestTarget()
         {
-            if (DetechNearestTarget() == null) return;
-            if (Vector2.Distance(DetechNearestTarget().transform.position, eC.sightRangePosition) < eC.currentSightRange)
+            GameObject nearestTarget = DetechNearestTarget();
+            // Hedef kule ise
+            //if(nearestTarget.layer==9)
+            //{
+            //   nearestAttackPoint =  nearestTarget.transform.GetChild(2).GetChild(0);
+            //}
+
+            if (nearestTarget == null) return;
+            if (Vector2.Distance(nearestTarget.transform.position, eC.sightRangePosition) < eC.currentSightRange)
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
-                if (Vector2.Distance(DetechNearestTarget().transform.position, eC.attackRangePosition) < eC.currentAttackRange) return;
+                if (Vector2.Distance(nearestTarget.transform.position, eC.attackRangePosition) < eC.currentAttackRange) return;
                 AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
-                ePF2D.AIGetMoveCommand(DetechNearestTarget().transform.position);
+                ePF2D.AIGetMoveCommand(nearestTarget.transform.position);
             }
         }
         public void StopWhenAttackDistance() // Yapay zeka düşmanın tam koordinatlarına gider, fakat bu isPathEnd ile engellenir.
         {
-            if (DetechNearestTarget() != null)
+            GameObject nearestTarget = DetechNearestTarget();
+            if (nearestTarget != null)
             {
-                if (Vector2.Distance(DetechNearestTarget().transform.position, eC.attackRangePosition) < eC.currentAttackRange)
+                if (Vector2.Distance(nearestTarget.transform.position, eC.attackRangePosition) < eC.currentAttackRange)
                     ePF2D.isPathEnd = true;
-                if (Vector2.Distance(DetechNearestTarget().transform.position, eC.attackRangePosition) > eC.currentAttackRange)
+                if (Vector2.Distance(nearestTarget.transform.position, eC.attackRangePosition) > eC.currentAttackRange)
                     ePF2D.isPathEnd = false;
             }
             else

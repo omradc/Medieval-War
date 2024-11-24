@@ -185,11 +185,9 @@ namespace Assets.Scripts.Concrete.Resources
         }
         public void ReadyToNextCommand()
         {
-
             // Eğer elinde kaynak varken seçip, başka bir yere gönderirsen. Kaynak yere düşer.
             if (cR.ıInput.GetButtonDown0 && cR.uC.isSeleceted)
             {
-                Debug.Log(1);
                 DropAnyResources();
 
                 // köylü seçili iken, etkileşimli olmayan bir nesne seçildiğinde seçim kalkar 

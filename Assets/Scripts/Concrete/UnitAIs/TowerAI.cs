@@ -3,7 +3,6 @@ using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using System.Collections;
-using System.IO;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.UnitAIs
@@ -15,12 +14,12 @@ namespace Assets.Scripts.Concrete.UnitAIs
         PathFinding2D pF2D;
         TowerController towerController;
         SpriteRenderer unitSpriteRenderer;
+        Transform towerPos;
         Vector2 gatePos;
-        Vector2 towerPos;
+        Vector2 pos;
         bool workOnce;
         float time;
         float timeToGetOffTower = 1;
-
         public TowerAI(UnitController uC, PathFinding2D pF2D)
         {
             this.uC = uC;
@@ -42,9 +41,9 @@ namespace Assets.Scripts.Concrete.UnitAIs
                     // Etrafta düşman varken yapay zeka kapatıldığında düşmanın son konumuna gitmemesi için, yolları temizle
                     pF2D.path.Clear();
                     pF2D.pathLeftToGo.Clear();
+
                 }
             }
-
         }
 
         // Optimum
@@ -59,7 +58,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                     Debug.Log("kuleye git");
                     uC.unitOrderEnum = UnitOrderEnum.StayOrder;
                     gatePos = tower.transform.GetChild(0).position;
-                    towerPos = tower.transform.GetChild(1).position;
+                    towerPos = tower.transform.GetChild(1);
                     towerController = tower.GetComponent<TowerController>();
                     if (towerController.hasUnit)
                     {
@@ -92,11 +91,11 @@ namespace Assets.Scripts.Concrete.UnitAIs
                     if (time > timeToGetOffTower && !towerController.hasUnit)
                     {
                         Debug.Log("Kuleye çık");
-                        towerController.hasUnit = true; // Kulede birim var
                         unitSpriteRenderer.enabled = true;
                         uC.aI = true;
                         pF2D.isPathEnd = true; // Dur
-                        uC.transform.position = towerPos; // Birimi kuleye ışınla
+                        CalculateTowerPos();
+                        uC.transform.position = pos; // Birimi kuleye ışınla
                         uC.onBuilding = true;
                         uC.circleCollider.isTrigger = true; // kulenin çarpıştırıcısı ile etkileşime girmesin
                         uC.gameObject.layer = 25; // ölümsüz ol
@@ -115,6 +114,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                 if (time > timeToGetOffTower)
                 {
                     Debug.Log("Kuleden in");
+                    ActivateTowerPos();
                     unitSpriteRenderer.enabled = true;
                     uC.gameObject.layer = 6; // ölümlü ol
                     uC.onBuilding = false;
@@ -133,7 +133,8 @@ namespace Assets.Scripts.Concrete.UnitAIs
             if (towerController == null) return;
             if (towerController.destruct && uC.onBuilding)
             {
-                Debug.Log("Kuleden in");
+                Debug.Log("Kuleden düş");
+                ActivateTowerPos();
                 unitSpriteRenderer.enabled = true;
                 uC.gameObject.layer = 6; // ölümlü ol
                 uC.onBuilding = false;
@@ -145,5 +146,45 @@ namespace Assets.Scripts.Concrete.UnitAIs
 
             }
         }
+
+        void CalculateTowerPos()
+        {
+            // Kale ise
+            if (towerPos.childCount > 0)
+            {
+                for (int i = 0; i < towerPos.childCount; i++)
+                {
+                    if (towerPos.GetChild(i).transform.gameObject.activeSelf)
+                    {
+                        uC.towerPosIndex = i;
+                        towerPos.GetChild(i).gameObject.SetActive(false);
+                        pos = towerPos.GetChild(i).transform.position;
+                        towerController.unitValue++;
+                        break;
+                    }
+
+                }
+                if (towerController.unitValue == towerPos.childCount)
+                    towerController.hasUnit = true; // Kulede birim var
+            }
+
+            // Kule ise
+            else
+            {
+                towerController.hasUnit = true; // Kulede birim var
+                pos = towerPos.position;
+            }
+        }
+        void ActivateTowerPos()
+        {
+            if (towerPos.childCount > 0)
+            {
+                towerPos.GetChild(uC.towerPosIndex).gameObject.SetActive(true);
+                towerController.unitValue--;
+            }
+
+            towerController.hasUnit = false;
+        }
+
     }
 }
