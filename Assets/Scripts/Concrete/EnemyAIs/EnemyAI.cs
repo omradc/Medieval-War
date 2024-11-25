@@ -120,6 +120,15 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             if (nearestTarget == null) return;
 
             CalculateNearestAttackPoint();
+            
+
+            //// Hedef kule ise
+            //if (nearestTarget.layer == 9)
+            //{
+            //    nearestAttackPoint = nearestTarget.transform.GetChild(5).GetChild(0);
+            //}
+            //else
+            //    nearestAttackPoint = nearestTarget.transform;
 
             if (Vector2.Distance(nearestAttackPoint.position, eC.sightRangePosition) < eC.currentSightRange)
             {
@@ -235,11 +244,11 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         }
         void CalculateNearestAttackPoint()
         {
+            Transform obj = nearestTarget.transform.GetChild(5);
+            float shortestDistance = Mathf.Infinity;
             // Hedef kule ise, kulenin en yakın saldırı noktasını bul
             if (nearestTarget.layer == 9)
             {
-                Transform obj = nearestTarget.transform.GetChild(5);
-                float shortestDistance = Mathf.Infinity;
                 for (int i = 0; i < obj.childCount; i++)
                 {
                     float distanceToTarget = Vector2.Distance(eC.transform.position, obj.GetChild(i).position);
