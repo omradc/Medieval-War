@@ -45,7 +45,7 @@ namespace Assets.Scripts.Concrete.Orders
         }
         protected void CatchNeraestTarget()
         {
-            GameObject nearestTarget = DetechNearestTarget();
+             nearestTarget = DetechNearestTarget();
             if (nearestTarget == null) return;
             if (Vector2.Distance(nearestTarget.transform.position, uC.sightRangePosition) < uC.currentSightRange)
             {
@@ -59,7 +59,6 @@ namespace Assets.Scripts.Concrete.Orders
         }
         protected void StopWhenAttackDistance() // Yapay zeka düşmanın tam koordinatlarına gider, fakat bu isPathEnd ile engellenir.
         {
-            GameObject nearestTarget = DetechNearestTarget();
             if (uC.stayBuilding) // Kuleye gidiyorsa durmaz
             {
                 pF2D.isPathEnd = false;
@@ -86,7 +85,7 @@ namespace Assets.Scripts.Concrete.Orders
                 return;
             }
             // Menzilde düşman yoksa ve kullanıcıdan emir almadıysa rigidbody aktif olur.
-            if (DetechNearestTarget() != null && !pF2D.isUserPathFinding)
+            if (nearestTarget != null && !pF2D.isUserPathFinding)
                 rb2D.bodyType = RigidbodyType2D.Dynamic;
             else
                 rb2D.bodyType = RigidbodyType2D.Kinematic;

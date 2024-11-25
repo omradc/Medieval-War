@@ -58,8 +58,8 @@ namespace Assets.Scripts.Concrete.Orders
             // Menzilde düşman varsa, menzilden çıkmayacak şekilde düşmanı takip et
             if (uC.followTargets.Length > 0 && Vector2.Distance((Vector3)uC.sightRangePosition, uC.transform.position) < uC.currentSightRange)
             {
-                if (DetechNearestTarget() == null) return;
-                pF2D.AIGetMoveCommand(DetechNearestTarget().transform.position);
+                if (nearestTarget == null) return;
+                pF2D.AIGetMoveCommand(nearestTarget.transform.position);
                 followRange = true;
             }
         }

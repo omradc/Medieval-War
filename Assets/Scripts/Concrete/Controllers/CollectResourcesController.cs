@@ -117,7 +117,7 @@ namespace Assets.Scripts.Concrete.Controllers
         void OptimumCollectResources()
         {
             //Düşman varsa kaynak toplama
-            if (uC.unitAI.DetechNearestTarget() != null)
+            if (uC.unitAI.nearestTarget != null)
             {
                 // Elinde herhangi bir kaynak varsa onu yere at
                 collectResources.DropAnyResources();
@@ -125,7 +125,7 @@ namespace Assets.Scripts.Concrete.Controllers
             }
 
             //Düşman yoksa işine devam et
-            if (uC.unitAI.DetechNearestTarget() == null) pF2D.isPathEnd = false;
+            if (uC.unitAI.nearestTarget == null) pF2D.isPathEnd = false;
 
             goldAndRock.GoToMine();
             collectWood.GoToTree();
