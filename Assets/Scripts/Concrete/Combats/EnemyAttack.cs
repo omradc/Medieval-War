@@ -34,7 +34,7 @@ namespace Assets.Scripts.Concrete.Combats
         }
         public void Attack()
         {
-            if (enemyAI.DetechNearestTarget() == null)
+            if (enemyAI.nearestTarget == null)
             {
                 //Oyuncu birimi yoksa ve saldırı animasyonu oynarsa, idle oynar
                 if (ePF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Front") || ePF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Up") || ePF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Down"))
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Concrete.Combats
                 return;
             }
             // Düşman saldırı menzilindeyse, yöne göre animasyonlar oynatılır. Animasyonlar, saldırıları event ile tetikler
-            if (Vector2.Distance(eC.attackRangePosition, enemyAI.DetechNearestTarget().transform.position) < eC.currentAttackRange)
+            if (Vector2.Distance(eC.attackRangePosition, enemyAI.nearestAttackPoint.position) < eC.currentAttackRange)
             {
                 if (ePF2D.right || ePF2D.left)
                     AnimationManager.Instance.AttackFrontAnim(ePF2D.animator, eC.currentAttackSpeed);
@@ -54,6 +54,9 @@ namespace Assets.Scripts.Concrete.Combats
 
 
         }
+
+
+        // Saldırılar event ile tetiklenir
         void TorchAttack()
         {
             eC.hitTargets = Physics2D.OverlapCircleAll(eC.torchAttackPoint.position, eC.currentAttackRadius, eC.targetAll);
@@ -68,7 +71,7 @@ namespace Assets.Scripts.Concrete.Combats
             GameObject obj = Object.Instantiate(eC.dynamite, eC.attackRangePosition, Quaternion.identity);
             Dynamite dynamite = obj.GetComponent<Dynamite>();
             dynamite.targetLayer = eC.targetAll;
-            dynamite.target = enemyAI.DetechNearestTarget();
+            dynamite.target = enemyAI.nearestTarget;
             dynamite.damage = eC.currentDamage;
             dynamite.radius = eC.currentDynamiteExplosionRadius;
             dynamite.dynamiteSpeed = eC.currentDynamiteSpeed;

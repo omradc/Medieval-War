@@ -9,7 +9,7 @@ namespace Assets.Scripts.Concrete.Orders
     {
         protected UnitController uC;
         protected UnitPathFinding2D pF2D;
-
+        public GameObject nearestTarget;
         public UnitAI(UnitController unitController, UnitPathFinding2D pF2D)
         {
             uC = unitController;

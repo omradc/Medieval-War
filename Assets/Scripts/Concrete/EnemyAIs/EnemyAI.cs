@@ -4,6 +4,7 @@ using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Assets.Scripts.Concrete.EnemyAIs
 {
@@ -11,8 +12,9 @@ namespace Assets.Scripts.Concrete.EnemyAIs
     {
         EnemyController eC;
         EnemyPathFinding2D ePF2D;
-        Transform nearestAttackPoint;
+        public Transform nearestAttackPoint;
         Vector3 targetPoint;
+        public GameObject nearestTarget;
         readonly Vector3 firstPoint;
         float time;
         bool patrol;
@@ -113,30 +115,36 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         }
         public void CatchNeraestTarget()
         {
-            GameObject nearestTarget = DetechNearestTarget();
-            // Hedef kule ise
-            //if(nearestTarget.layer==9)
-            //{
-            //   nearestAttackPoint =  nearestTarget.transform.GetChild(2).GetChild(0);
-            //}
+            nearestTarget = DetechNearestTarget();
 
             if (nearestTarget == null) return;
-            if (Vector2.Distance(nearestTarget.transform.position, eC.sightRangePosition) < eC.currentSightRange)
+
+            CalculateNearestAttackPoint();
+            
+
+            //// Hedef kule ise
+            //if (nearestTarget.layer == 9)
+            //{
+            //    nearestAttackPoint = nearestTarget.transform.GetChild(5).GetChild(0);
+            //}
+            //else
+            //    nearestAttackPoint = nearestTarget.transform;
+
+            if (Vector2.Distance(nearestAttackPoint.position, eC.sightRangePosition) < eC.currentSightRange)
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
-                if (Vector2.Distance(nearestTarget.transform.position, eC.attackRangePosition) < eC.currentAttackRange) return;
+                if (Vector2.Distance(nearestAttackPoint.position, eC.attackRangePosition) < eC.currentAttackRange) return;
                 AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
-                ePF2D.AIGetMoveCommand(nearestTarget.transform.position);
+                ePF2D.AIGetMoveCommand(nearestAttackPoint.position);
             }
         }
         public void StopWhenAttackDistance() // Yapay zeka düşmanın tam koordinatlarına gider, fakat bu isPathEnd ile engellenir.
         {
-            GameObject nearestTarget = DetechNearestTarget();
             if (nearestTarget != null)
             {
-                if (Vector2.Distance(nearestTarget.transform.position, eC.attackRangePosition) < eC.currentAttackRange)
+                if (Vector2.Distance(nearestAttackPoint.position, eC.attackRangePosition) < eC.currentAttackRange)
                     ePF2D.isPathEnd = true;
-                if (Vector2.Distance(nearestTarget.transform.position, eC.attackRangePosition) > eC.currentAttackRange)
+                if (Vector2.Distance(nearestAttackPoint.position, eC.attackRangePosition) > eC.currentAttackRange)
                     ePF2D.isPathEnd = false;
             }
             else
@@ -153,7 +161,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         void CirclePatrollingAnchor()
         {
             if (eC.patrolType != PatrolTypeEnum.CirclePatrollingAnchor) return;
-            if (DetechNearestTarget() != null) return;
+            if (nearestTarget != null) return;
             if (patrol)
             {
                 patrol = false;
@@ -177,7 +185,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         void CirclePatrollingFree()
         {
             if (eC.patrolType != PatrolTypeEnum.CirclePatrollingFree) return;
-            if (DetechNearestTarget() != null) return;
+            if (nearestTarget != null) return;
 
             if (patrol)
             {
@@ -201,7 +209,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         void PointPatrolling()
         {
             if (eC.patrolType != PatrolTypeEnum.PointPatrolling) return;
-            if (DetechNearestTarget() != null) return;
+            if (nearestTarget != null) return;
 
             // Devriye gez
             if (patrol)
@@ -228,11 +236,33 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         public void RigidbodyControl(Rigidbody2D rb2D)
         {
             // Menzilde düşman yoksa ve kullanıcıdan emir almadıysa rigidbody aktif olur.
-            if (DetechNearestTarget() != null)
+            if (nearestTarget != null)
                 rb2D.bodyType = RigidbodyType2D.Dynamic;
             else
                 rb2D.bodyType = RigidbodyType2D.Kinematic;
 
+        }
+        void CalculateNearestAttackPoint()
+        {
+            Transform obj = nearestTarget.transform.GetChild(5);
+            float shortestDistance = Mathf.Infinity;
+            // Hedef kule ise, kulenin en yakın saldırı noktasını bul
+            if (nearestTarget.layer == 9)
+            {
+                for (int i = 0; i < obj.childCount; i++)
+                {
+                    float distanceToTarget = Vector2.Distance(eC.transform.position, obj.GetChild(i).position);
+                    if (shortestDistance > distanceToTarget)
+                    {
+                        shortestDistance = distanceToTarget;
+                        nearestAttackPoint = obj.GetChild(i);
+                    }
+                }
+            }
+            else
+                nearestAttackPoint = nearestTarget.transform;
+
+            Debug.Log(nearestAttackPoint.name);
         }
     }
 }

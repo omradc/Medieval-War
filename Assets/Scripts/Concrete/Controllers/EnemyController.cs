@@ -114,9 +114,9 @@ namespace Assets.Scripts.Concrete.Controllers
             attackRangePosition = transform.GetChild(0).position;
             sightRangePosition = transform.GetChild(0).position;
 
-            enemyAI.Patrolling();
             enemyAI.CatchNeraestTarget();
             enemyAI.StopWhenAttackDistance();
+            enemyAI.Patrolling();
             enemyAttack.Attack();
             enemyAI.RigidbodyControl(rb2D);
 
@@ -134,12 +134,12 @@ namespace Assets.Scripts.Concrete.Controllers
         void OptimumAITurnDirection()
         {
             // ePF2D.pathLeftToGo[0]; hedefe giderken kullandığı yol
-            if (enemyAI.DetechNearestTarget() == null) return;
+            if (enemyAI.nearestTarget == null) return;
             if (enemyTypeEnum == EnemyTypeEnum.Dynamite || enemyTypeEnum == EnemyTypeEnum.Barrel)
             {
                 // Durduğunda hadefe bak
                 if (ePF2D.isPathEnd)
-                    direction.Turn2Direction(enemyAI.DetechNearestTarget().transform.position.x);
+                    direction.Turn2Direction(enemyAI.nearestTarget.transform.position.x);
 
                 // İlerlediğinde yola bak
                 else if (ePF2D.pathLeftToGo.Count > 0)

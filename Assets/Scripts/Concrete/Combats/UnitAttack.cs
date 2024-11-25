@@ -12,7 +12,7 @@ namespace Assets.Scripts.Concrete.Combats
 
         float currentTime;
         UnitController uC;
-        UnitAI order;
+        UnitAI unitAI;
         UnitPathFinding2D pF2D;
         UnitDirection direction;
         AnimationEventController animationEventController;
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Concrete.Combats
         public UnitAttack(UnitController uC, UnitAI order, UnitPathFinding2D pF2D, AnimationEventController animationEventController)
         {
             this.uC = uC;
-            this.order = order;
+            this.unitAI = order;
             this.pF2D = pF2D;
             this.animationEventController = animationEventController;
             if (uC.unitTypeEnum == UnitTypeEnum.Worrior)
@@ -32,7 +32,7 @@ namespace Assets.Scripts.Concrete.Combats
         }
         public void AttackOn()
         {
-            if (order.DetechNearestTarget() == null)
+            if (unitAI.DetechNearestTarget() == null)
             {
                 //Düşman yoksa ve saldırı animasyonu oynarsa, idle oynar
                 if (pF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Front") || pF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Up") || pF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Down")
@@ -41,7 +41,7 @@ namespace Assets.Scripts.Concrete.Combats
                 return;
             }
             // Düşman saldırı menzilindeyse, yöne göre animasyonlar oynatılır. Animasyonlar, saldırıları event ile tetikler
-            if (Vector2.Distance(uC.attackRangePosition, order.DetechNearestTarget().transform.position) < uC.currentAttackRange)
+            if (Vector2.Distance(uC.attackRangePosition, unitAI.DetechNearestTarget().transform.position) < uC.currentAttackRange)
             {
                 if (pF2D.right || pF2D.left)
                     AnimationManager.Instance.AttackFrontAnim(pF2D.animator, uC.currentAttackSpeed);
@@ -80,7 +80,7 @@ namespace Assets.Scripts.Concrete.Combats
         {
             GameObject obj = Object.Instantiate(uC.arrow, uC.attackRangePosition, Quaternion.identity);
             Arrow arrow = obj.GetComponent<Arrow>();
-            arrow.target = order.DetechNearestTarget();
+            arrow.target = unitAI.DetechNearestTarget();
             arrow.damage = uC.currentDamage;
             arrow.arrowSpeed = uC.currentArrowSpeed;
         }
