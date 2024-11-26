@@ -36,13 +36,16 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(0.1f, 1f)] public float enemyAIPerTime = 0.5f;
         [Range(0.1f, 1f)] public float detechTargetPerTime = 0.5f;
         [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
+        public bool attack;
         public Collider2D[] playerUnits;
         public Collider2D[] playerBuildings;
         public Collider2D[] playerObjs;
         public Collider2D[] hitTargets;
+        public Collider2D[] woodTowers;
         public LayerMask targetAll;
         public LayerMask targetUnits;
         public LayerMask targetBuildings;
+        public LayerMask woodTower;
 
         [Header("PATROLLİNG")]
         public float patrollingRadius;
@@ -60,18 +63,22 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public float currentMoveSpeed;
         [HideInInspector] public float currentAttackSpeed;
         [HideInInspector] public float currentAttackDelay;
-        public float currentAttackRange;
+        [HideInInspector] public float currentAttackRange;
         [HideInInspector] public float currentSightRange;
-        public float currentAttackRadius;
+        [HideInInspector] public float currentAttackRadius;
         [HideInInspector] public float currentDynamiteSpeed;
         [HideInInspector] public float currentDynamiteExplosionRadius;
         [HideInInspector] public float currentBarrelExplosionRadius;
         [HideInInspector] public EnemyDirection direction;
+        public bool aI = true;
+        public bool onTower;
+
 
         EnemyAttack enemyAttack;
         EnemyAI enemyAI;
         EnemyPathFinding2D ePF2D;
         AnimationEventController animationEventController;
+        [HideInInspector] public Animator animator;
         Vector3 gizmosPos;
         Rigidbody2D rb2D;
         private void Awake()
@@ -95,7 +102,8 @@ namespace Assets.Scripts.Concrete.Controllers
             currentBarrelExplosionRadius = barrelExplosionRadius;
             gizmosPos = transform.position;
             rb2D = GetComponent<Rigidbody2D>();
-            PatrolSetup();
+            animator = transform.GetChild(0).GetComponent<Animator>();
+            //PatrolSetup();
 
 
             // Invoke
@@ -114,15 +122,23 @@ namespace Assets.Scripts.Concrete.Controllers
             attackRangePosition = transform.GetChild(0).position;
             sightRangePosition = transform.GetChild(0).position;
 
-            enemyAI.CatchNeraestTarget();
-            enemyAI.StopWhenAttackDistance();
-            enemyAI.Patrolling();
-            enemyAttack.Attack();
-            enemyAI.RigidbodyControl(rb2D);
+            if (aI)
+            {
+                enemyAI.CatchNeraestTarget();
+                enemyAI.StopWhenAttackDistance();
+                enemyAI.Patrolling();
+                enemyAttack.Attack();
+                enemyAI.RigidbodyControl(rb2D);
+
+            }
+
+            enemyAI.GoUpToTower();
+
 
         }
         void OptimumDetech()
         {
+            // Varil için iki farklı hedef türü vardır, önceliği yapılar.
             if (enemyTypeEnum == EnemyTypeEnum.Barrel)
             {
                 playerUnits = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetUnits);
@@ -130,12 +146,17 @@ namespace Assets.Scripts.Concrete.Controllers
             }
             else
                 playerObjs = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetAll);
+
+            if (enemyTypeEnum == EnemyTypeEnum.Tnt)
+            {
+                woodTowers = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, woodTower);
+            }
         }
         void OptimumAITurnDirection()
         {
             // ePF2D.pathLeftToGo[0]; hedefe giderken kullandığı yol
             if (enemyAI.nearestTarget == null) return;
-            if (enemyTypeEnum == EnemyTypeEnum.Dynamite || enemyTypeEnum == EnemyTypeEnum.Barrel)
+            if (enemyTypeEnum == EnemyTypeEnum.Tnt || enemyTypeEnum == EnemyTypeEnum.Barrel)
             {
                 // Durduğunda hadefe bak
                 if (ePF2D.isPathEnd)

@@ -26,7 +26,7 @@ namespace Assets.Scripts.Concrete.Combats
 
             if (eC.enemyTypeEnum == EnemyTypeEnum.Torch)
                 animationEventController.AttackEvent += TorchAttack;
-            if (eC.enemyTypeEnum == EnemyTypeEnum.Dynamite)
+            if (eC.enemyTypeEnum == EnemyTypeEnum.Tnt)
                 animationEventController.AttackEvent += DynamiteAttack;
             if (eC.enemyTypeEnum == EnemyTypeEnum.Barrel)
                 animationEventController.AttackEvent += BarrelAttack;

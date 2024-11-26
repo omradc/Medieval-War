@@ -9,7 +9,7 @@ namespace Assets.Scripts.Concrete.Enums
     internal enum EnemyTypeEnum
     {
         Torch,
-        Dynamite,
+        Tnt,
         Barrel
     }
 }

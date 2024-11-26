@@ -1,10 +1,10 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
+using Assets.Scripts.Concrete.KnightBuildings;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 namespace Assets.Scripts.Concrete.EnemyAIs
 {
@@ -12,11 +12,16 @@ namespace Assets.Scripts.Concrete.EnemyAIs
     {
         EnemyController eC;
         EnemyPathFinding2D ePF2D;
+        TowerController towerController;
+        SpriteRenderer tntSpriteRenderer;
         public Transform nearestAttackPoint;
-        Vector3 targetPoint;
         public GameObject nearestTarget;
+        Vector3 targetPoint;
+        Vector2 gatePos;
+        Vector2 woodTowerPos;
         readonly Vector3 firstPoint;
         float time;
+        float timeToGetOffTower = 1;
         bool patrol;
         int index;
 
@@ -26,6 +31,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             ePF2D = enemyPathFinding2D;
             firstPoint = eC.transform.position;
             targetPoint = firstPoint;
+            tntSpriteRenderer = eC.transform.GetChild(0).GetComponent<SpriteRenderer>();
         }
         public GameObject DetechNearestTarget()
         {
@@ -153,10 +159,11 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         }
         public void Patrolling()
         {
+            if (eC.onTower) return;
             CirclePatrollingAnchor();
             CirclePatrollingFree();
             PointPatrolling();
-            FindNearestPlayerUnit();
+            AttackTheAllUnit();
         }
         void CirclePatrollingAnchor()
         {
@@ -227,10 +234,11 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             if (ePF2D.pathLeftToGo.Count == 0)
                 patrol = true;
         }
-        void FindNearestPlayerUnit()
+        void AttackTheAllUnit()
         {
             if (eC.patrolType != PatrolTypeEnum.FindNearestPlayerUnit) return;
             eC.currentSightRange = 100;
+            eC.attack = true;
         }
 
         public void RigidbodyControl(Rigidbody2D rb2D)
@@ -264,5 +272,121 @@ namespace Assets.Scripts.Concrete.EnemyAIs
 
             Debug.Log(nearestAttackPoint.name);
         }
+        public void GoUpToTower()
+        {
+            // Eğer goblin türü tnt ise, görüş menzili içerisindeki boş bir kuleye çıkar
+            if (eC.enemyTypeEnum == EnemyTypeEnum.Tnt)
+            {
+                
+                if (!eC.attack)
+                {
+                    if (eC.woodTowers.Length == 0 || eC.onTower)
+                    {
+                        eC.aI = true;
+                        tntSpriteRenderer.enabled = true;
+                        return;
+                    }
+
+                    Debug.Log(0);
+                    // En yakın kuleyi bul
+                    GameObject nearestWoodTower = DetechNearestTower();
+
+                    if (nearestWoodTower == null) return;
+
+                    Debug.Log("kuleye git");
+                    towerController = nearestWoodTower.GetComponent<TowerController>();
+                    eC.aI = false;
+                    // Etrafta düşman varken yapay zeka kapatıldığında düşmanın son konumuna gitmemesi için, yolları temizle
+                    ePF2D.path.Clear();
+                    ePF2D.pathLeftToGo.Clear();
+                    gatePos = nearestWoodTower.transform.GetChild(0).position;
+                    woodTowerPos = nearestWoodTower.transform.GetChild(1).position;
+                    ePF2D.AIGetMoveCommand(gatePos);
+                    AnimationManager.Instance.RunAnim(eC.animator, 1);
+
+
+                    // Kuleye çık
+                    if (Vector2.Distance(eC.transform.position, gatePos) < .3f)
+                    {
+                        Debug.Log(1);
+                        tntSpriteRenderer.enabled = false;
+
+                        // Kule dolu ise çıkma
+                        if (towerController.isFull)
+                        {
+                            Debug.Log("Kule dolu");
+                            nearestWoodTower = null;
+                            tntSpriteRenderer.enabled = true;
+                            time = 0;
+                            return;
+                        }
+
+                        time++;
+                        // Kulede birim yoksa, çık
+                        if (time > timeToGetOffTower && !towerController.isFull)
+                        {
+                            Debug.Log("Kuleye çık");
+                            tntSpriteRenderer.enabled = true;
+                            ePF2D.isPathEnd = true; // Dur
+                            eC.aI = true;
+                            eC.onTower = true;
+                            eC.transform.position = woodTowerPos; // Birimi kuleye ışınla
+                            eC.gameObject.layer = 25; // ölümsüz ol
+                            AnimationManager.Instance.IdleAnim(eC.animator);
+                            nearestWoodTower = null;
+                            towerController.isFull = true;
+                            towerController.gameObject.layer = 28; // Kulenin katmanı dolu olacak şekilde değişti
+                            time = 0;
+                        }
+                    }
+                }
+
+                // Kuleden in
+                if (eC.onTower && eC.attack && !ePF2D.isPathEnd)
+                {
+                    tntSpriteRenderer.enabled = false;
+                    time++;
+                    if (time > timeToGetOffTower)
+                    {
+                        Debug.Log("Kuleden in");
+                        eC.onTower = false;
+                        tntSpriteRenderer.enabled = true;
+                        eC.gameObject.layer = 13; // ölümlü ol
+                        eC.transform.position = gatePos; // kulenin kapısına git
+                        towerController.isFull = false;
+                        towerController.gameObject.layer = 27; // Kulenin katmanı boş olacak şekilde değişti
+                        time = 0;
+                    }
+                }
+            }
+        }
+        GameObject DetechNearestTower()
+        {
+            if (eC.woodTowers.Length > 0)
+            {
+                GameObject nearestTarget = null;
+                float shortestDistance = Mathf.Infinity;
+                for (int i = 0; i < eC.woodTowers.Length; i++)
+                {
+                    if (eC.woodTowers[i] != null)
+                    {
+                        float distanceToEnemy = Vector2.Distance(eC.transform.position, eC.woodTowers[i].transform.position);
+
+                        if (shortestDistance > distanceToEnemy)
+                        {
+                            shortestDistance = distanceToEnemy;
+                            nearestTarget = eC.woodTowers[i].gameObject;
+                        }
+
+                    }
+                }
+
+                return nearestTarget;
+            }
+            else
+                return null;
+        }
+
+
     }
 }

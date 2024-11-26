@@ -58,11 +58,11 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public UnitAI unitAI;
         [HideInInspector] public UnitDirection direction;
         [HideInInspector] public Animator animator;
-        public int towerPosIndex;
-        public bool aI = true;
-        public bool onBuilding;
-        public bool stayBuilding;
-        public bool goBuilding;
+        [HideInInspector] public int towerPosIndex;
+        [HideInInspector] public bool aI = true;
+        [HideInInspector] public bool onBuilding;
+        [HideInInspector] public bool stayBuilding;
+        [HideInInspector] public bool goBuilding;
 
 
         [HideInInspector] public CircleCollider2D circleCollider;

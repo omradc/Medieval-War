@@ -99,7 +99,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 9
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -347,7 +347,7 @@ MonoBehaviour:
   moveCommand: 0
   obstacle:
     serializedVersion: 2
-    m_Bits: 29360128
+    m_Bits: 163577856
   drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
@@ -406,6 +406,7 @@ MonoBehaviour:
   playerBuildings: []
   playerObjs: []
   hitTargets: []
+  woodTowers: []
   targetAll:
     serializedVersion: 2
     m_Bits: 1856
@@ -415,6 +416,9 @@ MonoBehaviour:
   targetBuildings:
     serializedVersion: 2
     m_Bits: 1792
+  woodTower:
+    serializedVersion: 2
+    m_Bits: 0
   patrollingRadius: 4
   waitingTime: 2
   patrolType: 0
@@ -434,6 +438,10 @@ MonoBehaviour:
   currentDynamiteSpeed: 0
   currentDynamiteExplosionRadius: 0
   currentBarrelExplosionRadius: 0
+  aI: 1
+  stayBuilding: 0
+  goBuilding: 0
+  animator: {fileID: 0}
 --- !u!1001 &4673381150033136589
 PrefabInstance:
   m_ObjectHideFlags: 0

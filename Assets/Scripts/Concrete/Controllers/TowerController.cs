@@ -5,7 +5,7 @@ namespace Assets.Scripts.Concrete.Controllers
 {
     public class TowerController : MonoBehaviour
     {
-        public bool hasUnit;
+        public bool isFull;
         public bool destruct;
         public bool rebuild;
         public Collider2D col1;

@@ -60,7 +60,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                     gatePos = tower.transform.GetChild(0).position;
                     towerPos = tower.transform.GetChild(1);
                     towerController = tower.GetComponent<TowerController>();
-                    if (towerController.hasUnit)
+                    if (towerController.isFull)
                     {
                         tower = null; // eğer birim kuledeyken, kuleye tıklarsa; kodun devamlılığını sağlar
                         return;
@@ -79,7 +79,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                 if (Vector2.Distance(uC.transform.position, gatePos) < .3f)
                 {
                     unitSpriteRenderer.enabled = false;
-                    if (towerController.hasUnit)
+                    if (towerController.isFull)
                     {
                         unitSpriteRenderer.enabled = true;
                         time = 0;
@@ -88,7 +88,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
 
                     time++;
                     // Kulede birim yoksa, çık
-                    if (time > timeToGetOffTower && !towerController.hasUnit)
+                    if (time > timeToGetOffTower && !towerController.isFull)
                     {
                         Debug.Log("Kuleye çık");
                         unitSpriteRenderer.enabled = true;
@@ -122,7 +122,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                     uC.circleCollider.isTrigger = false;
                     uC.stayBuilding = false;
                     uC.goBuilding = false;
-                    towerController.hasUnit = false; // Kulede birim var
+                    towerController.isFull = false; // Kulede birim var
                     time = 0;
                 }
             }
@@ -142,7 +142,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                 uC.circleCollider.isTrigger = false;
                 uC.stayBuilding = false;
                 uC.goBuilding = false;
-                towerController.hasUnit = false; // Kulede birim var
+                towerController.isFull = false; // Kulede birim var
 
             }
         }
@@ -165,13 +165,13 @@ namespace Assets.Scripts.Concrete.UnitAIs
 
                 }
                 if (towerController.unitValue == towerPos.childCount)
-                    towerController.hasUnit = true; // Kulede birim var
+                    towerController.isFull = true; // Kulede birim var
             }
 
             // Kule ise
             else
             {
-                towerController.hasUnit = true; // Kulede birim var
+                towerController.isFull = true; // Kulede birim var
                 pos = towerPos.position;
             }
         }
@@ -183,7 +183,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                 towerController.unitValue--;
             }
 
-            towerController.hasUnit = false;
+            towerController.isFull = false;
         }
 
     }
