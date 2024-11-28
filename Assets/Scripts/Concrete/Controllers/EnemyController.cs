@@ -71,7 +71,8 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public float currentBarrelExplosionRadius;
         [HideInInspector] public EnemyDirection direction;
         public bool aI = true;
-        public bool onTower;
+        public bool onBuilding;
+        public bool stayBuilding;
 
 
         EnemyAttack enemyAttack;
@@ -116,6 +117,8 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             // Hareket hızını fps farkına göre ayarla
             currentMoveSpeed = moveSpeed * Time.deltaTime;
+
+            enemyAI.DestructTower();
         }
         void OptimumEnemyAI()
         {
@@ -128,10 +131,10 @@ namespace Assets.Scripts.Concrete.Controllers
                 enemyAI.StopWhenAttackDistance();
                 enemyAI.Patrolling();
                 enemyAttack.Attack();
-                enemyAI.RigidbodyControl(rb2D);
 
             }
 
+            enemyAI.RigidbodyControl(rb2D, stayBuilding);
             enemyAI.GoUpToTower();
 
 

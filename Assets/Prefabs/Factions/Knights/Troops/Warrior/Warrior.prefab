@@ -222,7 +222,7 @@ MonoBehaviour:
   collectResourcesPerTime: 1
   enemy:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 402661376
   followTargets: []
   hitTargets: []
   followingObj: {fileID: 0}
@@ -238,6 +238,7 @@ MonoBehaviour:
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
   animator: {fileID: 0}
+  towerPosIndex: 0
   aI: 1
   onBuilding: 0
   stayBuilding: 0

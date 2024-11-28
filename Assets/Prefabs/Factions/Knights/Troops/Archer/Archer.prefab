@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9b1b0f1b7052745a71c828edb13530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: []
   pathLeftToGo: []
   right: 0
   left: 0
@@ -257,7 +258,7 @@ MonoBehaviour:
   collectResourcesPerTime: 1
   enemy:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 402661376
   followTargets: []
   hitTargets: []
   followingObj: {fileID: 0}
@@ -273,6 +274,7 @@ MonoBehaviour:
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
   animator: {fileID: 0}
+  towerPosIndex: 0
   aI: 1
   onBuilding: 0
   stayBuilding: 0
@@ -294,11 +296,13 @@ MonoBehaviour:
   health: 10
   currentHealth: 0
   regeneration: 1
+  regenerationValue: 1
   takeDamageTime: 5
   regrenationPerTime: 1
   isTakeDamage: 0
   currentTakeDamageTime: 0
   currentRegrenationPerTime: 0
+  isDead: 0
 --- !u!50 &3174994903402324674
 Rigidbody2D:
   serializedVersion: 5

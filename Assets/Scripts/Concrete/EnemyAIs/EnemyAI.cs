@@ -12,7 +12,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
     {
         EnemyController eC;
         EnemyPathFinding2D ePF2D;
-        TowerController towerController;
+        WoodTowerController woodTowerController;
         SpriteRenderer tntSpriteRenderer;
         public Transform nearestAttackPoint;
         public GameObject nearestTarget;
@@ -159,7 +159,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         }
         public void Patrolling()
         {
-            if (eC.onTower) return;
+            if (eC.onBuilding) return;
             CirclePatrollingAnchor();
             CirclePatrollingFree();
             PointPatrolling();
@@ -241,8 +241,13 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             eC.attack = true;
         }
 
-        public void RigidbodyControl(Rigidbody2D rb2D)
+        public void RigidbodyControl(Rigidbody2D rb2D, bool stayBuilding)
         {
+            if (stayBuilding)
+            {
+                rb2D.bodyType = RigidbodyType2D.Kinematic;
+                return;
+            }
             // Menzilde düşman yoksa ve kullanıcıdan emir almadıysa rigidbody aktif olur.
             if (nearestTarget != null)
                 rb2D.bodyType = RigidbodyType2D.Dynamic;
@@ -280,7 +285,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                 
                 if (!eC.attack)
                 {
-                    if (eC.woodTowers.Length == 0 || eC.onTower)
+                    if (eC.woodTowers.Length == 0 || eC.onBuilding)
                     {
                         eC.aI = true;
                         tntSpriteRenderer.enabled = true;
@@ -294,8 +299,9 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                     if (nearestWoodTower == null) return;
 
                     Debug.Log("kuleye git");
-                    towerController = nearestWoodTower.GetComponent<TowerController>();
+                    woodTowerController = nearestWoodTower.GetComponent<WoodTowerController>();
                     eC.aI = false;
+                    ePF2D.isPathEnd = false;
                     // Etrafta düşman varken yapay zeka kapatıldığında düşmanın son konumuna gitmemesi için, yolları temizle
                     ePF2D.path.Clear();
                     ePF2D.pathLeftToGo.Clear();
@@ -303,7 +309,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                     woodTowerPos = nearestWoodTower.transform.GetChild(1).position;
                     ePF2D.AIGetMoveCommand(gatePos);
                     AnimationManager.Instance.RunAnim(eC.animator, 1);
-
+                    eC.stayBuilding = true;
 
                     // Kuleye çık
                     if (Vector2.Distance(eC.transform.position, gatePos) < .3f)
@@ -312,7 +318,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                         tntSpriteRenderer.enabled = false;
 
                         // Kule dolu ise çıkma
-                        if (towerController.isFull)
+                        if (woodTowerController.isFull)
                         {
                             Debug.Log("Kule dolu");
                             nearestWoodTower = null;
@@ -323,41 +329,62 @@ namespace Assets.Scripts.Concrete.EnemyAIs
 
                         time++;
                         // Kulede birim yoksa, çık
-                        if (time > timeToGetOffTower && !towerController.isFull)
+                        if (time > timeToGetOffTower && !woodTowerController.isFull)
                         {
                             Debug.Log("Kuleye çık");
                             tntSpriteRenderer.enabled = true;
                             ePF2D.isPathEnd = true; // Dur
+                            eC.currentSightRange = eC.currentAttackRange;
                             eC.aI = true;
-                            eC.onTower = true;
+                            eC.onBuilding = true;
                             eC.transform.position = woodTowerPos; // Birimi kuleye ışınla
                             eC.gameObject.layer = 25; // ölümsüz ol
                             AnimationManager.Instance.IdleAnim(eC.animator);
                             nearestWoodTower = null;
-                            towerController.isFull = true;
-                            towerController.gameObject.layer = 28; // Kulenin katmanı dolu olacak şekilde değişti
+                            woodTowerController.isFull = true;
+                            woodTowerController.gameObject.layer = 28; // Kulenin katmanı dolu olacak şekilde değişti
                             time = 0;
                         }
                     }
                 }
 
                 // Kuleden in
-                if (eC.onTower && eC.attack && !ePF2D.isPathEnd)
+                if (eC.onBuilding && eC.attack && !ePF2D.isPathEnd)
                 {
                     tntSpriteRenderer.enabled = false;
                     time++;
                     if (time > timeToGetOffTower)
                     {
                         Debug.Log("Kuleden in");
-                        eC.onTower = false;
                         tntSpriteRenderer.enabled = true;
+                        eC.stayBuilding = false;
+                        eC.currentSightRange = eC.sightRange;
+                        eC.onBuilding = false;
                         eC.gameObject.layer = 13; // ölümlü ol
                         eC.transform.position = gatePos; // kulenin kapısına git
-                        towerController.isFull = false;
-                        towerController.gameObject.layer = 27; // Kulenin katmanı boş olacak şekilde değişti
+                        woodTowerController.isFull = false;
+                        woodTowerController.gameObject.layer = 27; // Kulenin katmanı boş olacak şekilde değişti
                         time = 0;
                     }
                 }
+            }
+        }
+        public void DestructTower()
+        {
+            if (woodTowerController == null) return;
+            if (woodTowerController.destruct && eC.onBuilding)
+            {
+                Debug.Log("Kuleden düş");
+                tntSpriteRenderer.enabled = true;
+                eC.stayBuilding = false;
+                eC.currentSightRange = eC.sightRange;
+                eC.onBuilding = false;
+                eC.gameObject.layer = 13; // ölümlü ol
+                eC.transform.position = gatePos; // kulenin kapısına git
+                woodTowerController.isFull = false;
+                woodTowerController.gameObject.layer = 29; // Kulenin katmanı yıkıldı olacak şekilde değişti
+                time = 0;
+
             }
         }
         GameObject DetechNearestTower()

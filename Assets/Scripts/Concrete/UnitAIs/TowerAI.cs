@@ -143,7 +143,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                 uC.stayBuilding = false;
                 uC.goBuilding = false;
                 towerController.isFull = false; // Kulede birim var
-
+                time = 0;
             }
         }
 

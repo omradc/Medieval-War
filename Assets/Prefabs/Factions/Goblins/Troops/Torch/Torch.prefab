@@ -347,7 +347,7 @@ MonoBehaviour:
   moveCommand: 0
   obstacle:
     serializedVersion: 2
-    m_Bits: 163577856
+    m_Bits: 432013312
   drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
@@ -402,6 +402,7 @@ MonoBehaviour:
   enemyAIPerTime: 0.5
   detechTargetPerTime: 0.5
   turnDirectionPerTime: 0.5
+  attack: 0
   playerUnits: []
   playerBuildings: []
   playerObjs: []
@@ -439,8 +440,8 @@ MonoBehaviour:
   currentDynamiteExplosionRadius: 0
   currentBarrelExplosionRadius: 0
   aI: 1
+  onBuilding: 0
   stayBuilding: 0
-  goBuilding: 0
   animator: {fileID: 0}
 --- !u!1001 &4673381150033136589
 PrefabInstance:

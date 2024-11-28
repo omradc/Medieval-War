@@ -101,7 +101,7 @@ MonoBehaviour:
   moveCommand: 0
   obstacle:
     serializedVersion: 2
-    m_Bits: 163577856
+    m_Bits: 432013312
   drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
@@ -156,6 +156,7 @@ MonoBehaviour:
   enemyAIPerTime: 0.5
   detechTargetPerTime: 0.5
   turnDirectionPerTime: 0.5
+  attack: 0
   playerUnits: []
   playerBuildings: []
   playerObjs: []
@@ -175,7 +176,7 @@ MonoBehaviour:
     m_Bits: 0
   patrollingRadius: 3
   waitingTime: 2
-  patrolType: 0
+  patrolType: 2
   path: {fileID: 0}
   patrolPoints: []
   explosion: {fileID: 5760141080254190359, guid: 8daf93f34db32dc47827a45011fa44ba, type: 3}
@@ -193,8 +194,8 @@ MonoBehaviour:
   currentDynamiteExplosionRadius: 0
   currentBarrelExplosionRadius: 0
   aI: 1
+  onBuilding: 0
   stayBuilding: 0
-  goBuilding: 0
   animator: {fileID: 0}
 --- !u!50 &-8071581888276991135
 Rigidbody2D:

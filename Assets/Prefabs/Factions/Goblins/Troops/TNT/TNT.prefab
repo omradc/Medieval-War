@@ -279,6 +279,7 @@ MonoBehaviour:
   enemyAIPerTime: 0.5
   detechTargetPerTime: 0.5
   turnDirectionPerTime: 0.5
+  attack: 0
   playerUnits: []
   playerBuildings: []
   playerObjs: []
@@ -295,7 +296,7 @@ MonoBehaviour:
     m_Bits: 1792
   woodTower:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 134217728
   patrollingRadius: 3
   waitingTime: 2
   patrolType: 0
@@ -316,8 +317,8 @@ MonoBehaviour:
   currentDynamiteExplosionRadius: 0
   currentBarrelExplosionRadius: 0
   aI: 1
+  onBuilding: 0
   stayBuilding: 0
-  goBuilding: 0
   animator: {fileID: 0}
 --- !u!50 &-7192940819771496805
 Rigidbody2D:

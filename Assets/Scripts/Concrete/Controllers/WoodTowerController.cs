@@ -1,15 +1,15 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Concrete.Controllers;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
-    public class TowerController : MonoBehaviour
+    public class WoodTowerController : MonoBehaviour
     {
         public bool isFull;
         public bool destruct;
         public bool rebuild;
         public Collider2D col1;
-        public Collider2D col2;
         GameObject visualTower;
         GameObject visualDestructed;
         bool workOnce = true;
@@ -39,7 +39,6 @@ namespace Assets.Scripts.Concrete.Controllers
             if (!workOnce) return;
             Debug.Log("Destruct");
             col1.enabled = false;
-            col2.enabled = false;
             healthController.enabled = false;
             healthController.HealthBarVisibility(false);
             visualTower.SetActive(false);
@@ -54,11 +53,10 @@ namespace Assets.Scripts.Concrete.Controllers
             destruct = false;
             workOnce = true;
             col1.enabled = true;
-            col2.enabled = true;
             healthController.enabled = true;
             visualTower.SetActive(true);
             visualDestructed.SetActive(false);
-            gameObject.layer = 9; // Katman = Tower
+            gameObject.layer = 27; // Katman = WoodTower
             healthController.FillHealth();
             rebuild = false;
         }
