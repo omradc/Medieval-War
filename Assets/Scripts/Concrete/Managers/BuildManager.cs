@@ -12,6 +12,10 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject worriorHouse;
         public GameObject archerHouse;
         public GameObject pawnHouse;
+        public GameObject tower;
+        public GameObject castle;
+        public GameObject fence;
+
         private void Awake()
         {
             Singelton();
@@ -44,16 +48,16 @@ namespace Assets.Scripts.Concrete.Managers
                             Build(archerHouse);
                             break;
                         case "PawnHousePreview":
-                            Build(archerHouse);
+                            Build(pawnHouse);
                             break;
                         case "TowerPreview":
-                            Build(archerHouse);
+                            Build(tower);
                             break;
                         case "CastlePreview":
-                            Build(archerHouse);
+                            Build(castle);
                             break;
                         case "FencePreview":
-                            Build(archerHouse);
+                            Build(fence);
                             break;
                     }
                 }
