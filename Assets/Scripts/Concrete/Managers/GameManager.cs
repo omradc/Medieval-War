@@ -12,7 +12,6 @@ namespace Assets.Scripts.Concrete.Managers
         {
             Singelton();
         }
-
         void Singelton()
         {
             if (Instance == null)
@@ -24,6 +23,11 @@ namespace Assets.Scripts.Concrete.Managers
         }
 
         private void Update()
+        {
+            Restart();
+        }
+
+        void Restart()
         {
             if (Input.GetMouseButtonDown(2))
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

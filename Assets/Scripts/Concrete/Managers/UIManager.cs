@@ -9,6 +9,23 @@ namespace Assets.Scripts.Concrete.Managers
     {
         public TMP_Dropdown formationDropdown;
         public TMP_Dropdown orderDropdown;
+        public bool buildPreview;
+        [HideInInspector] public GameObject previewObj;
+        public bool canBuild = true;
+        public static UIManager Instance { get; private set; }
+        private void Awake()
+        {
+            Singelton();
+        }
+        void Singelton()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+                Destroy(this);
+        }
         private void Start()
         {
             formationDropdown.onValueChanged.AddListener(FormationDropdown);
@@ -62,6 +79,13 @@ namespace Assets.Scripts.Concrete.Managers
                     UnitManager.Instance.unitOrderEnum = UnitOrderEnum.StayOrder;
                     break;
             }
+        }
+
+        public void BarrackPreview(GameObject obj)
+        {
+            buildPreview = true;
+            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            previewObj = Instantiate(obj, pos, Quaternion.identity);
         }
     }
 }
