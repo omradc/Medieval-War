@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Refuce
+  m_text: 'Cancel
 
 '
   m_isRightToLeft: 0
@@ -635,6 +635,10 @@ PrefabInstance:
     - target: {fileID: 3347257932734550915, guid: ce7bde90cc6144044b12efbe49328efc, type: 3}
       propertyPath: m_Name
       value: Build Confirmation Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544560297067205808, guid: ce7bde90cc6144044b12efbe49328efc, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9116814190444537388, guid: ce7bde90cc6144044b12efbe49328efc, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag

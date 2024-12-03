@@ -1,21 +1,22 @@
 ﻿using Assets.Scripts.Abstracts.Inputs;
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Managers;
-using System.Collections;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
+using UnityEngine.UI;
+
 
 namespace Assets.Scripts.Concrete.Controllers
 {
     public class BuildPreviewController : MonoBehaviour
     {
         SpriteRenderer spriteRenderer;
+
         GameObject visual;
         GameObject visualRed;
         IInput ıInput;
         Vector2 firstPos;
-
+        public Button buildConfirmButton;
         private void Awake()
         {
             ıInput = new PcInput();
@@ -42,7 +43,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         public void BuildConfirmButton()
         {
-            UIManager.Instance.buildConfirm = true;
+            UIManager.Instance.canBuild = true;
             Destroy(gameObject);
         }
         public void BuildCancelButton()
@@ -52,14 +53,14 @@ namespace Assets.Scripts.Concrete.Controllers
 
         private void OnTriggerStay2D(Collider2D collision)
         {
-            UIManager.Instance.canBuild = false;
+            buildConfirmButton.interactable = false;
             visual.gameObject.SetActive(false);
             visualRed.gameObject.SetActive(true);
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            UIManager.Instance.canBuild = true;
+            buildConfirmButton.interactable = true;
             visual.gameObject.SetActive(true);
             visualRed.gameObject.SetActive(false);
         }

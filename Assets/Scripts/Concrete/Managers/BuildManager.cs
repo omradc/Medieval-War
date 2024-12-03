@@ -34,33 +34,32 @@ namespace Assets.Scripts.Concrete.Managers
         // Update is called once per frame
         void Update()
         {
-            if (UIManager.Instance.buildConfirm)
+            if (UIManager.Instance.canBuild)
             {
-                UIManager.Instance.buildConfirm = false;
-                if (UIManager.Instance.canBuild)
+                UIManager.Instance.canBuild = false;
+                if (UIManager.Instance.previewObj == null) return;
+                switch (UIManager.Instance.previewObj.tag)
                 {
-                    switch (UIManager.Instance.previewObj.tag)
-                    {
-                        case "WorriorHousePreview":
-                            Build(worriorHouse);
-                            break;
-                        case "ArcherHousePreview":
-                            Build(archerHouse);
-                            break;
-                        case "PawnHousePreview":
-                            Build(pawnHouse);
-                            break;
-                        case "TowerPreview":
-                            Build(tower);
-                            break;
-                        case "CastlePreview":
-                            Build(castle);
-                            break;
-                        case "FencePreview":
-                            Build(fence);
-                            break;
-                    }
+                    case "WorriorHousePreview":
+                        Build(worriorHouse);
+                        break;
+                    case "ArcherHousePreview":
+                        Build(archerHouse);
+                        break;
+                    case "PawnHousePreview":
+                        Build(pawnHouse);
+                        break;
+                    case "TowerPreview":
+                        Build(tower);
+                        break;
+                    case "CastlePreview":
+                        Build(castle);
+                        break;
+                    case "FencePreview":
+                        Build(fence);
+                        break;
                 }
+
 
             }
 

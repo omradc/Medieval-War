@@ -9,10 +9,9 @@ namespace Assets.Scripts.Concrete.Managers
     {
         public TMP_Dropdown formationDropdown;
         public TMP_Dropdown orderDropdown;
-        public bool buildPreview;
-        public bool buildConfirm;
+        public bool canBuild;
         [HideInInspector] public GameObject previewObj;
-        public bool canBuild = true;
+
         public static UIManager Instance { get; private set; }
         private void Awake()
         {
@@ -84,7 +83,6 @@ namespace Assets.Scripts.Concrete.Managers
 
         public void BarrackPreview(GameObject obj)
         {
-            buildPreview = true;
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             previewObj = Instantiate(obj, pos, Quaternion.identity);
         }
