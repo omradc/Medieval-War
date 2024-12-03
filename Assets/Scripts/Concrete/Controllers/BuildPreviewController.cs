@@ -2,6 +2,7 @@
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Managers;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
@@ -12,7 +13,13 @@ namespace Assets.Scripts.Concrete.Controllers
         SpriteRenderer spriteRenderer;
         GameObject visual;
         GameObject visualRed;
+        IInput ıInput;
+        Vector2 firstPos;
 
+        private void Awake()
+        {
+            ıInput = new PcInput();
+        }
         private void Start()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -21,10 +28,26 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void Update()
         {
-            if (!UIManager.Instance.buildPreview)
-                Destroy(gameObject);
-            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = pos;
+            if (ıInput.GetButtonDown0)
+            {
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                firstPos = transform.position - mousePos;
+            }
+            if (ıInput.GetButton0)
+            {
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                transform.position = firstPos + mousePos;
+            }
+        }
+
+        public void BuildConfirmButton()
+        {
+            UIManager.Instance.buildConfirm = true;
+            Destroy(gameObject);
+        }
+        public void BuildCancelButton()
+        {
+            Destroy(gameObject);
         }
 
         private void OnTriggerStay2D(Collider2D collision)

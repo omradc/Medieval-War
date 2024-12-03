@@ -34,9 +34,9 @@ namespace Assets.Scripts.Concrete.Managers
         // Update is called once per frame
         void Update()
         {
-            if (UIManager.Instance.buildPreview && ıInput.GetButtonUp0)
+            if (UIManager.Instance.buildConfirm)
             {
-                UIManager.Instance.buildPreview = false;
+                UIManager.Instance.buildConfirm = false;
                 if (UIManager.Instance.canBuild)
                 {
                     switch (UIManager.Instance.previewObj.tag)
@@ -69,7 +69,7 @@ namespace Assets.Scripts.Concrete.Managers
 
         void Build(GameObject building)
         {
-            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 pos = UIManager.Instance.previewObj.transform.position;
             Instantiate(building, pos, Quaternion.identity);
         }
 

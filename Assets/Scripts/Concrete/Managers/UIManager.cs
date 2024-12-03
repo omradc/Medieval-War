@@ -10,6 +10,7 @@ namespace Assets.Scripts.Concrete.Managers
         public TMP_Dropdown formationDropdown;
         public TMP_Dropdown orderDropdown;
         public bool buildPreview;
+        public bool buildConfirm;
         [HideInInspector] public GameObject previewObj;
         public bool canBuild = true;
         public static UIManager Instance { get; private set; }
