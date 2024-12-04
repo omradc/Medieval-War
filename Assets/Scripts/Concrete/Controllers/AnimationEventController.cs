@@ -8,6 +8,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public System.Action ChopEvent;
         public System.Action GetHitTreeEvent;
         public System.Action IsTreeBeingCutAlreadyEvent;
+        public System.Action BuildEvent;
 
         void Attack()
         {
@@ -26,6 +27,11 @@ namespace Assets.Scripts.Concrete.Controllers
         void IsTreeBeingCutAlready()
         {
             IsTreeBeingCutAlreadyEvent?.Invoke();
+        }
+
+        void Build()
+        {
+            BuildEvent?.Invoke();
         }
 
     }

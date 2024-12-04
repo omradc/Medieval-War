@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
-    internal class CollectResourcesController : MonoBehaviour
+    internal class VillagerController : MonoBehaviour
     {
         public GameObject targetResource;
         public float dropResourceLifeTime = 3;
@@ -15,7 +15,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [Header("TREE")]
         [HideInInspector] public GameObject nearestTree;
         [HideInInspector] public Vector2 treeChopPos;
-        public int treeDamagePoint;
+        public int treeDamage = 1;
         public float chopSpeed;
         public float chopTreeSightRange;
         public float woodCollectTime;
@@ -37,15 +37,21 @@ namespace Assets.Scripts.Concrete.Controllers
 
 
         [Header("SHEEP")]
-        [HideInInspector] public Fence fence;
+        [HideInInspector] public FenceController fence;
         [HideInInspector] public GameObject fenceObj;
         public GameObject resourceMeat;
         public float meatCollectTime;
 
 
+        [Header("CONSTRUCTION")]
+        public float buildSpeed;
+        public GameObject constructionObj;
+        public ConstructController constructController;
+
+
         [HideInInspector] public Vector3 homePos;
         [HideInInspector] public float currentChopTreeSightRange;
-        [HideInInspector] public int currentTreeDamagePoint;
+        [HideInInspector] public int currentTreeDamage;
         [HideInInspector] public float tChop;
         [HideInInspector] public float tCollect;
         [HideInInspector] public float tMining;
@@ -77,7 +83,7 @@ namespace Assets.Scripts.Concrete.Controllers
         CollectGoldOrRock goldAndRock;
         CollectWood collectWood;
         CollectFood collectFood;
-
+        Construction construction;
         private void Awake()
         {
             uC = GetComponent<UnitController>();
@@ -94,19 +100,20 @@ namespace Assets.Scripts.Concrete.Controllers
             goldAndRock = new(this, pF2D);
             collectWood = new(this, pF2D);
             collectFood = new(this, pF2D);
+            construction = new(this, pF2D);
         }
         private void Start()
         {
             direction = uC.direction;
-            currentTreeDamagePoint = treeDamagePoint;
             currentChopTreeSightRange = chopTreeSightRange;
-
+            currentTreeDamage = treeDamage;
             //  Events
             animationEventController.ChopEvent += collectWood.Chop;
             animationEventController.GetHitTreeEvent += collectWood.GetHitTree;
+            animationEventController.BuildEvent += construction.Build;
 
             //Invoke
-            InvokeRepeating(nameof(OptimumCollectResources), 0.1f, uC.collectResourcesPerTime);
+            InvokeRepeating(nameof(OptimumVillager), 0.1f, uC.collectResourcesPerTime);
         }
         private void Update()
         {
@@ -114,7 +121,7 @@ namespace Assets.Scripts.Concrete.Controllers
             collectResources.SelectResourceType();
         }
 
-        void OptimumCollectResources()
+        void OptimumVillager()
         {
             //Düşman varsa kaynak toplama
             if (uC.unitAI.DetechNearestTarget() != null)
@@ -132,6 +139,7 @@ namespace Assets.Scripts.Concrete.Controllers
             collectFood.GoToSheep();
             collectFood.GoToFences();
             collectResources.GoToHome();
+            construction.GoConstruct();
         }
         private void OnDrawGizmos()
         {

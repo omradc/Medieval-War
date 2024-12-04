@@ -9,127 +9,125 @@ namespace Assets.Scripts.Concrete.Resources
 {
     internal class CollectWood
     {
-        CollectResourcesController cR;
+        VillagerController vC;
         UnitPathFinding2D pF2D;
         Trees tree;
-        public CollectWood(CollectResourcesController collectResources, UnitPathFinding2D pathFinding2D)
+        public CollectWood(VillagerController collectResources, UnitPathFinding2D pathFinding2D)
         {
-            cR = collectResources;
+            vC = collectResources;
             pF2D = pathFinding2D;
         }
         void RefreshTrees()
         {
-            cR.trees = Physics2D.OverlapCircleAll(cR.targetResource.transform.position, cR.currentChopTreeSightRange, cR.treeLayer);
-            cR.nearestTree = DetechNearestTree();
-            if (cR.trees.Length == 0)
-                cR.isTree = false;
+            vC.trees = Physics2D.OverlapCircleAll(vC.targetResource.transform.position, vC.currentChopTreeSightRange, vC.treeLayer);
+            vC.nearestTree = DetechNearestTree();
+            if (vC.trees.Length == 0)
+                vC.isTree = false;
         }
         public void GoToTree()
         {
 
             // Ağaç seçilmediyse veya maden seçildiyse ağaç kesmeye gitme.
-            if (!cR.isTree || cR.isMine || cR.isSheep) return;
+            if (!vC.isTree || vC.isMine || vC.isSheep) return;
 
             // Hedef varsa ona git
-            if (cR.targetResource != null && !cR.returnHome)
+            if (vC.targetResource != null && !vC.returnHome)
             {
                 // İlk ağacı bulur
-                if (cR.workOnceForTree)
+                if (vC.workOnceForTree)
                 {
                     RefreshTrees();
 
-                    if (cR.nearestTree != null)
+                    if (vC.nearestTree != null)
                     {
                         // Seçilen ilk ağaca gider
-                        if (cR.isFirstTree)
+                        if (vC.isFirstTree)
                         {
-                            cR.treeChopPos = cR.targetResource.transform.GetChild(1).position;
-                            tree = cR.targetResource.GetComponent<Trees>();
+                            vC.treeChopPos = vC.targetResource.transform.GetChild(1).position;
+                            tree = vC.targetResource.GetComponent<Trees>();
                         }
 
                         // Sonra en yakın ağaçlara gider
                         else
                         {
-                            cR.treeChopPos = cR.nearestTree.transform.GetChild(1).position;
-                            tree = cR.nearestTree.GetComponent<Trees>();
+                            vC.treeChopPos = vC.nearestTree.transform.GetChild(1).position;
+                            tree = vC.nearestTree.GetComponent<Trees>();
 
                         }
 
                     }
-                    cR.workOnceForTree = false;
+                    vC.workOnceForTree = false;
                 }
 
                 // Hedef boşsa çalışma
-                if (cR.nearestTree == null) return;
+                if (vC.nearestTree == null) return;
                 // Kullanıcı komutu bittiği zaman, kendi kendine ağaca doğru gider
-                if (Vector2.Distance(cR.transform.position, cR.treeChopPos) > .1f)
+                if (Vector2.Distance(vC.transform.position, vC.treeChopPos) > .1f)
                 {
-                    pF2D.AIGetMoveCommand(cR.treeChopPos);
-                    AnimationManager.Instance.RunAnim(cR.animator, 1);
+                    pF2D.AIGetMoveCommand(vC.treeChopPos);
+                    AnimationManager.Instance.RunAnim(vC.animator, 1);
 
                     if (tree.isTreeAlreadyCutted)
                     {
-                        cR.workOnceForTree = true;
+                        vC.workOnceForTree = true;
                         return;
                     }
                 }
 
                 // Ağacı Kes
-                if (Vector2.Distance(cR.transform.position, cR.treeChopPos) < .1f)
+                if (Vector2.Distance(vC.transform.position, vC.treeChopPos) < .1f)
                 {
-                    AnimationManager.Instance.ChopAnim(cR.animator, cR.chopSpeed);
+                    AnimationManager.Instance.ChopAnim(vC.animator, vC.chopSpeed);
                 }
             }
         }
         public void Chop()  // Ağaç kesme animasyonu oynadığında; Chop event i ile tetiklenir
         {
             // Ağacı kes
-            if (cR.nearestTree != null)
+            if (vC.nearestTree != null)
             {
-                if (!cR.isFirstTree)
+                if (!vC.isFirstTree)
                 {
-                    tree = cR.nearestTree.GetComponent<Trees>();
-                    Debug.Log(tree.name);
+                    tree = vC.nearestTree.GetComponent<Trees>();
                 }
-                if (cR.isFirstTree)
+                if (vC.isFirstTree)
                 {
-                    tree = cR.targetResource.GetComponent<Trees>();
-                    Debug.Log(tree.name);
+                    tree = vC.targetResource.GetComponent<Trees>();
                 }
 
-                tree.GetHit(cR.currentTreeDamagePoint, cR.woodCollectTime);
+                tree.GetHit(vC.currentTreeDamage, vC.woodCollectTime);
                 //Ağaç yıkıldıysa eve dön
                 if (tree.destruct)
                 {
-                    cR.isFirstTree = false;
+                    vC.isFirstTree = false;
                     if (!tree.isTreeAlreadyCutted)
                     {
-                        cR.returnHome = true;
-                        cR.tCollect = 0;
-                        AnimationManager.Instance.IdleAnim(cR.animator);
+                        vC.returnHome = true;
+                        vC.tCollect = 0;
+                        AnimationManager.Instance.IdleAnim(vC.animator);
                         tree.IsTreeAlreadyCutted(true);
                     }
 
                     if (tree.isTreeAlreadyCutted)
                     {
-                        cR.workOnceForTree = true;
+                        vC.workOnceForTree = true;
                     }
                 }
 
             }
-            if (cR.nearestTree == null)
+            if (vC.nearestTree == null)
             {
-                AnimationManager.Instance.IdleAnim(cR.animator);
+                AnimationManager.Instance.IdleAnim(vC.animator);
             }
 
-            cR.workOnce = true;
-            cR.workOnce2 = true;
+            vC.workOnce = true;
+            vC.workOnce2 = true;
         }
         public void GetHitTree() // Ağaç kesme animasyonu oynadığında; GetHitTree event i ile tetiklenir
         {
-            if (cR.nearestTree != null && !tree.isTreeAlreadyCutted)
+            if (vC.nearestTree != null && !tree.isTreeAlreadyCutted)
             {
-                tree.GetHitTreeAnim(cR.chopSpeed);
+                tree.GetHitTreeAnim(vC.chopSpeed);
             }
         }
         GameObject DetechNearestTree()
@@ -137,16 +135,16 @@ namespace Assets.Scripts.Concrete.Resources
             GameObject nearestTarget = null;
             float shortestDistance = Mathf.Infinity;
 
-            for (int i = 0; i < cR.trees.Length; i++)
+            for (int i = 0; i < vC.trees.Length; i++)
             {
-                if (cR.trees[i] != null)
+                if (vC.trees[i] != null)
                 {
-                    float distanceToEnemy = Vector2.Distance(cR.transform.position, cR.trees[i].transform.position);
+                    float distanceToEnemy = Vector2.Distance(vC.transform.position, vC.trees[i].transform.position);
 
                     if (shortestDistance > distanceToEnemy)
                     {
                         shortestDistance = distanceToEnemy;
-                        nearestTarget = cR.trees[i].gameObject;
+                        nearestTarget = vC.trees[i].gameObject;
                     }
                 }
             }

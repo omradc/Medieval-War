@@ -7,51 +7,51 @@ namespace Assets.Scripts.Concrete.Resources
 {
     internal class CollectGoldOrRock
     {
-        CollectResourcesController cR;
+        VillagerController vC;
         UnitPathFinding2D pF2D;
 
-        public CollectGoldOrRock(CollectResourcesController collectResources, UnitPathFinding2D pathFinding2D)
+        public CollectGoldOrRock(VillagerController collectResources, UnitPathFinding2D pathFinding2D)
         {
-            cR = collectResources;
+            vC = collectResources;
             pF2D = pathFinding2D;
         }
         public void GoToMine()
         {
-            if (cR.isTree || cR.isMineEmpty || !cR.isMine || cR.isSheep) return;
+            if (vC.isTree || vC.isMineEmpty || !vC.isMine || vC.isSheep) return;
             // Hedef varsa ona git
-            if (cR.targetResource != null && !cR.returnHome && cR.mine.currentMineAmount > 0)
+            if (vC.targetResource != null && !vC.returnHome && vC.mine.currentMineAmount > 0)
             {
                 // Hedefe ulaşınca dur
-                if (Vector2.Distance(cR.transform.position, cR.targetResource.transform.position) > .1f)
+                if (Vector2.Distance(vC.transform.position, vC.targetResource.transform.position) > .1f)
                 {
-                    pF2D.AIGetMoveCommand(cR.targetResource.transform.position);
-                    AnimationManager.Instance.RunAnim(cR.animator, 1);
+                    pF2D.AIGetMoveCommand(vC.targetResource.transform.position);
+                    AnimationManager.Instance.RunAnim(vC.animator, 1);
                 }
 
                 // Hedefe ulaşıldı
                 else
                 {
-                    if (cR.mine.currentMineAmount == 0) return;
-                    cR.villagerSpriteRenderer.enabled = false;
-                    cR.tMining += 1;
-                    if (cR.tMining > cR.miningTime)
+                    if (vC.mine.currentMineAmount == 0) return;
+                    vC.villagerSpriteRenderer.enabled = false;
+                    vC.tMining += 1;
+                    if (vC.tMining > vC.miningTime)
                     {
                         // Madenden alınan kaynakları eksilt
-                        if (cR.mine.CompareTag("GoldMine"))
+                        if (vC.mine.CompareTag("GoldMine"))
                         {
-                            cR.mine.currentMineAmount -= cR.collectGoldAmount;
-                            cR.mine.mineAmountFillValue.fillAmount = cR.mine.currentMineAmount / cR.mine.mineAmount;
+                            vC.mine.currentMineAmount -= vC.collectGoldAmount;
+                            vC.mine.mineAmountFillValue.fillAmount = vC.mine.currentMineAmount / vC.mine.mineAmount;
                         }
-                        if (cR.mine.CompareTag("RockMine"))
+                        if (vC.mine.CompareTag("RockMine"))
                         {
-                            cR.mine.currentMineAmount -= cR.collectRockAmount;
-                            cR.mine.mineAmountFillValue.fillAmount = cR.mine.currentMineAmount / cR.mine.mineAmount;
+                            vC.mine.currentMineAmount -= vC.collectRockAmount;
+                            vC.mine.mineAmountFillValue.fillAmount = vC.mine.currentMineAmount / vC.mine.mineAmount;
                         }
-                        cR.villagerSpriteRenderer.enabled = true;
-                        cR.returnHome = true;
-                        cR.workOnce = true;
-                        cR.workOnce2 = true;
-                        cR.tMining = 0;
+                        vC.villagerSpriteRenderer.enabled = true;
+                        vC.returnHome = true;
+                        vC.workOnce = true;
+                        vC.workOnce2 = true;
+                        vC.tMining = 0;
                     }
 
                 }

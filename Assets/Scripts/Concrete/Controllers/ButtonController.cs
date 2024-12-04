@@ -6,6 +6,9 @@ namespace Assets.Scripts.Concrete.Controllers
     {
 
         [HideInInspector] public bool trainUnitButton;
+        [HideInInspector] public bool upgrade;
+        [HideInInspector] public GameObject upgrading;
+        [HideInInspector] public GameObject upgradeComplete;
         PanelController panelController;
         private void Start()
         {
@@ -15,14 +18,25 @@ namespace Assets.Scripts.Concrete.Controllers
         public void TrainUnitButton()
         {
             trainUnitButton = true;
-            panelController.TrainUnitVisibility(false);
-            panelController.TrainTimeVisibility(true);
+            panelController.InteractablePanelVisibility(false);
+            panelController.TimerPanelVisibility(true);
         }
 
+        public void ConstructingBuildingButton(GameObject upgrading)
+        {
+            // Son Seviye
+            if (upgrading == null) return;
+            // Ev yükseltildiği anda yok edilir
+            upgrade = true;
+            this.upgrading = upgrading;
+        }
+        public void ConstructedBuilding(GameObject upgradeComplete)
+        {
+            this.upgradeComplete = upgradeComplete;
+        }
         public void CloseButton()
         {
-            panelController.TrainUnitVisibility(false);
-
+            panelController.InteractablePanelVisibility(false);
         }
 
 

@@ -194,7 +194,7 @@ MonoBehaviour:
   moveCommand: 0
   obstacle:
     serializedVersion: 2
-    m_Bits: 5888
+    m_Bits: 1073747712
   drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
@@ -289,7 +289,7 @@ MonoBehaviour:
   dropResourceLifeTime: 3
   nearestTree: {fileID: 0}
   treeChopPos: {x: 0, y: 0}
-  treeDamagePoint: 1
+  treeDamage: 1
   chopSpeed: 1
   chopTreeSightRange: 10
   woodCollectTime: 1
@@ -312,9 +312,12 @@ MonoBehaviour:
   fenceObj: {fileID: 0}
   resourceMeat: {fileID: 3246526810110024777, guid: 305c2a09551e4324985e3671a16eaae1, type: 3}
   meatCollectTime: 1
+  buildSpeed: 1
+  constructionObj: {fileID: 0}
+  constructController: {fileID: 0}
   homePos: {x: 0, y: 0, z: 0}
   currentChopTreeSightRange: 0
-  currentTreeDamagePoint: 0
+  currentTreeDamage: 0
   tChop: 0
   tCollect: 0
   tMining: 0

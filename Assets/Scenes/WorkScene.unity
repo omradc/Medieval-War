@@ -1250,6 +1250,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f235e2e5c63ea74bb5d65c6b6843a4e, type: 3}
+--- !u!1001 &464302806
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6825630590398595132, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
+      propertyPath: m_Name
+      value: PawnHouse_Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417632142025686423, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417632142025686423, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417632142025686423, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417632142025686423, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417632142025686423, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417632142025686423, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417632142025686423, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417632142025686423, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417632142025686423, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417632142025686423, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
 --- !u!4 &503522421 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8075693366828144315, guid: 67101e511e04a29468d47f1d19107412, type: 3}
@@ -1317,7 +1374,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1342,7 +1399,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.89, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2164,6 +2221,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910b660ddcebc76419dc483e7aed80d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  houseConstruct: {fileID: 5494979510523353086, guid: f899dd38ae1b7d346b3fbf8fbf2d34d8, type: 3}
+  towerConstruct: {fileID: 4023670001020676894, guid: 65f89bf0045ea764990de885599d11ea, type: 3}
+  castleConstruct: {fileID: 1844819989577762619, guid: 29ecfb5f6f80f3649a2bc051f0d1122b, type: 3}
   worriorHouse: {fileID: 1788705377013864551, guid: 32a193ccd4caaae449b8dae5aad7e3ac, type: 3}
   archerHouse: {fileID: 5213932161942383376, guid: 67101e511e04a29468d47f1d19107412, type: 3}
   pawnHouse: {fileID: 6825630590398595132, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
@@ -2593,7 +2653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1340967441
 Transform:
   m_ObjectHideFlags: 0
@@ -5967,3 +6027,4 @@ SceneRoots:
   - {fileID: 2061191530}
   - {fileID: 8617177998534655618}
   - {fileID: 1890476827}
+  - {fileID: 464302806}

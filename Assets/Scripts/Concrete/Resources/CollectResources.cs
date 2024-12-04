@@ -6,94 +6,102 @@ namespace Assets.Scripts.Concrete.Resources
 {
     internal class CollectResources
     {
-        CollectResourcesController cR;
+        VillagerController vC;
 
-        public CollectResources(CollectResourcesController collectResourcesController)
+        public CollectResources(VillagerController collectResourcesController)
         {
-            cR = collectResourcesController;
+            vC = collectResourcesController;
         }
 
         public void SelectResourceType()
         {
             // UPDATE İLE ÇALIŞIR
-            // Eğer köylü seçiliyse ve hedef kaynağa tıkladıysa, seçili köylünün hedefi seçili kaynaktır
-            if (cR.uC.isSeleceted)
+            // Eğer köylü seçiliyse ve hedefe tıkladıysa, seçili köylünün hedefi seçili hedeftir
+            if (vC.uC.isSeleceted)
             {
-                cR.targetResource = null;
-                cR.nearestTree = null;
-                cR.villagerSpriteRenderer.enabled = true;
-                cR.isMine = false;
-                cR.isMineEmpty = false;
-                cR.isTree = false;
-                cR.isSheep = false;
-                cR.returnFences = false;
-                cR.isFirstTree = false;
-
+                vC.targetResource = null;
+                vC.nearestTree = null;
+                vC.constructionObj = null;
+                vC.villagerSpriteRenderer.enabled = true;
+                vC.isMine = false;
+                vC.isMineEmpty = false;
+                vC.isTree = false;
+                vC.isSheep = false;
+                vC.returnFences = false;
+                vC.isFirstTree = false;
                 // Bir yere tıklandıysa
                 if (InteractManager.Instance.interactedObj != null)
                 {
-                    cR.uC.isSeleceted = false;
+                    vC.uC.isSeleceted = false;
                 }
                 // Maden
                 if (InteractManager.Instance.interactedMine != null)
                 {
                     // SADECE 1 KEZ ÇALIŞIR
-                    cR.isTree = false;
-                    cR.isSheep = false;
-                    cR.returnHome = false;
-                    cR.targetResource = InteractManager.Instance.interactedMine;
-                    cR.mine = cR.targetResource.GetComponent<Mine>();
-                    cR.isMine = true;
-                    cR.uC.isSeleceted = false;
+                    vC.isTree = false;
+                    vC.isSheep = false;
+                    vC.returnHome = false;
+                    vC.targetResource = InteractManager.Instance.interactedMine;
+                    vC.mine = vC.targetResource.GetComponent<Mine>();
+                    vC.isMine = true;
+                    vC.uC.isSeleceted = false;
                 }
                 // Ağaç
                 if (InteractManager.Instance.interactedTree != null)
                 {
                     // SADECE 1 KEZ ÇALIŞIR
-                    cR.isMine = false;
-                    cR.isSheep = false;
-                    cR.returnHome = false;
-                    cR.targetResource = InteractManager.Instance.interactedTree;
-                    cR.isTree = true;
-                    cR.workOnceForTree = true;
-                    cR.tCollect = 0;
-                    cR.uC.isSeleceted = false;
-                    cR.isFirstTree = true;
+                    vC.isMine = false;
+                    vC.isSheep = false;
+                    vC.returnHome = false;
+                    vC.targetResource = InteractManager.Instance.interactedTree;
+                    vC.isTree = true;
+                    vC.workOnceForTree = true;
+                    vC.tCollect = 0;
+                    vC.uC.isSeleceted = false;
+                    vC.isFirstTree = true;
                 }
                 //Koyun
                 if (InteractManager.Instance.interactedSheep != null)
                 {
                     // SADECE 1 KEZ ÇALIŞIR
 
-                    cR.isMine = false;
-                    cR.isTree = false;
-                    cR.targetResource = InteractManager.Instance.interactedSheep;
-                    cR.sheep = cR.targetResource.GetComponent<Sheep>();
-                    cR.isSheep = true;
-                    cR.tCollect = 0;
-                    cR.uC.isSeleceted = false;
+                    vC.isMine = false;
+                    vC.isTree = false;
+                    vC.targetResource = InteractManager.Instance.interactedSheep;
+                    vC.sheep = vC.targetResource.GetComponent<Sheep>();
+                    vC.isSheep = true;
+                    vC.tCollect = 0;
+                    vC.uC.isSeleceted = false;
                 }
                 if (InteractManager.Instance.interactedFences != null)
                 {
                     // SADECE 1 KEZ ÇALIŞIR
-                    cR.isMine = false;
-                    cR.isTree = false;
-                    cR.fenceObj = InteractManager.Instance.interactedFences;
-                    cR.fence = cR.fenceObj.GetComponent<Fence>();
+                    vC.isMine = false;
+                    vC.isTree = false;
+                    vC.fenceObj = InteractManager.Instance.interactedFences;
+                    vC.fence = vC.fenceObj.GetComponent<FenceController>();
 
                 }
+                if (InteractManager.Instance.interactedConstruction != null)
+                {
+                    // SADECE 1 KEZ ÇALIŞIR
+                    vC.constructionObj = InteractManager.Instance.interactedConstruction;
+                    vC.constructController = vC.constructionObj.GetComponent<ConstructController>();
+
+                }
+
             }
         }
         public void GoToHome()
         {
             // Köylüyü madende çalışırken maden biterse, tekarar görünür olur
-            if (cR.isMineEmpty)
-                cR.villagerSpriteRenderer.enabled = true;
+            if (vC.isMineEmpty)
+                vC.villagerSpriteRenderer.enabled = true;
 
-            if (cR.returnHome)
+            if (vC.returnHome)
             {
                 // Eve ulaşınca dur
-                if (Vector2.Distance(cR.transform.position, cR.homePos) > .5f)
+                if (Vector2.Distance(vC.transform.position, vC.homePos) > .5f)
                 {
                     // Kaynak al
                     CollectResource();
@@ -104,96 +112,96 @@ namespace Assets.Scripts.Concrete.Resources
                 {
 
                     DropResourceToHome();
-                    cR.returnHome = false;
-                    cR.workOnceForTree = true;
+                    vC.returnHome = false;
+                    vC.workOnceForTree = true;
                 }
             }
         }
         public void CollectResource()
         {
-            if (cR.isTree)
-                cR.tCollect += 1;
-            if (cR.isSheep)
-                cR.tCollect += 1;
+            if (vC.isTree)
+                vC.tCollect += 1;
+            if (vC.isSheep)
+                vC.tCollect += 1;
 
-            if (cR.workOnce)
+            if (vC.workOnce)
             {
-                if (cR.isMine)
+                if (vC.isMine)
                 {
-                    Mine mine = cR.targetResource.GetComponent<Mine>();
+                    Mine mine = vC.targetResource.GetComponent<Mine>();
                     if (mine.CompareTag("GoldMine"))
-                        cR.goldIdle.SetActive(true);
+                        vC.goldIdle.SetActive(true);
                     if (mine.CompareTag("RockMine"))
-                        cR.rockIdle.SetActive(true);
-                    cR.pF2D.AIGetMoveCommand(cR.homePos);
-                    AnimationManager.Instance.RunCarryAnim(cR.animator, 1);
-                    cR.workOnce = false;
+                        vC.rockIdle.SetActive(true);
+                    vC.pF2D.AIGetMoveCommand(vC.homePos);
+                    AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
+                    vC.workOnce = false;
                 }
-                if (cR.tCollect > cR.woodCollectTime && cR.isTree)
+                if (vC.tCollect > vC.woodCollectTime && vC.isTree)
                 {
-                    cR.woodIdle.SetActive(true);
-                    cR.pF2D.AIGetMoveCommand(cR.homePos);
-                    AnimationManager.Instance.RunCarryAnim(cR.animator, 1);
-                    cR.workOnce = false;
-                    cR.tCollect = 0;
+                    vC.woodIdle.SetActive(true);
+                    vC.pF2D.AIGetMoveCommand(vC.homePos);
+                    AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
+                    vC.workOnce = false;
+                    vC.tCollect = 0;
 
                 }
-                if (cR.tCollect > cR.meatCollectTime && cR.sheep)
+                if (vC.tCollect > vC.meatCollectTime && vC.sheep)
                 {
-                    cR.meatIdle.SetActive(true);
-                    cR.pF2D.AIGetMoveCommand(cR.homePos);
-                    AnimationManager.Instance.RunCarryAnim(cR.animator, 1);
-                    cR.workOnce = false;
-                    cR.tCollect = 0;
+                    vC.meatIdle.SetActive(true);
+                    vC.pF2D.AIGetMoveCommand(vC.homePos);
+                    AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
+                    vC.workOnce = false;
+                    vC.tCollect = 0;
                 }
             }
 
-            if (!cR.workOnce && !cR.rockIdle.activeSelf && !cR.goldIdle.activeSelf && !cR.woodIdle.activeSelf && !cR.meatIdle.activeSelf)
-                cR.returnHome = false;
+            if (!vC.workOnce && !vC.rockIdle.activeSelf && !vC.goldIdle.activeSelf && !vC.woodIdle.activeSelf && !vC.meatIdle.activeSelf)
+                vC.returnHome = false;
         }
         void DropResourceToHome() // Kaynakları depola
         {
-            if (cR.workOnce2)
+            if (vC.workOnce2)
             {
-                if (cR.goldIdle.activeSelf)
+                if (vC.goldIdle.activeSelf)
                 {
-                    ResourcesManager.gold += cR.collectGoldAmount;
-                    DropGold(cR.homePos, cR.dropResourceLifeTime);
-                    cR.goldIdle.SetActive(false);
+                    ResourcesManager.gold += vC.collectGoldAmount;
+                    DropGold(vC.homePos, vC.dropResourceLifeTime);
+                    vC.goldIdle.SetActive(false);
                 }
-                if (cR.rockIdle.activeSelf)
+                if (vC.rockIdle.activeSelf)
                 {
-                    ResourcesManager.rock += cR.collectRockAmount;
-                    DropRock(cR.homePos, cR.dropResourceLifeTime);
-                    cR.rockIdle.SetActive(false);
+                    ResourcesManager.rock += vC.collectRockAmount;
+                    DropRock(vC.homePos, vC.dropResourceLifeTime);
+                    vC.rockIdle.SetActive(false);
                 }
-                if (cR.woodIdle.activeSelf)
+                if (vC.woodIdle.activeSelf)
                 {
-                    ResourcesManager.wood += cR.collectWoodAmount;
-                    DropWood(cR.homePos, cR.dropResourceLifeTime);
-                    cR.woodIdle.SetActive(false);
+                    ResourcesManager.wood += vC.collectWoodAmount;
+                    DropWood(vC.homePos, vC.dropResourceLifeTime);
+                    vC.woodIdle.SetActive(false);
                 }
-                if (cR.meatIdle.activeSelf)
+                if (vC.meatIdle.activeSelf)
                 {
-                    ResourcesManager.meat += cR.collectMeatCount;
-                    DropMeat(cR.homePos, cR.dropResourceLifeTime);
-                    cR.meatIdle.SetActive(false);
-                    cR.isSheep = false;
+                    ResourcesManager.meat += vC.collectMeatCount;
+                    DropMeat(vC.homePos, vC.dropResourceLifeTime);
+                    vC.meatIdle.SetActive(false);
+                    vC.isSheep = false;
                 }
-                cR.workOnce2 = false;
+                vC.workOnce2 = false;
             }
         }
         public void ReadyToNextCommand()
         {
             // Eğer elinde kaynak varken seçip, başka bir yere gönderirsen. Kaynak yere düşer.
-            if (cR.ıInput.GetButtonDown0 && cR.uC.isSeleceted)
+            if (vC.ıInput.GetButtonDown0 && vC.uC.isSeleceted)
             {
                 DropAnyResources();
 
                 // köylü seçili iken, etkileşimli olmayan bir nesne seçildiğinde seçim kalkar 
                 if (InteractManager.Instance.interactedObj == null)
                 {
-                    cR.uC.isSeleceted = false;
+                    vC.uC.isSeleceted = false;
                 }
             }
 
@@ -201,25 +209,25 @@ namespace Assets.Scripts.Concrete.Resources
 
         public void DropAnyResources()
         {
-            if (cR.goldIdle.activeSelf)
+            if (vC.goldIdle.activeSelf)
             {
-                DropGold(cR.transform.position, cR.dropResourceLifeTime);
-                cR.goldIdle.SetActive(false);
+                DropGold(vC.transform.position, vC.dropResourceLifeTime);
+                vC.goldIdle.SetActive(false);
             }
-            if (cR.rockIdle.activeSelf)
+            if (vC.rockIdle.activeSelf)
             {
-                DropRock(cR.transform.position, cR.dropResourceLifeTime);
-                cR.rockIdle.SetActive(false);
+                DropRock(vC.transform.position, vC.dropResourceLifeTime);
+                vC.rockIdle.SetActive(false);
             }
-            if (cR.woodIdle.activeSelf)
+            if (vC.woodIdle.activeSelf)
             {
-                DropWood(cR.transform.position, cR.dropResourceLifeTime);
-                cR.woodIdle.SetActive(false);
+                DropWood(vC.transform.position, vC.dropResourceLifeTime);
+                vC.woodIdle.SetActive(false);
             }
-            if (cR.meatIdle.activeSelf)
+            if (vC.meatIdle.activeSelf)
             {
-                DropMeat(cR.transform.position, cR.dropResourceLifeTime);
-                cR.meatIdle.SetActive(false);
+                DropMeat(vC.transform.position, vC.dropResourceLifeTime);
+                vC.meatIdle.SetActive(false);
             }
         }
 
@@ -227,23 +235,23 @@ namespace Assets.Scripts.Concrete.Resources
         {
             for (int i = 0; i < 3; i++)
             {
-                GameObject wood = Object.Instantiate(cR.resourceWood, pos + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0), Quaternion.identity);
+                GameObject wood = Object.Instantiate(vC.resourceWood, pos + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0), Quaternion.identity);
                 Object.Destroy(wood, lifeTime);
             }
         }
         void DropGold(Vector3 pos, float lifeTime)
         {
-            GameObject gold = Object.Instantiate(cR.resourceGold, pos, Quaternion.identity);
+            GameObject gold = Object.Instantiate(vC.resourceGold, pos, Quaternion.identity);
             Object.Destroy(gold, lifeTime);
         }
         void DropRock(Vector3 pos, float lifeTime)
         {
-            GameObject rock = Object.Instantiate(cR.resourceRock, pos, Quaternion.identity);
+            GameObject rock = Object.Instantiate(vC.resourceRock, pos, Quaternion.identity);
             Object.Destroy(rock, lifeTime);
         }
         void DropMeat(Vector3 pos, float lifeTime)
         {
-            GameObject meat = Object.Instantiate(cR.resourceMeat, pos, Quaternion.identity);
+            GameObject meat = Object.Instantiate(vC.resourceMeat, pos, Quaternion.identity);
             Object.Destroy(meat, lifeTime);
         }
     }

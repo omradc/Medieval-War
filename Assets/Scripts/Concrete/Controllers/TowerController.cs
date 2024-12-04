@@ -14,6 +14,7 @@ namespace Assets.Scripts.Concrete.Controllers
         GameObject visualDestructed;
         bool workOnce = true;
         [HideInInspector] public int unitValue;
+        ButtonController buttonController;
 
         HealthController healthController;
         private void Awake()
@@ -21,6 +22,7 @@ namespace Assets.Scripts.Concrete.Controllers
             healthController = GetComponent<HealthController>();
             visualTower = transform.GetChild(2).gameObject;
             visualDestructed = transform.GetChild(3).gameObject;
+            buttonController = GetComponent<ButtonController>();
         }
 
         private void Update()
@@ -31,6 +33,8 @@ namespace Assets.Scripts.Concrete.Controllers
                 Destruct();
             if (rebuild)
                 ReBuild();
+
+            Upgrade();
 
         }
 
@@ -61,6 +65,18 @@ namespace Assets.Scripts.Concrete.Controllers
             gameObject.layer = 9; // Katman = Tower
             healthController.FillHealth();
             rebuild = false;
+        }
+
+        void Upgrade()
+        {
+            if (buttonController.upgrade)
+            {
+                Debug.Log("Upgrade");
+                GameObject obj = Instantiate(buttonController.upgrading, transform.position, Quaternion.identity);
+                obj.GetComponent<ConstructController>().building = buttonController.upgradeComplete;
+                Destroy(gameObject);
+
+            }
         }
     }
 }

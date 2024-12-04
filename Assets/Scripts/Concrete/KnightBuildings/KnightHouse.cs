@@ -7,11 +7,10 @@ namespace Assets.Scripts.Concrete.KnightBuildings
         GameObject troop;
         Vector3 pos;
         KnightHouseController knightHouseController;
-        public bool timeToTraining;
-
         PanelController panelController;
         ButtonController buttonController;
         float currentTime;
+
 
 
         public KnightHouse(GameObject troop, Vector3 pos, PanelController panelController, ButtonController buttonController, KnightHouseController knightHouseController)
@@ -34,15 +33,27 @@ namespace Assets.Scripts.Concrete.KnightBuildings
                 {
                     GameObject trainedUnit = Object.Instantiate(troop, pos, Quaternion.identity);
                     currentTime = 0;
-                    timeToTraining = false;
                     buttonController.trainUnitButton = false;
-                    panelController.TrainTimeVisibility(false);
+                    panelController.TimerPanelVisibility(false);
                     if (trainedUnit.CompareTag("Villager"))
-                        trainedUnit.GetComponent<CollectResourcesController>().homePos = pos;
+                        trainedUnit.GetComponent<VillagerController>().homePos = pos;
                 }
 
             }
 
+        }
+
+        // Ev yükseltildiði anda yok edilir
+        public void UpgradeHouse()
+        {
+            if (buttonController.upgrade)
+            {
+                Debug.Log("Upgrade");
+                GameObject obj = Object.Instantiate(buttonController.upgrading, knightHouseController.transform.position, Quaternion.identity);
+                obj.GetComponent<ConstructController>().building= buttonController.upgradeComplete;
+                Object.Destroy(knightHouseController.gameObject);
+
+            }
         }
     }
 }

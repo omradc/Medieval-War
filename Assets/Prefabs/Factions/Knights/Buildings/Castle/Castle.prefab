@@ -522,6 +522,8 @@ GameObject:
   - component: {fileID: 8202378800408796199}
   - component: {fileID: 7201633327968002302}
   - component: {fileID: 5189584629740394554}
+  - component: {fileID: 7004866084959604303}
+  - component: {fileID: 7651174370483823263}
   m_Layer: 9
   m_Name: Castle
   m_TagString: Untagged
@@ -660,7 +662,6 @@ MonoBehaviour:
   rebuild: 0
   col1: {fileID: 8435280991516039195}
   col2: {fileID: 8202378800408796199}
-  col3: {fileID: 0}
   unitValue: 0
 --- !u!114 &5189584629740394554
 MonoBehaviour:
@@ -685,6 +686,36 @@ MonoBehaviour:
   currentTakeDamageTime: 0
   currentRegrenationPerTime: 0
   isDead: 0
+--- !u!114 &7004866084959604303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296483771844846597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aa2a8769ac23e24fac7a0f708cadc41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactablePanel: {fileID: 6668771133833745459}
+  trainTimePanel: {fileID: 0}
+--- !u!114 &7651174370483823263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296483771844846597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1f63c9f73dbb49488b99b92668875e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trainUnitButton: 0
+  upgrade: 0
+  upgrading: {fileID: 0}
+  upgradeComplete: {fileID: 0}
 --- !u!1 &5377870383954355044
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,6 +1025,42 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 1739090982765704118, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739090982765704118, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739090982765704118, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5296483771844846597}
+    - target: {fileID: 1739090982765704118, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5296483771844846597}
+    - target: {fileID: 1739090982765704118, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739090982765704118, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739090982765704118, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.ButtonController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704161894548101690, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7651174370483823263}
+    - target: {fileID: 3704161894548101690, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseButton
+      objectReference: {fileID: 0}
     - target: {fileID: 5062843343572777917, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -1001,6 +1068,10 @@ PrefabInstance:
     - target: {fileID: 5062843343572777917, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5324620465103170753, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5888156521882166492, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Layer
@@ -1138,6 +1209,11 @@ PrefabInstance:
 --- !u!1 &6342312486095765951 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8433023426544473089, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+  m_PrefabInstance: {fileID: 3246098874191336894}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6668771133833745459 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8178617983387713933, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
   m_PrefabInstance: {fileID: 3246098874191336894}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &8604770794138221177 stripped

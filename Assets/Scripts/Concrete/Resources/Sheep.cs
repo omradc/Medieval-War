@@ -19,7 +19,7 @@ namespace Assets.Scripts.Concrete.Resources
         GameObject fenceObj;
         Animator animator;
         GameObject villager;
-        CollectResourcesController cR;
+        VillagerController vC;
         Vector3 rightDirection = new Vector3(1, 1, 1);
         Vector3 leftDirection = new Vector3(-1, 1, 1);
         Transform[] sheepPoints;
@@ -49,7 +49,7 @@ namespace Assets.Scripts.Concrete.Resources
                 currentTameTime = 0;
                 isDomestic = true;
                 this.villager = villager;
-                cR = villager.GetComponent<CollectResourcesController>();
+                vC = villager.GetComponent<VillagerController>();
                 this.fenceObj = fenceObj;
                 sheepPoints = fenceObj.transform.GetChild(1).GetComponentsInChildren<Transform>();
 
@@ -60,7 +60,7 @@ namespace Assets.Scripts.Concrete.Resources
         {
             if (inFence || goFence) return;
             if (villager != null)
-                if (cR.uC.isSeleceted)
+                if (vC.uC.isSeleceted)
                     isDomestic = false;
 
             // Eğer koyun; çitlere gitmiyorsa, evcilse ve köylü yanındaysa,

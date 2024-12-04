@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Resources
 {
-    internal class Fence : MonoBehaviour
+    internal class FenceController : MonoBehaviour
     {
         public GameObject open;
         public GameObject close;

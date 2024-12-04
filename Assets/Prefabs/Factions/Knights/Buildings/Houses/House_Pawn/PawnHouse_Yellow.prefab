@@ -8,6 +8,58 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1329566892103807759}
+    - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1329566892103807759}
+    - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ConstructingBuildingButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ConstructedBuilding
+      objectReference: {fileID: 0}
+    - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.ButtonController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 5494979510523353086, guid: 4566e32b0474d8042b0c0fbc2681a54e, type: 3}
+    - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 6825630590398595132, guid: 90e65e1637d96b344864e71e8937387d, type: 3}
+    - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1582173498208581384, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -86,6 +138,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6035382885749002580, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154767432157192704, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6559869251384600631, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}

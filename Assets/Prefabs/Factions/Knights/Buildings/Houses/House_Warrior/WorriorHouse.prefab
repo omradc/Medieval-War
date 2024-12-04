@@ -49,6 +49,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -140,6 +143,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -183,6 +189,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8389996312057332968}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -206,7 +213,8 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.02}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -217,8 +225,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.1, y: 1.4}
+  m_Size: {x: 0.9, y: 1.2}
   m_EdgeRadius: 0
 --- !u!114 &3080069511291245526
 MonoBehaviour:
@@ -236,7 +243,8 @@ MonoBehaviour:
   trainedUnitPos: {x: 0, y: -1, z: 0}
   timerFillImage: {fileID: 3266292356291764359}
   currentTime: 0
-  trainingTime: 1
+  trainingTime: 0.1
+  upgradingTime: 0
 --- !u!114 &5148453498210689752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa2a8769ac23e24fac7a0f708cadc41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainUnitPanel: {fileID: 437106437618686433}
+  interactablePanel: {fileID: 437106437618686433}
   trainTimePanel: {fileID: 8048294403364199782}
 --- !u!114 &4846739352328880325
 MonoBehaviour:
@@ -264,6 +272,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainUnitButton: 0
+  upgrade: 0
+  upgrading: {fileID: 0}
+  upgradeComplete: {fileID: 0}
 --- !u!114 &-725170031266009311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,8 +290,14 @@ MonoBehaviour:
   healthObj: {fileID: 3421415229942673633}
   health: 10
   currentHealth: 0
-  visibileTime: 3
-  currentTime: 0
+  regeneration: 0
+  regenerationValue: 1
+  takeDamageTime: 5
+  regrenationPerTime: 1
+  isTakeDamage: 0
+  currentTakeDamageTime: 0
+  currentRegrenationPerTime: 0
+  isDead: 0
 --- !u!1 &8632073816952811094
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +347,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -409,6 +429,46 @@ PrefabInstance:
     - target: {fileID: 608040568888024669, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
       propertyPath: m_SortingOrder
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 8389996312057332968}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.ButtonController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6378934098478984178, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
       propertyPath: m_Name

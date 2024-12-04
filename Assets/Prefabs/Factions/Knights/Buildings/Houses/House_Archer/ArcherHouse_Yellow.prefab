@@ -16,6 +16,58 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 253204624424352107}
+    - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 253204624424352107}
+    - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 253204624424352107}
+    - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ConstructingBuildingButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ConstructedBuilding
+      objectReference: {fileID: 0}
+    - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.ButtonController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 5494979510523353086, guid: 4566e32b0474d8042b0c0fbc2681a54e, type: 3}
+    - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 5213932161942383376, guid: 61b50b5f81c00cd4da522fad92e018cf, type: 3}
+    - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1794569624008702093, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -114,6 +166,10 @@ PrefabInstance:
       objectReference: {fileID: 805014300, guid: 2a449d13c01a9cd48b91a9c83b475ebb, type: 3}
     - target: {fileID: 6247494947147736969, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322724302333448596, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7436225467549564347, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}

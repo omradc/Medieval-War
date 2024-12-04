@@ -57,7 +57,7 @@ namespace Assets.Scripts.Concrete.Movements
                 direction.Turn2Direction(Mathf.Infinity);
                 if (uC.followTargets.Length <= 0)
                 {
-                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Chop"))
+                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Chop") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Build"))
                         AnimationManager.Instance.IdleAnim(animator);
                 }
             }

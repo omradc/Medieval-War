@@ -130,6 +130,15 @@ namespace Assets.Scripts.Concrete.Managers
             }
         }
 
+        public void BuildAnim(Animator animator, float speed)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Build"))
+            {
+                animator.speed = speed;
+                animator.Play("Build");
+            }
+        }
+
         //Sheep
         public void HappyAnim(Animator animator)
         {

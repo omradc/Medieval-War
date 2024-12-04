@@ -4,15 +4,15 @@ namespace Assets.Scripts.Concrete.Controllers
 {
     internal class PanelController : MonoBehaviour
     {
-        [SerializeField] GameObject trainUnitPanel;
+        [SerializeField] GameObject interactablePanel;
         [SerializeField] GameObject trainTimePanel;
 
-        public void TrainUnitVisibility(bool visibility)
+        public void InteractablePanelVisibility(bool visibility)
         {
-            trainUnitPanel.SetActive(visibility);
+            interactablePanel.SetActive(visibility);
         }
 
-        public void TrainTimeVisibility(bool visibility)
+        public void TimerPanelVisibility(bool visibility)
         {
             trainTimePanel.SetActive(visibility);
         }

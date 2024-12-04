@@ -8,49 +8,49 @@ namespace Assets.Scripts.Concrete.Resources
 {
     internal class CollectFood
     {
-        CollectResourcesController cR;
+        VillagerController vC;
         UnitPathFinding2D pF2D;
-        public CollectFood(CollectResourcesController collectResources, UnitPathFinding2D pathFinding2D)
+        public CollectFood(VillagerController collectResources, UnitPathFinding2D pathFinding2D)
         {
-            cR = collectResources;
+            vC = collectResources;
             pF2D = pathFinding2D;
         }
 
         public void GoToSheep()
         {
-            if (!cR.isSheep || cR.isTree || cR.isMine) return;
+            if (!vC.isSheep || vC.isTree || vC.isMine) return;
             // Hedef varsa ona git
-            float distance = Vector2.Distance(cR.transform.position, cR.targetResource.transform.GetChild(1).position);
-            if (cR.targetResource != null && !cR.returnFences && !cR.returnHome)
+            float distance = Vector2.Distance(vC.transform.position, vC.targetResource.transform.GetChild(1).position);
+            if (vC.targetResource != null && !vC.returnFences && !vC.returnHome)
             {
                 // Koyuna ulaşınca dur
                 if (distance > .1f)
                 {
-                    pF2D.AIGetMoveCommand(cR.targetResource.transform.GetChild(1).position);
-                    AnimationManager.Instance.RunAnim(cR.animator, 1);
+                    pF2D.AIGetMoveCommand(vC.targetResource.transform.GetChild(1).position);
+                    AnimationManager.Instance.RunAnim(vC.animator, 1);
                 }
                 // Koyuna ulaşıldı
                 if (distance < .1f)
                 {
-                    AnimationManager.Instance.IdleAnim(cR.animator);
+                    AnimationManager.Instance.IdleAnim(vC.animator);
                     // Koyunu evcilleştir
-                    if (!cR.sheep.isDomestic)
+                    if (!vC.sheep.isDomestic)
                     {
-                        if (cR.fenceObj != null)
-                            cR.sheep.TameSheep(cR.gameObject, cR.fenceObj);
+                        if (vC.fenceObj != null)
+                            vC.sheep.TameSheep(vC.gameObject, vC.fenceObj);
                     }
                     //Koyun evcilleştiyse, çite gönder
-                    if (cR.sheep.isDomestic && !cR.sheep.inFence)
-                        cR.returnFences = true;
+                    if (vC.sheep.isDomestic && !vC.sheep.inFence)
+                        vC.returnFences = true;
                     //Koyun çitteyse ve kaynağı dolu ise, eve dönüşü bekle
-                    if (cR.sheep.inFence && cR.sheep.giveMeat)
+                    if (vC.sheep.inFence && vC.sheep.giveMeat)
                     {
-                        cR.workOnce = true;
-                        cR.workOnce2 = true;
-                        cR.returnHome = true;
-                        cR.sheep.giveMeat = false;
-                        cR.sheep.DropMeat(cR.meatCollectTime);
-                        cR.tCollect = 0;
+                        vC.workOnce = true;
+                        vC.workOnce2 = true;
+                        vC.returnHome = true;
+                        vC.sheep.giveMeat = false;
+                        vC.sheep.DropMeat(vC.meatCollectTime);
+                        vC.tCollect = 0;
                     }
                 }
             }
@@ -59,22 +59,22 @@ namespace Assets.Scripts.Concrete.Resources
         {
 
 
-            if (cR.returnFences)
+            if (vC.returnFences)
             {
                 // Çit kapısına git
-                if (Vector2.Distance(cR.transform.position, cR.fenceObj.transform.GetChild(0).position) > .1)
+                if (Vector2.Distance(vC.transform.position, vC.fenceObj.transform.GetChild(0).position) > .1)
                 {
-                    pF2D.AIGetMoveCommand(cR.fenceObj.transform.GetChild(0).position);
-                    AnimationManager.Instance.RunAnim(cR.animator, 1);
+                    pF2D.AIGetMoveCommand(vC.fenceObj.transform.GetChild(0).position);
+                    AnimationManager.Instance.RunAnim(vC.animator, 1);
                 }
 
                 // Çit kapısının önünde dur ve koyunu çite gönder
-                if (Vector2.Distance(cR.transform.position, cR.fenceObj.transform.GetChild(0).position) < .1)
+                if (Vector2.Distance(vC.transform.position, vC.fenceObj.transform.GetChild(0).position) < .1)
                 {
-                    cR.sheep.CheckFences();
-                    cR.sheep.goFence = true;
-                    cR.returnFences = false;
-                    cR.isSheep = false;
+                    vC.sheep.CheckFences();
+                    vC.sheep.goFence = true;
+                    vC.returnFences = false;
+                    vC.isSheep = false;
                 }
             }
         }

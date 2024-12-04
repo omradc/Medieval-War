@@ -64,12 +64,67 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3832013195798504968, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832013195798504968, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832013195798504968, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 9009627845384232087}
+    - target: {fileID: 3832013195798504968, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 9009627845384232087}
+    - target: {fileID: 3832013195798504968, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ConstructingBuildingButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832013195798504968, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ConstructedBuilding
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832013195798504968, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1844819989577762619, guid: 9274d8b69e47c6c48bae16877d6d08f6, type: 3}
+    - target: {fileID: 3832013195798504968, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 6820188896059742733, guid: 419bac7857b586a40b10717d3686da05, type: 3}
+    - target: {fileID: 3832013195798504968, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832013195798504968, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5296483771844846597, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
       propertyPath: m_Name
       value: Castle_Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 7271254700786694527, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+--- !u!114 &9009627845384232087 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7651174370483823263, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+  m_PrefabInstance: {fileID: 1668247517161766408}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1f63c9f73dbb49488b99b92668875e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

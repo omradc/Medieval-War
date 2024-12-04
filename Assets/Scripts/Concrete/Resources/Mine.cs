@@ -17,7 +17,7 @@ namespace Assets.Scripts.Concrete.Resources
         Collider2D[] colliders;
         public List<GameObject> villagers;
         public Image mineAmountFillValue;
-        CollectResourcesController collectResources;
+        VillagerController vC;
         private void Start()
         {
             inactivited = transform.GetChild(0).gameObject;
@@ -81,9 +81,9 @@ namespace Assets.Scripts.Concrete.Resources
                     minePanel.SetActive(false);
                     for (int i = 0; i < villagers.Count; i++)
                     {
-                        collectResources = villagers[i].GetComponent<CollectResourcesController>();
-                        collectResources.isMineEmpty = true;
-                        collectResources.isMine = false;
+                        vC = villagers[i].GetComponent<VillagerController>();
+                        vC.isMineEmpty = true;
+                        vC.isMine = false;
                     }
                     for (int i = 0; i < colliders.Length; i++)
                     {

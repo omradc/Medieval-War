@@ -15,6 +15,7 @@ namespace Assets.Scripts.Concrete.Controllers
         PanelController panelController;
         ButtonController buttonController;
         public float trainingTime;
+        public float upgradingTime;
         KnightHouse knightHouse;
         IInput ıInput;
         
@@ -32,6 +33,7 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Update()
         {           
             knightHouse.TrainUnit();
+            knightHouse.UpgradeHouse();
         }
 
 

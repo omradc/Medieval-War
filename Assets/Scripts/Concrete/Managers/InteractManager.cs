@@ -17,7 +17,6 @@ namespace Assets.Scripts.Concrete.Managers
         public EventSystem eventSystem;    // EventSystem'i kullanarak raycast işlemi yapmak için
         private PointerEventData pointerEventData; // Pointer verilerini tutar
         public static InteractManager Instance { get; private set; }
-        [SerializeField] LayerMask terrainLayer;
         [SerializeField] LayerMask unitLayer;
         Interact ınteract;
         public GameObject interactedObj;
@@ -27,6 +26,7 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject interactedSheep;
         public GameObject interactedFences;
         public GameObject interactedTower;
+        public GameObject interactedConstruction;
         IInput ıInput;
 
         public List<GameObject> selectedUnits;
@@ -69,9 +69,9 @@ namespace Assets.Scripts.Concrete.Managers
                 ınteract.InteractClickedObj();
                 if (interactedObj != null)
                 {
-                    // Etkileşim olan obje baraka ise, birlik basma ekranı açılır
-                    if (interactedObj.layer == 8)
-                        interactedObj.GetComponent<PanelController>().TrainUnitVisibility(true);
+                    // Etkileşim olan obje ev, kule veya kale ise, etkileşim ekranı açılır
+                    if (interactedObj.layer == 8 || interactedObj.layer == 9 || interactedObj.layer== 10)
+                        interactedObj.GetComponent<PanelController>().InteractablePanelVisibility(true);
 
                     // Etkileşim olan obje, birim ise,
                     if (interactedObj.layer == 6)
@@ -87,10 +87,8 @@ namespace Assets.Scripts.Concrete.Managers
 
                     // Etkileşim olan obje, koyun ise,
                     if (interactedObj.layer == 16)
-                    {
-                        Debug.Log("Interacted Sheep");
                         interactedSheep = interactedObj;
-                    }
+
 
                     // Etkileşim olan obje, çitler ise,
                     if (interactedObj.layer == 12)
@@ -99,6 +97,10 @@ namespace Assets.Scripts.Concrete.Managers
                     // Etkileşim olan obje, kule ise,
                     if (interactedObj.layer == 9)
                         interactedTower = interactedObj;
+
+                    // Etkileşim olan obje, inşaat ise,
+                    if (interactedObj.layer == 30)
+                        interactedConstruction = interactedObj;
 
                 }
             }
@@ -111,6 +113,7 @@ namespace Assets.Scripts.Concrete.Managers
                 interactedFences = null;
                 interactedUnit = null; //follow AI da boşa düşürüldü
                 interactedTower = null;
+                interactedConstruction = null;
             }
 
 

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Abstracts.Inputs;
+using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Inputs;
 using System.Collections;
 using UnityEngine;
@@ -8,7 +9,10 @@ namespace Assets.Scripts.Concrete.Managers
     public class BuildManager : MonoBehaviour
     {
         public static BuildManager Instance { get; private set; }
-        IInput ıInput;
+        public GameObject houseConstruct;
+        public GameObject towerConstruct;
+        public GameObject castleConstruct;
+
         public GameObject worriorHouse;
         public GameObject archerHouse;
         public GameObject pawnHouse;
@@ -19,7 +23,6 @@ namespace Assets.Scripts.Concrete.Managers
         private void Awake()
         {
             Singelton();
-            ıInput = new PcInput();
         }
         void Singelton()
         {
@@ -41,19 +44,19 @@ namespace Assets.Scripts.Concrete.Managers
                 switch (UIManager.Instance.previewObj.tag)
                 {
                     case "WorriorHousePreview":
-                        Build(worriorHouse);
+                        Build(houseConstruct).GetComponent<ConstructController>().building = worriorHouse;
                         break;
                     case "ArcherHousePreview":
-                        Build(archerHouse);
+                        Build(houseConstruct).GetComponent<ConstructController>().building = archerHouse;
                         break;
                     case "PawnHousePreview":
-                        Build(pawnHouse);
+                        Build(houseConstruct).GetComponent<ConstructController>().building = pawnHouse;
                         break;
                     case "TowerPreview":
-                        Build(tower);
+                        Build(towerConstruct).GetComponent<ConstructController>().building = tower;
                         break;
                     case "CastlePreview":
-                        Build(castle);
+                        Build(castleConstruct).GetComponent<ConstructController>().building = castle;
                         break;
                     case "FencePreview":
                         Build(fence);
@@ -66,10 +69,10 @@ namespace Assets.Scripts.Concrete.Managers
 
         }
 
-        void Build(GameObject building)
+        GameObject Build(GameObject construct)
         {
             Vector2 pos = UIManager.Instance.previewObj.transform.position;
-            Instantiate(building, pos, Quaternion.identity);
+            return Instantiate(construct, pos, Quaternion.identity);
         }
 
     }
