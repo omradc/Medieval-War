@@ -37,10 +37,10 @@ namespace Assets.Scripts.Concrete.Controllers
 
 
         [Header("SHEEP")]
-        [HideInInspector] public FenceController fence;
-        [HideInInspector] public GameObject fenceObj;
+        public GameObject fenceObj;
         public GameObject resourceMeat;
         public float meatCollectTime;
+        [HideInInspector] public FenceController fence;
 
 
         [Header("CONSTRUCTION")]
