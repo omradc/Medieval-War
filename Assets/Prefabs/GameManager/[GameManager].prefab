@@ -17,7 +17,8 @@ GameObject:
   - component: {fileID: 1961826129281843446}
   - component: {fileID: 3724882387064550949}
   - component: {fileID: 4923174947444017873}
-  m_Layer: 0
+  - component: {fileID: 4436064059946293415}
+  m_Layer: 9
   m_Name: '[GameManager]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,18 +185,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raycaster: {fileID: 0}
   eventSystem: {fileID: 0}
-  terrainLayer:
-    serializedVersion: 2
-    m_Bits: 8
   unitLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 33554496
   interactedObj: {fileID: 0}
   interactedUnit: {fileID: 0}
   interactedMine: {fileID: 0}
   interactedTree: {fileID: 0}
   interactedSheep: {fileID: 0}
   interactedFences: {fileID: 0}
+  interactedTower: {fileID: 0}
+  interactedConstruction: {fileID: 0}
   selectedUnits: []
   startPos: {x: 0, y: 0}
   isDragging: 0
@@ -211,8 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c85261585c6268428c896c0223b34cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  troopFormation: 1
-  distanceBetweenUnits: 0.8
+  troopFormation: 2
+  distanceBetweenUnits: 1
   unitOrderEnum: 0
 --- !u!114 &1961826129281843446
 MonoBehaviour:
@@ -228,6 +228,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   formationDropdown: {fileID: 0}
   orderDropdown: {fileID: 0}
+  canBuild: 1
+  previewObj: {fileID: 0}
 --- !u!114 &3724882387064550949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,3 +254,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b8b4883d93fa44f858ad6b1154bc51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  value:
+  - name: worriorHouseLvl1
+    goldValue: 1
+    rockValue: 1
+    woodValue: 1
+    meatValue: 0
+  - name: worriorHouseLvl2
+    goldValue: 2
+    rockValue: 2
+    woodValue: 2
+    meatValue: 0
+  - name: worriorHouseLvl3
+    goldValue: 3
+    rockValue: 3
+    woodValue: 3
+    meatValue: 0
+  - name: worriorHouseLvl4
+    goldValue: 4
+    rockValue: 4
+    woodValue: 4
+    meatValue: 0
+  - name: archerHouseLvl1
+    goldValue: 1
+    rockValue: 1
+    woodValue: 1
+    meatValue: 0
+  - name: archerHouseLvl2
+    goldValue: 2
+    rockValue: 2
+    woodValue: 2
+    meatValue: 0
+  - name: archerHouseLvl3
+    goldValue: 3
+    rockValue: 3
+    woodValue: 3
+    meatValue: 0
+  - name: archerHouseLvl4
+    goldValue: 4
+    rockValue: 4
+    woodValue: 4
+    meatValue: 0
+  - name: pawnHouseLvl1
+    goldValue: 1
+    rockValue: 1
+    woodValue: 1
+    meatValue: 0
+  - name: pawnHouseLvl2
+    goldValue: 2
+    rockValue: 2
+    woodValue: 2
+    meatValue: 0
+  - name: pawnHouseLvl3
+    goldValue: 3
+    rockValue: 3
+    woodValue: 3
+    meatValue: 0
+  - name: pawnHouseLvl4
+    goldValue: 4
+    rockValue: 4
+    woodValue: 4
+    meatValue: 0
+--- !u!114 &4436064059946293415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6696413502318872325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 910b660ddcebc76419dc483e7aed80d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  houseConstruct: {fileID: 5494979510523353086, guid: f899dd38ae1b7d346b3fbf8fbf2d34d8, type: 3}
+  towerConstruct: {fileID: 4023670001020676894, guid: 65f89bf0045ea764990de885599d11ea, type: 3}
+  castleConstruct: {fileID: 1844819989577762619, guid: 29ecfb5f6f80f3649a2bc051f0d1122b, type: 3}
+  worriorHouse: {fileID: 1788705377013864551, guid: 32a193ccd4caaae449b8dae5aad7e3ac, type: 3}
+  archerHouse: {fileID: 5213932161942383376, guid: 67101e511e04a29468d47f1d19107412, type: 3}
+  pawnHouse: {fileID: 6825630590398595132, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
+  tower: {fileID: 7309716241808544195, guid: 67d3d1fc6c95c544295e78fb6281fa22, type: 3}
+  castle: {fileID: 6820188896059742733, guid: 320501ccbc23a6d45ba99fec3af4daff, type: 3}
+  fence: {fileID: 2192484165252331637, guid: 065a13aec618bfb4684796439f395a10, type: 3}

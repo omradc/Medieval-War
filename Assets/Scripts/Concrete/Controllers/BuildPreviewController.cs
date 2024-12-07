@@ -2,6 +2,7 @@
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Managers;
 using TMPro;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,8 +44,16 @@ namespace Assets.Scripts.Concrete.Controllers
 
         public void BuildConfirmButton()
         {
-            UIManager.Instance.canBuild = true;
-            Destroy(gameObject);
+            if (ResourcesManager.Instance.Buy(BuildingName()))
+            {
+                UIManager.Instance.canBuild = true;
+                Destroy(gameObject);
+            }
+
+            else
+            {
+                Debug.Log("CAN'T BUY");
+            }
         }
         public void BuildCancelButton()
         {
@@ -63,6 +72,24 @@ namespace Assets.Scripts.Concrete.Controllers
             buildConfirmButton.interactable = true;
             visual.gameObject.SetActive(true);
             visualRed.gameObject.SetActive(false);
+        }
+
+        string BuildingName()
+        {
+            if (gameObject.CompareTag("PawnHousePreview"))
+                return "pawnHouseLvl1";
+            if (gameObject.CompareTag("WorriorHousePreview"))
+                return "worriorHouseLvl1";
+            if (gameObject.CompareTag("ArcherHousePreview"))
+                return "archerHouseLvl1";
+            if (gameObject.CompareTag("TowerPreview"))
+                return "towerLvl1";
+            if (gameObject.CompareTag("CastlePreview"))
+                return "castleLvl1";
+            if (gameObject.CompareTag("FencePreview"))
+                return "fenceLvl1";
+            else
+                return "";
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Concrete.Managers;
+using System.Resources;
+using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
@@ -22,13 +24,23 @@ namespace Assets.Scripts.Concrete.Controllers
             panelController.TimerPanelVisibility(true);
         }
 
+
+        //Upgrade Butonu
         public void ConstructingBuildingButton(GameObject upgrading)
         {
-            // Son Seviye
-            if (upgrading == null) return;
-            // Ev yükseltildiği anda yok edilir
-            upgrade = true;
-            this.upgrading = upgrading;
+            if (ResourcesManager.Instance.Buy(BuildingName()))
+            {
+                // Son Seviye
+                if (upgrading == null) return;
+                // Ev yükseltildiği anda yok edilir
+                upgrade = true;
+                this.upgrading = upgrading;
+            }
+
+            else
+            {
+                Debug.Log("CANT UPGRADİNG");
+            }
         }
         public void ConstructedBuilding(GameObject upgradeComplete)
         {
@@ -38,7 +50,32 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             panelController.InteractablePanelVisibility(false);
         }
+        string BuildingName()
+        {
+            if (gameObject.name == "PawnHouse_Blue(Clone)")
+                return "pawnHouseLvl2";
+            if (gameObject.name == "PawnHouse_Yellow(Clone)")
+                return "pawnHouseLvl3";
+            if (gameObject.name == "PawnHouse_Red(Clone)")
+                return "pawnHouseLvl4";
 
+            if (gameObject.name == "WorriorHouse_Blue(Clone)")
+                return "worriorHouseLvl2";
+            if (gameObject.name == "WorriorHouse_Yellow(Clone)")
+                return "worriorHouseLvl3";
+            if (gameObject.name == "WorriorHouse_Red(Clone)")
+                return "worriorHouseLvl4";
+
+            if (gameObject.name == "ArcherHouse_Blue(Clone)")
+                return "archerHouseLvl2";
+            if (gameObject.name == "ArcherHouse_Yellow(Clone)")
+                return "archerHouseLvl3";
+            if (gameObject.name == "ArcherHouse_Red(Clone)")
+                return "archerHouseLvl4";
+
+            else
+                return "";
+        }
 
 
     }

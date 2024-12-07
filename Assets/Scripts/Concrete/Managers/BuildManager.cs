@@ -20,6 +20,7 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject castle;
         public GameObject fence;
 
+
         private void Awake()
         {
             Singelton();
