@@ -255,22 +255,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value:
-  - name: worriorHouseLvl1
+  - name: pawnHouseLvl1
     goldValue: 1
     rockValue: 1
     woodValue: 1
     meatValue: 0
-  - name: worriorHouseLvl2
+  - name: pawnHouseLvl2
     goldValue: 2
     rockValue: 2
     woodValue: 2
     meatValue: 0
-  - name: worriorHouseLvl3
+  - name: pawnHouseLvl3
     goldValue: 3
     rockValue: 3
     woodValue: 3
     meatValue: 0
-  - name: worriorHouseLvl4
+  - name: pawnHouseLvl4
+    goldValue: 4
+    rockValue: 4
+    woodValue: 4
+    meatValue: 0
+  - name: warriorHouseLvl1
+    goldValue: 1
+    rockValue: 1
+    woodValue: 1
+    meatValue: 0
+  - name: warriorHouseLvl2
+    goldValue: 2
+    rockValue: 2
+    woodValue: 2
+    meatValue: 0
+  - name: warriorHouseLvl3
+    goldValue: 3
+    rockValue: 3
+    woodValue: 3
+    meatValue: 0
+  - name: warriorHouseLvl4
     goldValue: 4
     rockValue: 4
     woodValue: 4
@@ -295,26 +315,111 @@ MonoBehaviour:
     rockValue: 4
     woodValue: 4
     meatValue: 0
-  - name: pawnHouseLvl1
+  - name: towerLvl1
     goldValue: 1
     rockValue: 1
     woodValue: 1
     meatValue: 0
-  - name: pawnHouseLvl2
+  - name: towerLvl2
     goldValue: 2
     rockValue: 2
     woodValue: 2
     meatValue: 0
-  - name: pawnHouseLvl3
+  - name: towerLvl3
     goldValue: 3
     rockValue: 3
     woodValue: 3
     meatValue: 0
-  - name: pawnHouseLvl4
+  - name: towerLvl4
     goldValue: 4
     rockValue: 4
     woodValue: 4
     meatValue: 0
+  - name: castleLvl1
+    goldValue: 1
+    rockValue: 1
+    woodValue: 1
+    meatValue: 0
+  - name: castleLvl2
+    goldValue: 2
+    rockValue: 2
+    woodValue: 2
+    meatValue: 0
+  - name: castleLvl3
+    goldValue: 3
+    rockValue: 3
+    woodValue: 3
+    meatValue: 0
+  - name: castleLvl4
+    goldValue: 4
+    rockValue: 4
+    woodValue: 4
+    meatValue: 0
+  - name: fence4x4
+    goldValue: 1
+    rockValue: 1
+    woodValue: 1
+    meatValue: 0
+  - name: pawnLvl1
+    goldValue: 1
+    rockValue: 1
+    woodValue: 1
+    meatValue: 1
+  - name: pawnLvl2
+    goldValue: 2
+    rockValue: 2
+    woodValue: 2
+    meatValue: 2
+  - name: pawnLvl3
+    goldValue: 3
+    rockValue: 3
+    woodValue: 3
+    meatValue: 3
+  - name: pawnLvl4
+    goldValue: 4
+    rockValue: 4
+    woodValue: 4
+    meatValue: 4
+  - name: warriorLvl1
+    goldValue: 1
+    rockValue: 1
+    woodValue: 1
+    meatValue: 1
+  - name: warriorLvl2
+    goldValue: 2
+    rockValue: 2
+    woodValue: 2
+    meatValue: 2
+  - name: warriorLvl3
+    goldValue: 3
+    rockValue: 3
+    woodValue: 3
+    meatValue: 3
+  - name: warriorLvl4
+    goldValue: 4
+    rockValue: 4
+    woodValue: 4
+    meatValue: 4
+  - name: archerLvl1
+    goldValue: 1
+    rockValue: 1
+    woodValue: 1
+    meatValue: 1
+  - name: archerLvl2
+    goldValue: 2
+    rockValue: 2
+    woodValue: 2
+    meatValue: 2
+  - name: archerLvl3
+    goldValue: 3
+    rockValue: 3
+    woodValue: 3
+    meatValue: 3
+  - name: archerLvl4
+    goldValue: 4
+    rockValue: 4
+    woodValue: 4
+    meatValue: 4
 --- !u!114 &4436064059946293415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,9 +435,9 @@ MonoBehaviour:
   houseConstruct: {fileID: 5494979510523353086, guid: f899dd38ae1b7d346b3fbf8fbf2d34d8, type: 3}
   towerConstruct: {fileID: 4023670001020676894, guid: 65f89bf0045ea764990de885599d11ea, type: 3}
   castleConstruct: {fileID: 1844819989577762619, guid: 29ecfb5f6f80f3649a2bc051f0d1122b, type: 3}
-  worriorHouse: {fileID: 1788705377013864551, guid: 32a193ccd4caaae449b8dae5aad7e3ac, type: 3}
+  warriorHouse: {fileID: 1788705377013864551, guid: 32a193ccd4caaae449b8dae5aad7e3ac, type: 3}
   archerHouse: {fileID: 5213932161942383376, guid: 67101e511e04a29468d47f1d19107412, type: 3}
   pawnHouse: {fileID: 6825630590398595132, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
   tower: {fileID: 7309716241808544195, guid: 67d3d1fc6c95c544295e78fb6281fa22, type: 3}
   castle: {fileID: 6820188896059742733, guid: 320501ccbc23a6d45ba99fec3af4daff, type: 3}
-  fence: {fileID: 2192484165252331637, guid: 065a13aec618bfb4684796439f395a10, type: 3}
+  fence4x4: {fileID: 2192484165252331637, guid: 065a13aec618bfb4684796439f395a10, type: 3}

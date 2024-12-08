@@ -13,12 +13,12 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject towerConstruct;
         public GameObject castleConstruct;
 
-        public GameObject worriorHouse;
+        public GameObject warriorHouse;
         public GameObject archerHouse;
         public GameObject pawnHouse;
         public GameObject tower;
         public GameObject castle;
-        public GameObject fence;
+        public GameObject fence4x4;
 
 
         private void Awake()
@@ -42,25 +42,25 @@ namespace Assets.Scripts.Concrete.Managers
             {
                 UIManager.Instance.canBuild = false;
                 if (UIManager.Instance.previewObj == null) return;
-                switch (UIManager.Instance.previewObj.tag)
+                switch (UIManager.Instance.previewObj.name)
                 {
-                    case "WorriorHousePreview":
-                        Build(houseConstruct).GetComponent<ConstructController>().building = worriorHouse;
-                        break;
-                    case "ArcherHousePreview":
-                        Build(houseConstruct).GetComponent<ConstructController>().building = archerHouse;
-                        break;
-                    case "PawnHousePreview":
+                    case "Preview_PawnHouse(Clone)":
                         Build(houseConstruct).GetComponent<ConstructController>().building = pawnHouse;
                         break;
-                    case "TowerPreview":
+                    case "Preview_WarriorHouse(Clone)":
+                        Build(houseConstruct).GetComponent<ConstructController>().building = warriorHouse;
+                        break;
+                    case "Preview_ArcherHouse(Clone)":
+                        Build(houseConstruct).GetComponent<ConstructController>().building = archerHouse;
+                        break;
+                    case "Preview_Tower(Clone)":
                         Build(towerConstruct).GetComponent<ConstructController>().building = tower;
                         break;
-                    case "CastlePreview":
+                    case "Preview_Castle(Clone)":
                         Build(castleConstruct).GetComponent<ConstructController>().building = castle;
                         break;
-                    case "FencePreview":
-                        Build(fence);
+                    case "Preview_Fence4x4(Clone)":
+                        Build(fence4x4);
                         break;
                 }
 

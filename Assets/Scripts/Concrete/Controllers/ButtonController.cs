@@ -19,9 +19,17 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         public void TrainUnitButton()
         {
-            trainUnitButton = true;
-            panelController.InteractablePanelVisibility(false);
-            panelController.TimerPanelVisibility(true);
+            if (ResourcesManager.Instance.Buy(KnightName()))
+            {
+                trainUnitButton = true;
+                panelController.InteractablePanelVisibility(false);
+                panelController.TimerPanelVisibility(true);
+            }
+
+            else
+            {
+                Debug.Log("CANT TRAİNİNG");
+            }
         }
 
 
@@ -59,12 +67,12 @@ namespace Assets.Scripts.Concrete.Controllers
             if (gameObject.name == "PawnHouse_Red(Clone)")
                 return "pawnHouseLvl4";
 
-            if (gameObject.name == "WorriorHouse_Blue(Clone)")
-                return "worriorHouseLvl2";
-            if (gameObject.name == "WorriorHouse_Yellow(Clone)")
-                return "worriorHouseLvl3";
-            if (gameObject.name == "WorriorHouse_Red(Clone)")
-                return "worriorHouseLvl4";
+            if (gameObject.name == "WarriorHouse_Blue(Clone)")
+                return "warriorHouseLvl2";
+            if (gameObject.name == "WarriorHouse_Yellow(Clone)")
+                return "warriorHouseLvl3";
+            if (gameObject.name == "WarriorHouse_Red(Clone)")
+                return "warriorHouseLvl4";
 
             if (gameObject.name == "ArcherHouse_Blue(Clone)")
                 return "archerHouseLvl2";
@@ -73,10 +81,57 @@ namespace Assets.Scripts.Concrete.Controllers
             if (gameObject.name == "ArcherHouse_Red(Clone)")
                 return "archerHouseLvl4";
 
+            if (gameObject.name == "Tower_Blue(Clone)")
+                return "towerLvl2";
+            if (gameObject.name == "Tower_Yellow(Clone)")
+                return "towerLvl3";
+            if (gameObject.name == "Tower_Red(Clone)")
+                return "towerLvl4";
+
+            if (gameObject.name == "Castle_Blue(Clone)")
+                return "castleLvl2";
+            if (gameObject.name == "Castle_Yellow(Clone)")
+                return "castleLvl3";
+            if (gameObject.name == "Castle_Red(Clone)")
+                return "castleLvl4";
+
+            if (gameObject.name == "Fence4x4(Clone)")
+                return "fence4x4";
+
             else
                 return "";
         }
+        string KnightName()
+        {
+            if (gameObject.name == "PawnHouse_Blue(Clone)")
+                return "pawnLvl1";
+            if (gameObject.name == "PawnHouse_Yellow(Clone)")
+                return "pawnLvl2";
+            if (gameObject.name == "PawnHouse_Red(Clone)")
+                return "pawnLvl3";
+            if (gameObject.name == "PawnHouse_Purple(Clone)")
+                return "pawnLvl4";
 
+            if (gameObject.name == "WarriorHouse_Blue(Clone)")
+                return "warriorLvl1";
+            if (gameObject.name == "WarriorHouse_Yellow(Clone)")
+                return "warriorLvl2";
+            if (gameObject.name == "WarriorHouse_Red(Clone)")
+                return "warriorLvl3";
+            if (gameObject.name == "WarriorHouse_Purple(Clone)")
+                return "warriorLvl4";
 
+            if (gameObject.name == "ArcherHouse_Blue(Clone)")
+                return "archerLvl1";
+            if (gameObject.name == "ArcherHouse_Yellow(Clone)")
+                return "archerLvl2";
+            if (gameObject.name == "ArcherHouse_Red(Clone)")
+                return "archerLvl3";
+            if (gameObject.name == "ArcherHouse_Purple(Clone)")
+                return "archerLvl4";
+
+            else
+                return "";
+        }
     }
 }

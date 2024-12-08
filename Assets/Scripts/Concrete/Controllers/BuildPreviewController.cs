@@ -76,18 +76,18 @@ namespace Assets.Scripts.Concrete.Controllers
 
         string BuildingName()
         {
-            if (gameObject.CompareTag("PawnHousePreview"))
+            if (gameObject.name == "Preview_PawnHouse(Clone)")
                 return "pawnHouseLvl1";
-            if (gameObject.CompareTag("WorriorHousePreview"))
-                return "worriorHouseLvl1";
-            if (gameObject.CompareTag("ArcherHousePreview"))
+            if (gameObject.name == "Preview_WarriorHouse(Clone)")
+                return "warriorHouseLvl1";
+            if (gameObject.name == "Preview_ArcherHouse(Clone)")
                 return "archerHouseLvl1";
-            if (gameObject.CompareTag("TowerPreview"))
+            if (gameObject.name == "Preview_Tower(Clone)")
                 return "towerLvl1";
-            if (gameObject.CompareTag("CastlePreview"))
+            if (gameObject.name == "Preview_Castle(Clone)")
                 return "castleLvl1";
-            if (gameObject.CompareTag("FencePreview"))
-                return "fenceLvl1";
+            if (gameObject.name == "Preview_Fence4x4(Clone)")
+                return "fence4x4";
             else
                 return "";
         }

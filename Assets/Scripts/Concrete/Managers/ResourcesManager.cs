@@ -48,6 +48,11 @@ namespace Assets.Scripts.Concrete.Managers
             // Satın alınan ürünün adını değer listesinde ara, bulunca index sırasını eşitle
             for (int i = 0; i < value.Length; i++)
             {
+                if (name == "")
+                {
+                    Debug.Log("---NOT FOUND---");
+                    break;
+                }
                 if (value[i].name == name)
                     index = i;
             }
