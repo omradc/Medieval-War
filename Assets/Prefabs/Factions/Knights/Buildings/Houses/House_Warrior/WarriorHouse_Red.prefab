@@ -36,6 +36,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 835619101310391217, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: objName
+      value: warriorHouseLvl4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2585460642832718868, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: objName
+      value: warriorLvl3
+      objectReference: {fileID: 0}
     - target: {fileID: 2639165953253947183, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -214,7 +222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8389996312057332968, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_Name
-      value: WorriorHouse_Red
+      value: WarriorHouse_Red
       objectReference: {fileID: 0}
     - target: {fileID: 8619626155370686840, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

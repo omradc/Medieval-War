@@ -36,6 +36,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 835619101310391217, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: objName
+      value: warriorHouseLvl4
+      objectReference: {fileID: 0}
+    - target: {fileID: 835619101310391217, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2585460642832718868, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: objName
+      value: warriorLvl4
+      objectReference: {fileID: 0}
     - target: {fileID: 2639165953253947183, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -88,6 +100,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3458360867119537226}
+    - target: {fileID: 4895459635819121128, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148453498210689752, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: trainTimePanel
       value: 
@@ -150,14 +166,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8389996312057332968, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_Name
-      value: WorriorHouse_Purple
+      value: WarriorHouse_Purple
       objectReference: {fileID: 0}
     - target: {fileID: 8619626155370686840, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6079314823878642734, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}

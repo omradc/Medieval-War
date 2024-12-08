@@ -11,8 +11,6 @@ namespace Assets.Scripts.Concrete.Controllers
 {
     public class BuildPreviewController : MonoBehaviour
     {
-        SpriteRenderer spriteRenderer;
-
         GameObject visual;
         GameObject visualRed;
         IInput ıInput;
@@ -24,7 +22,6 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Start()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
             visual = transform.GetChild(0).gameObject;
             visualRed = transform.GetChild(1).gameObject;
         }
