@@ -73,10 +73,6 @@ namespace Assets.Scripts.Concrete.Managers
                     if (interactedObj.layer == 8 || interactedObj.layer == 9 || interactedObj.layer== 10)
                         interactedObj.GetComponent<PanelController>().InteractablePanelVisibility(true);
 
-                    // Etkileşim olan obje yıkılmış ise,
-                    if (interactedObj.layer == 26)
-                        interactedObj.GetComponent<PanelController>().DestructPanelVisibility(true);
-
                     // Etkileşim olan obje, birim ise,
                     if (interactedObj.layer == 6)
                         interactedUnit = interactedObj;

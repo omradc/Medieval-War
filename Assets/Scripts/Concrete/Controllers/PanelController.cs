@@ -6,7 +6,6 @@ namespace Assets.Scripts.Concrete.Controllers
     {
         [SerializeField] GameObject interactablePanel;
         [SerializeField] GameObject trainTimePanel;
-        [SerializeField] GameObject destructPanel;
 
         public void InteractablePanelVisibility(bool visibility)
         {
@@ -16,11 +15,6 @@ namespace Assets.Scripts.Concrete.Controllers
         public void TimerPanelVisibility(bool visibility)
         {
             trainTimePanel.SetActive(visibility);
-        }
-
-        public void DestructPanelVisibility(bool visibility)
-        {
-            destructPanel.SetActive(visibility);
         }
 
 

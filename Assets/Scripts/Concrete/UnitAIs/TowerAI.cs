@@ -12,7 +12,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
         GameObject tower;
         UnitController uC;
         PathFinding2D pF2D;
-        BuildingController buildingController;
+        TowerController towerController;
         SpriteRenderer unitSpriteRenderer;
         Transform towerPos;
         Vector2 gatePos;
@@ -59,8 +59,8 @@ namespace Assets.Scripts.Concrete.UnitAIs
                     uC.unitOrderEnum = UnitOrderEnum.StayOrder;
                     gatePos = tower.transform.GetChild(0).position;
                     towerPos = tower.transform.GetChild(1);
-                    buildingController = tower.GetComponent<BuildingController>();
-                    if (buildingController.isFull)
+                    towerController = tower.GetComponent<TowerController>();
+                    if (towerController.isFull)
                     {
                         tower = null; // eğer birim kuledeyken, kuleye tıklarsa; kodun devamlılığını sağlar
                         return;
@@ -79,7 +79,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                 if (Vector2.Distance(uC.transform.position, gatePos) < .3f)
                 {
                     unitSpriteRenderer.enabled = false;
-                    if (buildingController.isFull)
+                    if (towerController.isFull)
                     {
                         unitSpriteRenderer.enabled = true;
                         time = 0;
@@ -88,7 +88,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
 
                     time++;
                     // Kulede birim yoksa, çık
-                    if (time > timeToGetOffTower && !buildingController.isFull)
+                    if (time > timeToGetOffTower && !towerController.isFull)
                     {
                         Debug.Log("Kuleye çık");
                         unitSpriteRenderer.enabled = true;
@@ -122,7 +122,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                     uC.circleCollider.isTrigger = false;
                     uC.stayBuilding = false;
                     uC.goBuilding = false;
-                    buildingController.isFull = false; // Kulede birim var
+                    towerController.isFull = false; // Kulede birim var
                     time = 0;
                 }
             }
@@ -130,8 +130,8 @@ namespace Assets.Scripts.Concrete.UnitAIs
 
         public void DestructTower()
         {
-            if (buildingController == null) return;
-            if (buildingController.destruct && uC.onBuilding)
+            if (towerController == null) return;
+            if (towerController.destruct && uC.onBuilding)
             {
                 Debug.Log("Kuleden düş");
                 ActivateTowerPos();
@@ -142,7 +142,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                 uC.circleCollider.isTrigger = false;
                 uC.stayBuilding = false;
                 uC.goBuilding = false;
-                buildingController.isFull = false; // Kulede birim var
+                towerController.isFull = false; // Kulede birim var
                 time = 0;
             }
         }
@@ -159,19 +159,19 @@ namespace Assets.Scripts.Concrete.UnitAIs
                         uC.towerPosIndex = i;
                         towerPos.GetChild(i).gameObject.SetActive(false);
                         pos = towerPos.GetChild(i).transform.position;
-                        buildingController.unitValue++;
+                        towerController.unitValue++;
                         break;
                     }
 
                 }
-                if (buildingController.unitValue == towerPos.childCount)
-                    buildingController.isFull = true; // Kulede birim var
+                if (towerController.unitValue == towerPos.childCount)
+                    towerController.isFull = true; // Kulede birim var
             }
 
             // Kule ise
             else
             {
-                buildingController.isFull = true; // Kulede birim var
+                towerController.isFull = true; // Kulede birim var
                 pos = towerPos.position;
             }
         }
@@ -180,10 +180,10 @@ namespace Assets.Scripts.Concrete.UnitAIs
             if (towerPos.childCount > 0)
             {
                 towerPos.GetChild(uC.towerPosIndex).gameObject.SetActive(true);
-                buildingController.unitValue--;
+                towerController.unitValue--;
             }
 
-            buildingController.isFull = false;
+            towerController.isFull = false;
         }
 
     }

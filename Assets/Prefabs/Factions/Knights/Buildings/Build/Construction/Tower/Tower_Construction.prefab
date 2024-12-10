@@ -129,7 +129,6 @@ GameObject:
   - component: {fileID: 3452217686441284207}
   - component: {fileID: 8570342588799214020}
   - component: {fileID: 2288799462812149386}
-  - component: {fileID: 3665061219819354349}
   m_Layer: 30
   m_Name: Tower_Construction
   m_TagString: Untagged
@@ -218,23 +217,6 @@ MonoBehaviour:
   currentHitNumber: 0
   isFull: 0
   constructionTimerImage: {fileID: 4345211189159081919}
-  rebuild: 0
---- !u!114 &3665061219819354349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8839615709272474171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1f63c9f73dbb49488b99b92668875e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trainUnitButton: 0
-  upgrade: 0
-  upgrading: {fileID: 0}
-  upgradeComplete: {fileID: 0}
 --- !u!1001 &5434200139593561048
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -354,14 +336,6 @@ PrefabInstance:
     - target: {fileID: 8585939730262852711, guid: f616dd75b92f3d1408be6a6e949dbb7d, type: 3}
       propertyPath: m_FillAmount
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9215770797472615305, guid: f616dd75b92f3d1408be6a6e949dbb7d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 3665061219819354349}
-    - target: {fileID: 9215770797472615305, guid: f616dd75b92f3d1408be6a6e949dbb7d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DestroyButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
