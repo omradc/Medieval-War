@@ -11,13 +11,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public float currentHitNumber;
         public bool isFull;
         public Image constructionTimerImage;
-        // Use this for initialization
-        void Start()
-        {
 
-        }
-
-        // Update is called once per frame
         void Update()
         {
             if (currentHitNumber >= hitNumber)

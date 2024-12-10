@@ -127,15 +127,6 @@ namespace Assets.Scripts.Concrete.EnemyAIs
 
             CalculateNearestAttackPoint();
 
-
-            //// Hedef kule ise
-            //if (nearestTarget.layer == 9)
-            //{
-            //    nearestAttackPoint = nearestTarget.transform.GetChild(5).GetChild(0);
-            //}
-            //else
-            //    nearestAttackPoint = nearestTarget.transform;
-
             if (Vector2.Distance(nearestAttackPoint.position, eC.sightRangePosition) < eC.currentSightRange)
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
@@ -258,10 +249,15 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         void CalculateNearestAttackPoint()
         {
             // Hedef kule ise, kulenin en yakın saldırı noktasını bul
-            if (nearestTarget.layer == 9)
+            if (nearestTarget.layer == 9 || nearestTarget.layer == 10)
             {
                 Transform obj = nearestTarget.transform.GetChild(5);
                 float shortestDistance = Mathf.Infinity;
+                if(obj.childCount==0)
+                {
+                    nearestAttackPoint = nearestTarget.transform;
+                    return;
+                }
                 for (int i = 0; i < obj.childCount; i++)
                 {
                     float distanceToTarget = Vector2.Distance(eC.transform.position, obj.GetChild(i).position);
@@ -271,11 +267,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                         nearestAttackPoint = obj.GetChild(i);
                     }
                 }
-            }
-            else
-                nearestAttackPoint = nearestTarget.transform;
-
-            Debug.Log(nearestAttackPoint.name);
+            }      
         }
         public void GoUpToTower()
         {

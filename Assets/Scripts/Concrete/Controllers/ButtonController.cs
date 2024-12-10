@@ -12,9 +12,12 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public GameObject upgrading;
         [HideInInspector] public GameObject upgradeComplete;
         PanelController panelController;
+        BuildingController buildingController;
+        public GameObject obj;
         private void Start()
         {
             panelController = GetComponent<PanelController>();
+            buildingController = GetComponent<BuildingController>();
 
         }
         public void TrainUnitButton()
@@ -58,6 +61,23 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             panelController.InteractablePanelVisibility(false);
         }
+
+        public void FixButton()
+        {
+            Destroy(gameObject);
+            Instantiate(obj,transform.position,Quaternion.identity);
+
+        }
+        public void DestroyButton()
+        {
+            Destroy(gameObject);
+        }
+        public void DestroyParentButton()
+        {
+            Destroy(gameObject.transform.parent.gameObject);
+        }
+
+
         string BuildingName()
         {
             if (gameObject.name == "PawnHouse_Blue(Clone)")
