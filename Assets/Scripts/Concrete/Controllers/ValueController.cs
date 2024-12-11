@@ -36,7 +36,7 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             rM = ResourcesManager.Instance;
             DisplayResourcesValues();
-            InvokeRepeating(nameof(Optimum), 0.1f, .5f);
+            InvokeRepeating(nameof(Optimum), 0.1f, 1f);
         }
 
         void Optimum()

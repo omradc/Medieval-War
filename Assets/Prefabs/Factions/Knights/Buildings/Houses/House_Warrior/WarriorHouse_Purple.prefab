@@ -44,9 +44,21 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1866785907170678175, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: construction
+      value: 
+      objectReference: {fileID: 5494979510523353086, guid: b2f22e1b911781f4f959ae46cab4c2c3, type: 3}
     - target: {fileID: 2585460642832718868, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: objName
       value: warriorLvl4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2591834310565403727, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2591834310565403727, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2639165953253947183, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_Sprite
@@ -61,6 +73,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 691143835, guid: 0fe9c7685fa4cf641bfc31f5d608b1fd, type: 3}
     - target: {fileID: 2657319070578102008, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917599918927006775, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: m_Size.x
+      value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917599918927006775, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: m_Size.y
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917599918927006775, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 371adc3c3cfdd4b46ac454dae8ce2fc2, type: 3}
+    - target: {fileID: 2917599918927006775, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -96,6 +124,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CloseButton
       objectReference: {fileID: 0}
+    - target: {fileID: 3751025228376609602, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: objName
+      value: warriorHouseLvl4_Destructed
+      objectReference: {fileID: 0}
     - target: {fileID: 4854780349291234444, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -112,13 +144,21 @@ PrefabInstance:
       propertyPath: trainUnitPanel
       value: 
       objectReference: {fileID: 7686917634749728110}
+    - target: {fileID: 5192923672201642219, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5192923672201642219, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_LocalPosition.z
@@ -130,15 +170,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

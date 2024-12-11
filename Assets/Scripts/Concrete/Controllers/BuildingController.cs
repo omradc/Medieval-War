@@ -3,19 +3,20 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
-    public class TowerController : MonoBehaviour
+    public class BuildingController : MonoBehaviour
     {
-        public bool isFull;
-        public bool destruct;
-        public bool rebuild;
-        public Collider2D col1;
-        public Collider2D col2;
+        public GameObject construction;
+        public Collider2D physicalCollider;
+        bool workOnce = true;
+
+        // Kule yapay zekası için gerekli değerler
+        [HideInInspector] public bool isFull;
+        [HideInInspector] public bool destruct;
+        [HideInInspector] public int unitValue;
+
         GameObject visualTower;
         GameObject visualDestructed;
-        bool workOnce = true;
-        [HideInInspector] public int unitValue;
         ButtonController buttonController;
-
         HealthController healthController;
         private void Awake()
         {
@@ -28,12 +29,7 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Update()
         {
             if (healthController.isDead)
-                destruct = true;
-            if (destruct)
                 Destruct();
-            if (rebuild)
-                ReBuild();
-
             Upgrade();
 
         }
@@ -42,8 +38,7 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             if (!workOnce) return;
             Debug.Log("Destruct");
-            col1.enabled = false;
-            col2.enabled = false;
+            physicalCollider.enabled = false;
             healthController.enabled = false;
             healthController.HealthBarVisibility(false);
             visualTower.SetActive(false);
@@ -52,28 +47,13 @@ namespace Assets.Scripts.Concrete.Controllers
             workOnce = false;
         }
 
-        void ReBuild()
-        {
-            Debug.Log("ReBuild");
-            destruct = false;
-            workOnce = true;
-            col1.enabled = true;
-            col2.enabled = true;
-            healthController.enabled = true;
-            visualTower.SetActive(true);
-            visualDestructed.SetActive(false);
-            gameObject.layer = 9; // Katman = Tower
-            healthController.FillHealth();
-            rebuild = false;
-        }
-
         void Upgrade()
         {
             if (buttonController.upgrade)
             {
                 Debug.Log("Upgrade");
-                GameObject obj = Instantiate(buttonController.upgrading, transform.position, Quaternion.identity);
-                obj.GetComponent<ConstructController>().building = buttonController.upgradeComplete;
+                GameObject obj = Instantiate(buttonController.construct, transform.position, Quaternion.identity);
+                obj.GetComponent<ConstructController>().constructing = buttonController.upgradedBuilding;
                 Destroy(gameObject);
 
             }

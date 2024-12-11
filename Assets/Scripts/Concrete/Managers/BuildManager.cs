@@ -9,15 +9,11 @@ namespace Assets.Scripts.Concrete.Managers
     public class BuildManager : MonoBehaviour
     {
         public static BuildManager Instance { get; private set; }
-        public GameObject houseConstruct;
-        public GameObject towerConstruct;
-        public GameObject castleConstruct;
-
-        public GameObject warriorHouse;
-        public GameObject archerHouse;
-        public GameObject pawnHouse;
-        public GameObject tower;
-        public GameObject castle;
+        public GameObject houseConstructionPawnBlue;
+        public GameObject houseConstructionWarriorBlue;
+        public GameObject houseConstructionArcherBlue;
+        public GameObject towerConstructionBlue;
+        public GameObject castleConstructionBlue;
         public GameObject fence4x4;
 
 
@@ -45,29 +41,25 @@ namespace Assets.Scripts.Concrete.Managers
                 switch (UIManager.Instance.previewObj.name)
                 {
                     case "Preview_PawnHouse(Clone)":
-                        Build(houseConstruct).GetComponent<ConstructController>().building = pawnHouse;
+                        Build(houseConstructionPawnBlue);
                         break;
                     case "Preview_WarriorHouse(Clone)":
-                        Build(houseConstruct).GetComponent<ConstructController>().building = warriorHouse;
+                        Build(houseConstructionWarriorBlue);
                         break;
                     case "Preview_ArcherHouse(Clone)":
-                        Build(houseConstruct).GetComponent<ConstructController>().building = archerHouse;
+                        Build(houseConstructionArcherBlue);
                         break;
                     case "Preview_Tower(Clone)":
-                        Build(towerConstruct).GetComponent<ConstructController>().building = tower;
+                        Build(towerConstructionBlue);
                         break;
                     case "Preview_Castle(Clone)":
-                        Build(castleConstruct).GetComponent<ConstructController>().building = castle;
+                        Build(castleConstructionBlue);
                         break;
                     case "Preview_Fence4x4(Clone)":
                         Build(fence4x4);
                         break;
                 }
-
-
             }
-
-
         }
 
         GameObject Build(GameObject construct)

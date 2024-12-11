@@ -67,16 +67,12 @@ namespace Assets.Scripts.Concrete.Managers
             meatText.text = meat.ToString();
         }
 
+        // Satın alma işlemi
         public bool Buy(string name)
         {
             // Satın alınan ürünün adını değer listesinde ara, bulunca index sırasını eşitle
             for (int i = 0; i < value.Length; i++)
             {
-                if (name == "")
-                {
-                    Debug.Log("---NOT FOUND---");
-                    break;
-                }
                 if (value[i].name == name)
                 {
                     index = i;
@@ -102,19 +98,12 @@ namespace Assets.Scripts.Concrete.Managers
             }
         }
 
+        // Bir panelde nesnenin satın alınıp alınamayacağını kontrol eder
         public void CheckResources(string name)
         {
             // Satın alınan ürünün adını değer listesinde ara, bulunca index sırasını eşitle
             for (int i = 0; i < value.Length; i++)
             {
-                // Index bulunamadı
-                if (name == "")
-                {
-                    Debug.Log("---NOT FOUND---");
-                    break;
-                }
-
-                // Index bulundu
                 if (value[i].name == name)
                 {
                     index = i;
@@ -145,19 +134,12 @@ namespace Assets.Scripts.Concrete.Managers
                 meatIsEnough = false;
         }
 
+        // Nesnelerin fiyatını göstermek için
         public void ResourcesValues(string name)
         {
             // Satın alınan ürünün adını değer listesinde ara, bulunca index sırasını eşitle
             for (int i = 0; i < value.Length; i++)
             {
-                // Index bulunamadı
-                if (name == "")
-                {
-                    Debug.Log("---NOT FOUND---");
-                    break;
-                }
-
-                // Index bulundu
                 if (value[i].name == name)
                 {
                     index = i;

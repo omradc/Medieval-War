@@ -127,15 +127,6 @@ namespace Assets.Scripts.Concrete.EnemyAIs
 
             CalculateNearestAttackPoint();
 
-
-            //// Hedef kule ise
-            //if (nearestTarget.layer == 9)
-            //{
-            //    nearestAttackPoint = nearestTarget.transform.GetChild(5).GetChild(0);
-            //}
-            //else
-            //    nearestAttackPoint = nearestTarget.transform;
-
             if (Vector2.Distance(nearestAttackPoint.position, eC.sightRangePosition) < eC.currentSightRange)
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
@@ -257,10 +248,13 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         }
         void CalculateNearestAttackPoint()
         {
-            // Hedef kule ise, kulenin en yakın saldırı noktasını bul
-            if (nearestTarget.layer == 9)
+            Transform obj = nearestTarget.transform.GetChild(4);
+
+            if (obj.transform.childCount == 0)
+                nearestAttackPoint = nearestTarget.transform;
+
+            else
             {
-                Transform obj = nearestTarget.transform.GetChild(5);
                 float shortestDistance = Mathf.Infinity;
                 for (int i = 0; i < obj.childCount; i++)
                 {
@@ -272,17 +266,13 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                     }
                 }
             }
-            else
-                nearestAttackPoint = nearestTarget.transform;
-
-            Debug.Log(nearestAttackPoint.name);
         }
         public void GoUpToTower()
         {
             // Eğer goblin türü tnt ise, görüş menzili içerisindeki boş bir kuleye çıkar
             if (eC.enemyTypeEnum == EnemyTypeEnum.Tnt)
             {
-                
+
                 if (!eC.attack)
                 {
                     if (eC.woodTowers.Length == 0 || eC.onBuilding)

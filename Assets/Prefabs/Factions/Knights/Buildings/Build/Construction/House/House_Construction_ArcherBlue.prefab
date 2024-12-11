@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2288799462812149386, guid: 0d7b52d08a2268e429ecac96859dd09e, type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 1788705377013864551, guid: 32a193ccd4caaae449b8dae5aad7e3ac, type: 3}
+    - target: {fileID: 2288799462812149386, guid: 0d7b52d08a2268e429ecac96859dd09e, type: 3}
+      propertyPath: constructing
+      value: 
+      objectReference: {fileID: 5213932161942383376, guid: 67101e511e04a29468d47f1d19107412, type: 3}
     - target: {fileID: 3452217686441284207, guid: 0d7b52d08a2268e429ecac96859dd09e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -54,15 +62,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4345211189159081919, guid: 0d7b52d08a2268e429ecac96859dd09e, type: 3}
       propertyPath: m_Color.g
-      value: 0.2784314
+      value: 0.47058824
       objectReference: {fileID: 0}
     - target: {fileID: 4345211189159081919, guid: 0d7b52d08a2268e429ecac96859dd09e, type: 3}
       propertyPath: m_Color.r
-      value: 0.6431373
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8839615709272474171, guid: 0d7b52d08a2268e429ecac96859dd09e, type: 3}
       propertyPath: m_Name
-      value: House_Construction_Purple
+      value: House_Construction_ArcherBlue
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

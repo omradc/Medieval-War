@@ -9,31 +9,28 @@ namespace Assets.Scripts.Concrete.Controllers
     internal class KnightHouseController : MonoBehaviour
     {
         [SerializeField] GameObject unit;
-        public Vector3 trainedUnitPos;
         public Image timerFillImage;
-        public float currentTime;
+        public float trainingTime;
+
+        Transform trainedUnitPos;
         PanelController panelController;
         ButtonController buttonController;
-        public float trainingTime;
-        public float upgradingTime;
         KnightHouse knightHouse;
-        IInput ıInput;
         
         private void Awake()
         {
             panelController = GetComponent<PanelController>();
             buttonController = GetComponent<ButtonController>();
+            trainedUnitPos = transform.GetChild(0);
 
         }
         private void Start()
         {
-            ıInput = new PcInput();
-            knightHouse = new KnightHouse(unit, transform.position + trainedUnitPos, panelController, buttonController, this);
+            knightHouse = new KnightHouse(unit, trainedUnitPos.position, panelController, buttonController, this);
         }
         private void Update()
         {           
             knightHouse.TrainUnit();
-            knightHouse.UpgradeHouse();
         }
 
 

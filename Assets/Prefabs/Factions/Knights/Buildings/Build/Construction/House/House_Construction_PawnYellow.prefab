@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: building
       value: 
       objectReference: {fileID: 1788705377013864551, guid: 32a193ccd4caaae449b8dae5aad7e3ac, type: 3}
+    - target: {fileID: 2288799462812149386, guid: 0d7b52d08a2268e429ecac96859dd09e, type: 3}
+      propertyPath: constructing
+      value: 
+      objectReference: {fileID: 6825630590398595132, guid: 610f98138942cf7488b032857f7b2000, type: 3}
     - target: {fileID: 3452217686441284207, guid: 0d7b52d08a2268e429ecac96859dd09e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -66,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8839615709272474171, guid: 0d7b52d08a2268e429ecac96859dd09e, type: 3}
       propertyPath: m_Name
-      value: House_Construction_Blue
+      value: House_Construction_PawnYellow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

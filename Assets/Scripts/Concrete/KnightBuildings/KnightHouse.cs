@@ -26,7 +26,6 @@ namespace Assets.Scripts.Concrete.KnightBuildings
 
             if (buttonController.trainUnitButton)
             {
-
                 currentTime += Time.deltaTime;
                 knightHouseController.timerFillImage.fillAmount = currentTime / knightHouseController.trainingTime;
                 if (currentTime >= knightHouseController.trainingTime)
@@ -38,22 +37,8 @@ namespace Assets.Scripts.Concrete.KnightBuildings
                     if (trainedUnit.CompareTag("Villager"))
                         trainedUnit.GetComponent<VillagerController>().homePos = pos;
                 }
-
             }
 
-        }
-
-        // Ev yükseltildiði anda yok edilir
-        public void UpgradeHouse()
-        {
-            if (buttonController.upgrade)
-            {
-                Debug.Log("Upgrade");
-                GameObject obj = Object.Instantiate(buttonController.upgrading, knightHouseController.transform.position, Quaternion.identity);
-                obj.GetComponent<ConstructController>().building= buttonController.upgradeComplete;
-                Object.Destroy(knightHouseController.gameObject);
-
-            }
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Assets.Scripts.Concrete.Controllers
 {
     public class ConstructController : MonoBehaviour
     {
-        [HideInInspector] public GameObject building;
+        public GameObject constructing;
         public float hitNumber;
         public float currentHitNumber;
         public bool isFull;
@@ -29,7 +29,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         void Build()
         {
-            Instantiate(building, transform.position, Quaternion.identity);
+            Instantiate(constructing, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
 

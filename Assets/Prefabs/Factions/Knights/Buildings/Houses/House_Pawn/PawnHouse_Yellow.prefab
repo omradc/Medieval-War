@@ -8,6 +8,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 335372585888908915, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_Size.x
+      value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 335372585888908915, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_Size.y
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 335372585888908915, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ca72db83a4541c24f92e232c35eec530, type: 3}
+    - target: {fileID: 335372585888908915, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -34,11 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ConstructingBuildingButton
+      value: Construct
       objectReference: {fileID: 0}
     - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ConstructedBuilding
+      value: Upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 364090061194568649, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -72,6 +88,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1947812951077377618, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: construction
+      value: 
+      objectReference: {fileID: 5494979510523353086, guid: 16dbe9f859a2d264190366fdfc2c1bbc, type: 3}
     - target: {fileID: 2764102408215337153, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: unit
       value: 
@@ -90,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.3500004
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -106,15 +126,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -200,6 +220,10 @@ PrefabInstance:
       propertyPath: trainUnitPanel
       value: 
       objectReference: {fileID: 7654854333882939156}
+    - target: {fileID: 8283240052631877987, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: objName
+      value: pawnHouseLvl2_Destructed
+      objectReference: {fileID: 0}
     - target: {fileID: 8355793767116210295, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_Sprite
       value: 

@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 732145096433014385, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
+      propertyPath: objName
+      value: towerLvl2_Destructed
+      objectReference: {fileID: 0}
     - target: {fileID: 954312569282591195, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.74
@@ -98,11 +102,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5541534986129261203, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ConstructingBuildingButton
+      value: Construct
       objectReference: {fileID: 0}
     - target: {fileID: 5541534986129261203, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ConstructedBuilding
+      value: Upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 5541534986129261203, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -152,6 +156,10 @@ PrefabInstance:
       propertyPath: healthObj
       value: 
       objectReference: {fileID: 3302530749008932528}
+    - target: {fileID: 8685314098799294142, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
+      propertyPath: construction
+      value: 
+      objectReference: {fileID: 4023670001020676894, guid: 139bcb2560552d544b491ef5291152f6, type: 3}
     - target: {fileID: 9091022010365361897, guid: 9280c8ac14496a24faa8df715c417aa8, type: 3}
       propertyPath: col1
       value: 

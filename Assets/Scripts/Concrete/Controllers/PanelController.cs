@@ -5,6 +5,7 @@ namespace Assets.Scripts.Concrete.Controllers
     internal class PanelController : MonoBehaviour
     {
         [SerializeField] GameObject interactablePanel;
+        [SerializeField] GameObject destructPanel;
         [SerializeField] GameObject trainTimePanel;
 
         public void InteractablePanelVisibility(bool visibility)
@@ -17,6 +18,11 @@ namespace Assets.Scripts.Concrete.Controllers
             trainTimePanel.SetActive(visibility);
         }
 
+        public void DestructPanelVisiblity(bool visibility)
+        {
+            destructPanel.SetActive(visibility);
+        }
 
     }
+
 }

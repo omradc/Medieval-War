@@ -9,13 +9,14 @@ namespace Assets.Scripts.Concrete.Controllers
 
         [HideInInspector] public bool trainUnitButton;
         [HideInInspector] public bool upgrade;
-        [HideInInspector] public GameObject upgrading;
-        [HideInInspector] public GameObject upgradeComplete;
+        [HideInInspector] public GameObject construct;
+        [HideInInspector] public GameObject upgradedBuilding;
         PanelController panelController;
+        BuildingController buildingController;
         private void Start()
         {
             panelController = GetComponent<PanelController>();
-
+            buildingController = GetComponent<BuildingController>();
         }
         public void TrainUnitButton()
         {
@@ -25,38 +26,40 @@ namespace Assets.Scripts.Concrete.Controllers
                 panelController.InteractablePanelVisibility(false);
                 panelController.TimerPanelVisibility(true);
             }
-
-            else
-            {
-                Debug.Log("CANT TRAİNİNG");
-            }
         }
 
-
-        //Upgrade Butonu
-        public void ConstructingBuildingButton(GameObject upgrading)
+        // Upgrade: yükselecek yapının inşaatı oluşturur
+        public void Construct(GameObject construct)
         {
             if (ResourcesManager.Instance.Buy(BuildingName()))
             {
                 // Son Seviye
-                if (upgrading == null) return;
+                if (construct == null) return;
                 // Ev yükseltildiği anda yok edilir
                 upgrade = true;
-                this.upgrading = upgrading;
+                this.construct = construct;
             }
+        }
 
-            else
-            {
-                Debug.Log("CANT UPGRADİNG");
-            }
-        }
-        public void ConstructedBuilding(GameObject upgradeComplete)
+        // Upgrade: yükseltilen yapıyı oluşturur
+        public void Upgrade(GameObject upgradedBuilding)
         {
-            this.upgradeComplete = upgradeComplete;
+            this.upgradedBuilding = upgradedBuilding;
         }
+
         public void CloseButton()
         {
             panelController.InteractablePanelVisibility(false);
+            panelController.DestructPanelVisiblity(false);
+        }
+
+        public void RebuildButton()
+        {
+            if (ResourcesManager.Instance.Buy(BuildingName()))
+            {
+                Destroy(gameObject);
+                Instantiate(buildingController.construction, transform.position, Quaternion.identity);
+            }
         }
         string BuildingName()
         {

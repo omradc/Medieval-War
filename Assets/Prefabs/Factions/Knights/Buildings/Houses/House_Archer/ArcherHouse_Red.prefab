@@ -42,11 +42,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ConstructingBuildingButton
+      value: Construct
       objectReference: {fileID: 0}
     - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ConstructedBuilding
+      value: Upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 565612856671686749, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -76,6 +76,22 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2512787792396052786, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_Size.x
+      value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512787792396052786, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_Size.y
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512787792396052786, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1b97ab817fa094b49b217c7a1c1da570, type: 3}
+    - target: {fileID: 2512787792396052786, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2741095547548162363, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: unit
       value: 
@@ -84,6 +100,10 @@ PrefabInstance:
       propertyPath: timerFillImage
       value: 
       objectReference: {fileID: 6145643791003473610}
+    - target: {fileID: 3048150471120658330, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: construction
+      value: 
+      objectReference: {fileID: 5494979510523353086, guid: 2064571e698979a419be470a3185423b, type: 3}
     - target: {fileID: 3436361849994609152, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_Color.b
       value: 0.23137255
@@ -122,11 +142,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -138,15 +158,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -200,6 +220,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 253204624424352107}
+    - target: {fileID: 8081444475192658679, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: objName
+      value: archerHouseLvl3_Destructed
+      objectReference: {fileID: 0}
     - target: {fileID: 8389996312057332968, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_Name
       value: ArcherHouse_Red

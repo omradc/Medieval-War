@@ -40,6 +40,10 @@ PrefabInstance:
       propertyPath: objName
       value: warriorHouseLvl3
       objectReference: {fileID: 0}
+    - target: {fileID: 1866785907170678175, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: construction
+      value: 
+      objectReference: {fileID: 5494979510523353086, guid: cbc2f4e5c54cbf64aaf0c8b85e9dd364, type: 3}
     - target: {fileID: 2585460642832718868, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: objName
       value: warriorLvl2
@@ -57,6 +61,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1456804898, guid: 6e57fecc186c78749aa67c3ff2c86be6, type: 3}
     - target: {fileID: 2657319070578102008, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917599918927006775, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: m_Size.x
+      value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917599918927006775, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: m_Size.y
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917599918927006775, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ca72db83a4541c24f92e232c35eec530, type: 3}
+    - target: {fileID: 2917599918927006775, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -96,6 +116,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CloseButton
       objectReference: {fileID: 0}
+    - target: {fileID: 3751025228376609602, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
+      propertyPath: objName
+      value: warriorHouseLvl2_Destructed
+      objectReference: {fileID: 0}
     - target: {fileID: 4854780349291234444, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -126,11 +150,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4895459635819121128, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ConstructingBuildingButton
+      value: Construct
       objectReference: {fileID: 0}
     - target: {fileID: 4895459635819121128, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ConstructedBuilding
+      value: Upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 4895459635819121128, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -166,7 +190,7 @@ PrefabInstance:
       objectReference: {fileID: 7686917634749728110}
     - target: {fileID: 5487208195951278403, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_LocalPosition.y
@@ -182,15 +206,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487208195951278403, guid: d792e6251fd76f6478cb4e49073f9e20, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

@@ -134,11 +134,11 @@ PrefabInstance:
       objectReference: {fileID: 9009627845384232087}
     - target: {fileID: 3832013195798504968, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ConstructingBuildingButton
+      value: Construct
       objectReference: {fileID: 0}
     - target: {fileID: 3832013195798504968, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ConstructedBuilding
+      value: Upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 3832013195798504968, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -211,6 +211,14 @@ PrefabInstance:
     - target: {fileID: 7205752578463821800, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7905084520350405072, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: physicalCollider
+      value: 
+      objectReference: {fileID: 6581190710325203990, guid: 9274d8b69e47c6c48bae16877d6d08f6, type: 3}
+    - target: {fileID: 8349793630879265514, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: objName
+      value: castleLvl2_Destructed
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

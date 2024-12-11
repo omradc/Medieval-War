@@ -70,8 +70,12 @@ namespace Assets.Scripts.Concrete.Managers
                 if (interactedObj != null)
                 {
                     // Etkileşim olan obje ev, kule veya kale ise, etkileşim ekranı açılır
-                    if (interactedObj.layer == 8 || interactedObj.layer == 9 || interactedObj.layer== 10)
+                    if (interactedObj.layer == 8 || interactedObj.layer == 9 || interactedObj.layer == 10)
                         interactedObj.GetComponent<PanelController>().InteractablePanelVisibility(true);
+
+                    // Etkileşim olan obje yıkılmış ise, panel açılır
+                    if (interactedObj.layer == 26)
+                        interactedObj.GetComponent<PanelController>().DestructPanelVisiblity(true);
 
                     // Etkileşim olan obje, birim ise,
                     if (interactedObj.layer == 6)
