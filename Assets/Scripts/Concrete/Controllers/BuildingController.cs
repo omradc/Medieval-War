@@ -25,7 +25,6 @@ namespace Assets.Scripts.Concrete.Controllers
             visualDestructed = transform.GetChild(3).gameObject;
             buttonController = GetComponent<ButtonController>();
         }
-
         private void Update()
         {
             if (healthController.isDead)

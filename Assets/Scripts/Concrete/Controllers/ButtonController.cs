@@ -18,6 +18,11 @@ namespace Assets.Scripts.Concrete.Controllers
             panelController = GetComponent<PanelController>();
             buildingController = GetComponent<BuildingController>();
         }
+
+        private void Update()
+        {
+
+        }
         public void TrainUnitButton()
         {
             if (ResourcesManager.Instance.Buy(KnightName()))

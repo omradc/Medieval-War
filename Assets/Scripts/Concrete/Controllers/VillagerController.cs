@@ -90,10 +90,10 @@ namespace Assets.Scripts.Concrete.Controllers
             pF2D = GetComponent<UnitPathFinding2D>();
             villagerSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
             animator = transform.GetChild(0).GetComponent<Animator>();
-            goldIdle = transform.GetChild(1).gameObject;
-            rockIdle = transform.GetChild(2).gameObject;
-            woodIdle = transform.GetChild(3).gameObject;
-            meatIdle = transform.GetChild(4).gameObject;
+            goldIdle = transform.GetChild(1).GetChild(0).gameObject;
+            rockIdle = transform.GetChild(1).GetChild(1).gameObject;
+            woodIdle = transform.GetChild(1).GetChild(2).gameObject;
+            meatIdle = transform.GetChild(1).GetChild(3).gameObject;
             ıInput = new PcInput();
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
             collectResources = new(this);

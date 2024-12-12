@@ -18,7 +18,7 @@ namespace Assets.Scripts.Concrete.Managers
         private PointerEventData pointerEventData; // Pointer verilerini tutar
         public static InteractManager Instance { get; private set; }
         [SerializeField] LayerMask unitLayer;
-        Interact ınteract;
+        [SerializeField] LayerMask interactableLayers;
         public GameObject interactedObj;
         public GameObject interactedUnit;
         public GameObject interactedMine;
@@ -28,6 +28,7 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject interactedTower;
         public GameObject interactedConstruction;
         IInput ıInput;
+        Interact ınteract;
 
         public List<GameObject> selectedUnits;
 
@@ -53,7 +54,7 @@ namespace Assets.Scripts.Concrete.Managers
         }
         private void Start()
         {
-            ınteract = new Interact(this);
+            ınteract = new Interact(this, interactableLayers);
             ıInput = new PcInput();
 
         }
@@ -69,13 +70,13 @@ namespace Assets.Scripts.Concrete.Managers
                 ınteract.InteractClickedObj();
                 if (interactedObj != null)
                 {
-                    // Etkileşim olan obje ev, kule veya kale ise, etkileşim ekranı açılır
-                    if (interactedObj.layer == 8 || interactedObj.layer == 9 || interactedObj.layer == 10)
-                        interactedObj.GetComponent<PanelController>().InteractablePanelVisibility(true);
+                    //// Etkileşim olan obje ev, kule veya kale ise, etkileşim ekranı açılır
+                    //if (interactedObj.layer == 8 || interactedObj.layer == 9 || interactedObj.layer == 10)
+                    //    interactedObj.GetComponent<PanelController>().InteractablePanelVisibility(true);
 
-                    // Etkileşim olan obje yıkılmış ise, panel açılır
-                    if (interactedObj.layer == 26)
-                        interactedObj.GetComponent<PanelController>().DestructPanelVisiblity(true);
+                    //// Etkileşim olan obje yıkılmış ise, panel açılır
+                    //if (interactedObj.layer == 26)
+                    //    interactedObj.GetComponent<PanelController>().DestructPanelVisiblity(true);
 
                     // Etkileşim olan obje, birim ise,
                     if (interactedObj.layer == 6)
@@ -123,7 +124,7 @@ namespace Assets.Scripts.Concrete.Managers
 
         }
 
-        public bool CheckUIElemnts()
+        public bool CheckUIElements()
         {
             // Sol fare tuşuna basıldığında
             if (Input.GetMouseButtonDown(0))

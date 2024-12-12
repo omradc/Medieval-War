@@ -60,10 +60,30 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7380496140459370626, guid: 2d844c7933e319f428dc4b92293a516f, type: 3}
+      propertyPath: m_Size.x
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380496140459370626, guid: 2d844c7933e319f428dc4b92293a516f, type: 3}
+      propertyPath: m_Size.y
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380496140459370626, guid: 2d844c7933e319f428dc4b92293a516f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -287905704, guid: ea75b4a852edfd84b8e3f24a6d92c619, type: 3}
+    - target: {fileID: 7380496140459370626, guid: 2d844c7933e319f428dc4b92293a516f, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7806918734919615237, guid: 2d844c7933e319f428dc4b92293a516f, type: 3}
       propertyPath: m_Name
       value: Archer_Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 8306297516977058751, guid: 2d844c7933e319f428dc4b92293a516f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: a9ce4862d40917c48ab0101433e6bd89, type: 2}
     - target: {fileID: 9207717967758546230, guid: 2d844c7933e319f428dc4b92293a516f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
