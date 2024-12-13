@@ -14,14 +14,14 @@ namespace Assets.Scripts.Concrete.Movements
         public void MoveCommand()
         {
 
-            HorizontalLineFormation(UnitManager.Instance.troopFormation == TroopFormation.HorizontalLineFormation, UnitManager.Instance.distanceBetweenUnits);
-            VerticalLineFormation(UnitManager.Instance.troopFormation == TroopFormation.VerticalLineFormation, UnitManager.Instance.distanceBetweenUnits);
-            RectangleFormation(UnitManager.Instance.troopFormation == TroopFormation.RectangleFormation, UnitManager.Instance.distanceBetweenUnits);
-            RightTriangleFormation(UnitManager.Instance.troopFormation == TroopFormation.RightTriangleFormation, UnitManager.Instance.distanceBetweenUnits);
-            LeftTriangleFormation(UnitManager.Instance.troopFormation == TroopFormation.LeftTriangleFormation, UnitManager.Instance.distanceBetweenUnits);
-            UpTriangleFormation(UnitManager.Instance.troopFormation == TroopFormation.UpTriangleFormation, UnitManager.Instance.distanceBetweenUnits);
-            DownTriangleFormation(UnitManager.Instance.troopFormation == TroopFormation.DownTriangleFormation, UnitManager.Instance.distanceBetweenUnits);
-            RightCurveFormation(UnitManager.Instance.troopFormation == TroopFormation.RightCurveFormation, UnitManager.Instance.distanceBetweenUnits);
+            HorizontalLineFormation(KnightManager.Instance.troopFormation == TroopFormation.HorizontalLineFormation, KnightManager.Instance.distanceBetweenUnits);
+            VerticalLineFormation(KnightManager.Instance.troopFormation == TroopFormation.VerticalLineFormation, KnightManager.Instance.distanceBetweenUnits);
+            RectangleFormation(KnightManager.Instance.troopFormation == TroopFormation.RectangleFormation, KnightManager.Instance.distanceBetweenUnits);
+            RightTriangleFormation(KnightManager.Instance.troopFormation == TroopFormation.RightTriangleFormation, KnightManager.Instance.distanceBetweenUnits);
+            LeftTriangleFormation(KnightManager.Instance.troopFormation == TroopFormation.LeftTriangleFormation, KnightManager.Instance.distanceBetweenUnits);
+            UpTriangleFormation(KnightManager.Instance.troopFormation == TroopFormation.UpTriangleFormation, KnightManager.Instance.distanceBetweenUnits);
+            DownTriangleFormation(KnightManager.Instance.troopFormation == TroopFormation.DownTriangleFormation, KnightManager.Instance.distanceBetweenUnits);
+            RightCurveFormation(KnightManager.Instance.troopFormation == TroopFormation.RightCurveFormation, KnightManager.Instance.distanceBetweenUnits);
         }
 
         public void HorizontalLineFormation(bool horizontalLineFormation, float distance)

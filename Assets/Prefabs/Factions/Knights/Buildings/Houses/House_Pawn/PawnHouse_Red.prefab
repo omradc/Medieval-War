@@ -164,6 +164,50 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6123638556111727623, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123638556111727623, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123638556111727623, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6621170632582260810}
+    - target: {fileID: 6123638556111727623, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6621170632582260810}
+    - target: {fileID: 6123638556111727623, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InteractablePanelVisibility
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123638556111727623, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InteractablePanelVisibility
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123638556111727623, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.PanelController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123638556111727623, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.PanelController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123638556111727623, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123638556111727623, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123638556111727623, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6559869251384600631, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_Size.x
       value: 0.28
@@ -262,6 +306,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6621170632582260810 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8157668699481582750, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+  m_PrefabInstance: {fileID: 3086870004998358228}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aa2a8769ac23e24fac7a0f708cadc41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7654854333882939156 stripped

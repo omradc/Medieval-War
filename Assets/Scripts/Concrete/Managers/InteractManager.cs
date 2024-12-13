@@ -158,11 +158,11 @@ namespace Assets.Scripts.Concrete.Managers
                 if (hit.collider != null)
                 {
                     currentUnit = hit.collider.gameObject;
-                    UnitController uC = currentUnit.GetComponent<UnitController>();
-                    uC.unitOrderEnum = UnitManager.Instance.unitOrderEnum;
-                    uC.workOnce = true;
-                    uC.followingObj = null;
-                    uC.isSeleceted = true;
+                    KnightController kC = currentUnit.GetComponent<Controllers.KnightController>();
+                    kC.unitOrderEnum = KnightManager.Instance.unitOrderEnum;
+                    kC.workOnce = true;
+                    kC.followingObj = null;
+                    kC.isSeleceted = true;
 
                     // Aynı birimi tekrar diziye atma
                     if (!selectedUnits.Contains(currentUnit))
@@ -196,8 +196,8 @@ namespace Assets.Scripts.Concrete.Managers
                     // Aynı nesneyi tekrar diziye atma
                     if (!selectedUnits.Contains(currentUnit))
                         selectedUnits.Add(currentUnit);
-                    UnitController uC = selectedUnits[i].gameObject.GetComponent<UnitController>();
-                    uC.unitOrderEnum = UnitManager.Instance.unitOrderEnum;
+                    Controllers.KnightController uC = selectedUnits[i].gameObject.GetComponent<Controllers.KnightController>();
+                    uC.unitOrderEnum = KnightManager.Instance.unitOrderEnum;
                     uC.workOnce = true;
                     uC.followingObj = null;
                     uC.isSeleceted = true;
@@ -214,7 +214,7 @@ namespace Assets.Scripts.Concrete.Managers
             {
                 for (int i = 0; i < selectedUnits.Count; i++)
                 {
-                    selectedUnits[i].GetComponent<UnitController>().unitOrderEnum = UnitManager.Instance.unitOrderEnum;
+                    selectedUnits[i].GetComponent<KnightController>().unitOrderEnum = KnightManager.Instance.unitOrderEnum;
                 }
             }
         }
@@ -226,7 +226,7 @@ namespace Assets.Scripts.Concrete.Managers
                 for (int i = 0; i < selectedUnits.Count; i++)
                 {
                     SelectedObjColor(1, selectedUnits[i]);
-                    selectedUnits[i].GetComponent<UnitController>().isSeleceted = false;
+                    selectedUnits[i].GetComponent<KnightController>().isSeleceted = false;
                 }
 
                 selectedUnits.Clear();
@@ -239,7 +239,7 @@ namespace Assets.Scripts.Concrete.Managers
                 int selectedUnitsCount = selectedUnits.Count;
                 for (int i = 0; i < selectedUnitsCount; i++)
                 {
-                    if (selectedUnits[j].GetComponent<UnitController>().unitTypeEnum == UnitTypeEnum.Villager)
+                    if (selectedUnits[j].GetComponent<KnightController>().unitTypeEnum == UnitTypeEnum.Villager)
                     {
                         SelectedObjColor(1, selectedUnits[j]);
                         selectedUnits.RemoveAt(j);

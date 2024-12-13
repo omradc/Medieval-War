@@ -9,7 +9,7 @@ namespace Assets.Scripts.Concrete.Orders
     {
 
         bool work = true;
-        public DefendAI(UnitController unitController, UnitPathFinding2D pF2D) : base(unitController, pF2D)
+        public DefendAI(KnightController unitController, UnitPathFinding2D pF2D) : base(unitController, pF2D)
         {
 
         }
@@ -25,41 +25,41 @@ namespace Assets.Scripts.Concrete.Orders
 
         void SetRanges()
         {
-            uC.sightRangePosition = pF2D.lastMousePos;
+            kC.sightRangePosition = pF2D.lastMousePos;
             if (work)
             {
-                uC.currentSightRange = uC.sightRange + uC.currentAttackRange / 2;
+                kC.currentSightRange = kC.sightRange + kC.currentAttackRange / 2;
                 work = false;
             }
         }
         void ReturnAtYourPosition(float distance)
         {
-            if (uC.followTargets.Length == 0)
+            if (kC.followTargets.Length == 0)
             {
-                pF2D.AIGetMoveCommand(uC.sightRangePosition);
-                pF2D.direction.Turn2Direction(uC.sightRangePosition.x);
+                pF2D.AIGetMoveCommand(kC.sightRangePosition);
+                pF2D.direction.Turn2Direction(kC.sightRangePosition.x);
                 StopCloseToSightRange();
             }
 
-            if (uC.followTargets.Length > 0)
+            if (kC.followTargets.Length > 0)
                 work = true;
         }
 
         void StopCloseToSightRange()
         {
             // Görüş menzilinin merkezinde değilsen koşmaya devam et
-            if (Vector2.Distance(uC.sightRangePosition, uC.transform.position) > 0.15f)
+            if (Vector2.Distance(kC.sightRangePosition, kC.transform.position) > 0.15f)
             {
                 pF2D.isPathEnd = false;
                 AnimationManager.Instance.RunAnim(pF2D.animator, 1);
             }
             // Görüş menzilinin merkezinde dur
-            if (Vector2.Distance(uC.sightRangePosition, uC.transform.position) < 0.15f)
+            if (Vector2.Distance(kC.sightRangePosition, kC.transform.position) < 0.15f)
             {
                 pF2D.isPathEnd = true;
                 AnimationManager.Instance.IdleAnim(pF2D.animator);
                 if (!work)
-                    uC.currentSightRange = uC.sightRange;
+                    kC.currentSightRange = kC.sightRange;
             }
         }
     }

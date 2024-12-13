@@ -9,9 +9,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Managers
 {
-    internal class UnitManager : MonoBehaviour
+    internal class KnightManager : MonoBehaviour
     {
-        public static UnitManager Instance { get; private set; }
+        public static KnightManager Instance { get; private set; }
         [Header("Units")]
         public TroopFormation troopFormation;
         public float distanceBetweenUnits;

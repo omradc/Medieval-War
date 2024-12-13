@@ -7,32 +7,32 @@ namespace Assets.Scripts.Concrete.Orders
 {
     internal class UnitAI
     {
-        protected UnitController uC;
+        protected KnightController kC;
         protected UnitPathFinding2D pF2D;
         public GameObject nearestTarget;
-        public UnitAI(UnitController unitController, UnitPathFinding2D pF2D)
+        public UnitAI(KnightController kC, UnitPathFinding2D pF2D)
         {
-            uC = unitController;
+            this.kC = kC;
             this.pF2D = pF2D;
         }
 
         public GameObject DetechNearestTarget()
         {
-            if (uC.followTargets.Length > 0)
+            if (kC.followTargets.Length > 0)
             {
                 GameObject nearestTarget = null;
                 float shortestDistance = Mathf.Infinity;
 
-                for (int i = 0; i < uC.followTargets.Length; i++)
+                for (int i = 0; i < kC.followTargets.Length; i++)
                 {
-                    if (uC.followTargets[i] != null)
+                    if (kC.followTargets[i] != null)
                     {
-                        float distanceToEnemy = Vector2.Distance(uC.transform.position, uC.followTargets[i].transform.position);
+                        float distanceToEnemy = Vector2.Distance(kC.transform.position, kC.followTargets[i].transform.position);
 
                         if (shortestDistance > distanceToEnemy)
                         {
                             shortestDistance = distanceToEnemy;
-                            nearestTarget = uC.followTargets[i].gameObject;
+                            nearestTarget = kC.followTargets[i].gameObject;
                         }
 
                     }
@@ -47,10 +47,10 @@ namespace Assets.Scripts.Concrete.Orders
         {
             GameObject nearestTarget = DetechNearestTarget();
             if (nearestTarget == null) return;
-            if (Vector2.Distance(nearestTarget.transform.position, uC.sightRangePosition) < uC.currentSightRange)
+            if (Vector2.Distance(nearestTarget.transform.position, kC.sightRangePosition) < kC.currentSightRange)
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
-                if (Vector2.Distance(nearestTarget.transform.position, uC.attackRangePosition) < uC.currentAttackRange) return;
+                if (Vector2.Distance(nearestTarget.transform.position, kC.attackRangePosition) < kC.currentAttackRange) return;
 
                 AnimationManager.Instance.RunAnim(pF2D.animator, 1);
 
@@ -60,17 +60,17 @@ namespace Assets.Scripts.Concrete.Orders
         protected void StopWhenAttackDistance() // Yapay zeka düşmanın tam koordinatlarına gider, fakat bu isPathEnd ile engellenir.
         {
             GameObject nearestTarget = DetechNearestTarget();
-            if (uC.stayBuilding) // Kuleye gidiyorsa durmaz
+            if (kC.stayBuilding) // Kuleye gidiyorsa durmaz
             {
                 pF2D.isPathEnd = false;
                 return;
             }
             if (nearestTarget != null)
             {
-                if (Vector2.Distance(nearestTarget.transform.position, uC.attackRangePosition) < uC.currentAttackRange)
+                if (Vector2.Distance(nearestTarget.transform.position, kC.attackRangePosition) < kC.currentAttackRange)
                     pF2D.isPathEnd = true;
 
-                if (Vector2.Distance(nearestTarget.transform.position, uC.attackRangePosition) > uC.currentAttackRange)
+                if (Vector2.Distance(nearestTarget.transform.position, kC.attackRangePosition) > kC.currentAttackRange)
                     pF2D.isPathEnd = false;
             }
 

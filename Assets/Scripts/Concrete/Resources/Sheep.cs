@@ -60,7 +60,7 @@ namespace Assets.Scripts.Concrete.Resources
         {
             if (inFence || goFence) return;
             if (villager != null)
-                if (vC.uC.isSeleceted)
+                if (vC.kC.isSeleceted)
                     isDomestic = false;
 
             // Eğer koyun; çitlere gitmiyorsa, evcilse ve köylü yanındaysa,

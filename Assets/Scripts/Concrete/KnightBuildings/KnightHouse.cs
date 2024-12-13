@@ -7,13 +7,13 @@ namespace Assets.Scripts.Concrete.KnightBuildings
         GameObject troop;
         Vector3 pos;
         KnightHouseController knightHouseController;
-        PanelController panelController;
+        BuildingPanelController panelController;
         ButtonController buttonController;
         float currentTime;
 
 
 
-        public KnightHouse(GameObject troop, Vector3 pos, PanelController panelController, ButtonController buttonController, KnightHouseController knightHouseController)
+        public KnightHouse(GameObject troop, Vector3 pos, BuildingPanelController panelController, ButtonController buttonController, KnightHouseController knightHouseController)
         {
             this.troop = troop;
             this.pos = pos;

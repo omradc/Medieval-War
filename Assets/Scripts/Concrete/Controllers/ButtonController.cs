@@ -11,11 +11,11 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool upgrade;
         [HideInInspector] public GameObject construct;
         [HideInInspector] public GameObject upgradedBuilding;
-        PanelController panelController;
+        BuildingPanelController panelController;
         BuildingController buildingController;
         private void Start()
         {
-            panelController = GetComponent<PanelController>();
+            panelController = GetComponent<BuildingPanelController>();
             buildingController = GetComponent<BuildingController>();
         }
 
@@ -65,6 +65,11 @@ namespace Assets.Scripts.Concrete.Controllers
                 Destroy(gameObject);
                 Instantiate(buildingController.construction, transform.position, Quaternion.identity);
             }
+        }
+
+        public void DestroyButton()
+        {
+            Destroy(gameObject);
         }
         string BuildingName()
         {

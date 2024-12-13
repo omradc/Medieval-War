@@ -172,6 +172,50 @@ PrefabInstance:
       propertyPath: objName
       value: archerHouseLvl2
       objectReference: {fileID: 0}
+    - target: {fileID: 6210319629808770963, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210319629808770963, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210319629808770963, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1343070219676398}
+    - target: {fileID: 6210319629808770963, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1343070219676398}
+    - target: {fileID: 6210319629808770963, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InteractablePanelVisibility
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210319629808770963, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InteractablePanelVisibility
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210319629808770963, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.PanelController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210319629808770963, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.PanelController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210319629808770963, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210319629808770963, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210319629808770963, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6247494947147736969, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -221,6 +265,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+--- !u!114 &1343070219676398 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4337000660434584854, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}
+  m_PrefabInstance: {fileID: 4338332707509284856}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aa2a8769ac23e24fac7a0f708cadc41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &253204624424352107 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4591220666811815571, guid: 582e2838ccf0da94f8a2f946f48314a5, type: 3}

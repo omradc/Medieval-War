@@ -12,7 +12,7 @@ namespace Assets.Scripts.Concrete.Orders
         bool followRange = true;
         float currentTime;
 
-        public FollowAI(UnitController unitController, UnitPathFinding2D pF2D) : base(unitController, pF2D)
+        public FollowAI(KnightController kC, UnitPathFinding2D pF2D) : base(kC, pF2D)
         {
         }
 
@@ -26,10 +26,10 @@ namespace Assets.Scripts.Concrete.Orders
         public void SetFollowUnit()
         {
             // Hedef boş ise, hedefi belirle, sadece 1 kez
-            if (InteractManager.Instance.interactedUnit != null && uC.workOnce)
+            if (InteractManager.Instance.interactedUnit != null && kC.workOnce)
             {
-                uC.followingObj = InteractManager.Instance.interactedUnit;
-                uC.workOnce = false;
+                kC.followingObj = InteractManager.Instance.interactedUnit;
+                kC.workOnce = false;
             }
 
         }
@@ -37,26 +37,26 @@ namespace Assets.Scripts.Concrete.Orders
         {
             if (followRange)
             {
-                uC.currentSightRange = uC.sightRange + uC.currentAttackRange / 2;
+                kC.currentSightRange = kC.sightRange + kC.currentAttackRange / 2;
                 followRange = false;
             }
 
             // Hedef belirlendiyse menzilini ona ver ve takip et
-            if (uC.followingObj != null)
-                uC.sightRangePosition = uC.followingObj.transform.position;
+            if (kC.followingObj != null)
+                kC.sightRangePosition = kC.followingObj.transform.position;
         }
         void ReturnAtYourPosition()
         {
             // Menzilinde düşman yoksa hedefi(kendi görüş menzilini) takip et
-            if (uC.followTargets.Length == 0 && Vector2.Distance((Vector3)uC.sightRangePosition, uC.transform.position) > 1)
+            if (kC.followTargets.Length == 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) > 1)
             {
-                pF2D.AIGetMoveCommand(uC.sightRangePosition);
-                pF2D.direction.Turn2Direction(uC.sightRangePosition.x);
+                pF2D.AIGetMoveCommand(kC.sightRangePosition);
+                pF2D.direction.Turn2Direction(kC.sightRangePosition.x);
                 StopCloseToSightRange();
             }
 
             // Menzilde düşman varsa, menzilden çıkmayacak şekilde düşmanı takip et
-            if (uC.followTargets.Length > 0 && Vector2.Distance((Vector3)uC.sightRangePosition, uC.transform.position) < uC.currentSightRange)
+            if (kC.followTargets.Length > 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) < kC.currentSightRange)
             {
                 if (DetechNearestTarget() == null) return;
                 pF2D.AIGetMoveCommand(DetechNearestTarget().transform.position);
@@ -66,21 +66,21 @@ namespace Assets.Scripts.Concrete.Orders
         void StopCloseToSightRange()
         {
             // Devam et
-            if (Vector2.Distance(uC.sightRangePosition, uC.attackRangePosition) > 3)
+            if (Vector2.Distance(kC.sightRangePosition, kC.attackRangePosition) > 3)
             {
                 pF2D.isPathEnd = false;
                 AnimationManager.Instance.RunAnim(pF2D.animator, 1);
             }
 
             // Dur
-            if (Vector2.Distance(uC.sightRangePosition, uC.attackRangePosition) < 3)
+            if (Vector2.Distance(kC.sightRangePosition, kC.attackRangePosition) < 3)
             {
                 pF2D.isPathEnd = true;
                 AnimationManager.Instance.IdleAnim(pF2D.animator);
 
                 if (!followRange)
                     // menzilini eski haline getir
-                    uC.currentSightRange = uC.sightRange;
+                    kC.currentSightRange = kC.sightRange;
             }
         }
     }

@@ -13,7 +13,7 @@ namespace Assets.Scripts.Concrete.Movements
         [HideInInspector] public Vector2 lastMousePos;
         [HideInInspector] public Animator animator;
         [HideInInspector] public UnitDirection direction;
-        UnitController uC;
+        KnightController kC;
 
         void Start()
         {
@@ -21,8 +21,8 @@ namespace Assets.Scripts.Concrete.Movements
             drawDebugLines = drawLine;
             pathfinder = new Pathfinder<Vector2>(GetDistance, GetNeighbourNodes, 1000); //increase patience or gridSize for larger maps
             animator = transform.GetChild(0).GetComponent<Animator>();
-            uC = GetComponent<UnitController>();
-            direction = new(this, uC);
+            kC = GetComponent<KnightController>();
+            direction = new(this, kC);
         }
 
 
@@ -37,12 +37,12 @@ namespace Assets.Scripts.Concrete.Movements
             if (pathLeftToGo.Count > 0) //if the target is not yet reached
             {
                 Vector3 dir = (Vector3)pathLeftToGo[0] - transform.position;
-                transform.position += dir.normalized * uC.currentMoveSpeed;
+                transform.position += dir.normalized * kC.currentMoveSpeed;
 
                 //pathLeftToGo[0]; hedefe giderken kullandýðý yola bakmasýný saðlar
                 direction.Turn2Direction(pathLeftToGo[0].x);
 
-                if (((Vector2)transform.position - pathLeftToGo[0]).sqrMagnitude < uC.currentMoveSpeed * uC.currentMoveSpeed)
+                if (((Vector2)transform.position - pathLeftToGo[0]).sqrMagnitude < kC.currentMoveSpeed * kC.currentMoveSpeed)
                 {
                     transform.position = pathLeftToGo[0];
                     pathLeftToGo.RemoveAt(0);
@@ -53,9 +53,9 @@ namespace Assets.Scripts.Concrete.Movements
             {
                 isUserPathFinding = false;
                 moveCommand = false;
-                uC.currentAttackRange = uC.attackRange;
+                kC.currentAttackRange = kC.attackRange;
                 direction.Turn2Direction(Mathf.Infinity);
-                if (uC.followTargets.Length <= 0)
+                if (kC.followTargets.Length <= 0)
                 {
                     if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Chop") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Build"))
                         AnimationManager.Instance.IdleAnim(animator);
@@ -81,7 +81,7 @@ namespace Assets.Scripts.Concrete.Movements
             isUserPathFinding = true;
             isPathEnd = false;
             searchShortcut = false;
-            uC.currentAttackRange = 0;
+            kC.currentAttackRange = 0;
             lastMousePos = mousePos;
             Vector2 closestNode = GetClosestNode(transform.position);
             if (pathfinder.GenerateAstarPath(closestNode, GetClosestNode(mousePos), out path)) //Generate path between two points on grid that are close to the transform position and the assigned target.

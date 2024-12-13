@@ -66,7 +66,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool isSheep;
 
 
-        [HideInInspector] public UnitController uC;
+        [HideInInspector] public KnightController kC;
         [HideInInspector] public UnitPathFinding2D pF2D;
         [HideInInspector] public SpriteRenderer villagerSpriteRenderer;
         [HideInInspector] public Animator animator;
@@ -86,7 +86,7 @@ namespace Assets.Scripts.Concrete.Controllers
         Construction construction;
         private void Awake()
         {
-            uC = GetComponent<UnitController>();
+            kC = GetComponent<KnightController>();
             pF2D = GetComponent<UnitPathFinding2D>();
             villagerSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
             animator = transform.GetChild(0).GetComponent<Animator>();
@@ -104,7 +104,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Start()
         {
-            direction = uC.direction;
+            direction = kC.direction;
             currentChopTreeSightRange = chopTreeSightRange;
             currentTreeDamage = treeDamage;
             //  Events
@@ -113,7 +113,7 @@ namespace Assets.Scripts.Concrete.Controllers
             animationEventController.BuildEvent += construction.Build;
 
             //Invoke
-            InvokeRepeating(nameof(OptimumVillager), 0.1f, uC.collectResourcesPerTime);
+            InvokeRepeating(nameof(OptimumVillager), 0.1f, kC.collectResourcesPerTime);
         }
         private void Update()
         {
@@ -124,7 +124,7 @@ namespace Assets.Scripts.Concrete.Controllers
         void OptimumVillager()
         {
             //Düşman varsa kaynak toplama
-            if (uC.unitAI.DetechNearestTarget() != null)
+            if (kC.unitAI.DetechNearestTarget() != null)
             {
                 // Elinde herhangi bir kaynak varsa onu yere at
                 collectResources.DropAnyResources();
@@ -132,7 +132,7 @@ namespace Assets.Scripts.Concrete.Controllers
             }
 
             //Düşman yoksa işine devam et
-            if (uC.unitAI.DetechNearestTarget() == null) pF2D.isPathEnd = false;
+            if (kC.unitAI.DetechNearestTarget() == null) pF2D.isPathEnd = false;
 
             goldAndRock.GoToMine();
             collectWood.GoToTree();

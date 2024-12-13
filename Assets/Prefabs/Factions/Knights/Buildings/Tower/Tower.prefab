@@ -352,7 +352,7 @@ MonoBehaviour:
   healthObj: {fileID: 0}
   health: 10
   currentHealth: 0
-  regeneration: 0
+  regeneration: 1
   regenerationValue: 1
   takeDamageTime: 5
   regrenationPerTime: 1
@@ -760,7 +760,15 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
@@ -770,7 +778,7 @@ PrefabInstance:
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 7595525948176423511}
+      objectReference: {fileID: -6159979344791064268}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -778,25 +786,45 @@ PrefabInstance:
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 7595525948176423511}
+      objectReference: {fileID: -6159979344791064268}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: InteractablePanelVisibility
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DestructPanelVisiblity
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: InteractablePanelVisibility
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DestructPanelVisiblity
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Assets.Scripts.Concrete.Controllers.PanelController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.BuildingPanelController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Assets.Scripts.Concrete.Controllers.PanelController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.BuildingPanelController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
@@ -804,7 +832,15 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8178617983387713933, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}

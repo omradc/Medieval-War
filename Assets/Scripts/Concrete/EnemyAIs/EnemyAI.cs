@@ -248,24 +248,33 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         }
         void CalculateNearestAttackPoint()
         {
-            Transform obj = nearestTarget.transform.GetChild(4);
-
-            if (obj.transform.childCount == 0)
-                nearestAttackPoint = nearestTarget.transform;
-
-            else
+            // Düşman şovalye ise
+            if (nearestTarget.layer == 6)
             {
-                float shortestDistance = Mathf.Infinity;
-                for (int i = 0; i < obj.childCount; i++)
+                nearestAttackPoint = nearestTarget.transform;
+                return;
+            }
+
+            Transform obj = nearestTarget.transform.GetChild(4);
+            // Saldırı noktası sayısı 1 ise
+            if (obj.transform.childCount == 0)
+            {
+                nearestAttackPoint = obj;
+                return;
+            }
+
+            // Saldırı noktası sayısı 1 den büyük ise
+            float shortestDistance = Mathf.Infinity;
+            for (int i = 0; i < obj.childCount; i++)
+            {
+                float distanceToTarget = Vector2.Distance(eC.transform.position, obj.GetChild(i).position);
+                if (shortestDistance > distanceToTarget)
                 {
-                    float distanceToTarget = Vector2.Distance(eC.transform.position, obj.GetChild(i).position);
-                    if (shortestDistance > distanceToTarget)
-                    {
-                        shortestDistance = distanceToTarget;
-                        nearestAttackPoint = obj.GetChild(i);
-                    }
+                    shortestDistance = distanceToTarget;
+                    nearestAttackPoint = obj.GetChild(i);
                 }
             }
+
         }
         public void GoUpToTower()
         {

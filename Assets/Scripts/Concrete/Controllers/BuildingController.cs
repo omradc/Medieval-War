@@ -11,12 +11,13 @@ namespace Assets.Scripts.Concrete.Controllers
 
         // Kule yapay zekası için gerekli değerler
         [HideInInspector] public bool isFull;
-        [HideInInspector] public bool destruct;
+        public bool destruct;
         [HideInInspector] public int unitValue;
 
         GameObject visualTower;
         GameObject visualDestructed;
         ButtonController buttonController;
+        BuildingPanelController bC;
         HealthController healthController;
         private void Awake()
         {
@@ -24,6 +25,7 @@ namespace Assets.Scripts.Concrete.Controllers
             visualTower = transform.GetChild(2).gameObject;
             visualDestructed = transform.GetChild(3).gameObject;
             buttonController = GetComponent<ButtonController>();
+            bC = GetComponent<BuildingPanelController>();
         }
         private void Update()
         {
@@ -37,12 +39,14 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             if (!workOnce) return;
             Debug.Log("Destruct");
+            destruct = true;
             physicalCollider.enabled = false;
             healthController.enabled = false;
             healthController.HealthBarVisibility(false);
             visualTower.SetActive(false);
             visualDestructed.SetActive(true);
             gameObject.layer = 26; // Katman = Destructed
+            bC.InteractablePanelVisibility(false);
             workOnce = false;
         }
 

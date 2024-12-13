@@ -17,7 +17,7 @@ namespace Assets.Scripts.Concrete.Resources
         {
             // UPDATE İLE ÇALIŞIR
             // Eğer köylü seçiliyse ve hedefe tıkladıysa, seçili köylünün hedefi seçili hedeftir
-            if (vC.uC.isSeleceted)
+            if (vC.kC.isSeleceted)
             {
                 vC.targetResource = null;
                 vC.nearestTree = null;
@@ -32,7 +32,7 @@ namespace Assets.Scripts.Concrete.Resources
                 // Bir yere tıklandıysa
                 if (InteractManager.Instance.interactedObj != null)
                 {
-                    vC.uC.isSeleceted = false;
+                    vC.kC.isSeleceted = false;
                 }
                 // Maden
                 if (InteractManager.Instance.interactedMine != null)
@@ -44,7 +44,7 @@ namespace Assets.Scripts.Concrete.Resources
                     vC.targetResource = InteractManager.Instance.interactedMine;
                     vC.mine = vC.targetResource.GetComponent<Mine>();
                     vC.isMine = true;
-                    vC.uC.isSeleceted = false;
+                    vC.kC.isSeleceted = false;
                 }
                 // Ağaç
                 if (InteractManager.Instance.interactedTree != null)
@@ -57,7 +57,7 @@ namespace Assets.Scripts.Concrete.Resources
                     vC.isTree = true;
                     vC.workOnceForTree = true;
                     vC.tCollect = 0;
-                    vC.uC.isSeleceted = false;
+                    vC.kC.isSeleceted = false;
                     vC.isFirstTree = true;
                 }
                 //Koyun
@@ -71,7 +71,7 @@ namespace Assets.Scripts.Concrete.Resources
                     vC.sheep = vC.targetResource.GetComponent<Sheep>();
                     vC.isSheep = true;
                     vC.tCollect = 0;
-                    vC.uC.isSeleceted = false;
+                    vC.kC.isSeleceted = false;
                 }
                 if (InteractManager.Instance.interactedFences != null)
                 {
@@ -194,14 +194,14 @@ namespace Assets.Scripts.Concrete.Resources
         public void ReadyToNextCommand()
         {
             // Eğer elinde kaynak varken seçip, başka bir yere gönderirsen. Kaynak yere düşer.
-            if (vC.ıInput.GetButtonDown0 && vC.uC.isSeleceted)
+            if (vC.ıInput.GetButtonDown0 && vC.kC.isSeleceted)
             {
                 DropAnyResources();
 
                 // köylü seçili iken, etkileşimli olmayan bir nesne seçildiğinde seçim kalkar 
                 if (InteractManager.Instance.interactedObj == null)
                 {
-                    vC.uC.isSeleceted = false;
+                    vC.kC.isSeleceted = false;
                 }
             }
 

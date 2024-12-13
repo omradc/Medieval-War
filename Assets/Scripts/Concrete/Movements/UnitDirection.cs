@@ -8,17 +8,17 @@ namespace Assets.Scripts.Concrete.Movements
     internal class UnitDirection
     {
         UnitPathFinding2D pF2D;
-        UnitController uC;
+        KnightController kC;
         float xPos;
         float yPos;
 
 
         Vector3 rightDirection = new Vector3(1, 1, 1);
         Vector3 leftDirection = new Vector3(-1, 1, 1);
-        public UnitDirection(UnitPathFinding2D pF2D, UnitController uC)
+        public UnitDirection(UnitPathFinding2D pF2D, KnightController kC)
         {
             this.pF2D = pF2D;
-            this.uC = uC;
+            this.kC = kC;
         }
         void SetBooleans()
         {
@@ -44,8 +44,8 @@ namespace Assets.Scripts.Concrete.Movements
             {
                 pF2D.transform.localScale = rightDirection;
 
-                if (uC.unitTypeEnum == UnitTypeEnum.Worrior)
-                    uC.attackPoint.localPosition = Vector3.right * uC.attackPointDistance;
+                if (kC.unitTypeEnum == UnitTypeEnum.Worrior)
+                    kC.attackPoint.localPosition = Vector3.right * kC.attackPointDistance;
 
                 SetBooleans();
                 pF2D.right = true;
@@ -72,8 +72,8 @@ namespace Assets.Scripts.Concrete.Movements
                 pF2D.left = true;
                 pF2D.transform.localScale = leftDirection;
                 // Savaşçının saldırı pozisyonunu belirler
-                if (uC.unitTypeEnum == UnitTypeEnum.Worrior)
-                    uC.attackPoint.localPosition = Vector3.right * uC.attackPointDistance;
+                if (kC.unitTypeEnum == UnitTypeEnum.Worrior)
+                    kC.attackPoint.localPosition = Vector3.right * kC.attackPointDistance;
             }
 
             //Up
@@ -81,8 +81,8 @@ namespace Assets.Scripts.Concrete.Movements
             {
                 pF2D.up = true;
                 // Savaşçının saldırı pozisyonunu belirler
-                if (uC.unitTypeEnum == UnitTypeEnum.Worrior)
-                    uC.attackPoint.localPosition = Vector3.up * uC.attackPointDistance;
+                if (kC.unitTypeEnum == UnitTypeEnum.Worrior)
+                    kC.attackPoint.localPosition = Vector3.up * kC.attackPointDistance;
             }
 
             //Down
@@ -90,8 +90,8 @@ namespace Assets.Scripts.Concrete.Movements
             {
                 pF2D.down = true;
                 // Savaşçının saldırı pozisyonunu belirler
-                if (uC.unitTypeEnum == UnitTypeEnum.Worrior)
-                    uC.attackPoint.localPosition = Vector3.down * uC.attackPointDistance;
+                if (kC.unitTypeEnum == UnitTypeEnum.Worrior)
+                    kC.attackPoint.localPosition = Vector3.down * kC.attackPointDistance;
             }
 
             //Right
@@ -101,8 +101,8 @@ namespace Assets.Scripts.Concrete.Movements
                 pF2D.right = true;
                 pF2D.transform.localScale = rightDirection;
                 // Savaşçının saldırı pozisyonunu belirler
-                if (uC.unitTypeEnum == UnitTypeEnum.Worrior)
-                    uC.attackPoint.localPosition = Vector3.right * uC.attackPointDistance;
+                if (kC.unitTypeEnum == UnitTypeEnum.Worrior)
+                    kC.attackPoint.localPosition = Vector3.right * kC.attackPointDistance;
             }
         }
         public void Turn8Direction(Vector2 target)

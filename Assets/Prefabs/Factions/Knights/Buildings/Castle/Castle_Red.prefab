@@ -188,6 +188,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Castle_Red
       objectReference: {fileID: 0}
+    - target: {fileID: 6937155922219363873, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1844819989577762619, guid: 0efd769ac0220c642aa0af33952e80a3, type: 3}
+    - target: {fileID: 6937155922219363873, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 6820188896059742733, guid: 007c73f46c5eea6479c18bd47c9a7cf3, type: 3}
     - target: {fileID: 7205752578463821800, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

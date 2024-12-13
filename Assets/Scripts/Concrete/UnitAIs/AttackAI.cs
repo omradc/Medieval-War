@@ -6,7 +6,7 @@ namespace Assets.Scripts.Concrete.Orders
 {
     internal class AttackAI : UnitAI
     {
-        public AttackAI(UnitController uC, UnitPathFinding2D pF2D) : base(uC, pF2D)
+        public AttackAI(KnightController kC, UnitPathFinding2D pF2D) : base(kC, pF2D)
         {
         }
         public void AttackMode()
@@ -18,8 +18,8 @@ namespace Assets.Scripts.Concrete.Orders
 
         void SetRange()
         {
-            uC.currentSightRange = uC.sightRange;
-            uC.sightRangePosition = uC.transform.GetChild(0).position;
+            kC.currentSightRange = kC.sightRange;
+            kC.sightRangePosition = kC.transform.GetChild(0).position;
         }
 
     }

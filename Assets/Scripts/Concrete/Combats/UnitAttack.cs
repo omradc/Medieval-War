@@ -11,23 +11,23 @@ namespace Assets.Scripts.Concrete.Combats
     {
 
         float currentTime;
-        UnitController uC;
+        KnightController kC;
         UnitAI unitAI;
         UnitPathFinding2D pF2D;
         UnitDirection direction;
         AnimationEventController animationEventController;
         bool workOnce;
-        public UnitAttack(UnitController uC, UnitAI order, UnitPathFinding2D pF2D, AnimationEventController animationEventController)
+        public UnitAttack(Controllers.KnightController kC, UnitAI order, UnitPathFinding2D pF2D, AnimationEventController animationEventController)
         {
-            this.uC = uC;
+            this.kC = kC;
             this.unitAI = order;
             this.pF2D = pF2D;
             this.animationEventController = animationEventController;
-            if (uC.unitTypeEnum == UnitTypeEnum.Worrior)
+            if (kC.unitTypeEnum == UnitTypeEnum.Worrior)
                 animationEventController.AttackEvent += WorriorAttack;
-            if (uC.unitTypeEnum == UnitTypeEnum.Archer)
+            if (kC.unitTypeEnum == UnitTypeEnum.Archer)
                 animationEventController.AttackEvent += ArcherAttack;
-            if (uC.unitTypeEnum == UnitTypeEnum.Villager)
+            if (kC.unitTypeEnum == UnitTypeEnum.Villager)
                 animationEventController.AttackEvent += VillagerAttack;
         }
         public void AttackOn()
@@ -41,18 +41,18 @@ namespace Assets.Scripts.Concrete.Combats
                 return;
             }
             // Düşman saldırı menzilindeyse, yöne göre animasyonlar oynatılır. Animasyonlar, saldırıları event ile tetikler
-            if (Vector2.Distance(uC.attackRangePosition, unitAI.DetechNearestTarget().transform.position) < uC.currentAttackRange)
+            if (Vector2.Distance(kC.attackRangePosition, unitAI.DetechNearestTarget().transform.position) < kC.currentAttackRange)
             {
                 if (pF2D.right || pF2D.left)
-                    AnimationManager.Instance.AttackFrontAnim(pF2D.animator, uC.currentAttackSpeed);
+                    AnimationManager.Instance.AttackFrontAnim(pF2D.animator, kC.currentAttackSpeed);
                 if (pF2D.up)
-                    AnimationManager.Instance.AttackUpAnim(pF2D.animator, uC.currentAttackSpeed);
+                    AnimationManager.Instance.AttackUpAnim(pF2D.animator, kC.currentAttackSpeed);
                 if (pF2D.down)
-                    AnimationManager.Instance.AttackDownAnim(pF2D.animator, uC.currentAttackSpeed);
+                    AnimationManager.Instance.AttackDownAnim(pF2D.animator, kC.currentAttackSpeed);
                 if (pF2D.upRight || pF2D.upLeft)
-                    AnimationManager.Instance.AttackUpFrontAnim(pF2D.animator, uC.currentAttackSpeed);
+                    AnimationManager.Instance.AttackUpFrontAnim(pF2D.animator, kC.currentAttackSpeed);
                 if (pF2D.downRight || pF2D.downLeft)
-                    AnimationManager.Instance.AttackDownFrontAnim(pF2D.animator, uC.currentAttackSpeed);
+                    AnimationManager.Instance.AttackDownFrontAnim(pF2D.animator, kC.currentAttackSpeed);
 
             }
 
@@ -60,29 +60,29 @@ namespace Assets.Scripts.Concrete.Combats
         }
         void WorriorAttack()
         {
-            uC.hitTargets = Physics2D.OverlapCircleAll(uC.attackPoint.position, uC.currentAttackRadius, uC.enemy);
-            for (int i = 0; i < uC.hitTargets.Length; i++)
+            kC.hitTargets = Physics2D.OverlapCircleAll(kC.attackPoint.position, kC.currentAttackRadius, kC.enemy);
+            for (int i = 0; i < kC.hitTargets.Length; i++)
             {
-                if (uC.hitTargets != null)
-                    uC.hitTargets[0].GetComponent<HealthController>().GetHit(uC.currentDamage);
+                if (kC.hitTargets != null)
+                    kC.hitTargets[0].GetComponent<HealthController>().GetHit(kC.currentDamage);
             }
         }
         void VillagerAttack()
         {
-            uC.hitTargets = Physics2D.OverlapCircleAll(uC.attackPoint.position, uC.currentAttackRadius, uC.enemy);
-            for (int i = 0; i < uC.hitTargets.Length; i++)
+            kC.hitTargets = Physics2D.OverlapCircleAll(kC.attackPoint.position, kC.currentAttackRadius, kC.enemy);
+            for (int i = 0; i < kC.hitTargets.Length; i++)
             {
-                if (uC.hitTargets != null)
-                    uC.hitTargets[i].GetComponent<HealthController>().GetHit(uC.currentDamage);
+                if (kC.hitTargets != null)
+                    kC.hitTargets[i].GetComponent<HealthController>().GetHit(kC.currentDamage);
             }
         }
         void ArcherAttack()
         {
-            GameObject obj = Object.Instantiate(uC.arrow, uC.attackRangePosition, Quaternion.identity);
+            GameObject obj = Object.Instantiate(kC.arrow, kC.attackRangePosition, Quaternion.identity);
             Arrow arrow = obj.GetComponent<Arrow>();
             arrow.target = unitAI.DetechNearestTarget();
-            arrow.damage = uC.currentDamage;
-            arrow.arrowSpeed = uC.currentArrowSpeed;
+            arrow.damage = kC.currentDamage;
+            arrow.arrowSpeed = kC.currentArrowSpeed;
         }
 
     }

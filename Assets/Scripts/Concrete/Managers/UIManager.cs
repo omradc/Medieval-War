@@ -37,28 +37,28 @@ namespace Assets.Scripts.Concrete.Managers
             switch (index)
             {
                 case 0:
-                    UnitManager.Instance.troopFormation = TroopFormation.RectangleFormation;
+                    KnightManager.Instance.troopFormation = TroopFormation.RectangleFormation;
                     break;
                 case 1:
-                    UnitManager.Instance.troopFormation = TroopFormation.HorizontalLineFormation;
+                    KnightManager.Instance.troopFormation = TroopFormation.HorizontalLineFormation;
                     break;
                 case 2:
-                    UnitManager.Instance.troopFormation = TroopFormation.VerticalLineFormation;
+                    KnightManager.Instance.troopFormation = TroopFormation.VerticalLineFormation;
                     break;
                 case 3:
-                    UnitManager.Instance.troopFormation = TroopFormation.RightTriangleFormation;
+                    KnightManager.Instance.troopFormation = TroopFormation.RightTriangleFormation;
                     break;
                 case 4:
-                    UnitManager.Instance.troopFormation = TroopFormation.LeftTriangleFormation;
+                    KnightManager.Instance.troopFormation = TroopFormation.LeftTriangleFormation;
                     break;
                 case 5:
-                    UnitManager.Instance.troopFormation = TroopFormation.UpTriangleFormation;
+                    KnightManager.Instance.troopFormation = TroopFormation.UpTriangleFormation;
                     break;
                 case 6:
-                    UnitManager.Instance.troopFormation = TroopFormation.DownTriangleFormation;
+                    KnightManager.Instance.troopFormation = TroopFormation.DownTriangleFormation;
                     break;
                 case 7:
-                    UnitManager.Instance.troopFormation = TroopFormation.RightCurveFormation;
+                    KnightManager.Instance.troopFormation = TroopFormation.RightCurveFormation;
                     break;
             }
         }
@@ -67,16 +67,16 @@ namespace Assets.Scripts.Concrete.Managers
             switch (index)
             {
                 case 0:
-                    UnitManager.Instance.unitOrderEnum = UnitOrderEnum.AttackOrder;
+                    KnightManager.Instance.unitOrderEnum = UnitOrderEnum.AttackOrder;
                     break;
                 case 1:
-                    UnitManager.Instance.unitOrderEnum = UnitOrderEnum.DefendOrder;
+                    KnightManager.Instance.unitOrderEnum = UnitOrderEnum.DefendOrder;
                     break;
                 case 2:
-                    UnitManager.Instance.unitOrderEnum = UnitOrderEnum.FollowOrder;
+                    KnightManager.Instance.unitOrderEnum = UnitOrderEnum.FollowOrder;
                     break;
                 case 3:
-                    UnitManager.Instance.unitOrderEnum = UnitOrderEnum.StayOrder;
+                    KnightManager.Instance.unitOrderEnum = UnitOrderEnum.StayOrder;
                     break;
             }
         }

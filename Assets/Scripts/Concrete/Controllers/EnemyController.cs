@@ -163,15 +163,22 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 // Durduğunda hadefe bak
                 if (ePF2D.isPathEnd)
-                    direction.Turn2Direction(enemyAI.nearestTarget.transform.position.x);
+                    direction.Turn2Direction(enemyAI.nearestAttackPoint.transform.position.x);
 
                 // İlerlediğinde yola bak
                 else if (ePF2D.pathLeftToGo.Count > 0)
                     direction.Turn2Direction(ePF2D.pathLeftToGo[0].x);
 
             }
-            if (enemyTypeEnum == EnemyTypeEnum.Torch && ePF2D.pathLeftToGo.Count > 0)
-                direction.Turn4Direction(ePF2D.pathLeftToGo[0]);
+            if (enemyTypeEnum == EnemyTypeEnum.Torch)
+            {
+                // Durduğunda hadefe bak
+                if (ePF2D.isPathEnd)
+                    direction.Turn4Direction(enemyAI.nearestAttackPoint.transform.position);
+                // İlerlediğinde yola bak
+                else if (ePF2D.pathLeftToGo.Count > 0)
+                    direction.Turn4Direction(ePF2D.pathLeftToGo[0]);
+            }
         }
         private void OnDrawGizmos()
         {

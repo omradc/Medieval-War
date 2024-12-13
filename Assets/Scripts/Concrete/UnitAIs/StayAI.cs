@@ -5,7 +5,7 @@ namespace Assets.Scripts.Concrete.Orders
 {
     internal class StayAI : UnitAI
     {
-        public StayAI(UnitController unitController, UnitPathFinding2D pF2D) : base(unitController, pF2D)
+        public StayAI(KnightController kC, UnitPathFinding2D pF2D) : base(kC, pF2D)
         {
         }
 
@@ -16,8 +16,8 @@ namespace Assets.Scripts.Concrete.Orders
 
         void SetRange()
         {
-            uC.currentSightRange = uC.currentAttackRange;
-            uC.sightRangePosition = uC.transform.GetChild(0).position;
+            kC.currentSightRange = kC.currentAttackRange;
+            kC.sightRangePosition = kC.transform.GetChild(0).position;
 
         }
 

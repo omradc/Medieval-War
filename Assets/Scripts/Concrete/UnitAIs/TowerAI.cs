@@ -10,7 +10,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
     internal class TowerAI
     {
         GameObject tower;
-        UnitController uC;
+        KnightController uC;
         PathFinding2D pF2D;
         BuildingController buildingController;
         SpriteRenderer unitSpriteRenderer;
@@ -20,11 +20,11 @@ namespace Assets.Scripts.Concrete.UnitAIs
         bool workOnce;
         float time;
         float timeToGetOffTower = 1;
-        public TowerAI(UnitController uC, PathFinding2D pF2D)
+        public TowerAI(KnightController kC, PathFinding2D pF2D)
         {
-            this.uC = uC;
+            this.uC = kC;
             this.pF2D = pF2D;
-            unitSpriteRenderer = uC.transform.GetChild(0).GetComponent<SpriteRenderer>();
+            unitSpriteRenderer = kC.transform.GetChild(0).GetComponent<SpriteRenderer>();
         }
         // Update ile çalışır
         public void SelectTower()

@@ -13,13 +13,13 @@ namespace Assets.Scripts.Concrete.Controllers
         public float trainingTime;
 
         Transform trainedUnitPos;
-        PanelController panelController;
+        BuildingPanelController panelController;
         ButtonController buttonController;
         KnightHouse knightHouse;
         
         private void Awake()
         {
-            panelController = GetComponent<PanelController>();
+            panelController = GetComponent<BuildingPanelController>();
             buttonController = GetComponent<ButtonController>();
             trainedUnitPos = transform.GetChild(0);
 
