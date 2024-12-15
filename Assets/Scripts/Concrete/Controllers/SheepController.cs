@@ -1,40 +1,52 @@
-﻿using Assets.Scripts.Concrete.Controllers;
-using Assets.Scripts.Concrete.Managers;
+﻿using Assets.Scripts.Concrete.Managers;
 using UnityEngine;
 
-namespace Assets.Scripts.Concrete.Resources
+namespace Assets.Scripts.Concrete.Controllers
 {
-    internal class Sheep : MonoBehaviour
+    internal class SheepController : MonoBehaviour
     {
-        public float speed = 2;
+        public float speed;
+        public float currentSheepScale;
+        [Range(1, 2)] public float maxSheepScale;
+        public float growTime;
+        public float currentGrowTime;
+        public int currentMeatAmount;
+        public int maxMeatAmount;
         public float tameTime;
-        public float currentTameTime;
-        public float meatTime;
-        public float currentMeatTime;
-        public bool isDomestic;
-        public bool goFence;
-        public bool giveMeat;
+        public float followDistance;
+
+        [HideInInspector] public float currentTameTime;
+        [HideInInspector] public bool isDomestic;
+        [HideInInspector] public bool goFence;
+        [HideInInspector] public bool giveMeat;
         public bool inFence;
         [SerializeField] GameObject resourceMeat;
         GameObject fenceObj;
         Animator animator;
         GameObject villager;
         VillagerController vC;
-        Vector3 rightDirection = new Vector3(1, 1, 1);
-        Vector3 leftDirection = new Vector3(-1, 1, 1);
+        Vector3 rightDirection;
+        Vector3 leftDirection;
         Transform[] sheepPoints;
         Transform sheepPoint;
+        Vector3 scale;
+        bool inFenceOnce;
+
         private void Start()
         {
             animator = transform.GetChild(0).GetComponent<Animator>();
             InvokeRepeating(nameof(OptimumSetDirection), 0.1f, .5f);
+            currentMeatAmount = ResourcesManager.Instance.collectMeatAmount;
+            rightDirection = new Vector3(currentSheepScale, currentSheepScale, currentSheepScale);
+            leftDirection = new Vector3(-currentSheepScale, currentSheepScale, currentSheepScale);
+            scale = Vector3.one;
         }
 
         private void Update()
         {
             FollowTheVillager();
             GoFence();
-            ReadyToGiveMeat();
+            GrowUp();
         }
 
         // Köylü koyunu bulunca onu evcilleştirir
@@ -52,8 +64,6 @@ namespace Assets.Scripts.Concrete.Resources
                 vC = villager.GetComponent<VillagerController>();
                 this.fenceObj = fenceObj;
                 sheepPoints = fenceObj.transform.GetChild(1).GetComponentsInChildren<Transform>();
-
-
             }
         }
         void FollowTheVillager()
@@ -67,7 +77,7 @@ namespace Assets.Scripts.Concrete.Resources
             if (!goFence && isDomestic && villager != null && !inFence)
             {
                 // Köylüyü takip et
-                if (Vector2.Distance(transform.position, villager.transform.position) > 0.3f)
+                if (Vector2.Distance(transform.position, villager.transform.position) > followDistance)
                 {
                     Vector3 dir = (villager.transform.position - transform.position).normalized;
                     transform.Translate(dir * speed * Time.deltaTime);
@@ -103,25 +113,59 @@ namespace Assets.Scripts.Concrete.Resources
                 }
             }
         }
-        void ReadyToGiveMeat()
+        //void ReadyToGiveMeat()
+        //{
+        //    if (inFence && !giveMeat)
+        //    {
+        //        AnimationManager.Instance.IdleAnim(animator);
+        //        currentMeatTime += Time.deltaTime;
+        //        if (currentMeatTime > meatTime)
+        //        {
+        //            giveMeat = true;
+        //            AnimationManager.Instance.HappyAnim(animator);
+        //            currentMeatTime = 0;
+        //        }
+        //    }
+        //}
+
+        void GrowUp()
         {
-            if (inFence && !giveMeat)
+            if (inFence)
             {
-                AnimationManager.Instance.IdleAnim(animator);
-                currentMeatTime += Time.deltaTime;
-                if (currentMeatTime > meatTime)
+                // Büyüme süresi dolarsa büyümez
+                if (currentGrowTime <= growTime)
                 {
-                    giveMeat = true;
+                    AnimationManager.Instance.IdleAnim(animator);
+                    currentGrowTime += Time.deltaTime;
+
+                    // Increase Scale
+                    float scaleFactor = currentGrowTime / growTime * (maxSheepScale - currentSheepScale) + currentSheepScale;
+                    scale.x = -scaleFactor;
+                    scale.y = scaleFactor;
+                    scale.z = scaleFactor;
+                    transform.localScale = scale;
+
+                    // Increase Meat
+                    currentMeatAmount = Mathf.FloorToInt(currentGrowTime / growTime *
+                        (maxMeatAmount - ResourcesManager.Instance.collectMeatAmount) + ResourcesManager.Instance.collectMeatAmount);
+
+
+                }
+
+                else
+                {
                     AnimationManager.Instance.HappyAnim(animator);
-                    currentMeatTime = 0;
                 }
             }
         }
-        public void DropMeat(float meatLifeTime)
+        public void CutSheep()
         {
             GameObject meat = Instantiate(resourceMeat, transform.position, Quaternion.identity);
-            Destroy(meat, meatLifeTime - .5f); // 0.5 saniye erken yok olur
+            Destroy(meat, vC.meatCollectTime - 1.5f); // Yere düşen et 1 saniye erken yok olur
+            gameObject.SetActive(false);
+            Destroy(gameObject, 1); // Koyunu hemen yok edersen, et toplamaz
         }
+
         public void CheckFences()
         {
             for (int i = 1; i < sheepPoints.Length; i++)
@@ -139,8 +183,15 @@ namespace Assets.Scripts.Concrete.Resources
             if (isDomestic && villager != null)
             {
                 if (inFence)
-                    transform.localScale = rightDirection;
-                else if (transform.position.x > villager.transform.position.x)
+                {
+                    if (!inFenceOnce)
+                    {
+                        transform.localScale = leftDirection;
+                        inFenceOnce = true;
+                    }
+                    return;
+                }
+                if (transform.position.x > villager.transform.position.x)
                     transform.localScale = leftDirection;
                 else
                     transform.localScale = rightDirection;

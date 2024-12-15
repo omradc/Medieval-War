@@ -12,7 +12,7 @@ namespace Assets.Scripts.Concrete.Controllers
         Image goldPanel;
         Image rockPanel;
         Image woodPanel;
-        Image meatPanel;
+        Image meatPanel; 
         TextMeshProUGUI goldText;
         TextMeshProUGUI rockText;
         TextMeshProUGUI woodText;
@@ -71,10 +71,10 @@ namespace Assets.Scripts.Concrete.Controllers
         void DisplayResourcesValues()
         {
             rM.ResourcesValues(objName);
-            goldText.text = rM.goldValue.ToString();
-            rockText.text = rM.rockValue.ToString();
-            woodText.text = rM.woodValue.ToString();
-            meatText.text = rM.meatValue.ToString();
+            goldText.text = rM.goldPrice.ToString();
+            rockText.text = rM.rockPrice.ToString();
+            woodText.text = rM.woodPrice.ToString();
+            meatText.text = rM.meatPrice.ToString();
         }
     }
 }

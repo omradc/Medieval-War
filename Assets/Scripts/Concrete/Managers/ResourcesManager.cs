@@ -13,20 +13,28 @@ namespace Assets.Scripts.Concrete.Managers
     {
         public static ResourcesManager Instance;
         public Transform displayResourcesPanel;
+        public int collectGoldAmount;
+        public int collectRockAmount;
+        public int collectWoodAmount;
+        public int collectMeatAmount;
+
+
+        public int goldPrice;
+        public int rockPrice;
+        public int woodPrice;
+        public int meatPrice;
         public Value[] value;
-        public static int gold;
-        public static int rock;
-        public static int wood;
-        public static int meat;
+
+        public int totalGold;
+        public int totalRock;
+        public int totalWood;
+        public int totalMeat;
 
         [HideInInspector] public bool goldIsEnough;
         [HideInInspector] public bool rockIsEnough;
         [HideInInspector] public bool woodIsEnough;
         [HideInInspector] public bool meatIsEnough;
-        [HideInInspector] public int goldValue;
-        [HideInInspector] public int rockValue;
-        [HideInInspector] public int woodValue;
-        [HideInInspector] public int meatValue;
+
 
         int index;
         TextMeshProUGUI goldText;
@@ -53,18 +61,19 @@ namespace Assets.Scripts.Concrete.Managers
         }
         private void Start()
         {
-            gold = 40;
-            rock = 40;
-            wood = 40;
-            meat = 40;
+            totalGold = 10;
+            totalRock = 10;
+            totalWood = 10;
+            totalMeat = 10;
+            
             DisplayResources();
         }
         public void DisplayResources()
         {
-            goldText.text = gold.ToString();
-            rockText.text = rock.ToString();
-            woodText.text = wood.ToString();
-            meatText.text = meat.ToString();
+            goldText.text = totalGold.ToString();
+            rockText.text = totalRock.ToString();
+            woodText.text = totalWood.ToString();
+            meatText.text = totalMeat.ToString();
         }
 
         // Satın alma işlemi
@@ -82,12 +91,12 @@ namespace Assets.Scripts.Concrete.Managers
 
             Value v = value[index];
 
-            if (gold >= v.goldValue && rock >= v.rockValue && wood >= v.woodValue && meat >= v.meatValue)
+            if (totalGold >= v.goldPrice && totalRock >= v.rockPrice && totalWood >= v.woodPrice && totalMeat >= v.meatPrice)
             {
-                gold -= v.goldValue;
-                rock -= v.rockValue;
-                wood -= v.woodValue;
-                meat -= v.meatValue;
+                totalGold -= v.goldPrice;
+                totalRock -= v.rockPrice;
+                totalWood -= v.woodPrice;
+                totalMeat -= v.meatPrice;
                 DisplayResources();
                 return true;
             }
@@ -113,28 +122,28 @@ namespace Assets.Scripts.Concrete.Managers
 
             Value v = value[index];
 
-            if (gold >= v.goldValue)
+            if (totalGold >= v.goldPrice)
                 goldIsEnough = true;
-            if (gold < v.goldValue)
+            if (totalGold < v.goldPrice)
                 goldIsEnough = false;
 
-            if (rock >= v.rockValue)
+            if (totalRock >= v.rockPrice)
                 rockIsEnough = true;
-            if (rock < v.rockValue)
+            if (totalRock < v.rockPrice)
                 rockIsEnough = false;
 
-            if (wood >= v.woodValue)
+            if (totalWood >= v.woodPrice)
                 woodIsEnough = true;
-            if (wood < v.woodValue)
+            if (totalWood < v.woodPrice)
                 woodIsEnough = false;
 
-            if (meat >= v.meatValue)
+            if (totalMeat >= v.meatPrice)
                 meatIsEnough = true;
-            if (meat < v.meatValue)
+            if (totalMeat < v.meatPrice)
                 meatIsEnough = false;
         }
 
-        // Nesnelerin fiyatını göstermek için
+        // Nesnelerin  text fiyatını göstermek için
         public void ResourcesValues(string name)
         {
             // Satın alınan ürünün adını değer listesinde ara, bulunca index sırasını eşitle
@@ -149,10 +158,10 @@ namespace Assets.Scripts.Concrete.Managers
 
             Value v = value[index];
 
-            goldValue = v.goldValue;
-            rockValue = v.rockValue;
-            woodValue = v.woodValue;    
-            meatValue = v.meatValue;
+            goldPrice = v.goldPrice;
+            rockPrice = v.rockPrice;
+            woodPrice = v.woodPrice;
+            meatPrice = v.meatPrice;
         }
     }
 }

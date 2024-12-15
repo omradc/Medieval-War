@@ -23,17 +23,13 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public Vector3 distanceToTreePos;
         [HideInInspector] public Collider2D[] trees;
         public GameObject resourceWood;
-        public int collectWoodAmount;
-        public int collectMeatCount;
         [HideInInspector] public bool isFirstTree;
 
         [Header("MİNE")]
         public float miningTime;
-        public int collectGoldAmount;
-        public int collectRockAmount;
         public GameObject resourceGold;
         public GameObject resourceRock;
-        [HideInInspector] public Mine mine;
+        [HideInInspector] public MineController mine;
 
 
         [Header("SHEEP")]
@@ -41,6 +37,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public GameObject resourceMeat;
         public float meatCollectTime;
         [HideInInspector] public FenceController fence;
+
 
 
         [Header("CONSTRUCTION")]
@@ -55,7 +52,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public float tChop;
         [HideInInspector] public float tCollect;
         [HideInInspector] public float tMining;
-        [HideInInspector] public bool returnHome;
+        public bool returnHome;
         [HideInInspector] public bool returnFences;
         [HideInInspector] public bool workOnce;
         [HideInInspector] public bool workOnce2;
@@ -76,14 +73,14 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public GameObject meatIdle;
         [HideInInspector] public UnitDirection direction;
         [HideInInspector] public IInput ıInput;
-        [HideInInspector] public Sheep sheep;
-        AnimationEventController animationEventController;
-        Trees tree;
+         public SheepController sheepController;
+        [HideInInspector] public AnimationEventController animationEventController;
+        TreeController treeController;
         CollectResources collectResources;
         CollectGoldOrRock goldAndRock;
         CollectWood collectWood;
         CollectFood collectFood;
-        Construction construction;
+        [HideInInspector] public Construction construction;
         private void Awake()
         {
             kC = GetComponent<KnightController>();

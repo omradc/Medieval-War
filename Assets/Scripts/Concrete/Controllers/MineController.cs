@@ -1,11 +1,10 @@
-﻿using Assets.Scripts.Concrete.Controllers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Concrete.Resources
+namespace Assets.Scripts.Concrete.Controllers
 {
-    internal class Mine : MonoBehaviour
+    internal class MineController : MonoBehaviour
     {
         int villagerNumber;
         public int mineAmount;

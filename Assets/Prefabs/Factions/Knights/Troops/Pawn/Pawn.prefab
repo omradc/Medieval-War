@@ -296,18 +296,14 @@ MonoBehaviour:
   distanceToTreePos: {x: 0, y: 0, z: 0}
   trees: []
   resourceWood: {fileID: 3246526810110024777, guid: f98d572d09a17bf4597ea080e739b3f1, type: 3}
-  collectWoodAmount: 10
-  collectMeatCount: 10
   isFirstTree: 0
   miningTime: 2
-  collectGoldAmount: 10
-  collectRockAmount: 10
   resourceGold: {fileID: 3246526810110024777, guid: 089bd63877a5aa74ba78fd23f843fdb3, type: 3}
   resourceRock: {fileID: 7890745954856160017, guid: b126d0ab62845c24fb2bda03133fc8ad, type: 3}
   mine: {fileID: 0}
   fenceObj: {fileID: 0}
   resourceMeat: {fileID: 3246526810110024777, guid: 305c2a09551e4324985e3671a16eaae1, type: 3}
-  meatCollectTime: 1
+  meatCollectTime: 2
   fence: {fileID: 0}
   buildSpeed: 1
   constructionObj: {fileID: 0}
@@ -335,7 +331,8 @@ MonoBehaviour:
   rockIdle: {fileID: 0}
   woodIdle: {fileID: 0}
   meatIdle: {fileID: 0}
-  sheep: {fileID: 0}
+  sheepController: {fileID: 0}
+  animationEventController: {fileID: 0}
 --- !u!50 &-2470163256680981598
 Rigidbody2D:
   serializedVersion: 5

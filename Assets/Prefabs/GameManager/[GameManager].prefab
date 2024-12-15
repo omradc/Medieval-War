@@ -16,8 +16,8 @@ GameObject:
   - component: {fileID: 1351704705479308060}
   - component: {fileID: 1961826129281843446}
   - component: {fileID: 3724882387064550949}
-  - component: {fileID: 4923174947444017873}
   - component: {fileID: 4436064059946293415}
+  - component: {fileID: 4923174947444017873}
   m_Layer: 9
   m_Name: '[GameManager]'
   m_TagString: Untagged
@@ -188,6 +188,9 @@ MonoBehaviour:
   unitLayer:
     serializedVersion: 2
     m_Bits: 33554496
+  interactableLayers:
+    serializedVersion: 2
+    m_Bits: 2146434889
   interactedObj: {fileID: 0}
   interactedUnit: {fileID: 0}
   interactedMine: {fileID: 0}
@@ -242,288 +245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 527ec654f72fd864b85f7d6e96c3d90d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4923174947444017873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6696413502318872325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b8b4883d93fa44f858ad6b1154bc51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayResourcesPanel: {fileID: 0}
-  value:
-  - name: pawnHouseLvl1
-    goldValue: 1
-    rockValue: 1
-    woodValue: 1
-    meatValue: 0
-  - name: pawnHouseLvl2
-    goldValue: 2
-    rockValue: 2
-    woodValue: 2
-    meatValue: 0
-  - name: pawnHouseLvl3
-    goldValue: 3
-    rockValue: 3
-    woodValue: 3
-    meatValue: 0
-  - name: pawnHouseLvl4
-    goldValue: 4
-    rockValue: 4
-    woodValue: 4
-    meatValue: 0
-  - name: pawnHouseLvl1_Destructed
-    goldValue: 1
-    rockValue: 1
-    woodValue: 1
-    meatValue: 0
-  - name: pawnHouseLvl2_Destructed
-    goldValue: 2
-    rockValue: 2
-    woodValue: 2
-    meatValue: 0
-  - name: pawnHouseLvl3_Destructed
-    goldValue: 3
-    rockValue: 3
-    woodValue: 3
-    meatValue: 0
-  - name: pawnHouseLvl4_Destructed
-    goldValue: 4
-    rockValue: 4
-    woodValue: 4
-    meatValue: 0
-  - name: warriorHouseLvl1
-    goldValue: 1
-    rockValue: 1
-    woodValue: 1
-    meatValue: 0
-  - name: warriorHouseLvl2
-    goldValue: 2
-    rockValue: 2
-    woodValue: 2
-    meatValue: 0
-  - name: warriorHouseLvl3
-    goldValue: 3
-    rockValue: 3
-    woodValue: 3
-    meatValue: 0
-  - name: warriorHouseLvl4
-    goldValue: 4
-    rockValue: 4
-    woodValue: 4
-    meatValue: 0
-  - name: warriorHouseLvl1_Destructed
-    goldValue: 4
-    rockValue: 4
-    woodValue: 4
-    meatValue: 0
-  - name: warriorHouseLvl2_Destructed
-    goldValue: 2
-    rockValue: 2
-    woodValue: 2
-    meatValue: 0
-  - name: warriorHouseLvl3_Destructed
-    goldValue: 3
-    rockValue: 3
-    woodValue: 3
-    meatValue: 0
-  - name: warriorHouseLvl4_Destructed
-    goldValue: 4
-    rockValue: 4
-    woodValue: 4
-    meatValue: 0
-  - name: archerHouseLvl1
-    goldValue: 1
-    rockValue: 1
-    woodValue: 1
-    meatValue: 0
-  - name: archerHouseLvl2
-    goldValue: 2
-    rockValue: 2
-    woodValue: 2
-    meatValue: 0
-  - name: archerHouseLvl3
-    goldValue: 3
-    rockValue: 3
-    woodValue: 3
-    meatValue: 0
-  - name: archerHouseLvl4
-    goldValue: 4
-    rockValue: 4
-    woodValue: 4
-    meatValue: 0
-  - name: archerHouseLvl1_Destructed
-    goldValue: 1
-    rockValue: 1
-    woodValue: 1
-    meatValue: 0
-  - name: archerHouseLvl2_Destructed
-    goldValue: 2
-    rockValue: 2
-    woodValue: 2
-    meatValue: 0
-  - name: archerHouseLvl3_Destructed
-    goldValue: 3
-    rockValue: 3
-    woodValue: 3
-    meatValue: 0
-  - name: towerLvl1
-    goldValue: 1
-    rockValue: 1
-    woodValue: 1
-    meatValue: 0
-  - name: towerLvl2
-    goldValue: 2
-    rockValue: 2
-    woodValue: 2
-    meatValue: 0
-  - name: towerLvl3
-    goldValue: 3
-    rockValue: 3
-    woodValue: 3
-    meatValue: 0
-  - name: towerLvl4
-    goldValue: 4
-    rockValue: 4
-    woodValue: 4
-    meatValue: 0
-  - name: towerLvl1_Destructed
-    goldValue: 1
-    rockValue: 1
-    woodValue: 1
-    meatValue: 0
-  - name: towerLvl2_Destructed
-    goldValue: 2
-    rockValue: 2
-    woodValue: 2
-    meatValue: 0
-  - name: towerLvl3_Destructed
-    goldValue: 3
-    rockValue: 3
-    woodValue: 3
-    meatValue: 0
-  - name: towerLvl4_Destructed
-    goldValue: 4
-    rockValue: 4
-    woodValue: 4
-    meatValue: 0
-  - name: castleLvl1
-    goldValue: 1
-    rockValue: 1
-    woodValue: 1
-    meatValue: 0
-  - name: castleLvl2
-    goldValue: 2
-    rockValue: 2
-    woodValue: 2
-    meatValue: 0
-  - name: castleLvl3
-    goldValue: 3
-    rockValue: 3
-    woodValue: 3
-    meatValue: 0
-  - name: castleLvl4
-    goldValue: 4
-    rockValue: 4
-    woodValue: 4
-    meatValue: 0
-  - name: castleLvl1_Destructed
-    goldValue: 1
-    rockValue: 1
-    woodValue: 1
-    meatValue: 0
-  - name: castleLvl2_Destructed
-    goldValue: 2
-    rockValue: 2
-    woodValue: 2
-    meatValue: 0
-  - name: castleLvl3_Destructed
-    goldValue: 3
-    rockValue: 3
-    woodValue: 3
-    meatValue: 0
-  - name: castleLvl4_Destructed
-    goldValue: 4
-    rockValue: 4
-    woodValue: 4
-    meatValue: 0
-  - name: pawnLvl1
-    goldValue: 1
-    rockValue: 1
-    woodValue: 1
-    meatValue: 1
-  - name: pawnLvl2
-    goldValue: 2
-    rockValue: 2
-    woodValue: 2
-    meatValue: 2
-  - name: pawnLvl3
-    goldValue: 3
-    rockValue: 3
-    woodValue: 3
-    meatValue: 3
-  - name: pawnLvl4
-    goldValue: 4
-    rockValue: 4
-    woodValue: 4
-    meatValue: 4
-  - name: warriorLvl1
-    goldValue: 1
-    rockValue: 1
-    woodValue: 1
-    meatValue: 1
-  - name: warriorLvl2
-    goldValue: 2
-    rockValue: 2
-    woodValue: 2
-    meatValue: 2
-  - name: warriorLvl3
-    goldValue: 3
-    rockValue: 3
-    woodValue: 3
-    meatValue: 3
-  - name: warriorLvl4
-    goldValue: 4
-    rockValue: 4
-    woodValue: 4
-    meatValue: 4
-  - name: archerLvl1
-    goldValue: 1
-    rockValue: 1
-    woodValue: 1
-    meatValue: 1
-  - name: archerLvl2
-    goldValue: 2
-    rockValue: 2
-    woodValue: 2
-    meatValue: 2
-  - name: archerLvl3
-    goldValue: 3
-    rockValue: 3
-    woodValue: 3
-    meatValue: 3
-  - name: archerLvl4
-    goldValue: 4
-    rockValue: 4
-    woodValue: 4
-    meatValue: 4
-  - name: fence4x4
-    goldValue: 1
-    rockValue: 1
-    woodValue: 1
-    meatValue: 0
-  goldIsEnough: 0
-  rockIsEnough: 0
-  woodIsEnough: 0
-  meatIsEnough: 0
-  goldValue: 0
-  rockValue: 0
-  woodValue: 0
-  meatValue: 0
 --- !u!114 &4436064059946293415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,3 +263,298 @@ MonoBehaviour:
   towerConstructionBlue: {fileID: 4023670001020676894, guid: 65f89bf0045ea764990de885599d11ea, type: 3}
   castleConstructionBlue: {fileID: 1844819989577762619, guid: 29ecfb5f6f80f3649a2bc051f0d1122b, type: 3}
   fence4x4: {fileID: 2192484165252331637, guid: 065a13aec618bfb4684796439f395a10, type: 3}
+--- !u!114 &4923174947444017873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6696413502318872325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b8b4883d93fa44f858ad6b1154bc51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayResourcesPanel: {fileID: 0}
+  collectGoldAmount: 10
+  collectRockAmount: 10
+  collectWoodAmount: 10
+  collectMeatAmount: 10
+  goldPrice: 0
+  rockPrice: 0
+  woodPrice: 0
+  meatPrice: 0
+  value:
+  - name: pawnHouseLvl1
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: pawnHouseLvl2
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: pawnHouseLvl3
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: pawnHouseLvl4
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: pawnHouseLvl1_Destructed
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: pawnHouseLvl2_Destructed
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: pawnHouseLvl3_Destructed
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: pawnHouseLvl4_Destructed
+    goldPrice: 0
+    rockPrice: 0
+    woodPrice: 0
+    meatPrice: 0
+  - name: warriorHouseLvl1
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: warriorHouseLvl2
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: warriorHouseLvl3
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: warriorHouseLvl4
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: warriorHouseLvl1_Destructed
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: warriorHouseLvl2_Destructed
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: warriorHouseLvl3_Destructed
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: warriorHouseLvl4_Destructed
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: archerHouseLvl1
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: archerHouseLvl2
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: archerHouseLvl3
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: archerHouseLvl4
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: archerHouseLvl1_Destructed
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: archerHouseLvl2_Destructed
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: archerHouseLvl3_Destructed
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: archerHouseLvl4_Destructed
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: towerLvl1
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: towerLvl2
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: towerLvl3
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: towerLvl4
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: towerLvl1_Destructed
+    goldPrice: 0
+    rockPrice: 0
+    woodPrice: 0
+    meatPrice: 0
+  - name: towerLvl2_Destructed
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: towerLvl3_Destructed
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: towerLvl4_Destructed
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: castleLvl1
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: castleLvl2
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: castleLvl3
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: castleLvl4
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: castleLvl1_Destructed
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: castleLvl2_Destructed
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: castleLvl3_Destructed
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: castleLvl4_Destructed
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: pawnLvl1
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 1
+  - name: pawnLvl2
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 2
+  - name: pawnLvl3
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 3
+  - name: pawnLvl4
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 4
+  - name: warriorLvl1
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 1
+  - name: warriorLvl2
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 2
+  - name: warriorLvl3
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 3
+  - name: warriorLvl4
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 4
+  - name: archerLvl1
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 1
+  - name: archerLvl2
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 2
+  - name: archerLvl3
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 3
+  - name: archerLvl4
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 4
+  - name: fence4x4
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 1
+  totalGold: 0
+  totalRock: 0
+  totalWood: 0
+  totalMeat: 0
+  goldIsEnough: 0
+  rockIsEnough: 0
+  woodIsEnough: 0
+  meatIsEnough: 0

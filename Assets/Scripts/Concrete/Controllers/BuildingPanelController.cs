@@ -17,7 +17,9 @@ namespace Assets.Scripts.Concrete.Controllers
         //Event trigger bileşeni ile tetiklenir
         public void InteractablePanelVisibility(bool visibility)
         {
-            if (!bC.destruct) // yıkılmadıysa paneli aç
+            if (bC.isFull)
+                interactablePanel.SetActive(false); // üzerinde birim varsa, panelleri kapat
+            else if (!bC.destruct) // yıkılmadıysa paneli aç
                 interactablePanel.SetActive(visibility);
             else
                 interactablePanel.SetActive(false);
@@ -26,7 +28,9 @@ namespace Assets.Scripts.Concrete.Controllers
         //Event trigger bileşeni ile tetiklenir
         public void DestructPanelVisiblity(bool visibility)
         {
-            if (bC.destruct) // yıkıldıysa paneli aç
+            if (bC.isFull) // üzerinde birim varsa, panelleri kapat
+                destructPanel.SetActive(false);
+            else if (bC.destruct) // yıkıldıysa paneli aç
                 destructPanel.SetActive(visibility);
             else
                 destructPanel.SetActive(false);

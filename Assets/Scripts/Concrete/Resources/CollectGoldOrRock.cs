@@ -39,12 +39,12 @@ namespace Assets.Scripts.Concrete.Resources
                         // Madenden alınan kaynakları eksilt
                         if (vC.mine.CompareTag("GoldMine"))
                         {
-                            vC.mine.currentMineAmount -= vC.collectGoldAmount;
+                            vC.mine.currentMineAmount -= ResourcesManager.Instance.collectGoldAmount;
                             vC.mine.mineAmountFillValue.fillAmount = vC.mine.currentMineAmount / vC.mine.mineAmount;
                         }
                         if (vC.mine.CompareTag("RockMine"))
                         {
-                            vC.mine.currentMineAmount -= vC.collectRockAmount;
+                            vC.mine.currentMineAmount -= ResourcesManager.Instance.collectRockAmount;
                             vC.mine.mineAmountFillValue.fillAmount = vC.mine.currentMineAmount / vC.mine.mineAmount;
                         }
                         vC.villagerSpriteRenderer.enabled = true;

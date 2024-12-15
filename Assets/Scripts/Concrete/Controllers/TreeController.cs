@@ -1,26 +1,22 @@
 ﻿using Assets.Scripts.Concrete.Managers;
 using UnityEngine;
 
-namespace Assets.Scripts.Concrete.Resources
+namespace Assets.Scripts.Concrete.Controllers
 {
-    internal class Trees : MonoBehaviour
+    internal class TreeController : MonoBehaviour
     {
         public GameObject resourceWood;
-        public GameObject sleepingTorch;
-        GameObject torch;
-        public int hitPoint;
-        public int currentHitPoint;
-        public bool destruct;
+        public int health;
         public float growTime;
-        public float currentTime;
-        public bool isTreeAlreadyCutted;
         bool destructOnce;
+        float currentTime;
+        int currentHealth;
+        [HideInInspector] public bool destruct;
+        [HideInInspector] public bool isTreeAlreadyCutted;
         Animator animator;
-        Vector3 normal = new Vector3(1, 1, 1);
-        Vector3 reverse = new Vector3(-1, 1, 1);
         private void Start()
         {
-            currentHitPoint = hitPoint;
+            currentHealth = health;
             animator = transform.GetChild(0).GetComponent<Animator>();
         }
         void Update()
@@ -29,8 +25,8 @@ namespace Assets.Scripts.Concrete.Resources
         }
         public void GetHit(int treeDamagePoint, float collectTime) // Köylü Chop animasyoununda, tam ağaca vurduğu anda event ile tetikler
         {
-            currentHitPoint -= treeDamagePoint;
-            if (currentHitPoint <= 0)
+            currentHealth -= treeDamagePoint;
+            if (currentHealth <= 0)
                 Destruct(collectTime);
         }
         public void GetHitTreeAnim(float chopSpeed) // Köylü Chop animasyoununda, tam ağaca vurduğu anda event ile tetikler
@@ -73,7 +69,7 @@ namespace Assets.Scripts.Concrete.Resources
                     destructOnce = false;
                     AnimationManager.Instance.IdleTreeAnim(animator);
                     gameObject.layer = 15;
-                    currentHitPoint = hitPoint;
+                    currentHealth = health;
                 }
             }
         }

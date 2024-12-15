@@ -29,6 +29,8 @@ namespace Assets.Scripts.Concrete.Resources
                 vC.isSheep = false;
                 vC.returnFences = false;
                 vC.isFirstTree = false;
+                if (vC.constructController != null)
+                    vC.constructController.isFull = false;
                 // Bir yere tıklandıysa
                 if (InteractManager.Instance.interactedObj != null)
                 {
@@ -42,7 +44,7 @@ namespace Assets.Scripts.Concrete.Resources
                     vC.isSheep = false;
                     vC.returnHome = false;
                     vC.targetResource = InteractManager.Instance.interactedMine;
-                    vC.mine = vC.targetResource.GetComponent<Mine>();
+                    vC.mine = vC.targetResource.GetComponent<MineController>();
                     vC.isMine = true;
                     vC.kC.isSeleceted = false;
                 }
@@ -68,7 +70,7 @@ namespace Assets.Scripts.Concrete.Resources
                     vC.isMine = false;
                     vC.isTree = false;
                     vC.targetResource = InteractManager.Instance.interactedSheep;
-                    vC.sheep = vC.targetResource.GetComponent<Sheep>();
+                    vC.sheepController = vC.targetResource.GetComponent<SheepController>();
                     vC.isSheep = true;
                     vC.tCollect = 0;
                     vC.kC.isSeleceted = false;
@@ -128,7 +130,7 @@ namespace Assets.Scripts.Concrete.Resources
             {
                 if (vC.isMine)
                 {
-                    Mine mine = vC.targetResource.GetComponent<Mine>();
+                    MineController mine = vC.targetResource.GetComponent<MineController>();
                     if (mine.CompareTag("GoldMine"))
                         vC.goldIdle.SetActive(true);
                     if (mine.CompareTag("RockMine"))
@@ -146,7 +148,7 @@ namespace Assets.Scripts.Concrete.Resources
                     vC.tCollect = 0;
 
                 }
-                if (vC.tCollect > vC.meatCollectTime && vC.sheep)
+                if (vC.tCollect > vC.meatCollectTime && vC.sheepController)
                 {
                     vC.meatIdle.SetActive(true);
                     vC.pF2D.AIGetMoveCommand(vC.homePos);
@@ -165,29 +167,31 @@ namespace Assets.Scripts.Concrete.Resources
             {
                 if (vC.goldIdle.activeSelf)
                 {
-                    ResourcesManager.gold += vC.collectGoldAmount;
+                    ResourcesManager.Instance.totalGold += ResourcesManager.Instance.collectGoldAmount;
                     DropGold(vC.homePos, vC.dropResourceLifeTime);
                     vC.goldIdle.SetActive(false);
                 }
                 if (vC.rockIdle.activeSelf)
                 {
-                    ResourcesManager.rock += vC.collectRockAmount;
+                    ResourcesManager.Instance.totalRock += ResourcesManager.Instance.collectRockAmount;
                     DropRock(vC.homePos, vC.dropResourceLifeTime);
                     vC.rockIdle.SetActive(false);
                 }
                 if (vC.woodIdle.activeSelf)
                 {
-                    ResourcesManager.wood += vC.collectWoodAmount;
+                    ResourcesManager.Instance.totalWood += ResourcesManager.Instance.collectWoodAmount;
                     DropWood(vC.homePos, vC.dropResourceLifeTime);
                     vC.woodIdle.SetActive(false);
                 }
                 if (vC.meatIdle.activeSelf)
                 {
-                    ResourcesManager.meat += vC.collectMeatCount;
+                    ResourcesManager.Instance.totalMeat += vC.sheepController.currentMeatAmount;
                     DropMeat(vC.homePos, vC.dropResourceLifeTime);
                     vC.meatIdle.SetActive(false);
                     vC.isSheep = false;
                 }
+
+                ResourcesManager.Instance.DisplayResources();
                 vC.workOnce2 = false;
             }
         }

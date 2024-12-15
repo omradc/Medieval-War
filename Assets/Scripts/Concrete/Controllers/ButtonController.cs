@@ -33,8 +33,8 @@ namespace Assets.Scripts.Concrete.Controllers
             }
         }
 
-        // Upgrade: yükselecek yapının inşaatı oluşturur
-        public void Construct(GameObject construct)
+        //*********************************************************
+        public void Construct(GameObject construct) // Upgrade: yükselecek yapının inşaatı oluşturur
         {
             if (ResourcesManager.Instance.Buy(BuildingName()))
             {
@@ -45,13 +45,11 @@ namespace Assets.Scripts.Concrete.Controllers
                 this.construct = construct;
             }
         }
-
-        // Upgrade: yükseltilen yapıyı oluşturur
-        public void Upgrade(GameObject upgradedBuilding)
+        public void Upgrade(GameObject upgradedBuilding) // Upgrade: yükseltilen yapıyı oluşturur
         {
             this.upgradedBuilding = upgradedBuilding;
         }
-
+        //*********************************************************
         public void CloseButton()
         {
             panelController.InteractablePanelVisibility(false);

@@ -7,10 +7,10 @@ namespace Assets.Scripts.Concrete.Managers
     public class Value
     {
         public string name;
-        public int goldValue;
-        public int rockValue;
-        public int woodValue;
-        public int meatValue;
+        public int goldPrice;
+        public int rockPrice;
+        public int woodPrice;
+        public int meatPrice;
     }
 
 

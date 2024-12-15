@@ -6,6 +6,7 @@ namespace Assets.Scripts.Concrete.Controllers
     {
         public System.Action AttackEvent;
         public System.Action ChopEvent;
+        public System.Action CutSheepEvent;
         public System.Action GetHitTreeEvent;
         public System.Action IsTreeBeingCutAlreadyEvent;
         public System.Action BuildEvent;
@@ -18,7 +19,10 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             ChopEvent?.Invoke();
         }
-
+        void CutSheep()
+        {
+            CutSheepEvent?.Invoke();
+        }
         void GetHitTree()
         {
             GetHitTreeEvent?.Invoke();

@@ -11,7 +11,7 @@ namespace Assets.Scripts.Concrete.Resources
     {
         VillagerController vC;
         UnitPathFinding2D pF2D;
-        Trees tree;
+        TreeController tree;
         public CollectWood(VillagerController collectResources, UnitPathFinding2D pathFinding2D)
         {
             vC = collectResources;
@@ -44,14 +44,14 @@ namespace Assets.Scripts.Concrete.Resources
                         if (vC.isFirstTree)
                         {
                             vC.treeChopPos = vC.targetResource.transform.GetChild(1).position;
-                            tree = vC.targetResource.GetComponent<Trees>();
+                            tree = vC.targetResource.GetComponent<TreeController>();
                         }
 
                         // Sonra en yakın ağaçlara gider
                         else
                         {
                             vC.treeChopPos = vC.nearestTree.transform.GetChild(1).position;
-                            tree = vC.nearestTree.GetComponent<Trees>();
+                            tree = vC.nearestTree.GetComponent<TreeController>();
 
                         }
 
@@ -88,11 +88,11 @@ namespace Assets.Scripts.Concrete.Resources
             {
                 if (!vC.isFirstTree)
                 {
-                    tree = vC.nearestTree.GetComponent<Trees>();
+                    tree = vC.nearestTree.GetComponent<TreeController>();
                 }
                 if (vC.isFirstTree)
                 {
-                    tree = vC.targetResource.GetComponent<Trees>();
+                    tree = vC.targetResource.GetComponent<TreeController>();
                 }
 
                 tree.GetHit(vC.currentTreeDamage, vC.woodCollectTime);

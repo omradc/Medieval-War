@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
-    public class BuildingController : MonoBehaviour
+     class BuildingController : MonoBehaviour
     {
         public GameObject construction;
         public Collider2D physicalCollider;
@@ -17,7 +17,7 @@ namespace Assets.Scripts.Concrete.Controllers
         GameObject visualTower;
         GameObject visualDestructed;
         ButtonController buttonController;
-        BuildingPanelController bC;
+        [HideInInspector] public BuildingPanelController buildingPanelController;
         HealthController healthController;
         private void Awake()
         {
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Concrete.Controllers
             visualTower = transform.GetChild(2).gameObject;
             visualDestructed = transform.GetChild(3).gameObject;
             buttonController = GetComponent<ButtonController>();
-            bC = GetComponent<BuildingPanelController>();
+            buildingPanelController = GetComponent<BuildingPanelController>();
         }
         private void Update()
         {
@@ -46,7 +46,7 @@ namespace Assets.Scripts.Concrete.Controllers
             visualTower.SetActive(false);
             visualDestructed.SetActive(true);
             gameObject.layer = 26; // Katman = Destructed
-            bC.InteractablePanelVisibility(false);
+            buildingPanelController.InteractablePanelVisibility(false);
             workOnce = false;
         }
 
