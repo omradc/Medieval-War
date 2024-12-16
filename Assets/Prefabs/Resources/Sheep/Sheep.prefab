@@ -84,22 +84,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82f7d11227a24f43baa0741a9c19178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 0.5
   currentSheepScale: 0.7
+  followDistance: 1
+  patrolType: 2
+  patrollingRadius: 3
+  waitingTime: 2
   maxSheepScale: 1.5
   growTime: 10
-  currentGrowTime: 0
-  currentMeatAmount: 0
   maxMeatAmount: 100
   tameTime: 0.5
-  followDistance: 1
+  currentGrowTime: 0
+  currentMeatAmount: 0
+  currentMoveSpeed: 0
   currentTameTime: 0
   isDomestic: 0
   goFence: 0
   giveMeat: 0
   inFence: 0
   resourceMeat: {fileID: 3246526810110024777, guid: 305c2a09551e4324985e3671a16eaae1, type: 3}
-  currentMoveSpeed: 0
 --- !u!114 &425184646977352224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,7 +269,7 @@ Transform:
   m_GameObject: {fileID: 8811572112823715642}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

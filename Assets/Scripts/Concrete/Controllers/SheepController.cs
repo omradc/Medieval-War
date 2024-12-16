@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Concrete.Managers;
+﻿using Assets.Scripts.Concrete.Enums;
+using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using UnityEngine;
 
@@ -6,16 +7,24 @@ namespace Assets.Scripts.Concrete.Controllers
 {
     internal class SheepController : MonoBehaviour
     {
+
+        [Header("Movement")]
         [Range(0.1f, 2)] public float moveSpeed;
         public float currentSheepScale;
-        [Range(1, 2)] public float maxSheepScale;
+        public float followDistance;
+        public PatrolTypeEnum patrolType;
+        public float patrollingRadius;
+        public float waitingTime;
+
+        [Header("Feed")]
+        public float maxSheepScale = 1.5f;
         public float growTime;
-        public float currentGrowTime;
-        public int currentMeatAmount;
         public int maxMeatAmount;
         public float tameTime;
-        public float followDistance;
 
+        [HideInInspector] public float currentGrowTime;
+        [HideInInspector] public int currentMeatAmount;
+        [HideInInspector] public float currentMoveSpeed;
         [HideInInspector] public float currentTameTime;
         [HideInInspector] public bool isDomestic;
         [HideInInspector] public bool goFence;
@@ -32,8 +41,11 @@ namespace Assets.Scripts.Concrete.Controllers
         Vector3 rightDirection;
         Vector3 leftDirection;
         Vector3 scale;
+        Vector3 firstPoint;
+        Vector3 targetPoint;
         bool inFenceOnce;
-        [HideInInspector] public float currentMoveSpeed;
+        bool patrol;
+        float time;
 
         private void Awake()
         {
@@ -42,11 +54,14 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Start()
         {
             animator = transform.GetChild(0).GetComponent<Animator>();
-            InvokeRepeating(nameof(OptimumSetDirection), 0.1f, .5f);
+            InvokeRepeating(nameof(SetDirection), 0.1f, .5f);
+            InvokeRepeating(nameof(CirclePatrollingAnchor), 0.1f, .5f);
             currentMeatAmount = ResourcesManager.Instance.collectMeatAmount;
             rightDirection = new Vector3(currentSheepScale, currentSheepScale, currentSheepScale);
             leftDirection = new Vector3(-currentSheepScale, currentSheepScale, currentSheepScale);
             scale = Vector3.one;
+            firstPoint = transform.position;
+            targetPoint = firstPoint;
 
         }
 
@@ -62,11 +77,13 @@ namespace Assets.Scripts.Concrete.Controllers
         public void TameSheep(GameObject villager, GameObject fenceObj)
         {
             if (isDomestic) return;
+            patrolType = PatrolTypeEnum.None;
+            sPF2D.isPathEnd = true;
 
             currentTameTime += 1;
             if (currentTameTime > tameTime)
             {
-                AnimationManager.Instance.HappyAnim(animator);
+                sPF2D.isPathEnd = false;
                 currentTameTime = 0;
                 isDomestic = true;
                 this.villager = villager;
@@ -92,9 +109,6 @@ namespace Assets.Scripts.Concrete.Controllers
                     sPF2D.AIGetMoveCommand(villager.transform.position);
                 }
             }
-
-            if (!isDomestic)
-                AnimationManager.Instance.IdleAnim(animator);
         }
         void GoFence()
         {
@@ -174,7 +188,6 @@ namespace Assets.Scripts.Concrete.Controllers
             gameObject.SetActive(false);
             Destroy(gameObject, 1); // Koyunu hemen yok edersen, et toplamaz
         }
-
         public void CheckFences()
         {
             for (int i = 1; i < sheepPoints.Length; i++)
@@ -187,25 +200,61 @@ namespace Assets.Scripts.Concrete.Controllers
                 }
             }
         }
-        void OptimumSetDirection()
+
+        void SetDirection()
         {
-            if (isDomestic && villager != null)
+
+            if (inFence)
             {
-                if (inFence)
+                // Çitin içindeyse tüm koyunlar sola bakar
+                if (!inFenceOnce)
                 {
-                    if (!inFenceOnce)
-                    {
-                        transform.localScale = leftDirection;
-                        inFenceOnce = true;
-                    }
-                    return;
+                    transform.localScale = leftDirection;
+                    inFenceOnce = true;
                 }
-                if (transform.position.x > villager.transform.position.x)
+                return;
+            }
+
+            // Yola bak
+            if (sPF2D.pathLeftToGo.Count > 0)
+            {
+                if (transform.position.x > sPF2D.pathLeftToGo[0].x)
                     transform.localScale = leftDirection;
                 else
                     transform.localScale = rightDirection;
 
             }
+        }
+
+        void CirclePatrollingAnchor()
+        {
+            if (patrolType != PatrolTypeEnum.CirclePatrollingAnchor) return;
+            if (patrol)
+            {
+                patrol = false;
+                targetPoint = firstPoint;
+                targetPoint += new Vector3(Random.Range(-patrollingRadius, patrollingRadius), Random.Range(-patrollingRadius, patrollingRadius));
+                sPF2D.AIGetMoveCommand(targetPoint);
+                AnimationManager.Instance.HappyAnim(animator);
+            }
+
+            if (sPF2D.pathLeftToGo.Count == 0)
+            {
+                time++;
+                AnimationManager.Instance.IdleAnim(animator);
+                if (time >= waitingTime)
+                {
+                    time = 0;
+                    patrol = true;
+                }
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(firstPoint, patrollingRadius);
+
         }
     }
 
