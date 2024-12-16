@@ -1,6 +1,5 @@
 using Assets.Scripts.Concrete.Combats;
 using Assets.Scripts.Concrete.Enums;
-using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using Assets.Scripts.Concrete.Orders;
 using Assets.Scripts.Concrete.UnitAIs;

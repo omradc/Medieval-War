@@ -36,7 +36,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(0.1f, 1f)] public float enemyAIPerTime = 0.5f;
         [Range(0.1f, 1f)] public float detechTargetPerTime = 0.5f;
         [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
-        public bool attack;
+        public bool attackTheAllKnights;
         public Collider2D[] playerUnits;
         public Collider2D[] playerBuildings;
         public Collider2D[] playerObjs;

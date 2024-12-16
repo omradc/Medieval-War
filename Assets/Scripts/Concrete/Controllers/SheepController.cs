@@ -1,11 +1,12 @@
 ﻿using Assets.Scripts.Concrete.Managers;
+using Assets.Scripts.Concrete.Movements;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
     internal class SheepController : MonoBehaviour
     {
-        public float speed;
+        [Range(0.1f, 2)] public float moveSpeed;
         public float currentSheepScale;
         [Range(1, 2)] public float maxSheepScale;
         public float growTime;
@@ -19,19 +20,25 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool isDomestic;
         [HideInInspector] public bool goFence;
         [HideInInspector] public bool giveMeat;
-        public bool inFence;
+        [HideInInspector] public bool inFence;
         [SerializeField] GameObject resourceMeat;
         GameObject fenceObj;
         Animator animator;
         GameObject villager;
         VillagerController vC;
-        Vector3 rightDirection;
-        Vector3 leftDirection;
         Transform[] sheepPoints;
         Transform sheepPoint;
+        SheepPathFinding2D sPF2D;
+        Vector3 rightDirection;
+        Vector3 leftDirection;
         Vector3 scale;
         bool inFenceOnce;
+        [HideInInspector] public float currentMoveSpeed;
 
+        private void Awake()
+        {
+            sPF2D = GetComponent<SheepPathFinding2D>();
+        }
         private void Start()
         {
             animator = transform.GetChild(0).GetComponent<Animator>();
@@ -40,10 +47,12 @@ namespace Assets.Scripts.Concrete.Controllers
             rightDirection = new Vector3(currentSheepScale, currentSheepScale, currentSheepScale);
             leftDirection = new Vector3(-currentSheepScale, currentSheepScale, currentSheepScale);
             scale = Vector3.one;
+
         }
 
         private void Update()
         {
+            currentMoveSpeed = moveSpeed * Time.deltaTime;
             FollowTheVillager();
             GoFence();
             GrowUp();
@@ -79,8 +88,8 @@ namespace Assets.Scripts.Concrete.Controllers
                 // Köylüyü takip et
                 if (Vector2.Distance(transform.position, villager.transform.position) > followDistance)
                 {
-                    Vector3 dir = (villager.transform.position - transform.position).normalized;
-                    transform.Translate(dir * speed * Time.deltaTime);
+                    AnimationManager.Instance.HappyAnim(animator);
+                    sPF2D.AIGetMoveCommand(villager.transform.position);
                 }
             }
 
@@ -100,8 +109,8 @@ namespace Assets.Scripts.Concrete.Controllers
                 // Çitlere git
                 if (Vector2.Distance(transform.position, sheepPoint.position) > 0.1f)
                 {
-                    Vector3 dir = (sheepPoint.position - transform.position).normalized;
-                    transform.Translate(dir * speed * Time.deltaTime);
+                    AnimationManager.Instance.HappyAnim(animator);
+                    sPF2D.AIGetMoveCommand(sheepPoint.position);
                 }
 
                 // Çit içinde

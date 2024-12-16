@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9082226746122473133}
   - component: {fileID: 2128959953749530707}
   - component: {fileID: 2760275482373796808}
+  - component: {fileID: 425184646977352224}
   m_Layer: 16
   m_Name: Sheep
   m_TagString: Untagged
@@ -83,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82f7d11227a24f43baa0741a9c19178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  moveSpeed: 1
   currentSheepScale: 0.7
   maxSheepScale: 1.5
   growTime: 10
@@ -98,6 +99,38 @@ MonoBehaviour:
   giveMeat: 0
   inFence: 0
   resourceMeat: {fileID: 3246526810110024777, guid: 305c2a09551e4324985e3671a16eaae1, type: 3}
+  currentMoveSpeed: 0
+--- !u!114 &425184646977352224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640151222203747707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4857fd9cec1c4744a9806b4207de5a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: []
+  pathLeftToGo: []
+  right: 0
+  left: 0
+  up: 0
+  down: 0
+  upRight: 0
+  upLeft: 0
+  downRight: 0
+  downLeft: 0
+  isUserPathFinding: 0
+  isPathEnd: 0
+  moveCommand: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 2176
+  drawLine: 1
+  lastMousePos: {x: 0, y: 0}
+  animator: {fileID: 0}
 --- !u!1 &8254504473481594639
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +229,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 8
   m_Sprite: {fileID: -474622303, guid: d0fa158acb24484428855e5bcc88a265, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

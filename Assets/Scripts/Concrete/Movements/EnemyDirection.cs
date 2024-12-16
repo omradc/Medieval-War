@@ -13,10 +13,6 @@ namespace Assets.Scripts.Concrete.Movements
     {
         EnemyPathFinding2D ePF2D;
         EnemyController eC;
-        float xPos;
-        float yPos;
-
-
         Vector3 rightDirection = new Vector3(1, 1, 1);
         Vector3 leftDirection = new Vector3(-1, 1, 1);
         public EnemyDirection(EnemyPathFinding2D ePF2D, EnemyController eC)

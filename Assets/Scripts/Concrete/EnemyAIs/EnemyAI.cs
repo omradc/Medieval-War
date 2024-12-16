@@ -229,7 +229,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         {
             if (eC.patrolType != PatrolTypeEnum.FindNearestPlayerUnit) return;
             eC.currentSightRange = 100;
-            eC.attack = true;
+            eC.attackTheAllKnights = true;
         }
 
         public void RigidbodyControl(Rigidbody2D rb2D, bool stayBuilding)
@@ -282,7 +282,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             if (eC.enemyTypeEnum == EnemyTypeEnum.Tnt)
             {
 
-                if (!eC.attack)
+                if (!eC.attackTheAllKnights)
                 {
                     if (eC.woodTowers.Length == 0 || eC.onBuilding)
                     {
@@ -348,7 +348,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                 }
 
                 // Kuleden in
-                if (eC.onBuilding && eC.attack && !ePF2D.isPathEnd)
+                if (eC.onBuilding && eC.attackTheAllKnights && !ePF2D.isPathEnd)
                 {
                     tntSpriteRenderer.enabled = false;
                     time++;
