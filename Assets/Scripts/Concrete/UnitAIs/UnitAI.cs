@@ -10,6 +10,7 @@ namespace Assets.Scripts.Concrete.Orders
         protected KnightController kC;
         protected UnitPathFinding2D pF2D;
         public GameObject nearestTarget;
+        public Transform nearestAttackPoint;
         public UnitAI(KnightController kC, UnitPathFinding2D pF2D)
         {
             this.kC = kC;
@@ -92,6 +93,37 @@ namespace Assets.Scripts.Concrete.Orders
                 rb2D.bodyType = RigidbodyType2D.Kinematic;
 
         }
+
+        //void CalculateNearestAttackPoint()
+        //{
+        //    // Düşman şovalye ise
+        //    if (nearestTarget.layer == 6)
+        //    {
+        //        nearestAttackPoint = nearestTarget.transform;
+        //        return;
+        //    }
+
+        //    Transform obj = nearestTarget.transform.GetChild(4);
+        //    // Saldırı noktası sayısı 1 ise
+        //    if (obj.transform.childCount == 0)
+        //    {
+        //        nearestAttackPoint = obj;
+        //        return;
+        //    }
+
+        //    // Saldırı noktası sayısı 1 den büyük ise
+        //    float shortestDistance = Mathf.Infinity;
+        //    for (int i = 0; i < obj.childCount; i++)
+        //    {
+        //        float distanceToTarget = Vector2.Distance(eC.transform.position, obj.GetChild(i).position);
+        //        if (shortestDistance > distanceToTarget)
+        //        {
+        //            shortestDistance = distanceToTarget;
+        //            nearestAttackPoint = obj.GetChild(i);
+        //        }
+        //    }
+
+        //}
     }
 }
 

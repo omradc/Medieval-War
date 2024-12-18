@@ -18,7 +18,6 @@ namespace Assets.Scripts.Concrete.Controllers
         void Start()
         {
             currentCameraSpeed = cameraSpeed;
-            fixedCamera = true;
             zoom = Camera.main.orthographicSize;
         }
 
@@ -29,13 +28,14 @@ namespace Assets.Scripts.Concrete.Controllers
             if (Input.GetKeyDown(KeyCode.O))
                 transform.position = firstPos;
 
+            Zoom();
+
             if (Input.GetKeyDown(KeyCode.Escape))
                 fixedCamera = !fixedCamera;
             if (!fixedCamera)
                 return;
 
             Movement();
-            Zoom();
 
         }
 

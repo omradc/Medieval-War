@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Concrete.GoblinBuildings;
+﻿using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
@@ -6,26 +7,34 @@ namespace Assets.Scripts.Concrete.Controllers
     public class GoblinHouseController : MonoBehaviour
     {
 
-        [SerializeField] GameObject goblin;
-        [SerializeField] Transform goblins;
-
+        [SerializeField] GameObject spawnedGoblin;
+        [SerializeField] Transform spawnPoint;
         [SerializeField] int spawnTime;
         [SerializeField] int maxGoblin;
+        public List<GameObject> goblins;
+        Transform allGoblins;
+        float time;
 
-        GoblinHouse gHouse;
         private void Awake()
         {
-            gHouse = new GoblinHouse();
-        }
-        void Start()
-        {
-
+            allGoblins = GameObject.FindWithTag("Goblins").transform;
         }
 
-        // Update is called once per frame
         void Update()
         {
-            gHouse.GoblinSpawner(transform, goblin, goblins, spawnTime, maxGoblin);
+            GoblinSpawner();
+        }
+
+
+        public void GoblinSpawner()
+        {
+            time += Time.deltaTime;
+            if (time > spawnTime && allGoblins.childCount < maxGoblin)
+            {
+                goblins.Add(Instantiate(spawnedGoblin, spawnPoint.position, transform.rotation, allGoblins));
+
+                time = 0;
+            }
         }
     }
 }

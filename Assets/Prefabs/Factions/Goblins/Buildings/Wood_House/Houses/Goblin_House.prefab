@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4916527095087780501}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Goblins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7891557031990098600}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,8 +74,9 @@ GameObject:
   - component: {fileID: 5159631993179372847}
   - component: {fileID: 3710349250490382944}
   - component: {fileID: -5228110553876610301}
-  m_Layer: 0
-  m_Name: 1Goblin_House
+  - component: {fileID: 8702562768780749070}
+  m_Layer: 20
+  m_Name: Goblin_House
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,10 +213,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e3e039acde749646a4f6a1d75625136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goblin: {fileID: 4992413997479346119, guid: f72f6682981188540a9c90ba1e265c99, type: 3}
-  goblinParent: {fileID: 0}
+  spawnedGoblin: {fileID: 0}
+  spawnPoint: {fileID: 0}
   spawnTime: 0
   maxGoblin: 0
+  goblins: []
+--- !u!114 &8702562768780749070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8342234495937756783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc81ccb732316a409f31fe78ccab9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthObj: {fileID: 764021855007899227}
+  health: 10
+  currentHealth: 0
+  regeneration: 0
+  regenerationValue: 1
+  takeDamageTime: 5
+  regrenationPerTime: 1
+  isTakeDamage: 0
+  currentTakeDamageTime: 0
+  currentRegrenationPerTime: 0
+  isDead: 0
 --- !u!1001 &9192488903215049306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -224,6 +249,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1291386682944323070}
     m_Modifications:
+    - target: {fileID: 1540668074578041099, guid: c8a636ac7a63e28439edc977b2a81ab1, type: 3}
+      propertyPath: m_Layer
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2601150384108360413, guid: c8a636ac7a63e28439edc977b2a81ab1, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
@@ -232,9 +261,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5103398597542038540, guid: c8a636ac7a63e28439edc977b2a81ab1, type: 3}
+      propertyPath: m_Layer
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5888156521882166492, guid: c8a636ac7a63e28439edc977b2a81ab1, type: 3}
+      propertyPath: m_Layer
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6378934098478984178, guid: c8a636ac7a63e28439edc977b2a81ab1, type: 3}
       propertyPath: m_Name
       value: Goblin House Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378934098478984178, guid: c8a636ac7a63e28439edc977b2a81ab1, type: 3}
+      propertyPath: m_Layer
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6513960741865516999, guid: c8a636ac7a63e28439edc977b2a81ab1, type: 3}
       propertyPath: m_Pivot.x
@@ -316,6 +357,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7200306335730984412, guid: c8a636ac7a63e28439edc977b2a81ab1, type: 3}
+      propertyPath: m_Layer
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7534310523368473540, guid: c8a636ac7a63e28439edc977b2a81ab1, type: 3}
+      propertyPath: m_Layer
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8433023426544473089, guid: c8a636ac7a63e28439edc977b2a81ab1, type: 3}
+      propertyPath: m_Layer
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8585939730262852711, guid: c8a636ac7a63e28439edc977b2a81ab1, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -368,8 +421,10 @@ MonoBehaviour:
   health: 10
   currentHealth: 0
   regeneration: 1
+  regenerationValue: 1
   takeDamageTime: 5
   regrenationPerTime: 1
   isTakeDamage: 0
   currentTakeDamageTime: 0
   currentRegrenationPerTime: 0
+  isDead: 0

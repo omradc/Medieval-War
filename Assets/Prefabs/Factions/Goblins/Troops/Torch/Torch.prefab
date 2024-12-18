@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 9128161781817260426}
   - component: {fileID: 1416956304992436152}
   - component: {fileID: 2278782323656877168}
-  - component: {fileID: 598835991590901826}
+  - component: {fileID: 1917165724164815224}
   - component: {fileID: 658952586667527992}
   - component: {fileID: 7485362444082039687}
   m_Layer: 13
@@ -320,7 +320,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &598835991590901826
+--- !u!114 &1917165724164815224
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -347,7 +347,7 @@ MonoBehaviour:
   moveCommand: 0
   obstacle:
     serializedVersion: 2
-    m_Bits: 432013312
+    m_Bits: 128
   drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
@@ -402,7 +402,7 @@ MonoBehaviour:
   enemyAIPerTime: 0.5
   detechTargetPerTime: 0.5
   turnDirectionPerTime: 0.5
-  attack: 0
+  attackTheAllKnights: 0
   playerUnits: []
   playerBuildings: []
   playerObjs: []

@@ -10,17 +10,15 @@ namespace Assets.Scripts.Concrete.Combats
     internal class UnitAttack
     {
 
-        float currentTime;
         KnightController kC;
         UnitAI unitAI;
         UnitPathFinding2D pF2D;
-        UnitDirection direction;
         AnimationEventController animationEventController;
-        bool workOnce;
-        public UnitAttack(Controllers.KnightController kC, UnitAI order, UnitPathFinding2D pF2D, AnimationEventController animationEventController)
+
+        public UnitAttack(KnightController kC, UnitAI unitAI, UnitPathFinding2D pF2D, AnimationEventController animationEventController)
         {
             this.kC = kC;
-            this.unitAI = order;
+            this.unitAI = unitAI;
             this.pF2D = pF2D;
             this.animationEventController = animationEventController;
             if (kC.unitTypeEnum == UnitTypeEnum.Worrior)
