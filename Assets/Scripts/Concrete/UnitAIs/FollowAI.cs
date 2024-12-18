@@ -18,8 +18,6 @@ namespace Assets.Scripts.Concrete.Orders
 
         public void FollowMode()
         {
-            CatchNeraestTarget();
-            StopWhenAttackDistance();
             SetRanges();
             ReturnAtYourPosition();
         }
@@ -58,8 +56,8 @@ namespace Assets.Scripts.Concrete.Orders
             // Menzilde düşman varsa, menzilden çıkmayacak şekilde düşmanı takip et
             if (kC.followTargets.Length > 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) < kC.currentSightRange)
             {
-                if (DetechNearestTarget() == null) return;
-                pF2D.AIGetMoveCommand(DetechNearestTarget().transform.position);
+                if (nearestTarget== null) return;
+                pF2D.AIGetMoveCommand(nearestTarget.transform.position);
                 followRange = true;
             }
         }

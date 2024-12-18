@@ -17,8 +17,6 @@ namespace Assets.Scripts.Concrete.Orders
         public void DefendMode()
         {
             if (pF2D.lastMousePos == Vector2.zero) return;
-            CatchNeraestTarget();
-            StopWhenAttackDistance();
             SetRanges();
             ReturnAtYourPosition(0.1f);
         }

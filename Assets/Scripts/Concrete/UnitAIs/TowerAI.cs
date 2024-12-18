@@ -10,7 +10,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
     internal class TowerAI
     {
         GameObject tower;
-        KnightController uC;
+        KnightController kC;
         PathFinding2D pF2D;
         BuildingController bC;
         SpriteRenderer unitSpriteRenderer;
@@ -22,21 +22,21 @@ namespace Assets.Scripts.Concrete.UnitAIs
         float timeToGetOffTower = 1;
         public TowerAI(KnightController kC, PathFinding2D pF2D)
         {
-            this.uC = kC;
+            this.kC = kC;
             this.pF2D = pF2D;
             unitSpriteRenderer = kC.transform.GetChild(0).GetComponent<SpriteRenderer>();
         }
         // Update ile çalışır
         public void SelectTower()
         {
-            if (uC.isSeleceted && !uC.onBuilding)
+            if (kC.isSeleceted && !kC.onBuilding)
             {
                 // Kuleye basılı tutulduğu sürece çalışır. Update.
                 if (InteractManager.Instance.interactedTower != null)
                 {
                     tower = InteractManager.Instance.interactedTower;
                     workOnce = true;
-                    uC.aI = false;
+                    kC.aI = false;
 
                     // Etrafta düşman varken yapay zeka kapatıldığında düşmanın son konumuna gitmemesi için, yolları temizle
                     pF2D.path.Clear();
@@ -56,7 +56,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                 if (workOnce)
                 {
                     Debug.Log("kuleye git");
-                    uC.unitOrderEnum = UnitOrderEnum.StayOrder;
+                    kC.unitOrderEnum = UnitOrderEnum.StayOrder;
 
                     gatePos = tower.transform.GetChild(0).position;
                     towerPos = tower.transform.GetChild(1);
@@ -68,16 +68,16 @@ namespace Assets.Scripts.Concrete.UnitAIs
                     }
 
                     pF2D.AIGetMoveCommand(gatePos);
-                    AnimationManager.Instance.RunAnim(uC.animator, 1);
-                    uC.stayBuilding = true;
-                    uC.goBuilding = true;
+                    AnimationManager.Instance.RunAnim(kC.animator, 1);
+                    kC.stayBuilding = true;
+                    kC.goBuilding = true;
                     workOnce = false;
 
 
                 }
 
                 // Kuleye çık
-                if (Vector2.Distance(uC.transform.position, gatePos) < .3f)
+                if (Vector2.Distance(kC.transform.position, gatePos) < .3f)
                 {
                     unitSpriteRenderer.enabled = false;
                     bC.buildingPanelController.InteractablePanelVisibility(false); // Etkileşim ekranını kapat
@@ -96,14 +96,14 @@ namespace Assets.Scripts.Concrete.UnitAIs
                         Debug.Log("Kuleye çık");
                         unitSpriteRenderer.enabled = true;
                         unitSpriteRenderer.sortingOrder = 12;
-                        uC.aI = true;
+                        kC.aI = true;
                         pF2D.isPathEnd = true; // Dur
                         CalculateTowerPos();
-                        uC.transform.position = pos; // Birimi kuleye ışınla
-                        uC.onBuilding = true;
-                        uC.circleCollider.isTrigger = true; // kulenin çarpıştırıcısı ile etkileşime girmesin
-                        uC.gameObject.layer = 25; // ölümsüz ol
-                        AnimationManager.Instance.IdleAnim(uC.animator);
+                        kC.transform.position = pos; // Birimi kuleye ışınla
+                        kC.onBuilding = true;
+                        kC.circleCollider.isTrigger = true; // kulenin çarpıştırıcısı ile etkileşime girmesin
+                        kC.gameObject.layer = 25; // ölümsüz ol
+                        AnimationManager.Instance.IdleAnim(kC.animator);
                         tower = null;
                         time = 0;
                     }
@@ -111,7 +111,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
             }
 
             // Kuleden in
-            if (uC.onBuilding && uC.isSeleceted && !pF2D.isPathEnd)
+            if (kC.onBuilding && kC.isSeleceted && !pF2D.isPathEnd)
             {
                 unitSpriteRenderer.enabled = false;
                 time++;
@@ -121,12 +121,12 @@ namespace Assets.Scripts.Concrete.UnitAIs
                     ActivateTowerPos();
                     unitSpriteRenderer.enabled = true;
                     unitSpriteRenderer.sortingOrder = 10;
-                    uC.gameObject.layer = 6; // ölümlü ol
-                    uC.onBuilding = false;
-                    uC.transform.position = gatePos; // kulenin kapısına git
-                    uC.circleCollider.isTrigger = false;
-                    uC.stayBuilding = false;
-                    uC.goBuilding = false;
+                    kC.gameObject.layer = 6; // ölümlü ol
+                    kC.onBuilding = false;
+                    kC.transform.position = gatePos; // kulenin kapısına git
+                    kC.circleCollider.isTrigger = false;
+                    kC.stayBuilding = false;
+                    kC.goBuilding = false;
                     bC.isFull = false; // Kulede birim var
                     time = 0;
                 }
@@ -136,17 +136,17 @@ namespace Assets.Scripts.Concrete.UnitAIs
         public void DestructTower()
         {
             if (bC == null) return;
-            if (bC.destruct && uC.onBuilding)
+            if (bC.destruct && kC.onBuilding)
             {
                 Debug.Log("Kuleden düş");
                 ActivateTowerPos();
                 unitSpriteRenderer.enabled = true;
-                uC.gameObject.layer = 6; // ölümlü ol
-                uC.onBuilding = false;
-                uC.transform.position = gatePos; // kulenin kapısına git
-                uC.circleCollider.isTrigger = false;
-                uC.stayBuilding = false;
-                uC.goBuilding = false;
+                kC.gameObject.layer = 6; // ölümlü ol
+                kC.onBuilding = false;
+                kC.transform.position = gatePos; // kulenin kapısına git
+                kC.circleCollider.isTrigger = false;
+                kC.stayBuilding = false;
+                kC.goBuilding = false;
                 bC.isFull = false; // Kulede birim var
                 time = 0;
             }
@@ -161,7 +161,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                 {
                     if (towerPos.GetChild(i).transform.gameObject.activeSelf)
                     {
-                        uC.towerPosIndex = i;
+                        kC.towerPosIndex = i;
                         towerPos.GetChild(i).gameObject.SetActive(false);
                         pos = towerPos.GetChild(i).transform.position;
                         bC.unitValue++;
@@ -184,7 +184,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
         {
             if (towerPos.childCount > 0)
             {
-                towerPos.GetChild(uC.towerPosIndex).gameObject.SetActive(true);
+                towerPos.GetChild(kC.towerPosIndex).gameObject.SetActive(true);
                 bC.unitValue--;
             }
 

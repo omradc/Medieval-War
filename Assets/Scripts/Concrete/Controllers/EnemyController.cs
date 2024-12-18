@@ -128,7 +128,6 @@ namespace Assets.Scripts.Concrete.Controllers
             if (aI)
             {
                 enemyAI.CatchNeraestTarget();
-                enemyAI.StopWhenAttackDistance();
                 enemyAI.Patrolling();
                 enemyAttack.Attack();
 

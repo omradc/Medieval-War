@@ -122,10 +122,10 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         public void CatchNeraestTarget()
         {
             nearestTarget = DetechNearestTarget();
-
             if (nearestTarget == null) return;
 
             CalculateNearestAttackPoint();
+            StopWhenAttackDistance();
 
             if (Vector2.Distance(nearestAttackPoint.position, eC.sightRangePosition) < eC.currentSightRange)
             {
@@ -137,16 +137,10 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         }
         public void StopWhenAttackDistance() // Yapay zeka düşmanın tam koordinatlarına gider, fakat bu isPathEnd ile engellenir.
         {
-            if (nearestTarget != null)
-            {
-                if (Vector2.Distance(nearestAttackPoint.position, eC.attackRangePosition) < eC.currentAttackRange)
-                    ePF2D.isPathEnd = true;
-                if (Vector2.Distance(nearestAttackPoint.position, eC.attackRangePosition) > eC.currentAttackRange)
-                    ePF2D.isPathEnd = false;
-            }
-            else
+            if (Vector2.Distance(nearestAttackPoint.position, eC.attackRangePosition) < eC.currentAttackRange)
+                ePF2D.isPathEnd = true;
+            if (Vector2.Distance(nearestAttackPoint.position, eC.attackRangePosition) >= eC.currentAttackRange)
                 ePF2D.isPathEnd = false;
-
         }
         public void Patrolling()
         {
@@ -231,7 +225,6 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             eC.currentSightRange = 100;
             eC.attackTheAllKnights = true;
         }
-
         public void RigidbodyControl(Rigidbody2D rb2D, bool stayBuilding)
         {
             if (stayBuilding)

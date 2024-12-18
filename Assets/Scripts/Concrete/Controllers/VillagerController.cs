@@ -121,7 +121,7 @@ namespace Assets.Scripts.Concrete.Controllers
         void OptimumVillager()
         {
             //Düşman varsa kaynak toplama
-            if (kC.unitAI.DetechNearestTarget() != null)
+            if (kC.unitAI.nearestTarget != null)
             {
                 // Elinde herhangi bir kaynak varsa onu yere at
                 collectResources.DropAnyResources();
@@ -129,7 +129,7 @@ namespace Assets.Scripts.Concrete.Controllers
             }
 
             //Düşman yoksa işine devam et
-            if (kC.unitAI.DetechNearestTarget() == null) pF2D.isPathEnd = false;
+            if (kC.unitAI.nearestTarget == null) pF2D.isPathEnd = false;
 
             goldAndRock.GoToMine();
             collectWood.GoToTree();

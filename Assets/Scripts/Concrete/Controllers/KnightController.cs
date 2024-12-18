@@ -126,6 +126,7 @@ namespace Assets.Scripts.Concrete.Controllers
             //Unit AI
             if (aI)
             {
+                unitAI.CatchNeraestTarget();
                 if (unitOrderEnum == UnitOrderEnum.AttackOrder)
                     attackAI.AttackMode();
                 if (unitOrderEnum == UnitOrderEnum.DefendOrder)
@@ -148,14 +149,14 @@ namespace Assets.Scripts.Concrete.Controllers
         void OptimumAITurnDirection()
         {
             // Oyuncunun hareket emri her zaman önceliklidir || Sadece düþman varsa çalýþýr
-            if (pF2D.moveCommand || unitAI.DetechNearestTarget() == null) return;
+            if (pF2D.moveCommand || unitAI.nearestTarget == null) return;
 
             // pF2D.pathLeftToGo[0]; hedefe giderken kullandýðý yol
             if (unitTypeEnum == UnitTypeEnum.Villager)
             {
                 // Durduðunda hadefe bak
                 if (pF2D.isPathEnd)
-                    direction.Turn2Direction(unitAI.DetechNearestTarget().transform.position.x);
+                    direction.Turn2Direction(unitAI.nearestAttackPoint.position.x);
                 // Ýlerlediðinde yola bak
                 else if (pF2D.pathLeftToGo.Count > 0)
                     direction.Turn2Direction(pF2D.pathLeftToGo[0].x);
@@ -165,7 +166,7 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 // Durduðunda hadefe bak
                 if (pF2D.isPathEnd)
-                    direction.Turn8Direction(unitAI.DetechNearestTarget().transform.position);
+                    direction.Turn8Direction(unitAI.nearestAttackPoint.position);
                 // Ýlerlediðinde yola bak
                 else if (pF2D.pathLeftToGo.Count > 0)
                     direction.Turn8Direction(pF2D.pathLeftToGo[0]);
@@ -175,7 +176,7 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 // Durduðunda hadefe bak
                 if (pF2D.isPathEnd)
-                    direction.Turn4Direction(unitAI.DetechNearestTarget().transform.position);
+                    direction.Turn4Direction(unitAI.nearestAttackPoint.position);
                 // Ýlerlediðinde yola bak
                 else if (pF2D.pathLeftToGo.Count > 0)
                     direction.Turn4Direction(pF2D.pathLeftToGo[0]);

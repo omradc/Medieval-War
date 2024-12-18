@@ -30,7 +30,7 @@ namespace Assets.Scripts.Concrete.Combats
         }
         public void AttackOn()
         {
-            if (unitAI.DetechNearestTarget() == null)
+            if (unitAI.nearestTarget == null)
             {
                 //Düşman yoksa ve saldırı animasyonu oynarsa, idle oynar
                 if (pF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Front") || pF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Up") || pF2D.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Down")
@@ -39,7 +39,7 @@ namespace Assets.Scripts.Concrete.Combats
                 return;
             }
             // Düşman saldırı menzilindeyse, yöne göre animasyonlar oynatılır. Animasyonlar, saldırıları event ile tetikler
-            if (Vector2.Distance(kC.attackRangePosition, unitAI.DetechNearestTarget().transform.position) < kC.currentAttackRange)
+            if (Vector2.Distance(kC.attackRangePosition, unitAI.nearestAttackPoint.position) < kC.currentAttackRange)
             {
                 if (pF2D.right || pF2D.left)
                     AnimationManager.Instance.AttackFrontAnim(pF2D.animator, kC.currentAttackSpeed);
@@ -78,7 +78,7 @@ namespace Assets.Scripts.Concrete.Combats
         {
             GameObject obj = Object.Instantiate(kC.arrow, kC.attackRangePosition, Quaternion.identity);
             Arrow arrow = obj.GetComponent<Arrow>();
-            arrow.target = unitAI.DetechNearestTarget();
+            arrow.target = unitAI.nearestTarget;
             arrow.damage = kC.currentDamage;
             arrow.arrowSpeed = kC.currentArrowSpeed;
         }

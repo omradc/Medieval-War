@@ -11,8 +11,6 @@ namespace Assets.Scripts.Concrete.Orders
         }
         public void AttackMode()
         {
-            CatchNeraestTarget();
-            StopWhenAttackDistance();
             SetRange();
         }
 
