@@ -1,39 +1,84 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
+using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
     public class GoblinHouseController : MonoBehaviour
     {
-
-        [SerializeField] GameObject spawnedGoblin;
-        [SerializeField] Transform spawnPoint;
+        [Header("HOUSE")]
+        [SerializeField] bool attackOrder;
         [SerializeField] int spawnTime;
         [SerializeField] int maxGoblin;
+
+
+        [Header("SETUP")]
+        [SerializeField] GameObject spawnedGoblin;
+        [SerializeField] Transform spawnPoint;
+        [SerializeField] GameObject timerPanel;
+
         public List<GameObject> goblins;
         Transform allGoblins;
+        Image timerFillImage;
+        HealthController healthController;
         float time;
+        public int currentGoblinNumber;
 
         private void Awake()
         {
             allGoblins = GameObject.FindWithTag("Goblins").transform;
+            goblins = new List<GameObject>();
+            timerFillImage = timerPanel.transform.GetChild(1).GetComponent<Image>();
+            healthController = GetComponent<HealthController>();
+
+        }
+
+        private void Start()
+        {
+
         }
 
         void Update()
         {
+            if (healthController.isDead) // Ev yıkıldıysa işlevsizdir
+            {
+                timerPanel.SetActive(false);
+                return;
+            }
             GoblinSpawner();
+            AttackOrder();
         }
 
 
         public void GoblinSpawner()
         {
+            if (currentGoblinNumber == maxGoblin) return;
+            timerPanel.SetActive(true);
             time += Time.deltaTime;
-            if (time > spawnTime && allGoblins.childCount < maxGoblin)
+            timerFillImage.fillAmount = time / spawnTime;
+            if (time > spawnTime && currentGoblinNumber < maxGoblin)
             {
-                goblins.Add(Instantiate(spawnedGoblin, spawnPoint.position, transform.rotation, allGoblins));
-
+                GameObject createdGoblin = Instantiate(spawnedGoblin, spawnPoint.position, transform.rotation, allGoblins);
+                goblins.Add(createdGoblin);
+                createdGoblin.GetComponent<HealthController>().goblinHouseController = this;
+                currentGoblinNumber++;
+                timerPanel.SetActive(false);
                 time = 0;
+            }
+        }
+
+        void AttackOrder()
+        {
+            if (attackOrder)
+            {
+                for (int i = 0; i < goblins.Count; ++i)
+                {
+                    goblins[i].GetComponent<EnemyController>().goblinBehaviour = Enums.GoblinBehaviorEnum.FindNearestPlayerUnit;
+                }
+                attackOrder = false;
             }
         }
     }

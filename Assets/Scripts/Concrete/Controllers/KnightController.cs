@@ -15,7 +15,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public UnitTypeEnum unitTypeEnum;
         public bool isSeleceted;
 
-        [Header("Worrior And Villager")]
+        [Header("WORRIOR AND VILLAGER")]
         public float attackRadius;
         public Transform attackPoint;
         public float attackPointDistance;
@@ -39,7 +39,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
         public LayerMask enemy;
 
-        [HideInInspector] public Collider2D[] followTargets;
+        public Collider2D[] followTargets;
         [HideInInspector] public Collider2D[] hitTargets;
 
         [HideInInspector] public GameObject followingObj;

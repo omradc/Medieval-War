@@ -636,6 +636,10 @@ PrefabInstance:
       propertyPath: spawnTime
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5228110553876610301, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
+      propertyPath: spawnedGoblin
+      value: 
+      objectReference: {fileID: 4992413997479346119, guid: b88d1a31c4ee91540b7f6ae227beed98, type: 3}
     - target: {fileID: 101268934148524784, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
       propertyPath: m_Layer
       value: 22
@@ -692,6 +696,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 3193079367516852613, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
+      propertyPath: m_Color.b
+      value: 0.28627452
+      objectReference: {fileID: 0}
+    - target: {fileID: 3193079367516852613, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
+      propertyPath: m_Color.g
+      value: 0.25882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 3193079367516852613, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3324968091803569798, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
       propertyPath: m_Layer
       value: 20
@@ -712,9 +728,21 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 7844775584013027975, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
+      propertyPath: m_Color.b
+      value: 0.28627452
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844775584013027975, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
+      propertyPath: m_Color.g
+      value: 0.25882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844775584013027975, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8342234495937756783, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
       propertyPath: m_Name
-      value: Torch House
+      value: Torch House_Red
       objectReference: {fileID: 0}
     - target: {fileID: 8342234495937756783, guid: 3aded08edfa3fa949a4cd16c4d96a466, type: 3}
       propertyPath: m_Layer

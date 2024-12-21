@@ -12,7 +12,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(0.1f, 2)] public float moveSpeed;
         public float currentSheepScale;
         public float followDistance;
-        public PatrolTypeEnum patrolType;
+        public GoblinBehaviorEnum goblinBehaviour;
         public float patrollingRadius;
         public float waitingTime;
 
@@ -77,7 +77,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public void TameSheep(GameObject villager, GameObject fenceObj)
         {
             if (isDomestic) return;
-            patrolType = PatrolTypeEnum.None;
+            goblinBehaviour = GoblinBehaviorEnum.None;
             sPF2D.isPathEnd = true;
 
             currentTameTime += 1;
@@ -228,7 +228,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         void CirclePatrollingAnchor()
         {
-            if (patrolType != PatrolTypeEnum.CirclePatrollingAnchor) return;
+            if (goblinBehaviour != GoblinBehaviorEnum.CirclePatrollingAnchor) return;
             if (patrol)
             {
                 patrol = false;

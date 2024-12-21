@@ -50,10 +50,9 @@ namespace Assets.Scripts.Concrete.Controllers
         [Header("PATROLLİNG")]
         public float patrollingRadius;
         public float waitingTime;
-        public PatrolTypeEnum patrolType;
+        public GoblinBehaviorEnum goblinBehaviour;
         public Transform path;
         [HideInInspector] public Transform[] patrolPoints;
-
 
         [HideInInspector] public GameObject explosion;
         [HideInInspector] public GameObject dynamite;
@@ -79,7 +78,6 @@ namespace Assets.Scripts.Concrete.Controllers
         EnemyAI enemyAI;
         EnemyPathFinding2D ePF2D;
         AnimationEventController animationEventController;
-        [HideInInspector] public Animator animator;
         Vector3 gizmosPos;
         Rigidbody2D rb2D;
         private void Awake()
@@ -103,7 +101,6 @@ namespace Assets.Scripts.Concrete.Controllers
             currentBarrelExplosionRadius = barrelExplosionRadius;
             gizmosPos = transform.position;
             rb2D = GetComponent<Rigidbody2D>();
-            animator = transform.GetChild(0).GetComponent<Animator>();
             //PatrolSetup();
 
 
@@ -128,7 +125,7 @@ namespace Assets.Scripts.Concrete.Controllers
             if (aI)
             {
                 enemyAI.CatchNeraestTarget();
-                enemyAI.Patrolling();
+                enemyAI.GoblinBehaviour();
                 enemyAttack.Attack();
 
             }

@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Concrete.Managers;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +18,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public float currentTakeDamageTime;
         [HideInInspector] public float currentRegrenationPerTime;
         [HideInInspector] public bool isDead;
+        [HideInInspector] public GoblinHouseController goblinHouseController;
         Image fillImage;
         private void Awake()
         {
@@ -92,9 +92,15 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             isDead = true;
 
-            // Oyuncu veya düşman birimleri yok olur
-            if (gameObject.layer == 6 || gameObject.layer == 13)
+            // Oyuncu birimi
+            if (gameObject.layer == 6)
                 Destroy(gameObject);
+            // Düşman birimi
+            if (gameObject.layer == 13)
+            {
+                goblinHouseController.currentGoblinNumber--; // Ölmeden önce goblin sayısını azaltır 
+                Destroy(gameObject);
+            }
         }
         void UpdateHealthBar()
         {

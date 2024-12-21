@@ -2,18 +2,20 @@
 
 namespace Assets.Scripts.Concrete.Controllers
 {
-     class BuildingController : MonoBehaviour
+    class BuildingController : MonoBehaviour
     {
         public GameObject construction;
         public Collider2D physicalCollider;
         bool workOnce = true;
+        [SerializeField] bool destroyPermanent;
+        [SerializeField] int destroyTime;
 
         // Kule yapay zekası için gerekli değerler
         [HideInInspector] public bool isFull;
-        public bool destruct;
+        [HideInInspector] public bool destruct;
         [HideInInspector] public int unitValue;
 
-        GameObject visualTower;
+        GameObject visualBuilding;
         GameObject visualDestructed;
         ButtonController buttonController;
         [HideInInspector] public BuildingPanelController buildingPanelController;
@@ -21,7 +23,7 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Awake()
         {
             healthController = GetComponent<HealthController>();
-            visualTower = transform.GetChild(2).gameObject;
+            visualBuilding = transform.GetChild(2).gameObject;
             visualDestructed = transform.GetChild(3).gameObject;
             buttonController = GetComponent<ButtonController>();
             buildingPanelController = GetComponent<BuildingPanelController>();
@@ -42,21 +44,25 @@ namespace Assets.Scripts.Concrete.Controllers
             physicalCollider.enabled = false;
             healthController.enabled = false;
             healthController.HealthBarVisibility(false);
-            visualTower.SetActive(false);
+            visualBuilding.SetActive(false);
             visualDestructed.SetActive(true);
             gameObject.layer = 26; // Katman = Destructed
-            buildingPanelController.InteractablePanelVisibility(false);
+            if (buildingPanelController != null)
+                buildingPanelController.InteractablePanelVisibility(false);
             workOnce = false;
+            if (destroyPermanent)
+                Destroy(gameObject, destroyTime);
         }
 
         void Upgrade()
         {
+            if (buttonController == null) return;
             if (buttonController.upgrade)
             {
                 Debug.Log("Upgrade");
                 GameObject obj = Instantiate(buttonController.construct, transform.position, Quaternion.identity);
                 obj.GetComponent<ConstructController>().constructing = buttonController.upgradedBuilding;
-                Destroy(gameObject);
+                Destroy(gameObject, destroyTime);
 
             }
         }

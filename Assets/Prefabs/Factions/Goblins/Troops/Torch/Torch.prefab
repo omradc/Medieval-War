@@ -306,7 +306,7 @@ CircleCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 1
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -379,7 +379,7 @@ MonoBehaviour:
   moveCommand: 0
   obstacle:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2176
   drawLine: 1
   lastMousePos: {x: 0, y: 0}
   animator: {fileID: 0}
@@ -406,6 +406,7 @@ MonoBehaviour:
   currentTakeDamageTime: 0
   currentRegrenationPerTime: 0
   isDead: 0
+  goblinHouseController: {fileID: 0}
 --- !u!114 &7485362444082039687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,7 +455,7 @@ MonoBehaviour:
     m_Bits: 0
   patrollingRadius: 4
   waitingTime: 2
-  patrolType: 0
+  goblinBehaviour: 0
   path: {fileID: 0}
   patrolPoints: []
   explosion: {fileID: 0}
@@ -474,7 +475,6 @@ MonoBehaviour:
   aI: 1
   onBuilding: 0
   stayBuilding: 0
-  animator: {fileID: 0}
 --- !u!1001 &4673381150033136589
 PrefabInstance:
   m_ObjectHideFlags: 0

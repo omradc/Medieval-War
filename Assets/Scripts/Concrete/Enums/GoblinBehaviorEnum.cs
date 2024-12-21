@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Enums
 {
-    public enum PatrolTypeEnum
+    public enum GoblinBehaviorEnum
     {
         None,
         FindNearestPlayerUnit,

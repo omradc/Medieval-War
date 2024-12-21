@@ -192,6 +192,7 @@ MonoBehaviour:
   currentTakeDamageTime: 0
   currentRegrenationPerTime: 0
   isDead: 0
+  goblinHouseController: {fileID: 0}
 --- !u!114 &2140753509579492637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +223,7 @@ MonoBehaviour:
   collectResourcesPerTime: 1
   enemy:
     serializedVersion: 2
-    m_Bits: 1056768
+    m_Bits: 403709952
   followTargets: []
   hitTargets: []
   followingObj: {fileID: 0}

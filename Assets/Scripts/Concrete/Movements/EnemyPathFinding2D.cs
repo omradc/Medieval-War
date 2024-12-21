@@ -46,7 +46,6 @@ namespace Assets.Scripts.Concrete.Movements
                     transform.position = pathLeftToGo[0];
                     pathLeftToGo.RemoveAt(0);
                 }
-
             }
 
             if (pathLeftToGo.Count == 0)

@@ -9,13 +9,10 @@ namespace Assets.Scripts.Concrete.Combats
 {
     internal class EnemyAttack
     {
-        float currentTime;
         EnemyController eC;
         EnemyAI enemyAI;
         EnemyPathFinding2D ePF2D;
-        UnitDirection direction;
         AnimationEventController animationEventController;
-        bool workOnce;
         public EnemyAttack(EnemyController eC, EnemyAI enemyAI, EnemyPathFinding2D ePF2D, AnimationEventController animationEventController)
         {
             this.eC = eC;

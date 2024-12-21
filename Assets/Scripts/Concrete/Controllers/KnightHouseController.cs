@@ -1,6 +1,4 @@
-﻿using Assets.Scripts.Abstracts.Inputs;
-using Assets.Scripts.Concrete.Inputs;
-using Assets.Scripts.Concrete.KnightBuildings;
+﻿using Assets.Scripts.Concrete.KnightBuildings;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -29,30 +29,49 @@ namespace Assets.Scripts.Concrete.Controllers
                 transform.position = firstPos;
 
             Zoom();
+            MovementByKeys();
 
+            // Esc Toggle
             if (Input.GetKeyDown(KeyCode.Escape))
                 fixedCamera = !fixedCamera;
             if (!fixedCamera)
                 return;
 
-            Movement();
+            MovementByMouse();
 
         }
 
-        void Movement()
+        void MovementByMouse()
         {
             CalculateSpeedFactor();
             //UP
-            if (Input.GetKey(KeyCode.W) || Input.mousePosition.y >= Screen.height - borderThickness)
+            if (Input.mousePosition.y >= Screen.height - borderThickness)
                 transform.Translate(Vector2.up * currentCameraSpeed * Time.deltaTime);
             //DOWN
-            if (Input.GetKey(KeyCode.S) || Input.mousePosition.y <= borderThickness)
+            if (Input.mousePosition.y <= borderThickness)
                 transform.Translate(Vector2.down * currentCameraSpeed * Time.deltaTime);
             //RIGHT
-            if (Input.GetKey(KeyCode.D) || Input.mousePosition.x >= Screen.width - borderThickness)
+            if (Input.mousePosition.x >= Screen.width - borderThickness)
                 transform.Translate(Vector2.right * currentCameraSpeed * Time.deltaTime);
             //LEFT
-            if (Input.GetKey(KeyCode.A) || Input.mousePosition.x <= borderThickness)
+            if (Input.mousePosition.x <= borderThickness)
+                transform.Translate(Vector2.left * currentCameraSpeed * Time.deltaTime);
+        }
+
+        void MovementByKeys()
+        {
+            CalculateSpeedFactor();
+            //UP
+            if (Input.GetKey(KeyCode.W))
+                transform.Translate(Vector2.up * currentCameraSpeed * Time.deltaTime);
+            //DOWN
+            if (Input.GetKey(KeyCode.S))
+                transform.Translate(Vector2.down * currentCameraSpeed * Time.deltaTime);
+            //RIGHT
+            if (Input.GetKey(KeyCode.D))
+                transform.Translate(Vector2.right * currentCameraSpeed * Time.deltaTime);
+            //LEFT
+            if (Input.GetKey(KeyCode.A))
                 transform.Translate(Vector2.left * currentCameraSpeed * Time.deltaTime);
         }
 
