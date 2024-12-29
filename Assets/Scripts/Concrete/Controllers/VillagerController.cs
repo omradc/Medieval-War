@@ -71,7 +71,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public GameObject rockIdle;
         [HideInInspector] public GameObject woodIdle;
         [HideInInspector] public GameObject meatIdle;
-        [HideInInspector] public UnitDirection direction;
+        [HideInInspector] public Direction direction;
         [HideInInspector] public IInput ıInput;
          public SheepController sheepController;
         [HideInInspector] public AnimationEventController animationEventController;

@@ -3,8 +3,6 @@ using Assets.Scripts.Abstracts.Movements;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Movements;
-using Assets.Scripts.Concrete.SelectSystem;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Managers

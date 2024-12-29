@@ -98,7 +98,8 @@ namespace Assets.Scripts.Concrete.Controllers
             // Düşman birimi
             if (gameObject.layer == 13)
             {
-                goblinHouseController.currentGoblinNumber--; // Ölmeden önce goblin sayısını azaltır 
+                if (goblinHouseController != null)
+                    goblinHouseController.currentGoblinNumber--; // Ölmeden önce goblin sayısını azaltır 
                 Destroy(gameObject);
             }
         }

@@ -8,16 +8,16 @@ namespace Assets.Scripts.Concrete.Orders
     internal class UnitAI
     {
         protected KnightController kC;
-        protected UnitPathFinding2D pF2D;
+        protected PathFindingController pF;
         public GameObject nearestTarget;
         public Transform nearestAttackPoint;
-        public UnitAI(KnightController kC, UnitPathFinding2D pF2D)
+        public UnitAI(KnightController kC, PathFindingController pF)
         {
             this.kC = kC;
-            this.pF2D = pF2D;
+            this.pF = pF;
         }
 
-        public GameObject DetechNearestTarget()
+        GameObject DetechNearestTarget()
         {
             if (kC.followTargets.Length > 0)
             {
@@ -51,46 +51,33 @@ namespace Assets.Scripts.Concrete.Orders
             if (nearestTarget == null) return;
 
             CalculateNearestAttackPoint();
-            StopWhenAttackDistance();
 
             if (Vector2.Distance(nearestAttackPoint.position, kC.sightRangePosition) < kC.currentSightRange)
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
                 if (Vector2.Distance(nearestAttackPoint.position, kC.attackRangePosition) < kC.currentAttackRange) return;
 
-                AnimationManager.Instance.RunAnim(pF2D.animator, 1);
+                AnimationManager.Instance.RunAnim(kC.animator, 1);
 
-                pF2D.AIGetMoveCommand(nearestAttackPoint.position);
+                pF.MoveAI(nearestAttackPoint.position);
             }
 
         }
-        protected void StopWhenAttackDistance() // Yapay zeka düşmanın tam koordinatlarına gider, fakat bu isPathEnd ile engellenir.
-        {
+       
+        //public void RigidbodyControl(Rigidbody2D rb2D, bool stayBuilding)
+        //{
+        //    if (stayBuilding)
+        //    {
+        //        rb2D.bodyType = RigidbodyType2D.Kinematic;
+        //        return;
+        //    }
+        //    // Menzilde düşman yoksa ve kullanıcıdan emir almadıysa rigidbody aktif olur.
+        //    if (nearestTarget != null && !pF.isMoving)
+        //        rb2D.bodyType = RigidbodyType2D.Dynamic;
+        //    else
+        //        rb2D.bodyType = RigidbodyType2D.Kinematic;
 
-                if (Vector2.Distance(nearestAttackPoint.position, kC.attackRangePosition) < kC.currentAttackRange)
-                    pF2D.isPathEnd = true;
-
-                if (Vector2.Distance(nearestAttackPoint.position, kC.attackRangePosition) >= kC.currentAttackRange)
-                    pF2D.isPathEnd = false;
-
-
-
-
-        }
-        public void RigidbodyControl(Rigidbody2D rb2D, bool stayBuilding)
-        {
-            if (stayBuilding)
-            {
-                rb2D.bodyType = RigidbodyType2D.Kinematic;
-                return;
-            }
-            // Menzilde düşman yoksa ve kullanıcıdan emir almadıysa rigidbody aktif olur.
-            if (nearestTarget != null && !pF2D.isUserPathFinding)
-                rb2D.bodyType = RigidbodyType2D.Dynamic;
-            else
-                rb2D.bodyType = RigidbodyType2D.Kinematic;
-
-        }
+        //}
 
         void CalculateNearestAttackPoint()
         {

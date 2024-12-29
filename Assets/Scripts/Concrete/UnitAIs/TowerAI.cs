@@ -11,7 +11,8 @@ namespace Assets.Scripts.Concrete.UnitAIs
     {
         GameObject tower;
         KnightController kC;
-        PathFinding2D pF2D;
+        //PathFinding2D pF2D;
+        PathFindingController pF;
         BuildingController bC;
         SpriteRenderer unitSpriteRenderer;
         Transform towerPos;
@@ -20,10 +21,10 @@ namespace Assets.Scripts.Concrete.UnitAIs
         bool workOnce;
         float time;
         float timeToGetOffTower = 1;
-        public TowerAI(KnightController kC, PathFinding2D pF2D)
+        public TowerAI(KnightController kC, PathFindingController pF)
         {
             this.kC = kC;
-            this.pF2D = pF2D;
+            this.pF = pF;
             unitSpriteRenderer = kC.transform.GetChild(0).GetComponent<SpriteRenderer>();
         }
         // Update ile çalışır
@@ -38,9 +39,9 @@ namespace Assets.Scripts.Concrete.UnitAIs
                     workOnce = true;
                     kC.aI = false;
 
-                    // Etrafta düşman varken yapay zeka kapatıldığında düşmanın son konumuna gitmemesi için, yolları temizle
-                    pF2D.path.Clear();
-                    pF2D.pathLeftToGo.Clear();
+                    //// Etrafta düşman varken yapay zeka kapatıldığında düşmanın son konumuna gitmemesi için, yolları temizle
+                    //pF2D.path.Clear();
+                    //pF2D.pathLeftToGo.Clear();
 
                 }
             }
@@ -67,7 +68,8 @@ namespace Assets.Scripts.Concrete.UnitAIs
                         return;
                     }
 
-                    pF2D.AIGetMoveCommand(gatePos);
+                    //pF2D.AIGetMoveCommand(gatePos);
+                    pF.MoveAI(gatePos);
                     AnimationManager.Instance.RunAnim(kC.animator, 1);
                     kC.stayBuilding = true;
                     kC.goBuilding = true;
@@ -77,7 +79,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                 }
 
                 // Kuleye çık
-                if (Vector2.Distance(kC.transform.position, gatePos) < .3f)
+                if (Vector2.Distance(kC.transform.position, gatePos) <= pF.agent.stoppingDistance)
                 {
                     unitSpriteRenderer.enabled = false;
                     bC.buildingPanelController.InteractablePanelVisibility(false); // Etkileşim ekranını kapat
@@ -97,7 +99,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
                         unitSpriteRenderer.enabled = true;
                         unitSpriteRenderer.sortingOrder = 12;
                         kC.aI = true;
-                        pF2D.isPathEnd = true; // Dur
+                        //pF2D.isPathEnd = true; // Dur
                         CalculateTowerPos();
                         kC.transform.position = pos; // Birimi kuleye ışınla
                         kC.onBuilding = true;
@@ -111,7 +113,7 @@ namespace Assets.Scripts.Concrete.UnitAIs
             }
 
             // Kuleden in
-            if (kC.onBuilding && kC.isSeleceted && !pF2D.isPathEnd)
+            if (kC.onBuilding && kC.isSeleceted /*&& !pF2D.isPathEnd*/)
             {
                 unitSpriteRenderer.enabled = false;
                 time++;

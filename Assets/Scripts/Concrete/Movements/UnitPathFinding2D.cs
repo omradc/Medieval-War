@@ -12,7 +12,7 @@ namespace Assets.Scripts.Concrete.Movements
         [SerializeField] bool drawLine;
         [HideInInspector] public Vector2 lastMousePos;
         [HideInInspector] public Animator animator;
-        [HideInInspector] public UnitDirection direction;
+        [HideInInspector] public Direction direction;
         KnightController kC;
 
         void Start()
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Concrete.Movements
             pathfinder = new Pathfinder<Vector2>(GetDistance, GetNeighbourNodes, 1000); //increase patience or gridSize for larger maps
             animator = transform.GetChild(0).GetComponent<Animator>();
             kC = GetComponent<KnightController>();
-            direction = new(this, kC);
+            //direction = new(this, kC);
         }
 
 
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Concrete.Movements
                 transform.position += dir.normalized * kC.currentMoveSpeed;
 
                 //pathLeftToGo[0]; hedefe giderken kullandýðý yola bakmasýný saðlar
-                direction.Turn2Direction(pathLeftToGo[0].x);
+                direction.Turn2DirectionWithPos(pathLeftToGo[0].x);
 
                 if (((Vector2)transform.position - pathLeftToGo[0]).sqrMagnitude < kC.currentMoveSpeed * kC.currentMoveSpeed)
                 {
@@ -54,7 +54,7 @@ namespace Assets.Scripts.Concrete.Movements
                 isUserPathFinding = false;
                 moveCommand = false;
                 kC.currentAttackRange = kC.attackRange;
-                direction.Turn2Direction(Mathf.Infinity);
+                direction.Turn2DirectionWithPos(Mathf.Infinity);
                 if (kC.followTargets.Length <= 0)
                 {
                     if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Chop") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Build"))

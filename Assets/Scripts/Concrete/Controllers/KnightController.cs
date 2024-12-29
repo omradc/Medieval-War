@@ -1,5 +1,6 @@
 using Assets.Scripts.Concrete.Combats;
 using Assets.Scripts.Concrete.Enums;
+using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using Assets.Scripts.Concrete.Orders;
 using Assets.Scripts.Concrete.UnitAIs;
@@ -10,15 +11,13 @@ namespace Assets.Scripts.Concrete.Controllers
 {
     internal class KnightController : MonoBehaviour
     {
-
+        public bool attack;
         [Header("UNIT TYPE")]
         public UnitTypeEnum unitTypeEnum;
         public bool isSeleceted;
 
         [Header("WORRIOR AND VILLAGER")]
-        public float attackRadius;
-        public Transform attackPoint;
-        public float attackPointDistance;
+        Transform attackPoint;
 
         [Header("Archer")]
         public float arrowSpeed;
@@ -28,7 +27,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [Space(30)]
         [Header("UNIT")]
         public int damage;
-        [Range(0.1f, 2f)] public float moveSpeed = .7f;
+        [Range(0.1f, 2f)] public float moveSpeed = 1f;
         public float attackSpeed;
         public float attackRange;
         public float sightRange;
@@ -47,15 +46,14 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public int currentDamage;
         [HideInInspector] public float currentMoveSpeed;
         [HideInInspector] public float currentAttackSpeed;
-        [HideInInspector] public float currentAttackRange;
+        public float currentAttackRange;
         [HideInInspector] public float currentSightRange;
-        [HideInInspector] public float currentAttackRadius;
         [HideInInspector] public float currentArrowSpeed;
         [HideInInspector] public UnitOrderEnum unitOrderEnum;
         [HideInInspector] public Vector2 attackRangePosition;
         [HideInInspector] public Vector2 sightRangePosition;
         [HideInInspector] public UnitAI unitAI;
-        [HideInInspector] public UnitDirection direction;
+        [HideInInspector] public Direction direction;
         [HideInInspector] public Animator animator;
         [HideInInspector] public int towerPosIndex;
         [HideInInspector] public bool aI = true;
@@ -66,40 +64,44 @@ namespace Assets.Scripts.Concrete.Controllers
 
         [HideInInspector] public CircleCollider2D circleCollider;
         AnimationEventController animationEventController;
-        UnitPathFinding2D pF2D;
+        // UnitPathFinding2D pF2D;
+        PathFindingController pF;
         AttackAI attackAI;
         DefendAI defendAI;
         StayAI stayAI;
         FollowAI followAI;
         UnitAttack unitAttack;
-        Rigidbody2D rb2D;
         TowerAI towerAI;
-
+        Rigidbody2D rb2D;
 
         private void Awake()
         {
-            pF2D = GetComponent<UnitPathFinding2D>();
-            direction = new UnitDirection(pF2D, this);
-            unitAI = new UnitAI(this, pF2D);
-            attackAI = new AttackAI(this, pF2D);
-            defendAI = new DefendAI(this, pF2D);
-            stayAI = new StayAI(this, pF2D);
-            followAI = new FollowAI(this, pF2D);
-            towerAI = new TowerAI(this, pF2D);
+            //pF2D = GetComponent<UnitPathFinding2D>();
+            pF = GetComponent<PathFindingController>();
+            direction = new Direction(transform);
+            unitAI = new UnitAI(this, pF);
+            attackAI = new AttackAI(this, pF);
+            defendAI = new DefendAI(this, pF);
+            stayAI = new StayAI(this, pF);
+            followAI = new FollowAI(this, pF);
+            towerAI = new TowerAI(this, pF);
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
         }
         private void Start()
         {
-            unitAttack = new UnitAttack(this, unitAI, pF2D, animationEventController);
+            unitAttack = new UnitAttack(this, unitAI, animationEventController);
             currentDamage = damage;
             currentAttackSpeed = attackSpeed;
-            currentAttackRadius = attackRadius;
             currentSightRange = sightRange;
             currentAttackRange = attackRange;
+            currentMoveSpeed = moveSpeed;
+            pF.agent.stoppingDistance = currentAttackRange;
+            pF.agent.speed = currentMoveSpeed;
             currentArrowSpeed = arrowSpeed;
             rb2D = GetComponent<Rigidbody2D>();
             animator = transform.GetChild(0).GetComponent<Animator>();
             circleCollider = GetComponent<CircleCollider2D>();
+            attackPoint = transform.GetChild(1);
 
             // Invoke
             InvokeRepeating(nameof(OptimumUnitAI), 0.1f, unitAIPerTime);
@@ -109,19 +111,17 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Update()
         {
-            // Hareket hýzýný fps farkýna göre ayarla
-            currentMoveSpeed = moveSpeed * Time.deltaTime;
+            AnimationControl();
 
-            // Sadece takip edilecek birim atamasý yapýlýr
-            if (unitOrderEnum == UnitOrderEnum.FollowOrder)
+            if (unitOrderEnum == UnitOrderEnum.FollowOrder)  // Sadece takip edilecek birim atamasý yapýlýr
                 followAI.SetFollowUnit();
 
             towerAI.SelectTower();
-            towerAI.DestructTower();
+            //towerAI.DestructTower();
         }
         void OptimumUnitAI()
         {
-            attackRangePosition = transform.GetChild(0).position;
+            RangeControl();
 
             //Unit AI
             if (aI)
@@ -135,12 +135,9 @@ namespace Assets.Scripts.Concrete.Controllers
                     stayAI.StaticMode();
                 if (unitOrderEnum == UnitOrderEnum.FollowOrder)
                     followAI.FollowMode();
-
-                unitAttack.AttackOn();
-
             }
-            unitAI.RigidbodyControl(rb2D, stayBuilding);
-            towerAI.GoTower();
+            //unitAI.RigidbodyControl(rb2D, stayBuilding);
+            //towerAI.GoTower();
         }
         void OptimumDetechEnemies()
         {
@@ -149,39 +146,70 @@ namespace Assets.Scripts.Concrete.Controllers
         void OptimumAITurnDirection()
         {
             // Oyuncunun hareket emri her zaman önceliklidir || Sadece düþman varsa çalýþýr
-            if (pF2D.moveCommand || unitAI.nearestTarget == null) return;
 
-            // pF2D.pathLeftToGo[0]; hedefe giderken kullandýðý yol
-            if (unitTypeEnum == UnitTypeEnum.Villager)
+            // Hedefte düþman varsa ve durduysan, hedefe yönel.
+            if (unitAI.nearestTarget != null && !pF.isUserControl)
             {
-                // Durduðunda hadefe bak
-                if (pF2D.isPathEnd)
-                    direction.Turn2Direction(unitAI.nearestAttackPoint.position.x);
-                // Ýlerlediðinde yola bak
-                else if (pF2D.pathLeftToGo.Count > 0)
-                    direction.Turn2Direction(pF2D.pathLeftToGo[0].x);
-            }
-
-            if (unitTypeEnum == UnitTypeEnum.Archer)
-            {
-                // Durduðunda hadefe bak
-                if (pF2D.isPathEnd)
+                if (unitTypeEnum == UnitTypeEnum.Villager)
+                    direction.Turn2DirectionWithPos(unitAI.nearestAttackPoint.position.x);
+                if (unitTypeEnum == UnitTypeEnum.Archer)
                     direction.Turn8Direction(unitAI.nearestAttackPoint.position);
-                // Ýlerlediðinde yola bak
-                else if (pF2D.pathLeftToGo.Count > 0)
-                    direction.Turn8Direction(pF2D.pathLeftToGo[0]);
-
-            }
-            if (unitTypeEnum == UnitTypeEnum.Worrior)
-            {
-                // Durduðunda hadefe bak
-                if (pF2D.isPathEnd)
+                if (unitTypeEnum == UnitTypeEnum.Worrior)
                     direction.Turn4Direction(unitAI.nearestAttackPoint.position);
-                // Ýlerlediðinde yola bak
-                else if (pF2D.pathLeftToGo.Count > 0)
-                    direction.Turn4Direction(pF2D.pathLeftToGo[0]);
             }
 
+        }
+        void AnimationControl()
+        {
+            AttackOn();
+
+            if (attack)
+            {
+                //Animasyonlar, saldýrýlarý event ile tetikler
+                if (direction.right || direction.left)
+                    AnimationManager.Instance.AttackFrontAnim(animator, currentAttackSpeed);
+                if (direction.up)
+                    AnimationManager.Instance.AttackUpAnim(animator, currentAttackSpeed);
+                if (direction.down)
+                    AnimationManager.Instance.AttackDownAnim(animator, currentAttackSpeed);
+                if (direction.upRight || direction.upLeft)
+                    AnimationManager.Instance.AttackUpFrontAnim(animator, currentAttackSpeed);
+                if (direction.downRight || direction.downLeft)
+                    AnimationManager.Instance.AttackDownFrontAnim(animator, currentAttackSpeed);
+            }
+            else
+            {
+                if (pF.isStopped) // Durduysan = IdleAnim
+                    AnimationManager.Instance.IdleAnim(animator);
+                if (!pF.isStopped)                           // Durmadýysan = RunAnim
+                    AnimationManager.Instance.RunAnim(animator, 1);
+
+            }
+        }
+        void RangeControl()
+        {
+            attackRangePosition = transform.GetChild(0).position;
+
+            if (pF.isUserControl || unitAI.nearestTarget == null)
+                currentAttackRange = 0;
+            else
+                currentAttackRange = attackRange;
+            pF.agent.stoppingDistance = currentAttackRange;
+        }
+
+        void AttackOn()
+        {
+            // Düþman varse ve saldýrý menzilindeyse, yöne göre animasyonlar oynatýlýr.
+            if (unitAI.nearestTarget != null)
+            {
+                if (Vector2.Distance(attackRangePosition, unitAI.nearestAttackPoint.position) < currentAttackRange)
+                    attack = true;
+                else
+                    attack = false;
+            }
+
+            else
+                attack = false;
         }
         private void OnDrawGizmos()
         {
@@ -190,13 +218,6 @@ namespace Assets.Scripts.Concrete.Controllers
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(attackRangePosition, currentAttackRange);
-
-            if (unitTypeEnum == UnitTypeEnum.Worrior || unitTypeEnum == UnitTypeEnum.Villager)
-            {
-                Gizmos.color = Color.black;
-                Gizmos.DrawWireSphere(attackPoint.position, currentAttackRadius);
-
-            }
         }
     }
 }

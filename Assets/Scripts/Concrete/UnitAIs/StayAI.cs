@@ -5,9 +5,7 @@ namespace Assets.Scripts.Concrete.Orders
 {
     internal class StayAI : UnitAI
     {
-        public StayAI(KnightController kC, UnitPathFinding2D pF2D) : base(kC, pF2D)
-        {
-        }
+        public StayAI(KnightController kC, PathFindingController pF) : base(kC, pF) { }
 
         public void StaticMode()
         {
