@@ -29,20 +29,20 @@ namespace Assets.Scripts.Concrete.Combats
      
         void WorriorAttack()
         {
-            kC.hitTargets = Physics2D.OverlapCircleAll(kC.transform.position, kC.currentAttackRange, kC.enemy);
+            kC.hitTargets = Physics2D.OverlapCircleAll(kC.transform.position, kC.attackRange, kC.enemy);
             for (int i = 0; i < kC.hitTargets.Length; i++)
             {
                 if (kC.hitTargets != null)
-                    kC.hitTargets[0].GetComponent<HealthController>().GetHit(kC.currentDamage);
+                    kC.hitTargets[0].GetComponent<HealthController>().GetHit(kC.damage);
             }
         }
         void VillagerAttack()
         {
-            kC.hitTargets = Physics2D.OverlapCircleAll(kC.transform.position, kC.currentAttackRange, kC.enemy);
+            kC.hitTargets = Physics2D.OverlapCircleAll(kC.transform.position, kC.attackRange, kC.enemy);
             for (int i = 0; i < kC.hitTargets.Length; i++)
             {
                 if (kC.hitTargets != null)
-                    kC.hitTargets[i].GetComponent<HealthController>().GetHit(kC.currentDamage);
+                    kC.hitTargets[i].GetComponent<HealthController>().GetHit(kC.damage);
             }
         }
         void ArcherAttack()
@@ -50,8 +50,8 @@ namespace Assets.Scripts.Concrete.Combats
             GameObject obj = Object.Instantiate(kC.arrow, kC.attackRangePosition, Quaternion.identity);
             Arrow arrow = obj.GetComponent<Arrow>();
             arrow.target = unitAI.nearestTarget;
-            arrow.damage = kC.currentDamage;
-            arrow.arrowSpeed = kC.currentArrowSpeed;
+            arrow.damage = kC.damage;
+            arrow.arrowSpeed = kC.arrowSpeed;
         }
 
     }

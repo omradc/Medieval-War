@@ -97,11 +97,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4458816675811575864}
   - component: {fileID: 5296312539388257771}
-  - component: {fileID: 5402567136754471814}
+  - component: {fileID: -2470163256680981598}
   - component: {fileID: 2195796025414383232}
   - component: {fileID: 8729491755545881928}
   - component: {fileID: -9060488368643723994}
-  - component: {fileID: -2470163256680981598}
+  - component: {fileID: 3944001883110245084}
+  - component: {fileID: -8796921048083903118}
   m_Layer: 6
   m_Name: Pawn
   m_TagString: Villager
@@ -164,37 +165,33 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.25
---- !u!114 &5402567136754471814
-MonoBehaviour:
+--- !u!50 &-2470163256680981598
+Rigidbody2D:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 654264683168969111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a9b1b0f1b7052745a71c828edb13530, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path: []
-  pathLeftToGo: []
-  right: 0
-  left: 0
-  up: 0
-  down: 0
-  upRight: 0
-  upLeft: 0
-  downRight: 0
-  downLeft: 0
-  isUserPathFinding: 0
-  isPathEnd: 0
-  moveCommand: 0
-  obstacle:
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDamping: 0
+  m_AngularDamping: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 2176
-  drawLine: 1
-  lastMousePos: {x: 0, y: 0}
-  animator: {fileID: 0}
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!114 &2195796025414383232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,15 +204,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84475765e22c092489325f6d04f6e281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack: 0
   unitTypeEnum: 2
   isSeleceted: 0
-  attackRadius: 0.5
-  attackPoint: {fileID: 4240037878643666958}
-  attackPointDistance: 0.6
   arrowSpeed: 0
   arrow: {fileID: 0}
   damage: 1
-  moveSpeed: 1
+  moveSpeed: 1.2
   attackSpeed: 1
   attackRange: 0.7
   sightRange: 8
@@ -235,7 +230,6 @@ MonoBehaviour:
   currentAttackSpeed: 0
   currentAttackRange: 0.7
   currentSightRange: 4
-  currentAttackRadius: 0
   currentArrowSpeed: 0
   unitOrderEnum: 0
   attackRangePosition: {x: 0, y: 0}
@@ -334,33 +328,45 @@ MonoBehaviour:
   meatIdle: {fileID: 0}
   sheepController: {fileID: 0}
   animationEventController: {fileID: 0}
---- !u!50 &-2470163256680981598
-Rigidbody2D:
-  serializedVersion: 5
+--- !u!114 &3944001883110245084
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 654264683168969111}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 0.0001
-  m_LinearDamping: 0
-  m_AngularDamping: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isStopped: 1
+  isUserControl: 0
+  agent: {fileID: 0}
+  lastMousePos: {x: 0, y: 0}
+  moveSpeed: 0
+--- !u!195 &-8796921048083903118
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654264683168969111}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.25
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 0
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.5
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1505308617181909231
 GameObject:
   m_ObjectHideFlags: 0

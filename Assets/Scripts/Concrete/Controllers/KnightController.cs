@@ -11,7 +11,6 @@ namespace Assets.Scripts.Concrete.Controllers
 {
     internal class KnightController : MonoBehaviour
     {
-        public bool attack;
         [Header("UNIT TYPE")]
         public UnitTypeEnum unitTypeEnum;
         public bool isSeleceted;
@@ -19,52 +18,44 @@ namespace Assets.Scripts.Concrete.Controllers
         [Header("WORRIOR AND VILLAGER")]
         Transform attackPoint;
 
-        [Header("Archer")]
+        [Header("ARCHER")]
         public float arrowSpeed;
         [HideInInspector] public GameObject arrow;
 
-
         [Space(30)]
         [Header("UNIT")]
-        public int damage;
         [Range(0.1f, 2f)] public float moveSpeed = 1f;
+        public int damage;
         public float attackSpeed;
         public float attackRange;
         public float sightRange;
+
         [Header("UNIT SETTÝNGS")]
         [Range(0.1f, 1f)] public float unitAIPerTime = 0.5f;
-        [Range(0.1f, 1f)] public float detechTargetPerTime = 0.5f;
-        [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
         [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
         public LayerMask enemy;
-
         public Collider2D[] followTargets;
-        [HideInInspector] public Collider2D[] hitTargets;
 
-        [HideInInspector] public GameObject followingObj;
+        [HideInInspector] public Collider2D[] hitTargets;
+        public GameObject followingObj;
         [HideInInspector] public bool workOnce = true;
-        [HideInInspector] public int currentDamage;
-        [HideInInspector] public float currentMoveSpeed;
-        [HideInInspector] public float currentAttackSpeed;
-        public float currentAttackRange;
+        [HideInInspector] public float currentStoppingDistance;
         [HideInInspector] public float currentSightRange;
-        [HideInInspector] public float currentArrowSpeed;
-        [HideInInspector] public UnitOrderEnum unitOrderEnum;
+        public UnitOrderEnum unitOrderEnum;
+        [HideInInspector] public bool attack;
         [HideInInspector] public Vector2 attackRangePosition;
         [HideInInspector] public Vector2 sightRangePosition;
         [HideInInspector] public UnitAI unitAI;
         [HideInInspector] public Direction direction;
         [HideInInspector] public Animator animator;
         [HideInInspector] public int towerPosIndex;
-        [HideInInspector] public bool aI = true;
+         public bool aI = true;
         [HideInInspector] public bool onBuilding;
-        [HideInInspector] public bool stayBuilding;
+        [HideInInspector] public bool onBuildingStay;
         [HideInInspector] public bool goBuilding;
-
-
         [HideInInspector] public CircleCollider2D circleCollider;
+
         AnimationEventController animationEventController;
-        // UnitPathFinding2D pF2D;
         PathFindingController pF;
         AttackAI attackAI;
         DefendAI defendAI;
@@ -76,7 +67,6 @@ namespace Assets.Scripts.Concrete.Controllers
 
         private void Awake()
         {
-            //pF2D = GetComponent<UnitPathFinding2D>();
             pF = GetComponent<PathFindingController>();
             direction = new Direction(transform);
             unitAI = new UnitAI(this, pF);
@@ -90,14 +80,10 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Start()
         {
             unitAttack = new UnitAttack(this, unitAI, animationEventController);
-            currentDamage = damage;
-            currentAttackSpeed = attackSpeed;
             currentSightRange = sightRange;
-            currentAttackRange = attackRange;
-            currentMoveSpeed = moveSpeed;
-            pF.agent.stoppingDistance = currentAttackRange;
-            pF.agent.speed = currentMoveSpeed;
-            currentArrowSpeed = arrowSpeed;
+            currentStoppingDistance = attackRange;
+            pF.agent.stoppingDistance = currentStoppingDistance;
+            pF.agent.speed = moveSpeed;
             rb2D = GetComponent<Rigidbody2D>();
             animator = transform.GetChild(0).GetComponent<Animator>();
             circleCollider = GetComponent<CircleCollider2D>();
@@ -105,48 +91,44 @@ namespace Assets.Scripts.Concrete.Controllers
 
             // Invoke
             InvokeRepeating(nameof(OptimumUnitAI), 0.1f, unitAIPerTime);
-            InvokeRepeating(nameof(OptimumDetechEnemies), .5f, detechTargetPerTime);
-            InvokeRepeating(nameof(OptimumAITurnDirection), 0.1f, turnDirectionPerTime);
-
         }
         private void Update()
         {
             AnimationControl();
-
+            RangeControl();
             if (unitOrderEnum == UnitOrderEnum.FollowOrder)  // Sadece takip edilecek birim atamasý yapýlýr
-                followAI.SetFollowUnit();
+            {
+                // Hedef boþ ise, hedefi belirle, sadece 1 kez
+                if (InteractManager.Instance.interactedKnight != null && workOnce)
+                {
+                    followingObj = InteractManager.Instance.interactedKnight;
+                    workOnce = false;
+                }
+            }    
 
             towerAI.SelectTower();
             //towerAI.DestructTower();
         }
         void OptimumUnitAI()
         {
-            RangeControl();
+            
+            towerAI.GoTower();
 
-            //Unit AI
-            if (aI)
+            if (aI) //Knight AI
             {
+                DetechEnemies();
+                AITurnDirection();
                 unitAI.CatchNeraestTarget();
-                if (unitOrderEnum == UnitOrderEnum.AttackOrder)
-                    attackAI.AttackMode();
-                if (unitOrderEnum == UnitOrderEnum.DefendOrder)
-                    defendAI.DefendMode();
-                if (unitOrderEnum == UnitOrderEnum.StayOrder)
-                    stayAI.StaticMode();
-                if (unitOrderEnum == UnitOrderEnum.FollowOrder)
-                    followAI.FollowMode();
+                unitAI.UnitBehaviours();
             }
-            //unitAI.RigidbodyControl(rb2D, stayBuilding);
-            //towerAI.GoTower();
+
         }
-        void OptimumDetechEnemies()
+        void DetechEnemies()
         {
             followTargets = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemy);
         }
-        void OptimumAITurnDirection()
+        void AITurnDirection()
         {
-            // Oyuncunun hareket emri her zaman önceliklidir || Sadece düþman varsa çalýþýr
-
             // Hedefte düþman varsa ve durduysan, hedefe yönel.
             if (unitAI.nearestTarget != null && !pF.isUserControl)
             {
@@ -165,17 +147,17 @@ namespace Assets.Scripts.Concrete.Controllers
 
             if (attack)
             {
-                //Animasyonlar, saldýrýlarý event ile tetikler
+                //Animasyonlar, saldýrýlarý event ile tetikler ve yöne göre animasyonlar oynatýlýr.
                 if (direction.right || direction.left)
-                    AnimationManager.Instance.AttackFrontAnim(animator, currentAttackSpeed);
+                    AnimationManager.Instance.AttackFrontAnim(animator, attackSpeed);
                 if (direction.up)
-                    AnimationManager.Instance.AttackUpAnim(animator, currentAttackSpeed);
+                    AnimationManager.Instance.AttackUpAnim(animator, attackSpeed);
                 if (direction.down)
-                    AnimationManager.Instance.AttackDownAnim(animator, currentAttackSpeed);
+                    AnimationManager.Instance.AttackDownAnim(animator, attackSpeed);
                 if (direction.upRight || direction.upLeft)
-                    AnimationManager.Instance.AttackUpFrontAnim(animator, currentAttackSpeed);
+                    AnimationManager.Instance.AttackUpFrontAnim(animator, attackSpeed);
                 if (direction.downRight || direction.downLeft)
-                    AnimationManager.Instance.AttackDownFrontAnim(animator, currentAttackSpeed);
+                    AnimationManager.Instance.AttackDownFrontAnim(animator, attackSpeed);
             }
             else
             {
@@ -190,19 +172,25 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             attackRangePosition = transform.GetChild(0).position;
 
-            if (pF.isUserControl || unitAI.nearestTarget == null)
-                currentAttackRange = 0;
-            else
-                currentAttackRange = attackRange;
-            pF.agent.stoppingDistance = currentAttackRange;
-        }
+            if (!aI)
+                sightRangePosition = transform.GetChild(0).position;
 
+            if (unitOrderEnum != UnitOrderEnum.FollowOrder)
+            {
+                if (pF.isUserControl || unitAI.nearestTarget == null || goBuilding)
+                    currentStoppingDistance = 0;
+            }
+            else
+                currentStoppingDistance = attackRange;
+
+            pF.agent.stoppingDistance = currentStoppingDistance;
+        }
         void AttackOn()
         {
-            // Düþman varse ve saldýrý menzilindeyse, yöne göre animasyonlar oynatýlýr.
+            // Düþman varse ve saldýrý menzilindeyse, saldýrý aktifleþir
             if (unitAI.nearestTarget != null)
             {
-                if (Vector2.Distance(attackRangePosition, unitAI.nearestAttackPoint.position) < currentAttackRange)
+                if (Vector2.Distance(attackRangePosition, unitAI.nearestAttackPoint.position) < attackRange && !pF.isUserControl && !goBuilding)
                     attack = true;
                 else
                     attack = false;
@@ -217,7 +205,7 @@ namespace Assets.Scripts.Concrete.Controllers
             Gizmos.DrawWireSphere(sightRangePosition, currentSightRange);
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attackRangePosition, currentAttackRange);
+            Gizmos.DrawWireSphere(attackRangePosition, attackRange);
         }
     }
 }

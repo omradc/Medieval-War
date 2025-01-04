@@ -20,7 +20,7 @@ namespace Assets.Scripts.Concrete.Managers
         [SerializeField] LayerMask unitLayer;
         [SerializeField] LayerMask interactableLayers;
         public GameObject interactedObj;
-        public GameObject interactedUnit;
+        public GameObject interactedKnight;
         public GameObject interactedMine;
         public GameObject interactedTree;
         public GameObject interactedSheep;
@@ -36,7 +36,8 @@ namespace Assets.Scripts.Concrete.Managers
         public Vector2 startPos;
         Vector2 endPos;
         public bool isDragging;
-
+        float time;
+        bool clicked;
 
         private void Awake()
         {
@@ -60,7 +61,7 @@ namespace Assets.Scripts.Concrete.Managers
         }
         private void Update()
         {
-            SelectOneByOne();
+            //SelectOneByOne();
             SelectMultiple();
             ClearSelectedObjs();
             GiveOrder();
@@ -70,17 +71,9 @@ namespace Assets.Scripts.Concrete.Managers
                 ınteract.InteractClickedObj();
                 if (interactedObj != null)
                 {
-                    //// Etkileşim olan obje ev, kule veya kale ise, etkileşim ekranı açılır
-                    //if (interactedObj.layer == 8 || interactedObj.layer == 9 || interactedObj.layer == 10)
-                    //    interactedObj.GetComponent<PanelController>().InteractablePanelVisibility(true);
-
-                    //// Etkileşim olan obje yıkılmış ise, panel açılır
-                    //if (interactedObj.layer == 26)
-                    //    interactedObj.GetComponent<PanelController>().DestructPanelVisiblity(true);
-
                     // Etkileşim olan obje, birim ise,
                     if (interactedObj.layer == 6)
-                        interactedUnit = interactedObj;
+                        interactedKnight = interactedObj;
 
                     // Etkileşim olan obje, maden ise,
                     if (interactedObj.layer == 14)
@@ -116,7 +109,7 @@ namespace Assets.Scripts.Concrete.Managers
                 interactedTree = null;
                 interactedSheep = null;
                 interactedFences = null;
-                interactedUnit = null; //follow AI da boşa düşürüldü
+                interactedKnight = null; //follow AI da boşa düşürüldü
                 interactedTower = null;
                 interactedConstruction = null;
             }
@@ -158,7 +151,7 @@ namespace Assets.Scripts.Concrete.Managers
                 if (hit.collider != null)
                 {
                     currentUnit = hit.collider.gameObject;
-                    KnightController kC = currentUnit.GetComponent<Controllers.KnightController>();
+                    KnightController kC = currentUnit.GetComponent<KnightController>();
                     kC.unitOrderEnum = KnightManager.Instance.unitOrderEnum;
                     kC.workOnce = true;
                     kC.followingObj = null;
@@ -182,7 +175,6 @@ namespace Assets.Scripts.Concrete.Managers
                 isDragging = true;
             }
 
-
             if (ıInput.GetButtonUp1)
             {
                 endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -190,13 +182,12 @@ namespace Assets.Scripts.Concrete.Managers
                 Collider2D[] hits = Physics2D.OverlapAreaAll(startPos, endPos, unitLayer);
                 for (int i = 0; i < hits.Length; i++)
                 {
-
                     currentUnit = hits[i].gameObject;
 
                     // Aynı nesneyi tekrar diziye atma
                     if (!selectedUnits.Contains(currentUnit))
                         selectedUnits.Add(currentUnit);
-                    Controllers.KnightController uC = selectedUnits[i].gameObject.GetComponent<Controllers.KnightController>();
+                    KnightController uC = selectedUnits[i].gameObject.GetComponent<KnightController>();
                     uC.unitOrderEnum = KnightManager.Instance.unitOrderEnum;
                     uC.workOnce = true;
                     uC.followingObj = null;
@@ -232,6 +223,28 @@ namespace Assets.Scripts.Concrete.Managers
                 selectedUnits.Clear();
             }
 
+
+            // Hareket emrinden önce çalışmamamsı 5 frame için bekletilir.
+            if (!ıInput.GetKeyLShift && ıInput.GetButtonDown0)
+                clicked = true;
+
+            if (clicked)
+            {
+                if (time > Time.deltaTime * 5) // 5 Frame bekle
+                {
+                    for (int i = 0; i < selectedUnits.Count; i++)
+                    {
+                        SelectedObjColor(1, selectedUnits[i]);
+                        selectedUnits[i].GetComponent<KnightController>().isSeleceted = false;
+                    }
+
+                    selectedUnits.Clear();
+                    time = 0;
+                    clicked = false;
+                }
+                time += Time.deltaTime;
+            }
+
             // Sadece köylüleri siler
             if (ıInput.GetButtonDown0)
             {
@@ -246,13 +259,13 @@ namespace Assets.Scripts.Concrete.Managers
                     }
                     else
                         j++;
-
                 }
-
             }
 
+
+
         }
-        void SelectedObjColor(float alphaValue, GameObject obj)
+        public void SelectedObjColor(float alphaValue, GameObject obj)
         {
             Color color = obj.transform.GetChild(0).GetComponent<SpriteRenderer>().color;
             color.a = alphaValue;

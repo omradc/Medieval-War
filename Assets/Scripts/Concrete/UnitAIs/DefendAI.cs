@@ -23,7 +23,7 @@ namespace Assets.Scripts.Concrete.Orders
             kC.sightRangePosition = pF.lastMousePos;
             if (work)
             {
-                kC.currentSightRange = kC.sightRange + kC.currentAttackRange / 2;
+                kC.currentSightRange = kC.sightRange + kC.attackRange / 2;
                 work = false;
             }
         }

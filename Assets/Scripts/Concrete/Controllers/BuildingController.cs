@@ -11,7 +11,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [SerializeField] int destroyTime;
 
         // Kule yapay zekası için gerekli değerler
-        [HideInInspector] public bool isFull;
+        public bool isFull;
         [HideInInspector] public bool destruct;
         [HideInInspector] public int unitValue;
 

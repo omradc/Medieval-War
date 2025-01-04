@@ -31,13 +31,13 @@ namespace Assets.Scripts.Concrete.Controllers
             Zoom();
             MovementByKeys();
 
-            // Esc Toggle
-            if (Input.GetKeyDown(KeyCode.Escape))
-                fixedCamera = !fixedCamera;
-            if (!fixedCamera)
-                return;
+            //// Esc Toggle
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //    fixedCamera = !fixedCamera;
+            //if (!fixedCamera)
+            //    return;
 
-            MovementByMouse();
+            //MovementByMouse();
 
         }
 

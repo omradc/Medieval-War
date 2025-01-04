@@ -14,7 +14,7 @@ namespace Assets.Scripts.Concrete.Orders
 
         void SetRange()
         {
-            kC.currentSightRange = kC.currentAttackRange;
+            kC.currentSightRange = kC.attackRange;
             kC.sightRangePosition = kC.transform.GetChild(0).position;
 
         }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Concrete.Managers;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Assets.Scripts.Concrete.Movements
@@ -7,14 +8,12 @@ namespace Assets.Scripts.Concrete.Movements
     {
         public bool isStopped = true;
         public bool isUserControl;
-        public float userAndAIControlTransitionTime = 0.1f;
-
-        float time;
-
         [HideInInspector] public NavMeshAgent agent;
         [HideInInspector] public Vector2 lastMousePos;
         [HideInInspector] public float moveSpeed;
         Direction direction;
+        float time;
+
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -29,9 +28,11 @@ namespace Assets.Scripts.Concrete.Movements
 
         private void Update()
         {
+            // Birim hareket ederken gittiği yolu izler
+            direction.Turn2DirectionWithVelocity(agent.velocity.x);
 
-            //direction.Turn2DirectionWithVelocity(agent.velocity.x);
-            if (agent.hasPath)
+            // Durma kontrolü
+            if (agent.hasPath && agent.velocity.magnitude > 0)
                 isStopped = false;
 
             else
@@ -45,15 +46,19 @@ namespace Assets.Scripts.Concrete.Movements
                 time += Time.deltaTime;
             }
         }
+
+        // Kullanıcı hareketi
         public void Move(Vector3 mousePos)
         {
-            if (mousePos == null) return;
+            // Pozisyon verilmediyse veya etkilleşimli bir objeye tıklandıysa çalışma
+            if (mousePos == null || InteractManager.Instance.interactedObj != null) return;
             print("Move");
             lastMousePos = mousePos;
             agent.SetDestination(mousePos);
             isUserControl = true;
         }
 
+        // AI hareketi
         public void MoveAI(Vector3 pos)
         {
             if (pos == null || isUserControl) return;

@@ -37,12 +37,12 @@ namespace Assets.Scripts.Concrete.Movements
             if (pathLeftToGo.Count > 0) //if the target is not yet reached
             {
                 Vector3 dir = (Vector3)pathLeftToGo[0] - transform.position;
-                transform.position += dir.normalized * kC.currentMoveSpeed;
+                transform.position += dir.normalized * kC.moveSpeed;
 
                 //pathLeftToGo[0]; hedefe giderken kullandýðý yola bakmasýný saðlar
                 direction.Turn2DirectionWithPos(pathLeftToGo[0].x);
 
-                if (((Vector2)transform.position - pathLeftToGo[0]).sqrMagnitude < kC.currentMoveSpeed * kC.currentMoveSpeed)
+                if (((Vector2)transform.position - pathLeftToGo[0]).sqrMagnitude < kC.moveSpeed * kC.moveSpeed)
                 {
                     transform.position = pathLeftToGo[0];
                     pathLeftToGo.RemoveAt(0);
@@ -53,7 +53,6 @@ namespace Assets.Scripts.Concrete.Movements
             {
                 isUserPathFinding = false;
                 moveCommand = false;
-                kC.currentAttackRange = kC.attackRange;
                 direction.Turn2DirectionWithPos(Mathf.Infinity);
                 if (kC.followTargets.Length <= 0)
                 {
@@ -81,7 +80,7 @@ namespace Assets.Scripts.Concrete.Movements
             isUserPathFinding = true;
             isPathEnd = false;
             searchShortcut = false;
-            kC.currentAttackRange = 0;
+            kC.attackRange = 0;
             lastMousePos = mousePos;
             Vector2 closestNode = GetClosestNode(transform.position);
             if (pathfinder.GenerateAstarPath(closestNode, GetClosestNode(mousePos), out path)) //Generate path between two points on grid that are close to the transform position and the assigned target.

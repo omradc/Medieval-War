@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4088060588445281749}
   - component: {fileID: -8081813939892308413}
-  - component: {fileID: -1045142597655863565}
+  - component: {fileID: -5882422694534515164}
   - component: {fileID: -5201736685492982202}
   - component: {fileID: 2140753509579492637}
-  - component: {fileID: -5882422694534515164}
+  - component: {fileID: 6747969190704152676}
+  - component: {fileID: 6455696069564880554}
   m_Layer: 6
   m_Name: Warrior
   m_TagString: Warrior
@@ -74,37 +75,33 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.25
---- !u!114 &-1045142597655863565
-MonoBehaviour:
+--- !u!50 &-5882422694534515164
+Rigidbody2D:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4195786962051834586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a9b1b0f1b7052745a71c828edb13530, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path: []
-  pathLeftToGo: []
-  right: 0
-  left: 0
-  up: 0
-  down: 0
-  upRight: 0
-  upLeft: 0
-  downRight: 0
-  downLeft: 0
-  isUserPathFinding: 0
-  isPathEnd: 0
-  moveCommand: 0
-  obstacle:
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDamping: 0
+  m_AngularDamping: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 2176
-  drawLine: 1
-  lastMousePos: {x: 0, y: 0}
-  animator: {fileID: 0}
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!114 &-5201736685492982202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,11 +138,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84475765e22c092489325f6d04f6e281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack: 0
   unitTypeEnum: 0
   isSeleceted: 0
-  attackRadius: 0.5
-  attackPoint: {fileID: 0}
-  attackPointDistance: 0.5
   arrowSpeed: 0
   arrow: {fileID: 0}
   damage: 1
@@ -169,7 +164,6 @@ MonoBehaviour:
   currentAttackSpeed: 0
   currentAttackRange: 0
   currentSightRange: 0
-  currentAttackRadius: 0
   currentArrowSpeed: 0
   unitOrderEnum: 0
   attackRangePosition: {x: 0, y: 0}
@@ -181,33 +175,45 @@ MonoBehaviour:
   stayBuilding: 0
   goBuilding: 0
   circleCollider: {fileID: 0}
---- !u!50 &-5882422694534515164
-Rigidbody2D:
-  serializedVersion: 5
+--- !u!114 &6747969190704152676
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4195786962051834586}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 0.0001
-  m_LinearDamping: 0
-  m_AngularDamping: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isStopped: 1
+  isUserControl: 0
+  agent: {fileID: 0}
+  lastMousePos: {x: 0, y: 0}
+  moveSpeed: 0
+--- !u!195 &6455696069564880554
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195786962051834586}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.25
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 0
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.5
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &7966265824583163113
 GameObject:
   m_ObjectHideFlags: 0

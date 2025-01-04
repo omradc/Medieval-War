@@ -9,5 +9,6 @@
         bool GetButtonUp1 { get; }
         bool GetButton1 { get; }
         bool GetKeyDownEscape { get; }
+        bool GetKeyLShift { get; }
     }
 }

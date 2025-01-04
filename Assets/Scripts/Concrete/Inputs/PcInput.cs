@@ -12,5 +12,6 @@ namespace Assets.Scripts.Concrete.Inputs
         public bool GetButtonUp1 => Input.GetMouseButtonUp(1);
         public bool GetButton1 => Input.GetMouseButton(1);
         public bool GetKeyDownEscape => Input.GetKeyDown(KeyCode.Escape);
+        public bool GetKeyLShift => Input.GetKey(KeyCode.LeftShift);
     }
 }

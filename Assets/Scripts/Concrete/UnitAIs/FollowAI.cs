@@ -17,9 +17,9 @@ namespace Assets.Scripts.Concrete.Orders
         public void SetFollowUnit()
         {
             // Hedef boş ise, hedefi belirle, sadece 1 kez
-            if (InteractManager.Instance.interactedUnit != null && kC.workOnce)
+            if (InteractManager.Instance.interactedKnight != null && kC.workOnce)
             {
-                kC.followingObj = InteractManager.Instance.interactedUnit;
+                kC.followingObj = InteractManager.Instance.interactedKnight;
                 kC.workOnce = false;
             }
 

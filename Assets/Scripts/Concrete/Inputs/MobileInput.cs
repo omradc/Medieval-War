@@ -10,7 +10,7 @@ namespace Assets.Scripts.Concrete.Inputs
         public bool GetButtonDown1 => throw new System.NotImplementedException();
         public bool GetButtonUp1 => throw new System.NotImplementedException();
         public bool GetButton1 => throw new System.NotImplementedException();
-
         public bool GetKeyDownEscape => throw new System.NotImplementedException();
+        public bool GetKeyLShift => throw new System.NotImplementedException();
     }
 }
