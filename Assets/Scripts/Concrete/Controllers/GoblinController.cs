@@ -1,13 +1,12 @@
 ﻿using Assets.Scripts.Concrete.Combats;
-using Assets.Scripts.Concrete.EnemyAIs;
+using Assets.Scripts.Concrete.AI;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Movements;
-using Assets.Scripts.Concrete.Orders;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
-    internal class EnemyController : MonoBehaviour
+    internal class GoblinController : MonoBehaviour
     {
         [Header("ENEMY TYPE")]
         public EnemyTypeEnum enemyTypeEnum;

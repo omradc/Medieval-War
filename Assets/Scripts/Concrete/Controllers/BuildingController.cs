@@ -5,7 +5,6 @@ namespace Assets.Scripts.Concrete.Controllers
     class BuildingController : MonoBehaviour
     {
         public GameObject construction;
-        public Collider2D physicalCollider;
         bool workOnce = true;
         [SerializeField] bool destroyPermanent;
         [SerializeField] int destroyTime;
@@ -39,9 +38,7 @@ namespace Assets.Scripts.Concrete.Controllers
         void Destruct()
         {
             if (!workOnce) return;
-            Debug.Log("Destruct");
             destruct = true;
-            physicalCollider.enabled = false;
             healthController.enabled = false;
             healthController.HealthBarVisibility(false);
             visualBuilding.SetActive(false);
@@ -59,7 +56,6 @@ namespace Assets.Scripts.Concrete.Controllers
             if (buttonController == null) return;
             if (buttonController.upgrade)
             {
-                Debug.Log("Upgrade");
                 GameObject obj = Instantiate(buttonController.construct, transform.position, Quaternion.identity);
                 obj.GetComponent<ConstructController>().constructing = buttonController.upgradedBuilding;
                 Destroy(gameObject, destroyTime);

@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
-using Assets.Scripts.Concrete.EnemyAIs;
+using Assets.Scripts.Concrete.AI;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
@@ -9,23 +9,23 @@ namespace Assets.Scripts.Concrete.Combats
 {
     internal class EnemyAttack
     {
-        EnemyController eC;
+        GoblinController gC;
         EnemyAI enemyAI;
         EnemyPathFinding2D ePF2D;
         AnimationEventController animationEventController;
-        public EnemyAttack(EnemyController eC, EnemyAI enemyAI, EnemyPathFinding2D ePF2D, AnimationEventController animationEventController)
+        public EnemyAttack(GoblinController gC, EnemyAI enemyAI, EnemyPathFinding2D ePF2D, AnimationEventController animationEventController)
         {
-            this.eC = eC;
+            this.gC = gC;
             this.enemyAI = enemyAI;
             this.ePF2D = ePF2D;
             this.animationEventController = animationEventController;
 
 
-            if (eC.enemyTypeEnum == EnemyTypeEnum.Torch)
+            if (gC.enemyTypeEnum == EnemyTypeEnum.Torch)
                 animationEventController.AttackEvent += TorchAttack;
-            if (eC.enemyTypeEnum == EnemyTypeEnum.Tnt)
+            if (gC.enemyTypeEnum == EnemyTypeEnum.Tnt)
                 animationEventController.AttackEvent += DynamiteAttack;
-            if (eC.enemyTypeEnum == EnemyTypeEnum.Barrel)
+            if (gC.enemyTypeEnum == EnemyTypeEnum.Barrel)
                 animationEventController.AttackEvent += BarrelAttack;
 
         }
@@ -39,14 +39,14 @@ namespace Assets.Scripts.Concrete.Combats
                 return;
             }
             // Düşman saldırı menzilindeyse, yöne göre animasyonlar oynatılır. Animasyonlar, saldırıları event ile tetikler
-            if (Vector2.Distance(eC.attackRangePosition, enemyAI.nearestAttackPoint.position) < eC.currentAttackRange)
+            if (Vector2.Distance(gC.attackRangePosition, enemyAI.nearestAttackPoint.position) < gC.currentAttackRange)
             {
                 if (ePF2D.right || ePF2D.left)
-                    AnimationManager.Instance.AttackFrontAnim(ePF2D.animator, eC.currentAttackSpeed);
+                    AnimationManager.Instance.AttackFrontAnim(ePF2D.animator, gC.currentAttackSpeed);
                 if (ePF2D.up)
-                    AnimationManager.Instance.AttackUpAnim(ePF2D.animator, eC.currentAttackSpeed);
+                    AnimationManager.Instance.AttackUpAnim(ePF2D.animator, gC.currentAttackSpeed);
                 if (ePF2D.down)
-                    AnimationManager.Instance.AttackDownAnim(ePF2D.animator, eC.currentAttackSpeed);
+                    AnimationManager.Instance.AttackDownAnim(ePF2D.animator, gC.currentAttackSpeed);
             }
 
 
@@ -56,31 +56,31 @@ namespace Assets.Scripts.Concrete.Combats
         // Saldırılar event ile tetiklenir
         void TorchAttack()
         {
-            eC.hitTargets = Physics2D.OverlapCircleAll(eC.torchAttackPoint.position, eC.currentAttackRadius, eC.targetAll);
-            for (int i = 0; i < eC.hitTargets.Length; i++)
+            gC.hitTargets = Physics2D.OverlapCircleAll(gC.torchAttackPoint.position, gC.currentAttackRadius, gC.targetAll);
+            for (int i = 0; i < gC.hitTargets.Length; i++)
             {
-                if (eC.hitTargets != null)
-                    eC.hitTargets[0].GetComponent<HealthController>().GetHit(eC.currentDamage);
+                if (gC.hitTargets != null)
+                    gC.hitTargets[0].GetComponent<HealthController>().GetHit(gC.currentDamage);
             }
         }
         void DynamiteAttack()
         {
-            GameObject obj = Object.Instantiate(eC.dynamite, eC.attackRangePosition, Quaternion.identity);
+            GameObject obj = Object.Instantiate(gC.dynamite, gC.attackRangePosition, Quaternion.identity);
             Dynamite dynamite = obj.GetComponent<Dynamite>();
-            dynamite.targetLayer = eC.targetAll;
+            dynamite.targetLayer = gC.targetAll;
             dynamite.target = enemyAI.nearestTarget;
-            dynamite.damage = eC.currentDamage;
-            dynamite.radius = eC.currentDynamiteExplosionRadius;
-            dynamite.dynamiteSpeed = eC.currentDynamiteSpeed;
+            dynamite.damage = gC.currentDamage;
+            dynamite.radius = gC.currentDynamiteExplosionRadius;
+            dynamite.dynamiteSpeed = gC.currentDynamiteSpeed;
         }
         void BarrelAttack()
         {
-            GameObject obj = Object.Instantiate(eC.explosion, eC.attackRangePosition, Quaternion.identity);
+            GameObject obj = Object.Instantiate(gC.explosion, gC.attackRangePosition, Quaternion.identity);
             Explosion explosion = obj.GetComponent<Explosion>();
-            explosion.targetLayer = eC.targetAll;
-            explosion.damage = eC.currentDamage;
-            explosion.radius = eC.currentBarrelExplosionRadius;
-            Object.Destroy(eC.gameObject);
+            explosion.targetLayer = gC.targetAll;
+            explosion.damage = gC.currentDamage;
+            explosion.radius = gC.currentBarrelExplosionRadius;
+            Object.Destroy(gC.gameObject);
         }
     }
 }

@@ -1,17 +1,15 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
-using Assets.Scripts.Concrete.KnightBuildings;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 
-namespace Assets.Scripts.Concrete.EnemyAIs
+namespace Assets.Scripts.Concrete.AI
 {
     internal class EnemyAI
     {
-        EnemyController eC;
+        GoblinController gC;
         EnemyPathFinding2D ePF2D;
         BuildingController buildingController;
         SpriteRenderer tntSpriteRenderer;
@@ -26,35 +24,35 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         bool patrol;
         int index;
 
-        public EnemyAI(EnemyController enemyController, EnemyPathFinding2D enemyPathFinding2D)
+        public EnemyAI(GoblinController goblinController, EnemyPathFinding2D enemyPathFinding2D)
         {
-            eC = enemyController;
+            gC = goblinController;
             ePF2D = enemyPathFinding2D;
-            firstPoint = eC.transform.position;
+            firstPoint = gC.transform.position;
             targetPoint = firstPoint;
-            tntSpriteRenderer = eC.transform.GetChild(0).GetComponent<SpriteRenderer>();
+            tntSpriteRenderer = gC.transform.GetChild(0).GetComponent<SpriteRenderer>();
         }
         public GameObject DetechNearestTarget()
         {
-            if (eC.enemyTypeEnum == EnemyTypeEnum.Barrel)
+            if (gC.enemyTypeEnum == EnemyTypeEnum.Barrel)
             {
 
                 // Varilin Önceliği yapılardır
-                if (eC.playerBuildings.Length > 0)
+                if (gC.playerBuildings.Length > 0)
                 {
                     GameObject nearestTarget = null;
                     float shortestDistance = Mathf.Infinity;
 
-                    for (int i = 0; i < eC.playerBuildings.Length; i++)
+                    for (int i = 0; i < gC.playerBuildings.Length; i++)
                     {
-                        if (eC.playerBuildings[i] != null)
+                        if (gC.playerBuildings[i] != null)
                         {
-                            float distanceToEnemy = Vector2.Distance(eC.transform.position, eC.playerBuildings[i].transform.position);
+                            float distanceToEnemy = Vector2.Distance(gC.transform.position, gC.playerBuildings[i].transform.position);
 
                             if (shortestDistance > distanceToEnemy)
                             {
                                 shortestDistance = distanceToEnemy;
-                                nearestTarget = eC.playerBuildings[i].gameObject;
+                                nearestTarget = gC.playerBuildings[i].gameObject;
                             }
 
                         }
@@ -64,21 +62,21 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                 }
 
                 // Yapı yoksa birimler
-                if (eC.playerUnits.Length > 0)
+                if (gC.playerUnits.Length > 0)
                 {
                     GameObject nearestTarget = null;
                     float shortestDistance = Mathf.Infinity;
 
-                    for (int i = 0; i < eC.playerUnits.Length; i++)
+                    for (int i = 0; i < gC.playerUnits.Length; i++)
                     {
-                        if (eC.playerUnits[i] != null)
+                        if (gC.playerUnits[i] != null)
                         {
-                            float distanceToEnemy = Vector2.Distance(eC.transform.position, eC.playerUnits[i].transform.position);
+                            float distanceToEnemy = Vector2.Distance(gC.transform.position, gC.playerUnits[i].transform.position);
 
                             if (shortestDistance > distanceToEnemy)
                             {
                                 shortestDistance = distanceToEnemy;
-                                nearestTarget = eC.playerUnits[i].gameObject;
+                                nearestTarget = gC.playerUnits[i].gameObject;
                             }
 
                         }
@@ -89,24 +87,24 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                 else
                     return null;
             }
-            if (eC.enemyTypeEnum != EnemyTypeEnum.Barrel)
+            if (gC.enemyTypeEnum != EnemyTypeEnum.Barrel)
             {
                 // Yapı yoksa birimler
-                if (eC.playerObjs.Length > 0)
+                if (gC.playerObjs.Length > 0)
                 {
                     GameObject nearestTarget = null;
                     float shortestDistance = Mathf.Infinity;
 
-                    for (int i = 0; i < eC.playerObjs.Length; i++)
+                    for (int i = 0; i < gC.playerObjs.Length; i++)
                     {
-                        if (eC.playerObjs[i] != null)
+                        if (gC.playerObjs[i] != null)
                         {
-                            float distanceToEnemy = Vector2.Distance(eC.transform.position, eC.playerObjs[i].transform.position);
+                            float distanceToEnemy = Vector2.Distance(gC.transform.position, gC.playerObjs[i].transform.position);
 
                             if (shortestDistance > distanceToEnemy)
                             {
                                 shortestDistance = distanceToEnemy;
-                                nearestTarget = eC.playerObjs[i].gameObject;
+                                nearestTarget = gC.playerObjs[i].gameObject;
                             }
 
                         }
@@ -128,39 +126,39 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             CalculateNearestAttackPoint();
             StopWhenAttackDistance();
 
-            if (Vector2.Distance(nearestAttackPoint.position, eC.sightRangePosition) < eC.currentSightRange)
+            if (Vector2.Distance(nearestAttackPoint.position, gC.sightRangePosition) < gC.currentSightRange)
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
-                if (Vector2.Distance(nearestAttackPoint.position, eC.attackRangePosition) < eC.currentAttackRange) return;
+                if (Vector2.Distance(nearestAttackPoint.position, gC.attackRangePosition) < gC.currentAttackRange) return;
                 AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
                 ePF2D.AIGetMoveCommand(nearestAttackPoint.position);
             }
         }
         public void StopWhenAttackDistance() // Yapay zeka düşmanın tam koordinatlarına gider, fakat bu isPathEnd ile engellenir.
         {
-            if (Vector2.Distance(nearestAttackPoint.position, eC.attackRangePosition) < eC.currentAttackRange)
+            if (Vector2.Distance(nearestAttackPoint.position, gC.attackRangePosition) < gC.currentAttackRange)
                 ePF2D.isPathEnd = true;
-            if (Vector2.Distance(nearestAttackPoint.position, eC.attackRangePosition) >= eC.currentAttackRange)
+            if (Vector2.Distance(nearestAttackPoint.position, gC.attackRangePosition) >= gC.currentAttackRange)
                 ePF2D.isPathEnd = false;
         }
         public void GoblinBehaviour()
         {
             AttackTheAllUnit();
 
-            if (eC.onBuilding) return;
+            if (gC.onBuilding) return;
             CirclePatrollingAnchor();
             CirclePatrollingFree();
             PointPatrolling();
         }
         void CirclePatrollingAnchor()
         {
-            if (eC.goblinBehaviour != GoblinBehaviorEnum.CirclePatrollingAnchor) return;
+            if (gC.goblinBehaviour != GoblinBehaviorEnum.CirclePatrollingAnchor) return;
             if (nearestTarget != null) return;
             if (patrol)
             {
                 patrol = false;
                 targetPoint = firstPoint;
-                targetPoint += new Vector3(Random.Range(-eC.patrollingRadius, eC.patrollingRadius), Random.Range(-eC.patrollingRadius, eC.patrollingRadius));
+                targetPoint += new Vector3(Random.Range(-gC.patrollingRadius, gC.patrollingRadius), Random.Range(-gC.patrollingRadius, gC.patrollingRadius));
                 ePF2D.AIGetMoveCommand(targetPoint);
                 AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
             }
@@ -169,7 +167,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             {
                 time++;
 
-                if (time >= eC.waitingTime)
+                if (time >= gC.waitingTime)
                 {
                     time = 0;
                     patrol = true;
@@ -178,13 +176,13 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         }
         void CirclePatrollingFree()
         {
-            if (eC.goblinBehaviour != GoblinBehaviorEnum.CirclePatrollingFree) return;
+            if (gC.goblinBehaviour != GoblinBehaviorEnum.CirclePatrollingFree) return;
             if (nearestTarget != null) return;
 
             if (patrol)
             {
                 patrol = false;
-                targetPoint += new Vector3(Random.Range(-eC.patrollingRadius, eC.patrollingRadius), Random.Range(-eC.patrollingRadius, eC.patrollingRadius));
+                targetPoint += new Vector3(Random.Range(-gC.patrollingRadius, gC.patrollingRadius), Random.Range(-gC.patrollingRadius, gC.patrollingRadius));
                 ePF2D.AIGetMoveCommand(targetPoint);
                 AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
             }
@@ -193,7 +191,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             {
                 time++;
 
-                if (time >= eC.waitingTime)
+                if (time >= gC.waitingTime)
                 {
                     time = 0;
                     patrol = true;
@@ -202,16 +200,16 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         }
         void PointPatrolling()
         {
-            if (eC.goblinBehaviour != GoblinBehaviorEnum.PointPatrolling) return;
+            if (gC.goblinBehaviour != GoblinBehaviorEnum.PointPatrolling) return;
             if (nearestTarget != null) return;
 
             // Devriye gez
             if (patrol)
             {
-                targetPoint = eC.patrolPoints[index].position;
+                targetPoint = gC.patrolPoints[index].position;
                 ePF2D.AIGetMoveCommand(targetPoint);
                 index++;
-                if (index == eC.patrolPoints.Length)
+                if (index == gC.patrolPoints.Length)
                     index = 0;
                 AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
                 patrol = false;
@@ -223,9 +221,9 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         }
         void AttackTheAllUnit()
         {
-            if (eC.goblinBehaviour != GoblinBehaviorEnum.FindNearestPlayerUnit) return;
-            eC.currentSightRange = 100;
-            eC.attackTheAllKnights = true;
+            if (gC.goblinBehaviour != GoblinBehaviorEnum.FindNearestPlayerUnit) return;
+            gC.currentSightRange = 100;
+            gC.attackTheAllKnights = true;
         }
         public void RigidbodyControl(Rigidbody2D rb2D, bool stayBuilding)
         {
@@ -262,7 +260,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
             float shortestDistance = Mathf.Infinity;
             for (int i = 0; i < obj.childCount; i++)
             {
-                float distanceToTarget = Vector2.Distance(eC.transform.position, obj.GetChild(i).position);
+                float distanceToTarget = Vector2.Distance(gC.transform.position, obj.GetChild(i).position);
                 if (shortestDistance > distanceToTarget)
                 {
                     shortestDistance = distanceToTarget;
@@ -274,17 +272,17 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         public void GoUpToTower()
         {
             // Eğer goblin türü tnt ise, görüş menzili içerisindeki boş bir kuleye çıkar
-            if (eC.enemyTypeEnum == EnemyTypeEnum.Tnt)
+            if (gC.enemyTypeEnum == EnemyTypeEnum.Tnt)
             {
-                if (!eC.attackTheAllKnights)
+                if (!gC.attackTheAllKnights)
                 {
-                    if (eC.woodTowers.Length == 0 || eC.onBuilding)
+                    if (gC.woodTowers.Length == 0 || gC.onBuilding)
                     {
-                        eC.aI = true;
-                        eC.stayBuilding = false;
+                        gC.aI = true;
+                        gC.stayBuilding = false;
                         tntSpriteRenderer.enabled = true;
 
-                        if (eC.onBuilding)
+                        if (gC.onBuilding)
                             AnimationManager.Instance.IdleAnim(ePF2D.animator);
                         return;
                     }
@@ -296,7 +294,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
 
                     Debug.Log("kuleye git");
                     buildingController = nearestWoodTower.GetComponent<BuildingController>();
-                    eC.aI = false;
+                    gC.aI = false;
                     ePF2D.isPathEnd = false;
                     // Etrafta düşman varken yapay zeka kapatıldığında düşmanın son konumuna gitmemesi için, yolları temizle
                     ePF2D.path.Clear();
@@ -305,10 +303,10 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                     towerPos = nearestWoodTower.transform.GetChild(1).position;
                     ePF2D.AIGetMoveCommand(gatePos);
                     AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
-                    eC.stayBuilding = true;
+                    gC.stayBuilding = true;
 
                     // Kuleye çık
-                    if (Vector2.Distance(eC.transform.position, gatePos) < .3f)
+                    if (Vector2.Distance(gC.transform.position, gatePos) < .3f)
                     {
                         tntSpriteRenderer.enabled = false;
 
@@ -320,11 +318,11 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                             tntSpriteRenderer.enabled = true;
                             tntSpriteRenderer.sortingOrder = 12;
                             ePF2D.isPathEnd = true; // Dur
-                            eC.currentSightRange = eC.currentAttackRange; // Kulede sabit kal
-                            eC.aI = true;
-                            eC.onBuilding = true;
-                            eC.transform.position = towerPos; // Birimi kuleye ışınla
-                            eC.gameObject.layer = 25; // ölümsüz ol
+                            gC.currentSightRange = gC.currentAttackRange; // Kulede sabit kal
+                            gC.aI = true;
+                            gC.onBuilding = true;
+                            gC.transform.position = towerPos; // Birimi kuleye ışınla
+                            gC.gameObject.layer = 25; // ölümsüz ol
                             nearestWoodTower = null;
                             buildingController.isFull = true;
                             buildingController.gameObject.layer = 28; // Kulenin katmanı dolu olacak şekilde değişti
@@ -334,7 +332,7 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                 }
 
                 // Kuleden in
-                if (eC.onBuilding && eC.attackTheAllKnights && !ePF2D.isPathEnd)
+                if (gC.onBuilding && gC.attackTheAllKnights && !ePF2D.isPathEnd)
                 {
                     tntSpriteRenderer.enabled = false;
                     time++;
@@ -343,11 +341,11 @@ namespace Assets.Scripts.Concrete.EnemyAIs
                         Debug.Log("Kuleden in");
                         tntSpriteRenderer.enabled = true;
                         tntSpriteRenderer.sortingOrder = 9;
-                        eC.stayBuilding = false;
-                        eC.currentSightRange = eC.sightRange;
-                        eC.onBuilding = false;
-                        eC.gameObject.layer = 13; // ölümlü ol
-                        eC.transform.position = gatePos; // kulenin kapısına git
+                        gC.stayBuilding = false;
+                        gC.currentSightRange = gC.sightRange;
+                        gC.onBuilding = false;
+                        gC.gameObject.layer = 13; // ölümlü ol
+                        gC.transform.position = gatePos; // kulenin kapısına git
                         buildingController.isFull = false;
                         buildingController.gameObject.layer = 27; // Kulenin katmanı boş olacak şekilde değişti
                         time = 0;
@@ -358,15 +356,15 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         public void DestructTower()
         {
             if (buildingController == null) return;
-            if (buildingController.destruct && eC.onBuilding)
+            if (buildingController.destruct && gC.onBuilding)
             {
                 Debug.Log("Kuleden düş");
                 tntSpriteRenderer.enabled = true;
-                eC.stayBuilding = false;
-                eC.currentSightRange = eC.sightRange;
-                eC.onBuilding = false;
-                eC.gameObject.layer = 13; // ölümlü ol
-                eC.transform.position = gatePos; // kulenin kapısına git
+                gC.stayBuilding = false;
+                gC.currentSightRange = gC.sightRange;
+                gC.onBuilding = false;
+                gC.gameObject.layer = 13; // ölümlü ol
+                gC.transform.position = gatePos; // kulenin kapısına git
                 buildingController.isFull = false;
                 buildingController.gameObject.layer = 29; // Kulenin katmanı yıkıldı olacak şekilde değişti
                 time = 0;
@@ -375,20 +373,20 @@ namespace Assets.Scripts.Concrete.EnemyAIs
         }
         GameObject DetechNearestTower()
         {
-            if (eC.woodTowers.Length > 0)
+            if (gC.woodTowers.Length > 0)
             {
                 GameObject nearestTarget = null;
                 float shortestDistance = Mathf.Infinity;
-                for (int i = 0; i < eC.woodTowers.Length; i++)
+                for (int i = 0; i < gC.woodTowers.Length; i++)
                 {
-                    if (eC.woodTowers[i] != null)
+                    if (gC.woodTowers[i] != null)
                     {
-                        float distanceToEnemy = Vector2.Distance(eC.transform.position, eC.woodTowers[i].transform.position);
+                        float distanceToEnemy = Vector2.Distance(gC.transform.position, gC.woodTowers[i].transform.position);
 
                         if (shortestDistance > distanceToEnemy)
                         {
                             shortestDistance = distanceToEnemy;
-                            nearestTarget = eC.woodTowers[i].gameObject;
+                            nearestTarget = gC.woodTowers[i].gameObject;
                         }
 
                     }

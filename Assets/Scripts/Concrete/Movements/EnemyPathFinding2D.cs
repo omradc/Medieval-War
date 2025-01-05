@@ -13,7 +13,7 @@ namespace Assets.Scripts.Concrete.Movements
         [HideInInspector] public Vector2 lastMousePos;
         [HideInInspector] public Animator animator;
         [HideInInspector] public EnemyDirection direction;
-        EnemyController eC;
+        GoblinController gC;
 
         private void Start()
         {
@@ -21,8 +21,8 @@ namespace Assets.Scripts.Concrete.Movements
             drawDebugLines = drawLine;
             pathfinder = new Pathfinder<Vector2>(GetDistance, GetNeighbourNodes, 1000); //increase patience or gridSize for larger maps
             animator = transform.GetChild(0).GetComponent<Animator>();
-            eC = GetComponent<EnemyController>();
-            direction = new(this, eC);
+            gC = GetComponent<GoblinController>();
+            direction = new(this, gC);
         }
         private void Update()
         {
@@ -36,12 +36,12 @@ namespace Assets.Scripts.Concrete.Movements
             if (pathLeftToGo.Count > 0) //if the target is not yet reached
             {
                 Vector3 dir = (Vector3)pathLeftToGo[0] - transform.position;
-                transform.position += dir.normalized * eC.currentMoveSpeed;
+                transform.position += dir.normalized * gC.currentMoveSpeed;
 
                 //pathLeftToGo[0]; hedefe giderken kullandığı yola bakmasını sağlar
                 direction.Turn2Direction(pathLeftToGo[0].x);
 
-                if (((Vector2)transform.position - pathLeftToGo[0]).sqrMagnitude < eC.currentMoveSpeed * eC.currentMoveSpeed)
+                if (((Vector2)transform.position - pathLeftToGo[0]).sqrMagnitude < gC.currentMoveSpeed * gC.currentMoveSpeed)
                 {
                     transform.position = pathLeftToGo[0];
                     pathLeftToGo.RemoveAt(0);
@@ -51,8 +51,8 @@ namespace Assets.Scripts.Concrete.Movements
             if (pathLeftToGo.Count == 0)
             {
                 moveCommand = false;
-                eC.currentAttackRange = eC.attackRange;
-                if (eC.playerUnits.Length <= 0)
+                gC.currentAttackRange = gC.attackRange;
+                if (gC.playerUnits.Length <= 0)
                 {
                     AnimationManager.Instance.IdleAnim(animator);
                 }

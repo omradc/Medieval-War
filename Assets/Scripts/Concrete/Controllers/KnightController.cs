@@ -1,9 +1,8 @@
+using Assets.Scripts.Concrete.AI;
 using Assets.Scripts.Concrete.Combats;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using Assets.Scripts.Concrete.Orders;
-using Assets.Scripts.Concrete.UnitAIs;
 using UnityEngine;
 
 
@@ -34,14 +33,14 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(0.1f, 1f)] public float unitAIPerTime = 0.5f;
         [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
         public LayerMask enemy;
-        public Collider2D[] followTargets;
 
+        [HideInInspector] public Collider2D[] followTargets;
         [HideInInspector] public Collider2D[] hitTargets;
-        public GameObject followingObj;
+        [HideInInspector] public GameObject followingObj;
         [HideInInspector] public bool workOnce = true;
         [HideInInspector] public float currentStoppingDistance;
         [HideInInspector] public float currentSightRange;
-        public UnitOrderEnum unitOrderEnum;
+        [HideInInspector] public UnitOrderEnum unitOrderEnum;
         [HideInInspector] public bool attack;
         [HideInInspector] public Vector2 attackRangePosition;
         [HideInInspector] public Vector2 sightRangePosition;
@@ -49,7 +48,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public Direction direction;
         [HideInInspector] public Animator animator;
         [HideInInspector] public int towerPosIndex;
-         public bool aI = true;
+        [HideInInspector] public bool aI = true;
         [HideInInspector] public bool onBuilding;
         [HideInInspector] public bool onBuildingStay;
         [HideInInspector] public bool goBuilding;
@@ -57,12 +56,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         AnimationEventController animationEventController;
         PathFindingController pF;
-        AttackAI attackAI;
-        DefendAI defendAI;
-        StayAI stayAI;
-        FollowAI followAI;
         UnitAttack unitAttack;
-        TowerAI towerAI;
         Rigidbody2D rb2D;
 
         private void Awake()
@@ -70,11 +64,6 @@ namespace Assets.Scripts.Concrete.Controllers
             pF = GetComponent<PathFindingController>();
             direction = new Direction(transform);
             unitAI = new UnitAI(this, pF);
-            attackAI = new AttackAI(this, pF);
-            defendAI = new DefendAI(this, pF);
-            stayAI = new StayAI(this, pF);
-            followAI = new FollowAI(this, pF);
-            towerAI = new TowerAI(this, pF);
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
         }
         private void Start()
@@ -96,6 +85,7 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             AnimationControl();
             RangeControl();
+
             if (unitOrderEnum == UnitOrderEnum.FollowOrder)  // Sadece takip edilecek birim atamasý yapýlýr
             {
                 // Hedef boþ ise, hedefi belirle, sadece 1 kez
@@ -104,15 +94,15 @@ namespace Assets.Scripts.Concrete.Controllers
                     followingObj = InteractManager.Instance.interactedKnight;
                     workOnce = false;
                 }
-            }    
+            }
 
-            towerAI.SelectTower();
+            unitAI.SelectTower();
             //towerAI.DestructTower();
         }
         void OptimumUnitAI()
         {
-            
-            towerAI.GoTower();
+
+            unitAI.GoTower();
 
             if (aI) //Knight AI
             {

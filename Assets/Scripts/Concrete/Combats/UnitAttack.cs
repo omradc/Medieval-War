@@ -2,7 +2,7 @@
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using Assets.Scripts.Concrete.Orders;
+using Assets.Scripts.Concrete.AI;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Combats
@@ -12,13 +12,12 @@ namespace Assets.Scripts.Concrete.Combats
 
         KnightController kC;
         UnitAI unitAI;
-        AnimationEventController animationEventController;
+
 
         public UnitAttack(KnightController kC, UnitAI unitAI, AnimationEventController animationEventController)
         {
             this.kC = kC;
             this.unitAI = unitAI;
-            this.animationEventController = animationEventController;
             if (kC.unitTypeEnum == UnitTypeEnum.Worrior)
                 animationEventController.AttackEvent += WorriorAttack;
             if (kC.unitTypeEnum == UnitTypeEnum.Archer)

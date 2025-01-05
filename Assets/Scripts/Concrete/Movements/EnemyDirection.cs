@@ -12,13 +12,13 @@ namespace Assets.Scripts.Concrete.Movements
     internal class EnemyDirection
     {
         EnemyPathFinding2D ePF2D;
-        EnemyController eC;
+        GoblinController gC;
         Vector3 rightDirection = new Vector3(1, 1, 1);
         Vector3 leftDirection = new Vector3(-1, 1, 1);
-        public EnemyDirection(EnemyPathFinding2D ePF2D, EnemyController eC)
+        public EnemyDirection(EnemyPathFinding2D ePF2D, GoblinController gC)
         {
             this.ePF2D = ePF2D;
-            this.eC = eC;
+            this.gC = gC;
         }
         void SetBooleans()
         {
@@ -44,8 +44,8 @@ namespace Assets.Scripts.Concrete.Movements
             {
                 ePF2D.transform.localScale = rightDirection;
 
-                if (eC.enemyTypeEnum == EnemyTypeEnum.Torch)
-                    eC.torchAttackPoint.localPosition = Vector3.right * eC.torchAttackPointDistance;
+                if (gC.enemyTypeEnum == EnemyTypeEnum.Torch)
+                    gC.torchAttackPoint.localPosition = Vector3.right * gC.torchAttackPointDistance;
 
                 SetBooleans();
                 ePF2D.right = true;
@@ -69,8 +69,8 @@ namespace Assets.Scripts.Concrete.Movements
                 ePF2D.left = true;
                 ePF2D.transform.localScale = leftDirection;
                 // Meşalenin saldırı pozisyonunu belirler
-                if (eC.enemyTypeEnum == EnemyTypeEnum.Torch)
-                    eC.torchAttackPoint.localPosition = Vector3.right * eC.torchAttackPointDistance;
+                if (gC.enemyTypeEnum == EnemyTypeEnum.Torch)
+                    gC.torchAttackPoint.localPosition = Vector3.right * gC.torchAttackPointDistance;
             }
 
             //Up
@@ -78,8 +78,8 @@ namespace Assets.Scripts.Concrete.Movements
             {
                 ePF2D.up = true;
                 // Meşalenin saldırı pozisyonunu belirler
-                if (eC.enemyTypeEnum == EnemyTypeEnum.Torch)
-                    eC.torchAttackPoint.localPosition = Vector3.up * eC.torchAttackPointDistance;
+                if (gC.enemyTypeEnum == EnemyTypeEnum.Torch)
+                    gC.torchAttackPoint.localPosition = Vector3.up * gC.torchAttackPointDistance;
             }
 
             //Down
@@ -87,8 +87,8 @@ namespace Assets.Scripts.Concrete.Movements
             {
                 ePF2D.down = true;
                 // Meşalenin saldırı pozisyonunu belirler
-                if (eC.enemyTypeEnum == EnemyTypeEnum.Torch)
-                    eC.torchAttackPoint.localPosition = Vector3.down * eC.torchAttackPointDistance;
+                if (gC.enemyTypeEnum == EnemyTypeEnum.Torch)
+                    gC.torchAttackPoint.localPosition = Vector3.down * gC.torchAttackPointDistance;
             }
 
             //Right
@@ -98,8 +98,8 @@ namespace Assets.Scripts.Concrete.Movements
                 ePF2D.right = true;
                 ePF2D.transform.localScale = rightDirection;
                 // Meşalenin saldırı pozisyonunu belirler
-                if (eC.enemyTypeEnum == EnemyTypeEnum.Torch)
-                    eC.torchAttackPoint.localPosition = Vector3.right * eC.torchAttackPointDistance;
+                if (gC.enemyTypeEnum == EnemyTypeEnum.Torch)
+                    gC.torchAttackPoint.localPosition = Vector3.right * gC.torchAttackPointDistance;
             }
         }
         public void Turn8Direction(Vector2 target)
