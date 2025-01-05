@@ -1,7 +1,5 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
-using Assets.Scripts.Concrete.Managers;
-using Assets.Scripts.Concrete.Movements;
 using Assets.Scripts.Concrete.AI;
 using UnityEngine;
 
@@ -18,11 +16,11 @@ namespace Assets.Scripts.Concrete.Combats
         {
             this.kC = kC;
             this.unitAI = unitAI;
-            if (kC.unitTypeEnum == UnitTypeEnum.Worrior)
+            if (kC.troopType == TroopTypeEnum.Worrior)
                 animationEventController.AttackEvent += WorriorAttack;
-            if (kC.unitTypeEnum == UnitTypeEnum.Archer)
+            if (kC.troopType == TroopTypeEnum.Archer)
                 animationEventController.AttackEvent += ArcherAttack;
-            if (kC.unitTypeEnum == UnitTypeEnum.Villager)
+            if (kC.troopType == TroopTypeEnum.Villager)
                 animationEventController.AttackEvent += VillagerAttack;
         }
      

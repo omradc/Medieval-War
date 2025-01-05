@@ -10,7 +10,8 @@ namespace Assets.Scripts.Concrete.AI
     internal class EnemyAI
     {
         GoblinController gC;
-        EnemyPathFinding2D ePF2D;
+        //EnemyPathFinding2D ePF2D;
+        PathFindingController pF;
         BuildingController buildingController;
         SpriteRenderer tntSpriteRenderer;
         public Transform nearestAttackPoint;
@@ -24,17 +25,18 @@ namespace Assets.Scripts.Concrete.AI
         bool patrol;
         int index;
 
-        public EnemyAI(GoblinController goblinController, EnemyPathFinding2D enemyPathFinding2D)
+        public EnemyAI(GoblinController goblinController,/* EnemyPathFinding2D enemyPathFinding2D*/PathFindingController pF)
         {
             gC = goblinController;
-            ePF2D = enemyPathFinding2D;
+            //ePF2D = enemyPathFinding2D;
+            this.pF = pF;
             firstPoint = gC.transform.position;
             targetPoint = firstPoint;
             tntSpriteRenderer = gC.transform.GetChild(0).GetComponent<SpriteRenderer>();
         }
         public GameObject DetechNearestTarget()
         {
-            if (gC.enemyTypeEnum == EnemyTypeEnum.Barrel)
+            if (gC.enemyTypeEnum == TroopTypeEnum.Barrel)
             {
 
                 // Varilin Önceliği yapılardır
@@ -87,7 +89,7 @@ namespace Assets.Scripts.Concrete.AI
                 else
                     return null;
             }
-            if (gC.enemyTypeEnum != EnemyTypeEnum.Barrel)
+            if (gC.enemyTypeEnum != TroopTypeEnum.Barrel)
             {
                 // Yapı yoksa birimler
                 if (gC.playerObjs.Length > 0)
@@ -124,27 +126,18 @@ namespace Assets.Scripts.Concrete.AI
             if (nearestTarget == null) return;
 
             CalculateNearestAttackPoint();
-            StopWhenAttackDistance();
 
             if (Vector2.Distance(nearestAttackPoint.position, gC.sightRangePosition) < gC.currentSightRange)
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
-                if (Vector2.Distance(nearestAttackPoint.position, gC.attackRangePosition) < gC.currentAttackRange) return;
-                AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
-                ePF2D.AIGetMoveCommand(nearestAttackPoint.position);
+                if (Vector2.Distance(nearestAttackPoint.position, gC.attackRangePosition) < gC.attackRange) return;
+                AnimationManager.Instance.RunAnim(gC.animator, 1);
+                pF.MoveAI(nearestAttackPoint.position);
             }
-        }
-        public void StopWhenAttackDistance() // Yapay zeka düşmanın tam koordinatlarına gider, fakat bu isPathEnd ile engellenir.
-        {
-            if (Vector2.Distance(nearestAttackPoint.position, gC.attackRangePosition) < gC.currentAttackRange)
-                ePF2D.isPathEnd = true;
-            if (Vector2.Distance(nearestAttackPoint.position, gC.attackRangePosition) >= gC.currentAttackRange)
-                ePF2D.isPathEnd = false;
         }
         public void GoblinBehaviour()
         {
             AttackTheAllUnit();
-
             if (gC.onBuilding) return;
             CirclePatrollingAnchor();
             CirclePatrollingFree();
@@ -152,18 +145,18 @@ namespace Assets.Scripts.Concrete.AI
         }
         void CirclePatrollingAnchor()
         {
-            if (gC.goblinBehaviour != GoblinBehaviorEnum.CirclePatrollingAnchor) return;
+            if (gC.behavior != BehaviorEnum.CirclePatrollingAnchor) return;
             if (nearestTarget != null) return;
             if (patrol)
             {
                 patrol = false;
                 targetPoint = firstPoint;
                 targetPoint += new Vector3(Random.Range(-gC.patrollingRadius, gC.patrollingRadius), Random.Range(-gC.patrollingRadius, gC.patrollingRadius));
-                ePF2D.AIGetMoveCommand(targetPoint);
-                AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
+                pF.MoveAI(targetPoint);
+                AnimationManager.Instance.RunAnim(gC.animator, 1);
             }
 
-            if (ePF2D.pathLeftToGo.Count == 0)
+            if (pF.isStopped)
             {
                 time++;
 
@@ -176,18 +169,18 @@ namespace Assets.Scripts.Concrete.AI
         }
         void CirclePatrollingFree()
         {
-            if (gC.goblinBehaviour != GoblinBehaviorEnum.CirclePatrollingFree) return;
+            if (gC.behavior != BehaviorEnum.CirclePatrollingFree) return;
             if (nearestTarget != null) return;
 
             if (patrol)
             {
                 patrol = false;
                 targetPoint += new Vector3(Random.Range(-gC.patrollingRadius, gC.patrollingRadius), Random.Range(-gC.patrollingRadius, gC.patrollingRadius));
-                ePF2D.AIGetMoveCommand(targetPoint);
-                AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
+                pF.MoveAI(targetPoint);
+                AnimationManager.Instance.RunAnim(gC.animator, 1);
             }
 
-            if (ePF2D.pathLeftToGo.Count == 0)
+            if (pF.isStopped)
             {
                 time++;
 
@@ -200,45 +193,32 @@ namespace Assets.Scripts.Concrete.AI
         }
         void PointPatrolling()
         {
-            if (gC.goblinBehaviour != GoblinBehaviorEnum.PointPatrolling) return;
+            if (gC.behavior != BehaviorEnum.PointPatrolling) return;
             if (nearestTarget != null) return;
 
             // Devriye gez
             if (patrol)
             {
                 targetPoint = gC.patrolPoints[index].position;
-                ePF2D.AIGetMoveCommand(targetPoint);
+                pF.MoveAI(targetPoint);
                 index++;
                 if (index == gC.patrolPoints.Length)
                     index = 0;
-                AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
+                AnimationManager.Instance.RunAnim(gC.animator, 1);
                 patrol = false;
             }
 
             // Devriye naktasına ulaşıldı
-            if (ePF2D.pathLeftToGo.Count == 0)
+            if (pF.isStopped)
                 patrol = true;
         }
         void AttackTheAllUnit()
         {
-            if (gC.goblinBehaviour != GoblinBehaviorEnum.FindNearestPlayerUnit) return;
+            if (gC.behavior != BehaviorEnum.FindNearestPlayerUnit) return;
             gC.currentSightRange = 100;
             gC.attackTheAllKnights = true;
         }
-        public void RigidbodyControl(Rigidbody2D rb2D, bool stayBuilding)
-        {
-            if (stayBuilding)
-            {
-                rb2D.bodyType = RigidbodyType2D.Kinematic;
-                return;
-            }
-            // Menzilde düşman yoksa ve kullanıcıdan emir almadıysa rigidbody aktif olur.
-            if (nearestTarget != null)
-                rb2D.bodyType = RigidbodyType2D.Dynamic;
-            else
-                rb2D.bodyType = RigidbodyType2D.Kinematic;
-
-        }
+  
         void CalculateNearestAttackPoint()
         {
             // Düşman şovalye ise
@@ -272,18 +252,18 @@ namespace Assets.Scripts.Concrete.AI
         public void GoUpToTower()
         {
             // Eğer goblin türü tnt ise, görüş menzili içerisindeki boş bir kuleye çıkar
-            if (gC.enemyTypeEnum == EnemyTypeEnum.Tnt)
+            if (gC.enemyTypeEnum == TroopTypeEnum.Tnt)
             {
                 if (!gC.attackTheAllKnights)
                 {
                     if (gC.woodTowers.Length == 0 || gC.onBuilding)
                     {
                         gC.aI = true;
-                        gC.stayBuilding = false;
+                        gC.onBuildingStay = false;
                         tntSpriteRenderer.enabled = true;
 
                         if (gC.onBuilding)
-                            AnimationManager.Instance.IdleAnim(ePF2D.animator);
+                            AnimationManager.Instance.IdleAnim(gC.animator);
                         return;
                     }
 
@@ -294,19 +274,17 @@ namespace Assets.Scripts.Concrete.AI
 
                     Debug.Log("kuleye git");
                     buildingController = nearestWoodTower.GetComponent<BuildingController>();
-                    gC.aI = false;
-                    ePF2D.isPathEnd = false;
-                    // Etrafta düşman varken yapay zeka kapatıldığında düşmanın son konumuna gitmemesi için, yolları temizle
-                    ePF2D.path.Clear();
-                    ePF2D.pathLeftToGo.Clear();
+                    //gC.aI = false;
+
                     gatePos = nearestWoodTower.transform.GetChild(0).position;
                     towerPos = nearestWoodTower.transform.GetChild(1).position;
-                    ePF2D.AIGetMoveCommand(gatePos);
-                    AnimationManager.Instance.RunAnim(ePF2D.animator, 1);
-                    gC.stayBuilding = true;
+                    pF.MoveAI(gatePos);
+                    AnimationManager.Instance.RunAnim(gC.animator, 1);
+                    gC.onBuildingStay = true;
+                    gC.goBuilding = true;
 
                     // Kuleye çık
-                    if (Vector2.Distance(gC.transform.position, gatePos) < .3f)
+                    if (Vector2.Distance(gC.transform.position, gatePos) < .1f)
                     {
                         tntSpriteRenderer.enabled = false;
 
@@ -317,10 +295,10 @@ namespace Assets.Scripts.Concrete.AI
                             Debug.Log("Kuleye çık");
                             tntSpriteRenderer.enabled = true;
                             tntSpriteRenderer.sortingOrder = 12;
-                            ePF2D.isPathEnd = true; // Dur
-                            gC.currentSightRange = gC.currentAttackRange; // Kulede sabit kal
+                            gC.currentSightRange = gC.attackRange; // Kulede sabit kal
                             gC.aI = true;
                             gC.onBuilding = true;
+                            gC.goBuilding = false;
                             gC.transform.position = towerPos; // Birimi kuleye ışınla
                             gC.gameObject.layer = 25; // ölümsüz ol
                             nearestWoodTower = null;
@@ -332,7 +310,7 @@ namespace Assets.Scripts.Concrete.AI
                 }
 
                 // Kuleden in
-                if (gC.onBuilding && gC.attackTheAllKnights && !ePF2D.isPathEnd)
+                if (gC.onBuilding && gC.attackTheAllKnights)
                 {
                     tntSpriteRenderer.enabled = false;
                     time++;
@@ -341,7 +319,7 @@ namespace Assets.Scripts.Concrete.AI
                         Debug.Log("Kuleden in");
                         tntSpriteRenderer.enabled = true;
                         tntSpriteRenderer.sortingOrder = 9;
-                        gC.stayBuilding = false;
+                        gC.onBuildingStay = false;
                         gC.currentSightRange = gC.sightRange;
                         gC.onBuilding = false;
                         gC.gameObject.layer = 13; // ölümlü ol
@@ -360,7 +338,7 @@ namespace Assets.Scripts.Concrete.AI
             {
                 Debug.Log("Kuleden düş");
                 tntSpriteRenderer.enabled = true;
-                gC.stayBuilding = false;
+                gC.onBuildingStay = false;
                 gC.currentSightRange = gC.sightRange;
                 gC.onBuilding = false;
                 gC.gameObject.layer = 13; // ölümlü ol

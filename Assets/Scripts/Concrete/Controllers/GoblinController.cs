@@ -3,13 +3,16 @@ using Assets.Scripts.Concrete.AI;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Movements;
 using UnityEngine;
+using Assets.Scripts.Concrete.Managers;
+using System;
+using Assets.Scripts.Concrete.KnightBuildings;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
     internal class GoblinController : MonoBehaviour
     {
         [Header("ENEMY TYPE")]
-        public EnemyTypeEnum enemyTypeEnum;
+        public TroopTypeEnum enemyTypeEnum;
 
         [Header("TORCH")]
         public float attackRadius;
@@ -33,8 +36,6 @@ namespace Assets.Scripts.Concrete.Controllers
 
         [Header("ENEMY SETTİNGS")]
         [Range(0.1f, 1f)] public float enemyAIPerTime = 0.5f;
-        [Range(0.1f, 1f)] public float detechTargetPerTime = 0.5f;
-        [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
         public bool attackTheAllKnights;
         public Collider2D[] playerUnits;
         public Collider2D[] playerBuildings;
@@ -49,55 +50,46 @@ namespace Assets.Scripts.Concrete.Controllers
         [Header("PATROLLİNG")]
         public float patrollingRadius;
         public float waitingTime;
-        public GoblinBehaviorEnum goblinBehaviour;
+        public BehaviorEnum behavior;
         public Transform path;
-        [HideInInspector] public Transform[] patrolPoints;
 
+        [HideInInspector] public Transform[] patrolPoints;
         [HideInInspector] public GameObject explosion;
         [HideInInspector] public GameObject dynamite;
         [HideInInspector] public Vector2 attackRangePosition;
         [HideInInspector] public Vector2 sightRangePosition;
-        [HideInInspector] public int currentDamage;
-        [HideInInspector] public float currentMoveSpeed;
-        [HideInInspector] public float currentAttackSpeed;
-        [HideInInspector] public float currentAttackDelay;
-        [HideInInspector] public float currentAttackRange;
         [HideInInspector] public float currentSightRange;
-        [HideInInspector] public float currentAttackRadius;
-        [HideInInspector] public float currentDynamiteSpeed;
-        [HideInInspector] public float currentDynamiteExplosionRadius;
-        [HideInInspector] public float currentBarrelExplosionRadius;
-        [HideInInspector] public EnemyDirection direction;
+        [HideInInspector] public Direction direction;
+        [HideInInspector] public Animator animator;
+
         public bool aI = true;
         public bool onBuilding;
-        public bool stayBuilding;
-
+        public bool onBuildingStay;
+        public bool goBuilding;
 
         EnemyAttack enemyAttack;
         EnemyAI enemyAI;
-        EnemyPathFinding2D ePF2D;
+        PathFindingController pF;
         AnimationEventController animationEventController;
         Vector3 gizmosPos;
         Rigidbody2D rb2D;
+        bool canAttack;
+        float currentStoppingDistance;
         private void Awake()
         {
-            ePF2D = GetComponent<EnemyPathFinding2D>();
-            direction = new(ePF2D, this);
-            enemyAI = new(this, ePF2D);
+            animator = transform.GetChild(0).GetComponent<Animator>();
+            pF = GetComponent<PathFindingController>();
+            direction = new Direction(transform);
+            enemyAI = new(this, pF);
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
         }
         private void Start()
         {
-            enemyAttack = new(this, enemyAI, ePF2D, animationEventController);
-            currentDamage = damage;
-            currentAttackSpeed = attackSpeed;
-            currentAttackDelay = attackDelay;
+            enemyAttack = new(this, enemyAI, animationEventController);
+            pF.agent.speed = moveSpeed;
+            currentStoppingDistance = attackRange;
+            pF.agent.stoppingDistance = currentStoppingDistance;
             currentSightRange = sightRange;
-            currentAttackRange = attackRange;
-            currentAttackRadius = attackRadius;
-            currentDynamiteSpeed = dynamiteSpeed;
-            currentDynamiteExplosionRadius = dynamiteExplosionRadius;
-            currentBarrelExplosionRadius = barrelExplosionRadius;
             gizmosPos = transform.position;
             rb2D = GetComponent<Rigidbody2D>();
             //PatrolSetup();
@@ -105,15 +97,13 @@ namespace Assets.Scripts.Concrete.Controllers
 
             // Invoke
             InvokeRepeating(nameof(OptimumEnemyAI), .1f, enemyAIPerTime);
-            InvokeRepeating(nameof(OptimumDetech), .5f, detechTargetPerTime);
-            InvokeRepeating(nameof(OptimumAITurnDirection), 0.1f, turnDirectionPerTime);
         }
 
         private void Update()
         {
-            // Hareket hızını fps farkına göre ayarla
-            currentMoveSpeed = moveSpeed * Time.deltaTime;
-
+            AttackOn();
+            AnimationControl();
+            RangeControl();
             enemyAI.DestructTower();
         }
         void OptimumEnemyAI()
@@ -123,21 +113,18 @@ namespace Assets.Scripts.Concrete.Controllers
 
             if (aI)
             {
+                DetechEnemies();
+                AITurnDirection();
                 enemyAI.CatchNeraestTarget();
                 enemyAI.GoblinBehaviour();
-                enemyAttack.Attack();
-
             }
 
-            enemyAI.RigidbodyControl(rb2D, stayBuilding);
             enemyAI.GoUpToTower();
-
-
         }
-        void OptimumDetech()
+        void DetechEnemies()
         {
             // Varil için iki farklı hedef türü vardır, önceliği yapılar.
-            if (enemyTypeEnum == EnemyTypeEnum.Barrel)
+            if (enemyTypeEnum == TroopTypeEnum.Barrel)
             {
                 playerUnits = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetUnits);
                 playerBuildings = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetBuildings);
@@ -145,53 +132,23 @@ namespace Assets.Scripts.Concrete.Controllers
             else
                 playerObjs = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetAll);
 
-            if (enemyTypeEnum == EnemyTypeEnum.Tnt)
+            if (enemyTypeEnum == TroopTypeEnum.Tnt)
             {
                 woodTowers = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, woodTower);
             }
         }
-        void OptimumAITurnDirection()
+
+        void AITurnDirection()
         {
-            // ePF2D.pathLeftToGo[0]; hedefe giderken kullandığı yol
-            if (enemyAI.nearestTarget == null) return;
-            if (enemyTypeEnum == EnemyTypeEnum.Tnt || enemyTypeEnum == EnemyTypeEnum.Barrel)
+            // Hedefte düşman varsa ve durduysan, hedefe yönel.
+            if (enemyAI.nearestTarget != null && pF.isStopped)
             {
-                // Durduğunda hadefe bak
-                if (ePF2D.isPathEnd)
-                    direction.Turn2Direction(enemyAI.nearestAttackPoint.transform.position.x);
-
-                // İlerlediğinde yola bak
-                else if (ePF2D.pathLeftToGo.Count > 0)
-                    direction.Turn2Direction(ePF2D.pathLeftToGo[0].x);
-
-            }
-            if (enemyTypeEnum == EnemyTypeEnum.Torch)
-            {
-                // Durduğunda hadefe bak
-                if (ePF2D.isPathEnd)
-                    direction.Turn4Direction(enemyAI.nearestAttackPoint.transform.position);
-                // İlerlediğinde yola bak
-                else if (ePF2D.pathLeftToGo.Count > 0)
-                    direction.Turn4Direction(ePF2D.pathLeftToGo[0]);
-            }
-        }
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(sightRangePosition, currentSightRange);
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attackRangePosition, currentAttackRange);
-
-            if (enemyTypeEnum == EnemyTypeEnum.Torch)
-            {
-                Gizmos.color = Color.black;
-                Gizmos.DrawWireSphere(torchAttackPoint.position, currentAttackRadius);
-
+                if (enemyTypeEnum == TroopTypeEnum.Tnt || enemyTypeEnum == TroopTypeEnum.Barrel)
+                    direction.Turn2DirectionWithPos(enemyAI.nearestAttackPoint.position.x);
+                if (enemyTypeEnum == TroopTypeEnum.Torch)
+                    direction.Turn4Direction(enemyAI.nearestAttackPoint.position);
             }
 
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(gizmosPos, patrollingRadius);
         }
         void PatrolSetup()
         {
@@ -201,6 +158,70 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 patrolPoints[i] = path.GetChild(i);
             }
+        }
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(sightRangePosition, currentSightRange);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(attackRangePosition, attackRange);
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(gizmosPos, patrollingRadius);
+        }
+
+        void RangeControl()
+        {
+            attackRangePosition = transform.GetChild(0).position;
+
+            if (!aI)
+                sightRangePosition = transform.GetChild(0).position;
+
+            if (behavior == BehaviorEnum.Default)
+                currentStoppingDistance = attackRange;
+
+            else
+                currentStoppingDistance = 0;
+
+            pF.agent.stoppingDistance = currentStoppingDistance;
+        }
+
+        void AnimationControl()
+        {
+            if (canAttack)
+            {
+                //Animasyonlar, saldırıları event ile tetikler ve yöne göre animasyonlar oynatılır.
+                if (direction.right || direction.left)
+                    AnimationManager.Instance.AttackFrontAnim(animator, attackSpeed);
+                if (direction.up)
+                    AnimationManager.Instance.AttackUpAnim(animator, attackSpeed);
+                if (direction.down)
+                    AnimationManager.Instance.AttackDownAnim(animator, attackSpeed);
+            }
+            else
+            {
+                if (pF.isStopped) // Durduysan = IdleAnim
+                    AnimationManager.Instance.IdleAnim(animator);
+                if (!pF.isStopped)                           // Durmadıysan = RunAnim
+                    AnimationManager.Instance.RunAnim(animator, 1);
+
+            }
+        }
+
+        void AttackOn()
+        {
+            // Düşman varsa ve saldırı menzilindeyse, saldırı aktifleşir
+            if (enemyAI.nearestTarget != null)
+            {
+                if (Vector2.Distance(attackRangePosition, enemyAI.nearestAttackPoint.position) < attackRange)
+                    canAttack = true;
+                else
+                    canAttack = false;
+            }
+
+            else
+                canAttack = false;
         }
     }
 }

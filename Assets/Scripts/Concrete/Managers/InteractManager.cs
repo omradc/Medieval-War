@@ -252,7 +252,7 @@ namespace Assets.Scripts.Concrete.Managers
                 int selectedUnitsCount = selectedUnits.Count;
                 for (int i = 0; i < selectedUnitsCount; i++)
                 {
-                    if (selectedUnits[j].GetComponent<KnightController>().unitTypeEnum == UnitTypeEnum.Villager)
+                    if (selectedUnits[j].GetComponent<KnightController>().troopType == TroopTypeEnum.Villager)
                     {
                         SelectedObjColor(1, selectedUnits[j]);
                         selectedUnits.RemoveAt(j);

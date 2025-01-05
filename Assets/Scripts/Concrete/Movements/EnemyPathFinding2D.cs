@@ -36,12 +36,12 @@ namespace Assets.Scripts.Concrete.Movements
             if (pathLeftToGo.Count > 0) //if the target is not yet reached
             {
                 Vector3 dir = (Vector3)pathLeftToGo[0] - transform.position;
-                transform.position += dir.normalized * gC.currentMoveSpeed;
+                transform.position += dir.normalized * gC.moveSpeed;
 
                 //pathLeftToGo[0]; hedefe giderken kullandığı yola bakmasını sağlar
                 direction.Turn2Direction(pathLeftToGo[0].x);
 
-                if (((Vector2)transform.position - pathLeftToGo[0]).sqrMagnitude < gC.currentMoveSpeed * gC.currentMoveSpeed)
+                if (((Vector2)transform.position - pathLeftToGo[0]).sqrMagnitude < gC.moveSpeed * gC.moveSpeed)
                 {
                     transform.position = pathLeftToGo[0];
                     pathLeftToGo.RemoveAt(0);
@@ -51,7 +51,7 @@ namespace Assets.Scripts.Concrete.Movements
             if (pathLeftToGo.Count == 0)
             {
                 moveCommand = false;
-                gC.currentAttackRange = gC.attackRange;
+               // gC.currentAttackRange = gC.attackRange;
                 if (gC.playerUnits.Length <= 0)
                 {
                     AnimationManager.Instance.IdleAnim(animator);

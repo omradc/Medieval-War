@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Enums
 {
-    public enum GoblinBehaviorEnum
+    public enum BehaviorEnum
     {
-        None,
+        Default,
         FindNearestPlayerUnit,
         CirclePatrollingAnchor,
         CirclePatrollingFree,

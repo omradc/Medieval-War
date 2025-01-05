@@ -11,7 +11,7 @@ namespace Assets.Scripts.Concrete.Controllers
     internal class KnightController : MonoBehaviour
     {
         [Header("UNIT TYPE")]
-        public UnitTypeEnum unitTypeEnum;
+        public TroopTypeEnum troopType;
         public bool isSeleceted;
 
         [Header("WORRIOR AND VILLAGER")]
@@ -41,7 +41,6 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public float currentStoppingDistance;
         [HideInInspector] public float currentSightRange;
         [HideInInspector] public UnitOrderEnum unitOrderEnum;
-        [HideInInspector] public bool attack;
         [HideInInspector] public Vector2 attackRangePosition;
         [HideInInspector] public Vector2 sightRangePosition;
         [HideInInspector] public UnitAI unitAI;
@@ -53,11 +52,11 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool onBuildingStay;
         [HideInInspector] public bool goBuilding;
         [HideInInspector] public CircleCollider2D circleCollider;
-
         AnimationEventController animationEventController;
         PathFindingController pF;
         UnitAttack unitAttack;
         Rigidbody2D rb2D;
+        public bool canAttack;
 
         private void Awake()
         {
@@ -83,6 +82,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Update()
         {
+            AttackOn();
             AnimationControl();
             RangeControl();
 
@@ -101,9 +101,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void OptimumUnitAI()
         {
-
             unitAI.GoTower();
-
             if (aI) //Knight AI
             {
                 DetechEnemies();
@@ -122,20 +120,18 @@ namespace Assets.Scripts.Concrete.Controllers
             // Hedefte düþman varsa ve durduysan, hedefe yönel.
             if (unitAI.nearestTarget != null && !pF.isUserControl)
             {
-                if (unitTypeEnum == UnitTypeEnum.Villager)
+                if (troopType == TroopTypeEnum.Villager)
                     direction.Turn2DirectionWithPos(unitAI.nearestAttackPoint.position.x);
-                if (unitTypeEnum == UnitTypeEnum.Archer)
+                if (troopType == TroopTypeEnum.Archer)
                     direction.Turn8Direction(unitAI.nearestAttackPoint.position);
-                if (unitTypeEnum == UnitTypeEnum.Worrior)
+                if (troopType == TroopTypeEnum.Worrior)
                     direction.Turn4Direction(unitAI.nearestAttackPoint.position);
             }
 
         }
         void AnimationControl()
         {
-            AttackOn();
-
-            if (attack)
+            if (canAttack)
             {
                 //Animasyonlar, saldýrýlarý event ile tetikler ve yöne göre animasyonlar oynatýlýr.
                 if (direction.right || direction.left)
@@ -165,11 +161,9 @@ namespace Assets.Scripts.Concrete.Controllers
             if (!aI)
                 sightRangePosition = transform.GetChild(0).position;
 
-            if (unitOrderEnum != UnitOrderEnum.FollowOrder)
-            {
-                if (pF.isUserControl || unitAI.nearestTarget == null || goBuilding)
-                    currentStoppingDistance = 0;
-            }
+            if (pF.isUserControl || unitAI.nearestTarget == null || goBuilding)
+                currentStoppingDistance = 0;
+
             else
                 currentStoppingDistance = attackRange;
 
@@ -177,17 +171,17 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void AttackOn()
         {
-            // Düþman varse ve saldýrý menzilindeyse, saldýrý aktifleþir
+            // Düþman varsa ve saldýrý menzilindeyse, saldýrý aktifleþir
             if (unitAI.nearestTarget != null)
             {
                 if (Vector2.Distance(attackRangePosition, unitAI.nearestAttackPoint.position) < attackRange && !pF.isUserControl && !goBuilding)
-                    attack = true;
+                    canAttack = true;
                 else
-                    attack = false;
+                    canAttack = false;
             }
 
             else
-                attack = false;
+                canAttack = false;
         }
         private void OnDrawGizmos()
         {

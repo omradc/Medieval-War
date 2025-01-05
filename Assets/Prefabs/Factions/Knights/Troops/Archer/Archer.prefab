@@ -237,19 +237,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84475765e22c092489325f6d04f6e281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 0
-  unitTypeEnum: 1
+  troopType: 4
   isSeleceted: 0
   arrowSpeed: 25
   arrow: {fileID: 1411157220445716811, guid: 242c389db1e0b0940949f72e3804e8e3, type: 3}
-  damage: 1
   moveSpeed: 1.4
+  damage: 1
   attackSpeed: 1
   attackRange: 4
   sightRange: 10
   unitAIPerTime: 0.5
-  detechTargetPerTime: 0.5
-  turnDirectionPerTime: 0.5
   collectResourcesPerTime: 1
   enemy:
     serializedVersion: 2
@@ -258,12 +255,8 @@ MonoBehaviour:
   hitTargets: []
   followingObj: {fileID: 0}
   workOnce: 1
-  currentDamage: 0
-  currentMoveSpeed: 0
-  currentAttackSpeed: 0
-  currentAttackRange: 1
+  currentStoppingDistance: 0
   currentSightRange: 4
-  currentArrowSpeed: 0
   unitOrderEnum: 0
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
@@ -271,9 +264,10 @@ MonoBehaviour:
   towerPosIndex: 0
   aI: 1
   onBuilding: 0
-  stayBuilding: 0
+  onBuildingStay: 0
   goBuilding: 0
   circleCollider: {fileID: 0}
+  canAttack: 0
 --- !u!114 &4537086630207440346
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Concrete.Enums
 {
-    internal enum UnitTypeEnum
+    internal enum TroopTypeEnum
     {
+        Torch,
+        Tnt,
+        Barrel,
         Worrior,
         Archer,
         Villager

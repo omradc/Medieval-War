@@ -1,9 +1,7 @@
-﻿using NUnit.Framework;
-using System.Collections.Generic;
-using UnityEditor.ShaderKeywordFilter;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
+using Assets.Scripts.Concrete.Enums;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
@@ -35,12 +33,6 @@ namespace Assets.Scripts.Concrete.Controllers
             healthController = GetComponent<HealthController>();
 
         }
-
-        private void Start()
-        {
-
-        }
-
         void Update()
         {
             if (healthController.isDead) // Ev yıkıldıysa işlevsizdir
@@ -76,7 +68,7 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 for (int i = 0; i < goblins.Count; ++i)
                 {
-                    goblins[i].GetComponent<GoblinController>().goblinBehaviour = Enums.GoblinBehaviorEnum.FindNearestPlayerUnit;
+                    goblins[i].GetComponent<GoblinController>().behavior = BehaviorEnum.FindNearestPlayerUnit;
                 }
                 attackOrder = false;
             }

@@ -259,9 +259,10 @@ GameObject:
   - component: {fileID: 9128161781817260426}
   - component: {fileID: 1416956304992436152}
   - component: {fileID: 2278782323656877168}
-  - component: {fileID: 1917165724164815224}
   - component: {fileID: 658952586667527992}
   - component: {fileID: 7485362444082039687}
+  - component: {fileID: 5566946402393527068}
+  - component: {fileID: 4369337085645971239}
   m_Layer: 13
   m_Name: Torch
   m_TagString: Untagged
@@ -333,7 +334,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8054090689530960466}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -352,37 +353,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1917165724164815224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8054090689530960466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51866786cb78fdc4db0123c891121a86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path: []
-  pathLeftToGo: []
-  right: 0
-  left: 0
-  up: 0
-  down: 0
-  upRight: 0
-  upLeft: 0
-  downRight: 0
-  downLeft: 0
-  isUserPathFinding: 0
-  isPathEnd: 0
-  moveCommand: 0
-  obstacle:
-    serializedVersion: 2
-    m_Bits: 2176
-  drawLine: 1
-  lastMousePos: {x: 0, y: 0}
-  animator: {fileID: 0}
 --- !u!114 &658952586667527992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,8 +403,6 @@ MonoBehaviour:
   sightRange: 8
   attackRange: 0.8
   enemyAIPerTime: 0.5
-  detechTargetPerTime: 0.5
-  turnDirectionPerTime: 0.5
   attackTheAllKnights: 0
   playerUnits: []
   playerBuildings: []
@@ -455,26 +423,57 @@ MonoBehaviour:
     m_Bits: 0
   patrollingRadius: 4
   waitingTime: 2
-  goblinBehaviour: 0
+  behavior: 0
   path: {fileID: 0}
   patrolPoints: []
   explosion: {fileID: 0}
   dynamite: {fileID: 0}
   attackRangePosition: {x: 0, y: 0}
   sightRangePosition: {x: 0, y: 0}
-  currentDamage: 0
-  currentMoveSpeed: 0
-  currentAttackSpeed: 0
-  currentAttackDelay: 0
-  currentAttackRange: 0
   currentSightRange: 0
-  currentAttackRadius: 0
-  currentDynamiteSpeed: 0
-  currentDynamiteExplosionRadius: 0
-  currentBarrelExplosionRadius: 0
+  animator: {fileID: 0}
   aI: 1
   onBuilding: 0
   stayBuilding: 0
+--- !u!114 &5566946402393527068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054090689530960466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isStopped: 1
+  isUserControl: 0
+  agent: {fileID: 0}
+  lastMousePos: {x: 0, y: 0}
+  moveSpeed: 0
+--- !u!195 &4369337085645971239
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054090689530960466}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.25
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 0
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.5
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &4673381150033136589
 PrefabInstance:
   m_ObjectHideFlags: 0

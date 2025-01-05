@@ -44,7 +44,7 @@ namespace Assets.Scripts.Concrete.Movements
             {
                 ePF2D.transform.localScale = rightDirection;
 
-                if (gC.enemyTypeEnum == EnemyTypeEnum.Torch)
+                if (gC.enemyTypeEnum == TroopTypeEnum.Torch)
                     gC.torchAttackPoint.localPosition = Vector3.right * gC.torchAttackPointDistance;
 
                 SetBooleans();
@@ -69,7 +69,7 @@ namespace Assets.Scripts.Concrete.Movements
                 ePF2D.left = true;
                 ePF2D.transform.localScale = leftDirection;
                 // Meşalenin saldırı pozisyonunu belirler
-                if (gC.enemyTypeEnum == EnemyTypeEnum.Torch)
+                if (gC.enemyTypeEnum == TroopTypeEnum.Torch)
                     gC.torchAttackPoint.localPosition = Vector3.right * gC.torchAttackPointDistance;
             }
 
@@ -78,7 +78,7 @@ namespace Assets.Scripts.Concrete.Movements
             {
                 ePF2D.up = true;
                 // Meşalenin saldırı pozisyonunu belirler
-                if (gC.enemyTypeEnum == EnemyTypeEnum.Torch)
+                if (gC.enemyTypeEnum == TroopTypeEnum.Torch)
                     gC.torchAttackPoint.localPosition = Vector3.up * gC.torchAttackPointDistance;
             }
 
@@ -87,7 +87,7 @@ namespace Assets.Scripts.Concrete.Movements
             {
                 ePF2D.down = true;
                 // Meşalenin saldırı pozisyonunu belirler
-                if (gC.enemyTypeEnum == EnemyTypeEnum.Torch)
+                if (gC.enemyTypeEnum == TroopTypeEnum.Torch)
                     gC.torchAttackPoint.localPosition = Vector3.down * gC.torchAttackPointDistance;
             }
 
@@ -98,7 +98,7 @@ namespace Assets.Scripts.Concrete.Movements
                 ePF2D.right = true;
                 ePF2D.transform.localScale = rightDirection;
                 // Meşalenin saldırı pozisyonunu belirler
-                if (gC.enemyTypeEnum == EnemyTypeEnum.Torch)
+                if (gC.enemyTypeEnum == TroopTypeEnum.Torch)
                     gC.torchAttackPoint.localPosition = Vector3.right * gC.torchAttackPointDistance;
             }
         }

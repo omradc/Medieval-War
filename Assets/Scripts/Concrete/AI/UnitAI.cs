@@ -240,7 +240,7 @@ namespace Assets.Scripts.Concrete.AI
             }
 
             // Kuleden in
-            if (kC.onBuilding && kC.isSeleceted /*&& !pF2D.isPathEnd*/)
+            if (kC.onBuilding && kC.isSeleceted)
             {
                 unitSpriteRenderer.enabled = false;
                 time++;
