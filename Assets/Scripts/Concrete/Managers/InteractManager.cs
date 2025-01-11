@@ -71,7 +71,7 @@ namespace Assets.Scripts.Concrete.Managers
                 ınteract.InteractClickedObj();
                 if (interactedObj != null)
                 {
-                    // Etkileşim olan obje, birim ise,
+                    // Etkileşim olan obje, şovalye ise,
                     if (interactedObj.layer == 6)
                         interactedKnight = interactedObj;
 
@@ -90,7 +90,10 @@ namespace Assets.Scripts.Concrete.Managers
 
                     // Etkileşim olan obje, çitler ise,
                     if (interactedObj.layer == 12)
+                    {
                         interactedFences = interactedObj;
+                        print("ok");
+                    }
 
                     // Etkileşim olan obje, kule ise,
                     if (interactedObj.layer == 9)
@@ -245,22 +248,22 @@ namespace Assets.Scripts.Concrete.Managers
                 time += Time.deltaTime;
             }
 
-            // Sadece köylüleri siler
-            if (ıInput.GetButtonDown0)
-            {
-                int j = 0;
-                int selectedUnitsCount = selectedUnits.Count;
-                for (int i = 0; i < selectedUnitsCount; i++)
-                {
-                    if (selectedUnits[j].GetComponent<KnightController>().troopType == TroopTypeEnum.Villager)
-                    {
-                        SelectedObjColor(1, selectedUnits[j]);
-                        selectedUnits.RemoveAt(j);
-                    }
-                    else
-                        j++;
-                }
-            }
+            //// Sadece köylüleri siler
+            //if (ıInput.GetButtonDown0)
+            //{
+            //    int j = 0;
+            //    int selectedUnitsCount = selectedUnits.Count;
+            //    for (int i = 0; i < selectedUnitsCount; i++)
+            //    {
+            //        if (selectedUnits[j].GetComponent<KnightController>().troopType == TroopTypeEnum.Villager)
+            //        {
+            //            SelectedObjColor(1, selectedUnits[j]);
+            //            selectedUnits.RemoveAt(j);
+            //        }
+            //        else
+            //            j++;
+            //    }
+            //}
 
 
 

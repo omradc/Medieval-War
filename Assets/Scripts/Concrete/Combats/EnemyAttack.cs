@@ -11,21 +11,23 @@ namespace Assets.Scripts.Concrete.Combats
     {
         GoblinController gC;
         EnemyAI enemyAI;
+        PathFindingController pF;
 
-        public EnemyAttack(GoblinController gC, EnemyAI enemyAI, AnimationEventController animationEventController)
+        public EnemyAttack(GoblinController gC, EnemyAI enemyAI, AnimationEventController animationEventController, PathFindingController pF)
         {
             this.gC = gC;
             this.enemyAI = enemyAI;
+            this.pF = pF;
 
-            if (gC.enemyTypeEnum == TroopTypeEnum.Torch)
+            if (gC.troopType == TroopTypeEnum.Torch)
                 animationEventController.AttackEvent += TorchAttack;
-            if (gC.enemyTypeEnum == TroopTypeEnum.Tnt)
+            if (gC.troopType == TroopTypeEnum.Tnt)
                 animationEventController.AttackEvent += DynamiteAttack;
-            if (gC.enemyTypeEnum == TroopTypeEnum.Barrel)
+            if (gC.troopType == TroopTypeEnum.Barrel)
                 animationEventController.AttackEvent += BarrelAttack;
 
         }
-     
+
 
 
         // Saldırılar event ile tetiklenir
@@ -35,7 +37,14 @@ namespace Assets.Scripts.Concrete.Combats
             for (int i = 0; i < gC.hitTargets.Length; i++)
             {
                 if (gC.hitTargets != null)
-                    gC.hitTargets[0].GetComponent<HealthController>().GetHit(gC.damage);
+                {
+                    HealthController knightHealth = null;
+                    knightHealth = gC.hitTargets[0].GetComponent<HealthController>();
+                    knightHealth.GetHit(gC.damage);
+                    if (knightHealth.isDead)
+                        pF.agent.ResetPath();
+
+                }
             }
         }
         void DynamiteAttack()

@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 
@@ -10,12 +9,14 @@ namespace Assets.Scripts.Concrete.Resources
     internal class CollectWood
     {
         VillagerController vC;
-        UnitPathFinding2D pF2D;
+        PathFindingController pF;
         TreeController tree;
-        public CollectWood(VillagerController collectResources, UnitPathFinding2D pathFinding2D)
+
+
+        public CollectWood(VillagerController vC, PathFindingController pF)
         {
-            vC = collectResources;
-            pF2D = pathFinding2D;
+            this.vC = vC;
+            this.pF = pF;
         }
         void RefreshTrees()
         {
@@ -28,7 +29,7 @@ namespace Assets.Scripts.Concrete.Resources
         {
 
             // Ağaç seçilmediyse veya maden seçildiyse ağaç kesmeye gitme.
-            if (!vC.isTree || vC.isMine || vC.isSheep) return;
+            if (!vC.isTree) return;
 
             // Hedef varsa ona git
             if (vC.targetResource != null && !vC.returnHome)
@@ -61,11 +62,10 @@ namespace Assets.Scripts.Concrete.Resources
 
                 // Hedef boşsa çalışma
                 if (vC.nearestTree == null) return;
-                // Kullanıcı komutu bittiği zaman, kendi kendine ağaca doğru gider
+                // Ağaca doğru gider
                 if (Vector2.Distance(vC.transform.position, vC.treeChopPos) > .1f)
                 {
-                    pF2D.AIGetMoveCommand(vC.treeChopPos);
-                    AnimationManager.Instance.RunAnim(vC.animator, 1);
+                    pF.MoveAI(vC.treeChopPos);
 
                     if (tree.isTreeAlreadyCutted)
                     {
@@ -75,9 +75,9 @@ namespace Assets.Scripts.Concrete.Resources
                 }
 
                 // Ağacı Kes
-                if (Vector2.Distance(vC.transform.position, vC.treeChopPos) < .1f)
+                if (Vector2.Distance(vC.transform.position, vC.treeChopPos) < .1f && pF.isStopped)
                 {
-                    AnimationManager.Instance.ChopAnim(vC.animator, vC.chopSpeed);
+                    AnimationManager.Instance.ChopTreeAnim(vC.animator, vC.chopSpeed);
                 }
             }
         }
@@ -96,15 +96,16 @@ namespace Assets.Scripts.Concrete.Resources
                 }
 
                 tree.GetHit(vC.currentTreeDamage, vC.woodCollectTime);
+
                 //Ağaç yıkıldıysa eve dön
                 if (tree.destruct)
                 {
+                    AnimationManager.Instance.IdleAnim(vC.animator);
                     vC.isFirstTree = false;
                     if (!tree.isTreeAlreadyCutted)
                     {
                         vC.returnHome = true;
                         vC.tCollect = 0;
-                        AnimationManager.Instance.IdleAnim(vC.animator);
                         tree.IsTreeAlreadyCutted(true);
                     }
 
@@ -114,10 +115,6 @@ namespace Assets.Scripts.Concrete.Resources
                     }
                 }
 
-            }
-            if (vC.nearestTree == null)
-            {
-                AnimationManager.Instance.IdleAnim(vC.animator);
             }
 
             vC.workOnce = true;

@@ -2,6 +2,7 @@
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.AI;
 using UnityEngine;
+using Assets.Scripts.Concrete.Movements;
 
 namespace Assets.Scripts.Concrete.Combats
 {
@@ -9,13 +10,15 @@ namespace Assets.Scripts.Concrete.Combats
     {
 
         KnightController kC;
-        UnitAI unitAI;
+        KnightAI knightAI;
+        PathFindingController pF;
 
-
-        public UnitAttack(KnightController kC, UnitAI unitAI, AnimationEventController animationEventController)
+        public UnitAttack(KnightController kC, KnightAI knightAI, AnimationEventController animationEventController, PathFindingController pF)
         {
             this.kC = kC;
-            this.unitAI = unitAI;
+            this.knightAI = knightAI;
+            this.pF = pF;
+
             if (kC.troopType == TroopTypeEnum.Worrior)
                 animationEventController.AttackEvent += WorriorAttack;
             if (kC.troopType == TroopTypeEnum.Archer)
@@ -23,14 +26,22 @@ namespace Assets.Scripts.Concrete.Combats
             if (kC.troopType == TroopTypeEnum.Villager)
                 animationEventController.AttackEvent += VillagerAttack;
         }
-     
+
         void WorriorAttack()
         {
             kC.hitTargets = Physics2D.OverlapCircleAll(kC.transform.position, kC.attackRange, kC.enemy);
             for (int i = 0; i < kC.hitTargets.Length; i++)
             {
                 if (kC.hitTargets != null)
-                    kC.hitTargets[0].GetComponent<HealthController>().GetHit(kC.damage);
+                {
+                    HealthController enemyHealth = null;
+                    enemyHealth = kC.hitTargets[0].GetComponent<HealthController>();
+                    enemyHealth.GetHit(kC.damage);
+                    if (enemyHealth.isDead)
+                        pF.agent.ResetPath();
+
+
+                }
             }
         }
         void VillagerAttack()
@@ -46,7 +57,7 @@ namespace Assets.Scripts.Concrete.Combats
         {
             GameObject obj = Object.Instantiate(kC.arrow, kC.attackRangePosition, Quaternion.identity);
             Arrow arrow = obj.GetComponent<Arrow>();
-            arrow.target = unitAI.nearestTarget;
+            arrow.target = knightAI.nearestTarget;
             arrow.damage = kC.damage;
             arrow.arrowSpeed = kC.arrowSpeed;
         }

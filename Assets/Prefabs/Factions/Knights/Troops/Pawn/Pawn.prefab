@@ -213,7 +213,7 @@ MonoBehaviour:
   attackSpeed: 1
   attackRange: 0.7
   sightRange: 8
-  unitAIPerTime: 0.5
+  unitAIPerTime: 0.1
   collectResourcesPerTime: 0.5
   enemy:
     serializedVersion: 2
@@ -313,15 +313,15 @@ MonoBehaviour:
   isMine: 0
   isSheep: 0
   kC: {fileID: 0}
-  pF2D: {fileID: 0}
+  pF: {fileID: 0}
   villagerSpriteRenderer: {fileID: 0}
   animator: {fileID: 0}
   goldIdle: {fileID: 0}
   rockIdle: {fileID: 0}
   woodIdle: {fileID: 0}
   meatIdle: {fileID: 0}
-  sheepController: {fileID: 0}
   animationEventController: {fileID: 0}
+  sheepController: {fileID: 0}
 --- !u!114 &3944001883110245084
 MonoBehaviour:
   m_ObjectHideFlags: 0

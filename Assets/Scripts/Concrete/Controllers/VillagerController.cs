@@ -64,7 +64,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
 
         [HideInInspector] public KnightController kC;
-        [HideInInspector] public UnitPathFinding2D pF2D;
+        [HideInInspector] public PathFindingController pF;
         [HideInInspector] public SpriteRenderer villagerSpriteRenderer;
         [HideInInspector] public Animator animator;
         [HideInInspector] public GameObject goldIdle;
@@ -73,18 +73,18 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public GameObject meatIdle;
         [HideInInspector] public Direction direction;
         [HideInInspector] public IInput ıInput;
-         public SheepController sheepController;
         [HideInInspector] public AnimationEventController animationEventController;
+        public SheepController sheepController;
         TreeController treeController;
         CollectResources collectResources;
-        CollectGoldOrRock goldAndRock;
+        CollectGoldOrRock collectGoldAndRock;
         CollectWood collectWood;
         CollectFood collectFood;
-        [HideInInspector] public Construction construction;
+        Construction construction;
         private void Awake()
         {
             kC = GetComponent<KnightController>();
-            pF2D = GetComponent<UnitPathFinding2D>();
+            pF = GetComponent<PathFindingController>();
             villagerSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
             animator = transform.GetChild(0).GetComponent<Animator>();
             goldIdle = transform.GetChild(1).GetChild(0).gameObject;
@@ -93,11 +93,11 @@ namespace Assets.Scripts.Concrete.Controllers
             meatIdle = transform.GetChild(1).GetChild(3).gameObject;
             ıInput = new PcInput();
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
-            collectResources = new(this);
-            goldAndRock = new(this, pF2D);
-            collectWood = new(this, pF2D);
-            collectFood = new(this, pF2D);
-            construction = new(this, pF2D);
+            collectResources = new(this, pF);
+            collectGoldAndRock = new(this, pF);
+            collectWood = new(this, pF);
+            collectFood = new(this, pF);
+            construction = new(this, pF);
         }
         private void Start()
         {
@@ -105,8 +105,10 @@ namespace Assets.Scripts.Concrete.Controllers
             currentChopTreeSightRange = chopTreeSightRange;
             currentTreeDamage = treeDamage;
             //  Events
-            animationEventController.ChopEvent += collectWood.Chop;
+            animationEventController.ChopWoodEvent += collectWood.Chop;
             animationEventController.GetHitTreeEvent += collectWood.GetHitTree;
+            animationEventController.ChopSheepEvent += Idle;
+            animationEventController.GetHitSheepEvent += collectFood.GetHitSheep;
             animationEventController.BuildEvent += construction.Build;
 
             //Invoke
@@ -120,23 +122,25 @@ namespace Assets.Scripts.Concrete.Controllers
 
         void OptimumVillager()
         {
-            //Düşman varsa kaynak toplama
-            if (kC.unitAI.nearestTarget != null)
+            if (kC.knightAI.nearestTarget != null) //Düşman varsa kaynak toplama
             {
                 // Elinde herhangi bir kaynak varsa onu yere at
                 collectResources.DropAnyResources();
-                return;
             }
 
-            //Düşman yoksa işine devam et
-            if (kC.unitAI.nearestTarget == null) pF2D.isPathEnd = false;
-
-            goldAndRock.GoToMine();
-            collectWood.GoToTree();
-            collectFood.GoToSheep();
-            collectFood.GoToFences();
-            collectResources.GoToHome();
-            construction.GoConstruct();
+            else //Düşman yoksa kaynak toplayabilir
+            {
+                collectGoldAndRock.GoToMine();
+                collectWood.GoToTree();
+                collectFood.GoToSheep();
+                collectFood.GoToFences();
+                collectResources.GoToHome();
+                construction.GoConstruct();
+            }
+        }
+        void Idle()
+        {
+            AnimationManager.Instance.IdleAnim(animator);
         }
         private void OnDrawGizmos()
         {

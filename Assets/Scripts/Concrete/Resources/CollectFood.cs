@@ -9,12 +9,11 @@ namespace Assets.Scripts.Concrete.Resources
     internal class CollectFood
     {
         VillagerController vC;
-        UnitPathFinding2D pF2D;
-        public CollectFood(VillagerController collectResources, UnitPathFinding2D pathFinding2D)
+        PathFindingController pF;
+        public CollectFood(VillagerController vC, PathFindingController pF)
         {
-            vC = collectResources;
-            pF2D = pathFinding2D;
-            vC.animationEventController.CutSheepEvent += CutSheep;
+            this.vC = vC;
+            this.pF = pF;
         }
 
         public void GoToSheep()
@@ -28,13 +27,11 @@ namespace Assets.Scripts.Concrete.Resources
                     // Koyuna ulaşınca dur
                     if (distance > .1f)
                     {
-                        pF2D.AIGetMoveCommand(vC.targetResource.transform.GetChild(1).position);
-                        AnimationManager.Instance.RunAnim(vC.animator, 1);
+                        pF.MoveAI(vC.targetResource.transform.GetChild(1).position);
                     }
                     // Koyuna ulaşıldı
                     if (distance < .1f)
                     {
-                        AnimationManager.Instance.IdleAnim(vC.animator);
                         // Koyunu evcilleştir
                         if (!vC.sheepController.isDomestic)
                         {
@@ -55,9 +52,10 @@ namespace Assets.Scripts.Concrete.Resources
                             vC.workOnce2 = true;
                             vC.returnHome = true;
                             //Koyunu kes, animasyon ile
-                            AnimationManager.Instance.ChopAnim(vC.animator, vC.chopSpeed);
+                            AnimationManager.Instance.ChopSheepAnim(vC.animator, vC.chopSpeed);
                             vC.targetResource = null;
                             vC.tCollect = 0;
+
                         }
                     }
                 }
@@ -65,11 +63,17 @@ namespace Assets.Scripts.Concrete.Resources
             }
         }
 
-        void CutSheep()
+        // Kesme animasyonu ile tetiklenir
+        public void GetHitSheep()
         {
             if (vC.sheepController != null)
+            {
                 vC.sheepController.CutSheep();
+            }
+
         }
+
+
         public void GoToFences()
         {
             if (vC.returnFences)
@@ -77,8 +81,7 @@ namespace Assets.Scripts.Concrete.Resources
                 // Çit kapısına git
                 if (Vector2.Distance(vC.transform.position, vC.fenceObj.transform.GetChild(0).position) > .1)
                 {
-                    pF2D.AIGetMoveCommand(vC.fenceObj.transform.GetChild(0).position);
-                    AnimationManager.Instance.RunAnim(vC.animator, 1);
+                    pF.MoveAI(vC.fenceObj.transform.GetChild(0).position);
                 }
 
                 // Çit kapısının önünde dur ve koyunu çite gönder

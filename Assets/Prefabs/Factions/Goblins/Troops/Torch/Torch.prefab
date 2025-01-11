@@ -402,7 +402,7 @@ MonoBehaviour:
   attackDelay: 0
   sightRange: 8
   attackRange: 0.8
-  enemyAIPerTime: 0.5
+  enemyAIPerTime: 0.1
   attackTheAllKnights: 0
   playerUnits: []
   playerBuildings: []
@@ -434,7 +434,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   aI: 1
   onBuilding: 0
-  stayBuilding: 0
+  onBuildingStay: 0
+  goBuilding: 0
 --- !u!114 &5566946402393527068
 MonoBehaviour:
   m_ObjectHideFlags: 0

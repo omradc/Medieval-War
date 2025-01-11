@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Managers;
+using Assets.Scripts.Concrete.Movements;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Resources
@@ -7,10 +8,11 @@ namespace Assets.Scripts.Concrete.Resources
     internal class CollectResources
     {
         VillagerController vC;
-
-        public CollectResources(VillagerController collectResourcesController)
+        PathFindingController pF;
+        public CollectResources(VillagerController collectResourcesController, PathFindingController pF)
         {
             vC = collectResourcesController;
+            this.pF = pF;
         }
 
         public void SelectResourceType()
@@ -112,7 +114,6 @@ namespace Assets.Scripts.Concrete.Resources
                 // Eve ulaşıldı
                 else
                 {
-
                     DropResourceToHome();
                     vC.returnHome = false;
                     vC.workOnceForTree = true;
@@ -135,14 +136,14 @@ namespace Assets.Scripts.Concrete.Resources
                         vC.goldIdle.SetActive(true);
                     if (mine.CompareTag("RockMine"))
                         vC.rockIdle.SetActive(true);
-                    vC.pF2D.AIGetMoveCommand(vC.homePos);
+                    pF.MoveAI(vC.homePos);
                     AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
                     vC.workOnce = false;
                 }
                 if (vC.tCollect > vC.woodCollectTime && vC.isTree)
                 {
                     vC.woodIdle.SetActive(true);
-                    vC.pF2D.AIGetMoveCommand(vC.homePos);
+                    pF.MoveAI(vC.homePos);
                     AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
                     vC.workOnce = false;
                     vC.tCollect = 0;
@@ -151,7 +152,7 @@ namespace Assets.Scripts.Concrete.Resources
                 if (vC.tCollect > vC.meatCollectTime && vC.sheepController)
                 {
                     vC.meatIdle.SetActive(true);
-                    vC.pF2D.AIGetMoveCommand(vC.homePos);
+                    pF.MoveAI(vC.homePos);
                     AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
                     vC.workOnce = false;
                     vC.tCollect = 0;
@@ -191,6 +192,7 @@ namespace Assets.Scripts.Concrete.Resources
                     vC.isSheep = false;
                 }
 
+                AnimationManager.Instance.IdleAnim(vC.animator);
                 ResourcesManager.Instance.DisplayResources();
                 vC.workOnce2 = false;
             }
@@ -201,12 +203,6 @@ namespace Assets.Scripts.Concrete.Resources
             if (vC.ıInput.GetButtonDown0 && vC.kC.isSeleceted)
             {
                 DropAnyResources();
-
-                // köylü seçili iken, etkileşimli olmayan bir nesne seçildiğinde seçim kalkar 
-                if (InteractManager.Instance.interactedObj == null)
-                {
-                    vC.kC.isSeleceted = false;
-                }
             }
 
         }
@@ -233,6 +229,7 @@ namespace Assets.Scripts.Concrete.Resources
                 DropMeat(vC.transform.position, vC.dropResourceLifeTime);
                 vC.meatIdle.SetActive(false);
             }
+            AnimationManager.Instance.IdleAnim(vC.animator);
         }
 
         void DropWood(Vector3 pos, float lifeTime)

@@ -121,12 +121,21 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.Play("Run_0");
             }
         }
-        public void ChopAnim(Animator animator, float speed)
+        public void ChopTreeAnim(Animator animator, float speed)
         {
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Chop"))
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Wood"))
             {
                 animator.speed = speed;
-                animator.Play("Chop");
+                animator.Play("Chop_Wood");
+            }
+        }
+
+        public void ChopSheepAnim(Animator animator, float speed)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Sheep"))
+            {
+                animator.speed = speed;
+                animator.Play("Chop_Sheep");
             }
         }
 

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Chop
+  m_Name: Chop_Wood
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,17 +21,17 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -1551261529, guid: 71e50217f74268a47a2db8870daf774b, type: 3}
+      value: {fileID: 478462662, guid: 623d065ab62290244a764e26a2ad9997, type: 3}
     - time: 0.1
-      value: {fileID: -1382850241, guid: 71e50217f74268a47a2db8870daf774b, type: 3}
+      value: {fileID: -362969700, guid: 623d065ab62290244a764e26a2ad9997, type: 3}
     - time: 0.2
-      value: {fileID: 123361805, guid: 71e50217f74268a47a2db8870daf774b, type: 3}
+      value: {fileID: 1602188745, guid: 623d065ab62290244a764e26a2ad9997, type: 3}
     - time: 0.3
-      value: {fileID: -280374554, guid: 71e50217f74268a47a2db8870daf774b, type: 3}
+      value: {fileID: 1772777476, guid: 623d065ab62290244a764e26a2ad9997, type: 3}
     - time: 0.4
-      value: {fileID: 839021360, guid: 71e50217f74268a47a2db8870daf774b, type: 3}
+      value: {fileID: -410357818, guid: 623d065ab62290244a764e26a2ad9997, type: 3}
     - time: 0.5
-      value: {fileID: -438405538, guid: 71e50217f74268a47a2db8870daf774b, type: 3}
+      value: {fileID: 310490335, guid: 623d065ab62290244a764e26a2ad9997, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -54,12 +54,12 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -1551261529, guid: 71e50217f74268a47a2db8870daf774b, type: 3}
-    - {fileID: -1382850241, guid: 71e50217f74268a47a2db8870daf774b, type: 3}
-    - {fileID: 123361805, guid: 71e50217f74268a47a2db8870daf774b, type: 3}
-    - {fileID: -280374554, guid: 71e50217f74268a47a2db8870daf774b, type: 3}
-    - {fileID: 839021360, guid: 71e50217f74268a47a2db8870daf774b, type: 3}
-    - {fileID: -438405538, guid: 71e50217f74268a47a2db8870daf774b, type: 3}
+    - {fileID: 478462662, guid: 623d065ab62290244a764e26a2ad9997, type: 3}
+    - {fileID: -362969700, guid: 623d065ab62290244a764e26a2ad9997, type: 3}
+    - {fileID: 1602188745, guid: 623d065ab62290244a764e26a2ad9997, type: 3}
+    - {fileID: 1772777476, guid: 623d065ab62290244a764e26a2ad9997, type: 3}
+    - {fileID: -410357818, guid: 623d065ab62290244a764e26a2ad9997, type: 3}
+    - {fileID: 310490335, guid: 623d065ab62290244a764e26a2ad9997, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -93,7 +93,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.5
-    functionName: Chop
+    functionName: ChopWood
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

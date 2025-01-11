@@ -35,9 +35,9 @@ namespace Assets.Scripts.Concrete.Movements
             if (pathLeftToGo.Count > 0) //if the target is not yet reached
             {
                 Vector3 dir = (Vector3)pathLeftToGo[0] - transform.position;
-                transform.position += dir.normalized * sC.currentMoveSpeed;
+                transform.position += dir.normalized * sC.moveSpeed;
 
-                if (((Vector2)transform.position - pathLeftToGo[0]).sqrMagnitude < sC.currentMoveSpeed * sC.currentMoveSpeed)
+                if (((Vector2)transform.position - pathLeftToGo[0]).sqrMagnitude < sC.moveSpeed * sC.moveSpeed)
                 {
                     transform.position = pathLeftToGo[0];
                     pathLeftToGo.RemoveAt(0);
@@ -47,11 +47,6 @@ namespace Assets.Scripts.Concrete.Movements
 
             if (pathLeftToGo.Count == 0)
                 moveCommand = false;
-
-
-
-
-
 
             if (drawDebugLines)
             {

@@ -8,29 +8,29 @@ namespace Assets.Scripts.Concrete.Resources
     internal class CollectGoldOrRock
     {
         VillagerController vC;
-        UnitPathFinding2D pF2D;
+        PathFindingController pF;
 
-        public CollectGoldOrRock(VillagerController collectResources, UnitPathFinding2D pathFinding2D)
+        public CollectGoldOrRock(VillagerController vC, PathFindingController pF)
         {
-            vC = collectResources;
-            pF2D = pathFinding2D;
+            this.vC = vC;
+            this.pF = pF;
         }
         public void GoToMine()
         {
-            if (vC.isTree || vC.isMineEmpty || !vC.isMine || vC.isSheep) return;
+            if (vC.isMineEmpty || !vC.isMine) return;
             // Hedef varsa ona git
             if (vC.targetResource != null && !vC.returnHome && vC.mine.currentMineAmount > 0)
             {
                 // Hedefe ulaşınca dur
                 if (Vector2.Distance(vC.transform.position, vC.targetResource.transform.position) > .1f)
                 {
-                    pF2D.AIGetMoveCommand(vC.targetResource.transform.position);
-                    AnimationManager.Instance.RunAnim(vC.animator, 1);
+                    pF.MoveAI(vC.targetResource.transform.position);
                 }
 
                 // Hedefe ulaşıldı
                 else
                 {
+                    AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
                     if (vC.mine.currentMineAmount == 0) return;
                     vC.villagerSpriteRenderer.enabled = false;
                     vC.tMining += 1;

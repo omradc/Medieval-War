@@ -29,12 +29,12 @@ namespace Assets.Scripts.Concrete.Movements
         private void Update()
         {
             // Birim hareket ederken gittiği yolu izler
-            direction.Turn2DirectionWithVelocity(agent.velocity.x);
+            if (!isStopped)
+                direction.Turn2DirectionWithVelocity(agent.velocity.x);
 
             // Durma kontrolü
             if (agent.hasPath && agent.velocity.magnitude > 0)
                 isStopped = false;
-
             else
             {
                 isStopped = true;

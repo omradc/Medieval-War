@@ -9,12 +9,12 @@ namespace Assets.Scripts.Concrete.Resources
     internal class Construction
     {
         VillagerController vC;
-        UnitPathFinding2D pF2D;
+        PathFindingController pF;
 
-        public Construction(VillagerController vC, UnitPathFinding2D pF2D)
+        public Construction(VillagerController vC, PathFindingController pF)
         {
             this.vC = vC;
-            this.pF2D = pF2D;
+            this.pF = pF;
         }
 
         public void GoConstruct()
@@ -27,8 +27,7 @@ namespace Assets.Scripts.Concrete.Resources
                 float distance = Vector2.Distance(vC.transform.position, constructionPos);
                 if (distance > .1f)
                 {
-                    pF2D.AIGetMoveCommand(constructionPos);
-                    AnimationManager.Instance.RunAnim(vC.animator, 1);
+                    pF.MoveAI(constructionPos);
                 }
 
                 if (distance <= .1f)

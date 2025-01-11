@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.AI
 {
-    internal class UnitAI
+    internal class KnightAI
     {
         public GameObject nearestTarget;
         public Transform nearestAttackPoint;
@@ -21,7 +21,7 @@ namespace Assets.Scripts.Concrete.AI
         bool workOnce;
         float time;
         float timeToGetOffTower = 1;
-        public UnitAI(KnightController kC, PathFindingController pF)
+        public KnightAI(KnightController kC, PathFindingController pF)
         {
             this.kC = kC;
             this.pF = pF;
@@ -67,9 +67,6 @@ namespace Assets.Scripts.Concrete.AI
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
                 if (Vector2.Distance(nearestAttackPoint.position, kC.attackRangePosition) < kC.attackRange) return;
-
-                AnimationManager.Instance.RunAnim(kC.animator, 1);
-
                 pF.MoveAI(nearestAttackPoint.position);
             }
 
@@ -191,7 +188,6 @@ namespace Assets.Scripts.Concrete.AI
                         return;
                     }
                     pF.MoveAI(gatePos);
-                    AnimationManager.Instance.RunAnim(kC.animator, 1);
                     kC.onBuildingStay = true;
                     kC.goBuilding = true;
                     workOnce = false;
@@ -226,7 +222,7 @@ namespace Assets.Scripts.Concrete.AI
                         unitSpriteRenderer.sortingOrder = 12;
                         kC.aI = true;
                         CalculateTowerPos();
-                        pF.MoveAI(pos);
+                        pF.agent.ResetPath(); // kulede kal
                         kC.transform.position = pos; // Birimi kuleye ışınla
                         kC.onBuilding = true;
                         kC.gameObject.layer = 25; // ölümsüz ol

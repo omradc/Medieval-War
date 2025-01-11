@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b4d6f76c6e5cd4398b5a612f2c8365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTypeEnum: 1
+  troopType: 1
   attackRadius: 0
   torchAttackPoint: {fileID: 0}
   torchAttackPointDistance: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
   attackDelay: 0
   sightRange: 10
   attackRange: 4
-  enemyAIPerTime: 0.5
+  enemyAIPerTime: 0.1
   attackTheAllKnights: 0
   playerUnits: []
   playerBuildings: []
@@ -308,7 +308,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   aI: 1
   onBuilding: 0
-  stayBuilding: 0
+  onBuildingStay: 0
+  goBuilding: 0
 --- !u!114 &-8565848495876418399
 MonoBehaviour:
   m_ObjectHideFlags: 0

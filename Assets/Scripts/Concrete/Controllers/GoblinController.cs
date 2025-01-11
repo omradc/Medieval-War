@@ -12,7 +12,7 @@ namespace Assets.Scripts.Concrete.Controllers
     internal class GoblinController : MonoBehaviour
     {
         [Header("ENEMY TYPE")]
-        public TroopTypeEnum enemyTypeEnum;
+        public TroopTypeEnum troopType;
 
         [Header("TORCH")]
         public float attackRadius;
@@ -72,7 +72,6 @@ namespace Assets.Scripts.Concrete.Controllers
         PathFindingController pF;
         AnimationEventController animationEventController;
         Vector3 gizmosPos;
-        Rigidbody2D rb2D;
         bool canAttack;
         float currentStoppingDistance;
         private void Awake()
@@ -85,13 +84,12 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Start()
         {
-            enemyAttack = new(this, enemyAI, animationEventController);
+            enemyAttack = new(this, enemyAI, animationEventController, pF);
             pF.agent.speed = moveSpeed;
             currentStoppingDistance = attackRange;
             pF.agent.stoppingDistance = currentStoppingDistance;
             currentSightRange = sightRange;
             gizmosPos = transform.position;
-            rb2D = GetComponent<Rigidbody2D>();
             //PatrolSetup();
 
 
@@ -124,7 +122,7 @@ namespace Assets.Scripts.Concrete.Controllers
         void DetechEnemies()
         {
             // Varil için iki farklı hedef türü vardır, önceliği yapılar.
-            if (enemyTypeEnum == TroopTypeEnum.Barrel)
+            if (troopType == TroopTypeEnum.Barrel)
             {
                 playerUnits = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetUnits);
                 playerBuildings = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetBuildings);
@@ -132,7 +130,7 @@ namespace Assets.Scripts.Concrete.Controllers
             else
                 playerObjs = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetAll);
 
-            if (enemyTypeEnum == TroopTypeEnum.Tnt)
+            if (troopType == TroopTypeEnum.Tnt)
             {
                 woodTowers = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, woodTower);
             }
@@ -143,9 +141,9 @@ namespace Assets.Scripts.Concrete.Controllers
             // Hedefte düşman varsa ve durduysan, hedefe yönel.
             if (enemyAI.nearestTarget != null && pF.isStopped)
             {
-                if (enemyTypeEnum == TroopTypeEnum.Tnt || enemyTypeEnum == TroopTypeEnum.Barrel)
+                if (troopType == TroopTypeEnum.Tnt || troopType == TroopTypeEnum.Barrel)
                     direction.Turn2DirectionWithPos(enemyAI.nearestAttackPoint.position.x);
-                if (enemyTypeEnum == TroopTypeEnum.Torch)
+                if (troopType == TroopTypeEnum.Torch)
                     direction.Turn4Direction(enemyAI.nearestAttackPoint.position);
             }
 
@@ -178,7 +176,7 @@ namespace Assets.Scripts.Concrete.Controllers
             if (!aI)
                 sightRangePosition = transform.GetChild(0).position;
 
-            if (behavior == BehaviorEnum.Default)
+            if (behavior == BehaviorEnum.Default && troopType != TroopTypeEnum.Tnt)
                 currentStoppingDistance = attackRange;
 
             else

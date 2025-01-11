@@ -3,6 +3,7 @@ using Assets.Scripts.Concrete.Combats;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
+using System.Security.Cryptography;
 using UnityEngine;
 
 
@@ -43,7 +44,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public UnitOrderEnum unitOrderEnum;
         [HideInInspector] public Vector2 attackRangePosition;
         [HideInInspector] public Vector2 sightRangePosition;
-        [HideInInspector] public UnitAI unitAI;
+        [HideInInspector] public KnightAI knightAI;
         [HideInInspector] public Direction direction;
         [HideInInspector] public Animator animator;
         [HideInInspector] public int towerPosIndex;
@@ -62,12 +63,12 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             pF = GetComponent<PathFindingController>();
             direction = new Direction(transform);
-            unitAI = new UnitAI(this, pF);
+            knightAI = new KnightAI(this, pF);
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
         }
         private void Start()
         {
-            unitAttack = new UnitAttack(this, unitAI, animationEventController);
+            unitAttack = new UnitAttack(this, knightAI, animationEventController, pF);
             currentSightRange = sightRange;
             currentStoppingDistance = attackRange;
             pF.agent.stoppingDistance = currentStoppingDistance;
@@ -96,18 +97,18 @@ namespace Assets.Scripts.Concrete.Controllers
                 }
             }
 
-            unitAI.SelectTower();
+            knightAI.SelectTower();
             //towerAI.DestructTower();
         }
         void OptimumUnitAI()
         {
-            unitAI.GoTower();
+            knightAI.GoTower();
             if (aI) //Knight AI
             {
                 DetechEnemies();
                 AITurnDirection();
-                unitAI.CatchNeraestTarget();
-                unitAI.UnitBehaviours();
+                knightAI.CatchNeraestTarget();
+                knightAI.UnitBehaviours();
             }
 
         }
@@ -117,15 +118,26 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void AITurnDirection()
         {
-            // Hedefte düþman varsa ve durduysan, hedefe yönel.
-            if (unitAI.nearestTarget != null && !pF.isUserControl)
+            // Durduysan, hedefe yönel.
+            if (pF.isStopped)
             {
-                if (troopType == TroopTypeEnum.Villager)
-                    direction.Turn2DirectionWithPos(unitAI.nearestAttackPoint.position.x);
-                if (troopType == TroopTypeEnum.Archer)
-                    direction.Turn8Direction(unitAI.nearestAttackPoint.position);
-                if (troopType == TroopTypeEnum.Worrior)
-                    direction.Turn4Direction(unitAI.nearestAttackPoint.position);
+                // Hedefte düþman varsa;
+                if (knightAI.nearestTarget != null)
+                {
+                    if (troopType == TroopTypeEnum.Villager)
+                        direction.Turn2DirectionWithPos(knightAI.nearestAttackPoint.position.x);
+                    if (troopType == TroopTypeEnum.Archer)
+                        direction.Turn8Direction(knightAI.nearestAttackPoint.position);
+                    if (troopType == TroopTypeEnum.Worrior)
+                        direction.Turn4Direction(knightAI.nearestAttackPoint.position);
+                }
+
+                // Hedefte düþman yoksa;
+                else
+                {
+                    transform.localScale = Vector3.one;
+                }
+
             }
 
         }
@@ -136,20 +148,23 @@ namespace Assets.Scripts.Concrete.Controllers
                 //Animasyonlar, saldýrýlarý event ile tetikler ve yöne göre animasyonlar oynatýlýr.
                 if (direction.right || direction.left)
                     AnimationManager.Instance.AttackFrontAnim(animator, attackSpeed);
-                if (direction.up)
+                else if (direction.up)
                     AnimationManager.Instance.AttackUpAnim(animator, attackSpeed);
-                if (direction.down)
+                else if (direction.down)
                     AnimationManager.Instance.AttackDownAnim(animator, attackSpeed);
-                if (direction.upRight || direction.upLeft)
+                else if (direction.upRight || direction.upLeft)
                     AnimationManager.Instance.AttackUpFrontAnim(animator, attackSpeed);
-                if (direction.downRight || direction.downLeft)
+                else if (direction.downRight || direction.downLeft)
                     AnimationManager.Instance.AttackDownFrontAnim(animator, attackSpeed);
             }
             else
             {
-                if (pF.isStopped) // Durduysan = IdleAnim
+                // Aðaç kesme ve kaynak taþýma animasyonu yapmýyorsa, koþabilir veya durabilir
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Sheep") || animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Wood") ||
+                    animator.GetCurrentAnimatorStateInfo(0).IsName("Run_0")) return;
+                if (pF.isStopped)  // Durduysan = IdleAnim
                     AnimationManager.Instance.IdleAnim(animator);
-                if (!pF.isStopped)                           // Durmadýysan = RunAnim
+                if (!pF.isStopped) // Durmadýysan = RunAnim
                     AnimationManager.Instance.RunAnim(animator, 1);
 
             }
@@ -161,7 +176,7 @@ namespace Assets.Scripts.Concrete.Controllers
             if (!aI)
                 sightRangePosition = transform.GetChild(0).position;
 
-            if (pF.isUserControl || unitAI.nearestTarget == null || goBuilding)
+            if (pF.isUserControl || knightAI.nearestTarget == null || goBuilding)
                 currentStoppingDistance = 0;
 
             else
@@ -172,9 +187,9 @@ namespace Assets.Scripts.Concrete.Controllers
         void AttackOn()
         {
             // Düþman varsa ve saldýrý menzilindeyse, saldýrý aktifleþir
-            if (unitAI.nearestTarget != null)
+            if (knightAI.nearestTarget != null)
             {
-                if (Vector2.Distance(attackRangePosition, unitAI.nearestAttackPoint.position) < attackRange && !pF.isUserControl && !goBuilding)
+                if (Vector2.Distance(attackRangePosition, knightAI.nearestAttackPoint.position) < attackRange && !pF.isUserControl && !goBuilding)
                     canAttack = true;
                 else
                     canAttack = false;

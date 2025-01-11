@@ -8,6 +8,13 @@ namespace Assets.Scripts.Concrete.Controllers
     internal class SheepController : MonoBehaviour
     {
 
+        [Header("Sheep")]
+        [Range(0.1f, 1)] public float sheepAIPerTime = .5f;
+        public float maxSheepScale = 1.5f;
+        public float growTime;
+        public int maxMeatAmount;
+        public float tameTime;
+
         [Header("Movement")]
         [Range(0.1f, 2)] public float moveSpeed;
         public float currentSheepScale;
@@ -16,28 +23,22 @@ namespace Assets.Scripts.Concrete.Controllers
         public float patrollingRadius;
         public float waitingTime;
 
-        [Header("Feed")]
-        public float maxSheepScale = 1.5f;
-        public float growTime;
-        public int maxMeatAmount;
-        public float tameTime;
 
-        [HideInInspector] public float currentGrowTime;
-        [HideInInspector] public int currentMeatAmount;
-        [HideInInspector] public float currentMoveSpeed;
-        [HideInInspector] public float currentTameTime;
-        [HideInInspector] public bool isDomestic;
-        [HideInInspector] public bool goFence;
-        [HideInInspector] public bool giveMeat;
-        [HideInInspector] public bool inFence;
+        public float currentGrowTime;
+        public int currentMeatAmount;
+        public float currentTameTime;
+        public bool isDomestic;
+        public bool goFence;
+        public bool inFence;
+        public bool growed;
         [SerializeField] GameObject resourceMeat;
         GameObject fenceObj;
         Animator animator;
         GameObject villager;
         VillagerController vC;
-        Transform[] sheepPoints;
-        Transform sheepPoint;
-        SheepPathFinding2D sPF2D;
+        public Transform[] sheepPoints;
+        public Transform sheepPoint;
+        PathFindingController pF;
         Vector3 rightDirection;
         Vector3 leftDirection;
         Vector3 scale;
@@ -49,28 +50,32 @@ namespace Assets.Scripts.Concrete.Controllers
 
         private void Awake()
         {
-            sPF2D = GetComponent<SheepPathFinding2D>();
+            pF = GetComponent<PathFindingController>();
         }
         private void Start()
         {
+            pF.agent.speed = moveSpeed;
             animator = transform.GetChild(0).GetComponent<Animator>();
-            InvokeRepeating(nameof(SetDirection), 0.1f, .5f);
-            InvokeRepeating(nameof(CirclePatrollingAnchor), 0.1f, .5f);
             currentMeatAmount = ResourcesManager.Instance.collectMeatAmount;
             rightDirection = new Vector3(currentSheepScale, currentSheepScale, currentSheepScale);
             leftDirection = new Vector3(-currentSheepScale, currentSheepScale, currentSheepScale);
             scale = Vector3.one;
             firstPoint = transform.position;
             targetPoint = firstPoint;
-
+            InvokeRepeating(nameof(OptimumAI), .1f, sheepAIPerTime);
         }
 
         private void Update()
         {
-            currentMoveSpeed = moveSpeed * Time.deltaTime;
+            AnimationControl();
+            GrowUp();
+        }
+
+        void OptimumAI()
+        {
+            CirclePatrollingAnchor();
             FollowTheVillager();
             GoFence();
-            GrowUp();
         }
 
         // Köylü koyunu bulunca onu evcilleştirir
@@ -78,12 +83,9 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             if (isDomestic) return;
             behavior = BehaviorEnum.Default;
-            sPF2D.isPathEnd = true;
-
             currentTameTime += 1;
             if (currentTameTime > tameTime)
             {
-                sPF2D.isPathEnd = false;
                 currentTameTime = 0;
                 isDomestic = true;
                 this.villager = villager;
@@ -99,14 +101,14 @@ namespace Assets.Scripts.Concrete.Controllers
                 if (vC.kC.isSeleceted)
                     isDomestic = false;
 
-            // Eğer koyun; çitlere gitmiyorsa, evcilse ve köylü yanındaysa,
+            // Eğer koyun; çitlere gitmiyorsa, evcilse ve köylüsü varsa, onu takip eder
             if (!goFence && isDomestic && villager != null && !inFence)
             {
                 // Köylüyü takip et
                 if (Vector2.Distance(transform.position, villager.transform.position) > followDistance)
                 {
-                    AnimationManager.Instance.HappyAnim(animator);
-                    sPF2D.AIGetMoveCommand(villager.transform.position);
+                    pF.agent.stoppingDistance = followDistance;
+                    pF.MoveAI(villager.transform.position);
                 }
             }
         }
@@ -114,43 +116,27 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             if (goFence)
             {
-                // Çit dolu ise
+                // Çit dolu ise, gitme
                 if (sheepPoint == null)
                 {
                     goFence = false;
                     return;
                 }
                 // Çitlere git
-                if (Vector2.Distance(transform.position, sheepPoint.position) > 0.1f)
+                if (Vector2.Distance(transform.position, sheepPoint.position) >= 0.1f)
                 {
-                    AnimationManager.Instance.HappyAnim(animator);
-                    sPF2D.AIGetMoveCommand(sheepPoint.position);
+                    pF.agent.stoppingDistance = 0;
+                    pF.MoveAI(sheepPoint.position);
                 }
-
                 // Çit içinde
-                else
+                if (Vector2.Distance(transform.position, sheepPoint.position) < 0.1f && pF.isStopped)
                 {
                     goFence = false;
                     inFence = true;
-                    AnimationManager.Instance.IdleAnim(animator);
+                    transform.localScale = leftDirection; // Koyun çitin içindeyse sola bakar
                 }
             }
         }
-        //void ReadyToGiveMeat()
-        //{
-        //    if (inFence && !giveMeat)
-        //    {
-        //        AnimationManager.Instance.IdleAnim(animator);
-        //        currentMeatTime += Time.deltaTime;
-        //        if (currentMeatTime > meatTime)
-        //        {
-        //            giveMeat = true;
-        //            AnimationManager.Instance.HappyAnim(animator);
-        //            currentMeatTime = 0;
-        //        }
-        //    }
-        //}
-
         void GrowUp()
         {
             if (inFence)
@@ -177,7 +163,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
                 else
                 {
-                    AnimationManager.Instance.HappyAnim(animator);
+                    growed = true;
                 }
             }
         }
@@ -201,31 +187,6 @@ namespace Assets.Scripts.Concrete.Controllers
             }
         }
 
-        void SetDirection()
-        {
-
-            if (inFence)
-            {
-                // Çitin içindeyse tüm koyunlar sola bakar
-                if (!inFenceOnce)
-                {
-                    transform.localScale = leftDirection;
-                    inFenceOnce = true;
-                }
-                return;
-            }
-
-            // Yola bak
-            if (sPF2D.pathLeftToGo.Count > 0)
-            {
-                if (transform.position.x > sPF2D.pathLeftToGo[0].x)
-                    transform.localScale = leftDirection;
-                else
-                    transform.localScale = rightDirection;
-
-            }
-        }
-
         void CirclePatrollingAnchor()
         {
             if (behavior != BehaviorEnum.CirclePatrollingAnchor) return;
@@ -234,14 +195,13 @@ namespace Assets.Scripts.Concrete.Controllers
                 patrol = false;
                 targetPoint = firstPoint;
                 targetPoint += new Vector3(Random.Range(-patrollingRadius, patrollingRadius), Random.Range(-patrollingRadius, patrollingRadius));
-                sPF2D.AIGetMoveCommand(targetPoint);
-                AnimationManager.Instance.HappyAnim(animator);
+                pF.agent.stoppingDistance = followDistance;
+                pF.MoveAI(targetPoint);
             }
 
-            if (sPF2D.pathLeftToGo.Count == 0)
+            if (pF.agent.isStopped)
             {
                 time++;
-                AnimationManager.Instance.IdleAnim(animator);
                 if (time >= waitingTime)
                 {
                     time = 0;
@@ -254,6 +214,20 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(firstPoint, patrollingRadius);
+
+        }
+
+        void AnimationControl()
+        {
+            if (growed) // Koyun büyüdüyse zıplar
+            {
+                AnimationManager.Instance.HappyAnim(animator);
+                return;
+            }
+            if (pF.isStopped) // Koyun durur
+                AnimationManager.Instance.IdleAnim(animator);
+            else // Koyun hareket eder
+                AnimationManager.Instance.HappyAnim(animator);
 
         }
     }

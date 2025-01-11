@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Chop
+  m_Name: Chop_Sheep
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,17 +21,17 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -998139417, guid: 7e941b502ac7e434ca8526d3805132ea, type: 3}
+      value: {fileID: 951816541, guid: e4ceee115a36b7541b3964e331b4d87c, type: 3}
     - time: 0.1
-      value: {fileID: -1459518916, guid: 7e941b502ac7e434ca8526d3805132ea, type: 3}
+      value: {fileID: 1885534886, guid: e4ceee115a36b7541b3964e331b4d87c, type: 3}
     - time: 0.2
-      value: {fileID: 1723029812, guid: 7e941b502ac7e434ca8526d3805132ea, type: 3}
+      value: {fileID: 1684295525, guid: e4ceee115a36b7541b3964e331b4d87c, type: 3}
     - time: 0.3
-      value: {fileID: -843126990, guid: 7e941b502ac7e434ca8526d3805132ea, type: 3}
+      value: {fileID: -1979996370, guid: e4ceee115a36b7541b3964e331b4d87c, type: 3}
     - time: 0.4
-      value: {fileID: -44372088, guid: 7e941b502ac7e434ca8526d3805132ea, type: 3}
+      value: {fileID: -1674561984, guid: e4ceee115a36b7541b3964e331b4d87c, type: 3}
     - time: 0.5
-      value: {fileID: -2092631429, guid: 7e941b502ac7e434ca8526d3805132ea, type: 3}
+      value: {fileID: -945152022, guid: e4ceee115a36b7541b3964e331b4d87c, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -54,12 +54,12 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -998139417, guid: 7e941b502ac7e434ca8526d3805132ea, type: 3}
-    - {fileID: -1459518916, guid: 7e941b502ac7e434ca8526d3805132ea, type: 3}
-    - {fileID: 1723029812, guid: 7e941b502ac7e434ca8526d3805132ea, type: 3}
-    - {fileID: -843126990, guid: 7e941b502ac7e434ca8526d3805132ea, type: 3}
-    - {fileID: -44372088, guid: 7e941b502ac7e434ca8526d3805132ea, type: 3}
-    - {fileID: -2092631429, guid: 7e941b502ac7e434ca8526d3805132ea, type: 3}
+    - {fileID: 951816541, guid: e4ceee115a36b7541b3964e331b4d87c, type: 3}
+    - {fileID: 1885534886, guid: e4ceee115a36b7541b3964e331b4d87c, type: 3}
+    - {fileID: 1684295525, guid: e4ceee115a36b7541b3964e331b4d87c, type: 3}
+    - {fileID: -1979996370, guid: e4ceee115a36b7541b3964e331b4d87c, type: 3}
+    - {fileID: -1674561984, guid: e4ceee115a36b7541b3964e331b4d87c, type: 3}
+    - {fileID: -945152022, guid: e4ceee115a36b7541b3964e331b4d87c, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -84,4 +84,18 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.28333333
+    functionName: GetHitSheep
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5
+    functionName: ChopSheep
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
