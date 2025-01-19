@@ -3,18 +3,16 @@ using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
-
+using UnityEngine.UIElements;
 
 namespace Assets.Scripts.Concrete.AI
 {
     internal class EnemyAI
     {
-        GoblinController gC;
-        //EnemyPathFinding2D ePF2D;
-        PathFindingController pF;
+        readonly GoblinController gC;
+        readonly PathFindingController pF;
         BuildingController bC;
-        SpriteRenderer goblinSpriteRenderer;
+        readonly SpriteRenderer goblinSpriteRenderer;
         public Transform nearestAttackPoint;
         public GameObject nearestTarget;
         Vector3 targetPoint;
@@ -22,14 +20,13 @@ namespace Assets.Scripts.Concrete.AI
         Vector2 towerPos;
         readonly Vector3 firstPoint;
         float time;
-        float timeToGetOffTower = 1;
+        readonly float timeToGetOffTower = 1;
         bool patrol;
         int index;
 
-        public EnemyAI(GoblinController goblinController,/* EnemyPathFinding2D enemyPathFinding2D*/PathFindingController pF)
+        public EnemyAI(GoblinController goblinController, PathFindingController pF)
         {
             gC = goblinController;
-            //ePF2D = enemyPathFinding2D;
             this.pF = pF;
             firstPoint = gC.transform.position;
             targetPoint = firstPoint;
@@ -127,13 +124,16 @@ namespace Assets.Scripts.Concrete.AI
             if (nearestTarget == null) return;
 
             CalculateNearestAttackPoint();
+            //nearestAttackPoint = nearestTarget.transform.GetChild(1);
+            //SetAttackRangeForEnemyType();
 
             if (Vector2.Distance(nearestAttackPoint.position, gC.sightRangePosition) < gC.currentSightRange)
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
                 if (Vector2.Distance(nearestAttackPoint.position, gC.attackRangePosition) < gC.attackRange) return;
-                //AnimationManager.Instance.RunAnim(gC.animator, 1);
-                pF.MoveAI(nearestAttackPoint.position);
+
+                pF.MoveAI(nearestAttackPoint.position, gC.attackRange); 
+
             }
         }
         public void GoblinBehaviour()
@@ -153,11 +153,11 @@ namespace Assets.Scripts.Concrete.AI
                 patrol = false;
                 targetPoint = firstPoint;
                 targetPoint += new Vector3(Random.Range(-gC.patrollingRadius, gC.patrollingRadius), Random.Range(-gC.patrollingRadius, gC.patrollingRadius));
-                pF.MoveAI(targetPoint);
+                pF.MoveAI(targetPoint, 0);
                 AnimationManager.Instance.RunAnim(gC.animator, 1);
             }
 
-            if (pF.isStopped)
+            if (pF.isStoping)
             {
                 time++;
 
@@ -177,11 +177,11 @@ namespace Assets.Scripts.Concrete.AI
             {
                 patrol = false;
                 targetPoint += new Vector3(Random.Range(-gC.patrollingRadius, gC.patrollingRadius), Random.Range(-gC.patrollingRadius, gC.patrollingRadius));
-                pF.MoveAI(targetPoint);
+                pF.MoveAI(targetPoint, 0);
                 AnimationManager.Instance.RunAnim(gC.animator, 1);
             }
 
-            if (pF.isStopped)
+            if (pF.isStoping)
             {
                 time++;
 
@@ -201,7 +201,7 @@ namespace Assets.Scripts.Concrete.AI
             if (patrol)
             {
                 targetPoint = gC.patrolPoints[index].position;
-                pF.MoveAI(targetPoint);
+                pF.MoveAI(targetPoint, 0);
                 index++;
                 if (index == gC.patrolPoints.Length)
                     index = 0;
@@ -210,7 +210,7 @@ namespace Assets.Scripts.Concrete.AI
             }
 
             // Devriye naktasına ulaşıldı
-            if (pF.isStopped)
+            if (pF.isStoping)
                 patrol = true;
         }
         void AttackTheAllUnit()
@@ -219,7 +219,6 @@ namespace Assets.Scripts.Concrete.AI
             gC.currentSightRange = 100;
             gC.attackTheAllKnights = true;
         }
-
         void CalculateNearestAttackPoint()
         {
             // Düşman şovalye ise
@@ -250,6 +249,36 @@ namespace Assets.Scripts.Concrete.AI
             }
 
         }
+
+        //void SetAttackRangeForEnemyType()
+        //{
+        //    // Düşman şovalye ise
+        //    if (nearestTarget.layer == 6)
+        //    {
+        //        gC.attackRange = gC.knightRange;
+        //        return;
+        //    }
+
+        //    // Düşman ev ise
+        //    if (nearestTarget.layer == 8)
+        //    {
+        //        gC.attackRange = gC.houseRange;
+        //        return;
+        //    }
+        //    // Düşman kule ise
+        //    if (nearestTarget.layer == 9)
+        //    {
+        //        gC.attackRange = gC.towerRange;
+        //        return;
+        //    }
+        //    // Düşman kale ise
+        //    if (nearestTarget.layer == 10)
+        //    {
+        //        gC.attackRange = gC.castleRange;
+        //        return;
+        //    }
+        //}
+
         public void GoUpToTower()
         {
             if (gC.troopType == TroopTypeEnum.Tnt) // Goblin türü tnt ise
@@ -260,9 +289,6 @@ namespace Assets.Scripts.Concrete.AI
                     {
                         gC.aI = true;
                         goblinSpriteRenderer.enabled = true;
-
-                        //if (gC.onBuilding)
-                        //    AnimationManager.Instance.IdleAnim(gC.animator);
                         return;
                     }
 
@@ -275,8 +301,7 @@ namespace Assets.Scripts.Concrete.AI
 
                     gatePos = nearestWoodTower.transform.GetChild(0).position;
                     towerPos = nearestWoodTower.transform.GetChild(1).position;
-                    pF.MoveAI(gatePos);
-                    //AnimationManager.Instance.RunAnim(gC.animator, 1);
+                    pF.MoveAI(gatePos, 0);
                     gC.onBuildingStay = true;
                     gC.goBuilding = true;
 
@@ -310,7 +335,6 @@ namespace Assets.Scripts.Concrete.AI
                             gC.goBuilding = false;
                             gC.transform.position = towerPos; // Birimi kuleye ışınla
                             gC.gameObject.layer = 24; // ölümsüz ol
-                            nearestWoodTower = null;
                             bC.isFull = true;
                             bC.gameObject.layer = 28; // Kulenin katmanı dolu olacak şekilde değişti
                             time = 0;
@@ -347,6 +371,7 @@ namespace Assets.Scripts.Concrete.AI
             {
                 Debug.Log("Kuleden düş");
                 goblinSpriteRenderer.enabled = true;
+                goblinSpriteRenderer.sortingOrder = 9;
                 gC.onBuildingStay = false;
                 gC.currentSightRange = gC.sightRange;
                 gC.onBuilding = false;

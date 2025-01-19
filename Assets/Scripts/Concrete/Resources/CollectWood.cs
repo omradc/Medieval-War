@@ -8,9 +8,9 @@ namespace Assets.Scripts.Concrete.Resources
 {
     internal class CollectWood
     {
-        VillagerController vC;
-        PathFindingController pF;
-        TreeController tree;
+       readonly VillagerController vC;
+       readonly PathFindingController pF;
+       TreeController tree;
 
 
         public CollectWood(VillagerController vC, PathFindingController pF)
@@ -65,7 +65,7 @@ namespace Assets.Scripts.Concrete.Resources
                 // Ağaca doğru gider
                 if (Vector2.Distance(vC.transform.position, vC.treeChopPos) > .1f)
                 {
-                    pF.MoveAI(vC.treeChopPos);
+                    pF.MoveAI(vC.treeChopPos, 0);
 
                     if (tree.isTreeAlreadyCutted)
                     {
@@ -75,7 +75,7 @@ namespace Assets.Scripts.Concrete.Resources
                 }
 
                 // Ağacı Kes
-                if (Vector2.Distance(vC.transform.position, vC.treeChopPos) < .1f && pF.isStopped)
+                if (Vector2.Distance(vC.transform.position, vC.treeChopPos) < .1f && pF.isStoping)
                 {
                     AnimationManager.Instance.ChopTreeAnim(vC.animator, vC.chopSpeed);
                 }

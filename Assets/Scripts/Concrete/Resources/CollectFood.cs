@@ -8,8 +8,8 @@ namespace Assets.Scripts.Concrete.Resources
 {
     internal class CollectFood
     {
-        VillagerController vC;
-        PathFindingController pF;
+       readonly VillagerController vC;
+       readonly PathFindingController pF;
         public CollectFood(VillagerController vC, PathFindingController pF)
         {
             this.vC = vC;
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Concrete.Resources
                     // Koyuna ulaşınca dur
                     if (distance > .1f)
                     {
-                        pF.MoveAI(vC.targetResource.transform.GetChild(1).position);
+                        pF.MoveAI(vC.targetResource.transform.GetChild(1).position,0);
                     }
                     // Koyuna ulaşıldı
                     if (distance < .1f)
@@ -81,7 +81,7 @@ namespace Assets.Scripts.Concrete.Resources
                 // Çit kapısına git
                 if (Vector2.Distance(vC.transform.position, vC.fenceObj.transform.GetChild(0).position) > .1)
                 {
-                    pF.MoveAI(vC.fenceObj.transform.GetChild(0).position);
+                    pF.MoveAI(vC.fenceObj.transform.GetChild(0).position, 0);
                 }
 
                 // Çit kapısının önünde dur ve koyunu çite gönder

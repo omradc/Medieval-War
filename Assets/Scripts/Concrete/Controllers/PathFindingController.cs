@@ -6,13 +6,14 @@ namespace Assets.Scripts.Concrete.Movements
 {
     public class PathFindingController : MonoBehaviour
     {
-        public bool isStopped = true;
+        public bool isStoping = true;
         public bool isUserControl;
         [HideInInspector] public NavMeshAgent agent;
         [HideInInspector] public Vector2 lastMousePos;
         [HideInInspector] public float moveSpeed;
         Direction direction;
         float time;
+        bool forDirectionStopping;
 
         private void Awake()
         {
@@ -28,16 +29,57 @@ namespace Assets.Scripts.Concrete.Movements
 
         private void Update()
         {
-            // Birim hareket ederken gittiği yolu izler
-            if (!isStopped)
-                direction.Turn2DirectionWithVelocity(agent.velocity.x);
 
+            SetDirection();
+            MovementControl();
+
+        }
+
+        // Kullanıcı hareketi
+        public void Move(Vector3 mousePos, float stoppingDistance)
+        {
+            // Pozisyon verilmediyse veya etkilleşimli bir objeye tıklandıysa çalışma
+            if (mousePos == null || InteractManager.Instance.interactedObj != null) return;
+            print("Move");
+            lastMousePos = mousePos;
+            agent.stoppingDistance = stoppingDistance;
+            agent.SetDestination(mousePos);
+            isUserControl = true;
+        }
+
+        // AI hareketi
+        public void MoveAI(Vector3 pos, float stoppingDistance)
+        {
+            if (pos == null || isUserControl) return;
+            print("MoveAI");
+            agent.stoppingDistance = stoppingDistance;
+            agent.SetDestination(pos);
+        }
+
+
+        void SetDirection()
+        {
+            // Yön için durma kontrolü
+            if (agent.hasPath && agent.velocity.magnitude > 0.1f)
+                forDirectionStopping = false;
+
+            else
+                forDirectionStopping = true;
+
+            // Birim hareket ederken gittiği yolu izler
+            if (!forDirectionStopping)
+                direction.Turn2DirectionWithVelocity(agent.velocity.x);
+        }
+
+
+        void MovementControl()
+        {
             // Durma kontrolü
-            if (agent.hasPath && agent.velocity.magnitude > 0)
-                isStopped = false;
+            if (agent.hasPath && agent.velocity.magnitude > 0.01f)
+                isStoping = false;
             else
             {
-                isStopped = true;
+                isStoping = true;
                 if (time > Time.deltaTime * 5) // 5 Frame bekle
                 {
                     time = 0;
@@ -45,25 +87,6 @@ namespace Assets.Scripts.Concrete.Movements
                 }
                 time += Time.deltaTime;
             }
-        }
-
-        // Kullanıcı hareketi
-        public void Move(Vector3 mousePos)
-        {
-            // Pozisyon verilmediyse veya etkilleşimli bir objeye tıklandıysa çalışma
-            if (mousePos == null || InteractManager.Instance.interactedObj != null) return;
-            print("Move");
-            lastMousePos = mousePos;
-            agent.SetDestination(mousePos);
-            isUserControl = true;
-        }
-
-        // AI hareketi
-        public void MoveAI(Vector3 pos)
-        {
-            if (pos == null || isUserControl) return;
-            print("MoveAI");
-            agent.SetDestination(pos);
         }
     }
 }

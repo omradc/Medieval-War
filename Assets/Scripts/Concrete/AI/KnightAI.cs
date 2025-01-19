@@ -10,17 +10,17 @@ namespace Assets.Scripts.Concrete.AI
     {
         public GameObject nearestTarget;
         public Transform nearestAttackPoint;
-        KnightController kC;
-        PathFindingController pF;
+        readonly KnightController kC;
+        readonly PathFindingController pF;
         GameObject tower;
         BuildingController bC;
-        SpriteRenderer unitSpriteRenderer;
+        readonly SpriteRenderer unitSpriteRenderer;
         Transform towerPos;
         Vector2 gatePos;
         Vector2 pos;
         bool workOnce;
         float time;
-        float timeToGetOffTower = 1;
+        readonly float timeToGetOffTower = 1;
         public KnightAI(KnightController kC, PathFindingController pF)
         {
             this.kC = kC;
@@ -67,7 +67,7 @@ namespace Assets.Scripts.Concrete.AI
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
                 if (Vector2.Distance(nearestAttackPoint.position, kC.attackRangePosition) < kC.attackRange) return;
-                pF.MoveAI(nearestAttackPoint.position);
+                pF.MoveAI(nearestAttackPoint.position, kC.attackRange);
             }
 
         }
@@ -123,7 +123,7 @@ namespace Assets.Scripts.Concrete.AI
             kC.currentSightRange = kC.sightRange;
             if (kC.followTargets.Length == 0) // Düşman yoksa merkeze dön
             {
-                pF.MoveAI(kC.sightRangePosition);
+                pF.MoveAI(kC.sightRangePosition, 0);
                 kC.direction.Turn2DirectionWithPos(kC.sightRangePosition.x);
             }
         }
@@ -137,14 +137,14 @@ namespace Assets.Scripts.Concrete.AI
             // Kendi saldırı menzilini geçmeyecek şekilde, görüş menzilinde düşman yoksa hedefi (kendi görüş menzilini) takip et
             if (kC.followTargets.Length == 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) > kC.attackRange)
             {
-                pF.MoveAI(kC.sightRangePosition);
+                pF.MoveAI(kC.sightRangePosition, kC.attackRange);
             }
 
             // Görüş menzilde düşman varsa, menzilden çıkmayacak şekilde düşmanı takip et
             if (kC.followTargets.Length > 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) < kC.currentSightRange)
             {
                 if (nearestTarget == null) return;
-                pF.MoveAI(nearestTarget.transform.position);
+                pF.MoveAI(nearestTarget.transform.position, kC.attackRange);
             }
 
         }
@@ -187,7 +187,7 @@ namespace Assets.Scripts.Concrete.AI
                         tower = null; // eğer birim kuledeyken, kuleye tıklarsa; kodun devamlılığını sağlar
                         return;
                     }
-                    pF.MoveAI(gatePos);
+                    pF.MoveAI(gatePos, 0);
                     kC.onBuildingStay = true;
                     kC.goBuilding = true;
                     workOnce = false;
@@ -226,6 +226,8 @@ namespace Assets.Scripts.Concrete.AI
                         kC.transform.position = pos; // Birimi kuleye ışınla
                         kC.onBuilding = true;
                         kC.gameObject.layer = 25; // ölümsüz ol
+                        kC.knightCollider.isTrigger = true;
+                        pF.agent.radius = 0;
                         kC.isSeleceted = false;
                         InteractManager.Instance.selectedUnits.Remove(kC.gameObject); // Kuledeyse seçimi kaldır
                         InteractManager.Instance.SelectedObjColor(1, kC.gameObject);  // Kuledeyse seçimi kaldır
@@ -249,7 +251,8 @@ namespace Assets.Scripts.Concrete.AI
                     kC.gameObject.layer = 6; // ölümlü ol
                     kC.onBuilding = false;
                     kC.transform.position = gatePos; // kulenin kapısına git
-                    kC.circleCollider.isTrigger = false;
+                    kC.knightCollider.isTrigger = false;
+                    pF.agent.radius = kC.knightCollider.radius;
                     kC.onBuildingStay = false;
                     kC.unitOrderEnum = UnitOrderEnum.AttackOrder;
                     bC.isFull = false; // Kulede birim var
@@ -268,7 +271,8 @@ namespace Assets.Scripts.Concrete.AI
                 kC.gameObject.layer = 6; // ölümlü ol
                 kC.onBuilding = false;
                 kC.transform.position = gatePos; // kulenin kapısına git
-                kC.circleCollider.isTrigger = false;
+                kC.knightCollider.isTrigger = false;
+                pF.agent.radius = kC.knightCollider.radius;
                 kC.onBuildingStay = false;
                 bC.isFull = false; // Kulede birim var
                 time = 0;

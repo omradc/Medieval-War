@@ -11,13 +11,12 @@ namespace Assets.Scripts.Concrete.Controllers
 {
     internal class GoblinController : MonoBehaviour
     {
+        public float knightRange;
+        public float houseRange;
+        public float towerRange;
+        public float castleRange;
         [Header("ENEMY TYPE")]
         public TroopTypeEnum troopType;
-
-        [Header("TORCH")]
-        public float attackRadius;
-        public Transform torchAttackPoint;
-        public float torchAttackPointDistance;
 
         [Header("DYNAMİTE")]
         public float dynamiteSpeed;
@@ -73,7 +72,6 @@ namespace Assets.Scripts.Concrete.Controllers
         AnimationEventController animationEventController;
         Vector3 gizmosPos;
         bool canAttack;
-        float currentStoppingDistance;
         private void Awake()
         {
             animator = transform.GetChild(0).GetComponent<Animator>();
@@ -86,8 +84,6 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             enemyAttack = new(this, enemyAI, animationEventController, pF);
             pF.agent.speed = moveSpeed;
-            currentStoppingDistance = attackRange;
-            pF.agent.stoppingDistance = currentStoppingDistance;
             currentSightRange = sightRange;
             gizmosPos = transform.position;
             //PatrolSetup();
@@ -139,12 +135,14 @@ namespace Assets.Scripts.Concrete.Controllers
         void AITurnDirection()
         {
             // Hedefte düşman varsa ve durduysan, hedefe yönel.
-            if (enemyAI.nearestTarget != null && pF.isStopped)
+            if (enemyAI.nearestTarget != null && pF.isStoping)
             {
                 if (troopType == TroopTypeEnum.Tnt || troopType == TroopTypeEnum.Barrel)
                     direction.Turn2DirectionWithPos(enemyAI.nearestAttackPoint.position.x);
+
                 if (troopType == TroopTypeEnum.Torch)
                     direction.Turn4Direction(enemyAI.nearestAttackPoint.position);
+
             }
 
         }
@@ -176,13 +174,13 @@ namespace Assets.Scripts.Concrete.Controllers
             if (!aI)
                 sightRangePosition = transform.GetChild(0).position;
 
-            if (behavior == BehaviorEnum.Default && troopType != TroopTypeEnum.Tnt)
-                currentStoppingDistance = attackRange;
+            //if (behavior == BehaviorEnum.Default && troopType != TroopTypeEnum.Tnt)
+            //    stoppingDistance = attackRange;
 
-            else
-                currentStoppingDistance = 0;
+            //else
+            //    stoppingDistance = 0;
 
-            pF.agent.stoppingDistance = currentStoppingDistance;
+            //pF.agent.stoppingDistance = stoppingDistance;
         }
 
         void AnimationControl()
@@ -199,9 +197,9 @@ namespace Assets.Scripts.Concrete.Controllers
             }
             else
             {
-                if (pF.isStopped) // Durduysan = IdleAnim
+                if (pF.isStoping) // Durduysan = IdleAnim
                     AnimationManager.Instance.IdleAnim(animator);
-                if (!pF.isStopped)                           // Durmadıysan = RunAnim
+                if (!pF.isStoping)                           // Durmadıysan = RunAnim
                     AnimationManager.Instance.RunAnim(animator, 1);
 
             }

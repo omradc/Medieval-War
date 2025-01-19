@@ -389,10 +389,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b4d6f76c6e5cd4398b5a612f2c8365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTypeEnum: 0
-  attackRadius: 0.5
-  torchAttackPoint: {fileID: 1959159108024945930}
-  torchAttackPointDistance: 0.5
+  knightRange: 0
+  houseRange: 0
+  towerRange: 0
+  castleRange: 0
+  troopType: 0
   dynamiteSpeed: 0
   dynamiteExplosionRadius: 0.5
   barrelExplosionRadius: 2
@@ -401,7 +402,7 @@ MonoBehaviour:
   attackSpeed: 1
   attackDelay: 0
   sightRange: 8
-  attackRange: 0.8
+  attackRange: 0.5
   enemyAIPerTime: 0.1
   attackTheAllKnights: 0
   playerUnits: []
@@ -448,7 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStopped: 1
+  isStoping: 1
   isUserControl: 0
   agent: {fileID: 0}
   lastMousePos: {x: 0, y: 0}

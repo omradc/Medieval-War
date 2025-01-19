@@ -44,8 +44,7 @@ namespace Assets.Scripts.Concrete.Controllers
         Vector3 scale;
         Vector3 firstPoint;
         Vector3 targetPoint;
-        bool inFenceOnce;
-        bool patrol;
+        public bool patrol;
         float time;
 
         private void Awake()
@@ -108,7 +107,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 if (Vector2.Distance(transform.position, villager.transform.position) > followDistance)
                 {
                     pF.agent.stoppingDistance = followDistance;
-                    pF.MoveAI(villager.transform.position);
+                    pF.MoveAI(villager.transform.position, followDistance);
                 }
             }
         }
@@ -126,10 +125,10 @@ namespace Assets.Scripts.Concrete.Controllers
                 if (Vector2.Distance(transform.position, sheepPoint.position) >= 0.1f)
                 {
                     pF.agent.stoppingDistance = 0;
-                    pF.MoveAI(sheepPoint.position);
+                    pF.MoveAI(sheepPoint.position, 0);
                 }
                 // Çit içinde
-                if (Vector2.Distance(transform.position, sheepPoint.position) < 0.1f && pF.isStopped)
+                if (Vector2.Distance(transform.position, sheepPoint.position) < 0.1f && pF.isStoping)
                 {
                     goFence = false;
                     inFence = true;
@@ -195,11 +194,11 @@ namespace Assets.Scripts.Concrete.Controllers
                 patrol = false;
                 targetPoint = firstPoint;
                 targetPoint += new Vector3(Random.Range(-patrollingRadius, patrollingRadius), Random.Range(-patrollingRadius, patrollingRadius));
-                pF.agent.stoppingDistance = followDistance;
-                pF.MoveAI(targetPoint);
+                pF.agent.stoppingDistance = 0;
+                pF.MoveAI(targetPoint, 0);
             }
 
-            if (pF.agent.isStopped)
+            if (pF.isStoping)
             {
                 time++;
                 if (time >= waitingTime)
@@ -207,6 +206,7 @@ namespace Assets.Scripts.Concrete.Controllers
                     time = 0;
                     patrol = true;
                 }
+
             }
         }
 
@@ -224,7 +224,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 AnimationManager.Instance.HappyAnim(animator);
                 return;
             }
-            if (pF.isStopped) // Koyun durur
+            if (pF.isStoping) // Koyun durur
                 AnimationManager.Instance.IdleAnim(animator);
             else // Koyun hareket eder
                 AnimationManager.Instance.HappyAnim(animator);

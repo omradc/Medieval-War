@@ -9,9 +9,9 @@ namespace Assets.Scripts.Concrete.Combats
     internal class UnitAttack
     {
 
-        KnightController kC;
-        KnightAI knightAI;
-        PathFindingController pF;
+        readonly KnightController kC;
+        readonly KnightAI knightAI;
+        readonly PathFindingController pF;
 
         public UnitAttack(KnightController kC, KnightAI knightAI, AnimationEventController animationEventController, PathFindingController pF)
         {
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Concrete.Combats
             {
                 if (kC.hitTargets != null)
                 {
-                    HealthController enemyHealth = null;
+                    HealthController enemyHealth;
                     enemyHealth = kC.hitTargets[0].GetComponent<HealthController>();
                     enemyHealth.GetHit(kC.damage);
                     if (enemyHealth.isDead)
@@ -49,8 +49,8 @@ namespace Assets.Scripts.Concrete.Combats
             kC.hitTargets = Physics2D.OverlapCircleAll(kC.transform.position, kC.attackRange, kC.enemy);
             for (int i = 0; i < kC.hitTargets.Length; i++)
             {
-                if (kC.hitTargets != null)
-                    kC.hitTargets[i].GetComponent<HealthController>().GetHit(kC.damage);
+                //if (kC.hitTargets != null)
+                kC.hitTargets?[i].GetComponent<HealthController>().GetHit(kC.damage);
             }
         }
         void ArcherAttack()

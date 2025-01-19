@@ -15,9 +15,6 @@ namespace Assets.Scripts.Concrete.Controllers
         public TroopTypeEnum troopType;
         public bool isSeleceted;
 
-        [Header("WORRIOR AND VILLAGER")]
-        Transform attackPoint;
-
         [Header("ARCHER")]
         public float arrowSpeed;
         [HideInInspector] public GameObject arrow;
@@ -39,7 +36,6 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public Collider2D[] hitTargets;
         [HideInInspector] public GameObject followingObj;
         [HideInInspector] public bool workOnce = true;
-        [HideInInspector] public float currentStoppingDistance;
         [HideInInspector] public float currentSightRange;
         [HideInInspector] public UnitOrderEnum unitOrderEnum;
         [HideInInspector] public Vector2 attackRangePosition;
@@ -52,12 +48,12 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool onBuilding;
         [HideInInspector] public bool onBuildingStay;
         [HideInInspector] public bool goBuilding;
-        [HideInInspector] public CircleCollider2D circleCollider;
+        [HideInInspector] public bool canAttack;
+        [HideInInspector] public CircleCollider2D knightCollider;
         AnimationEventController animationEventController;
         PathFindingController pF;
         UnitAttack unitAttack;
         Rigidbody2D rb2D;
-        public bool canAttack;
 
         private void Awake()
         {
@@ -70,13 +66,10 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             unitAttack = new UnitAttack(this, knightAI, animationEventController, pF);
             currentSightRange = sightRange;
-            currentStoppingDistance = attackRange;
-            pF.agent.stoppingDistance = currentStoppingDistance;
             pF.agent.speed = moveSpeed;
             rb2D = GetComponent<Rigidbody2D>();
             animator = transform.GetChild(0).GetComponent<Animator>();
-            circleCollider = GetComponent<CircleCollider2D>();
-            attackPoint = transform.GetChild(1);
+            knightCollider = GetComponent<CircleCollider2D>();
 
             // Invoke
             InvokeRepeating(nameof(OptimumUnitAI), 0.1f, unitAIPerTime);
@@ -119,7 +112,7 @@ namespace Assets.Scripts.Concrete.Controllers
         void AITurnDirection()
         {
             // Durduysan, hedefe yönel.
-            if (pF.isStopped)
+            if (pF.isStoping)
             {
                 // Hedefte düþman varsa;
                 if (knightAI.nearestTarget != null)
@@ -161,10 +154,10 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 // Aðaç kesme ve kaynak taþýma animasyonu yapmýyorsa, koþabilir veya durabilir
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Sheep") || animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Wood") ||
-                    animator.GetCurrentAnimatorStateInfo(0).IsName("Run_0")) return;
-                if (pF.isStopped)  // Durduysan = IdleAnim
+                    animator.GetCurrentAnimatorStateInfo(0).IsName("Run_0") || animator.GetCurrentAnimatorStateInfo(0).IsName("Build")) return;
+                if (pF.isStoping)  // Durduysan = IdleAnim
                     AnimationManager.Instance.IdleAnim(animator);
-                if (!pF.isStopped) // Durmadýysan = RunAnim
+                if (!pF.isStoping) // Durmadýysan = RunAnim
                     AnimationManager.Instance.RunAnim(animator, 1);
 
             }
@@ -176,13 +169,13 @@ namespace Assets.Scripts.Concrete.Controllers
             if (!aI)
                 sightRangePosition = transform.GetChild(0).position;
 
-            if (pF.isUserControl || knightAI.nearestTarget == null || goBuilding)
-                currentStoppingDistance = 0;
+            //if (pF.isUserControl || knightAI.nearestTarget == null || goBuilding)
+            //    stoppingDistance = 0;
 
-            else
-                currentStoppingDistance = attackRange;
+            //else
+            //    stoppingDistance = attackRange;
 
-            pF.agent.stoppingDistance = currentStoppingDistance;
+            //pF.agent.stoppingDistance = stoppingDistance;
         }
         void AttackOn()
         {

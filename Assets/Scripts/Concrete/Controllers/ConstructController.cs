@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Concrete.Controllers
@@ -11,13 +10,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public float currentHitNumber;
         public bool isFull;
         public Image constructionTimerImage;
-        // Use this for initialization
-        void Start()
-        {
 
-        }
-
-        // Update is called once per frame
         void Update()
         {
             if (currentHitNumber >= hitNumber)

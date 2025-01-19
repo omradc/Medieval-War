@@ -1,8 +1,6 @@
 ﻿using Assets.Scripts.Abstracts.Inputs;
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Managers;
-using TMPro;
-using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +14,7 @@ namespace Assets.Scripts.Concrete.Controllers
         IInput ıInput;
         Vector2 firstPos;
         public Button buildConfirmButton;
+        int collisionCount;
         private void Awake()
         {
             ıInput = new PcInput();
@@ -57,8 +56,21 @@ namespace Assets.Scripts.Concrete.Controllers
             Destroy(gameObject);
         }
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            collisionCount++;
+        }
         private void OnTriggerStay2D(Collider2D collision)
         {
+            if (collision.CompareTag("Building") && collisionCount == 1)
+            {
+                print("ok");
+                buildConfirmButton.interactable = true;
+                visual.gameObject.SetActive(true);
+                visualRed.gameObject.SetActive(false);
+                return;
+            }
+            // İnşaa edilemez
             buildConfirmButton.interactable = false;
             visual.gameObject.SetActive(false);
             visualRed.gameObject.SetActive(true);
@@ -66,9 +78,11 @@ namespace Assets.Scripts.Concrete.Controllers
 
         private void OnTriggerExit2D(Collider2D collision)
         {
+            // İnşaa edilebilir
             buildConfirmButton.interactable = true;
             visual.gameObject.SetActive(true);
             visualRed.gameObject.SetActive(false);
+            collisionCount--;
         }
 
         string BuildingName()

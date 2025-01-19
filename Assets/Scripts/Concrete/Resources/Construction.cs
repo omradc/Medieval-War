@@ -8,8 +8,8 @@ namespace Assets.Scripts.Concrete.Resources
 {
     internal class Construction
     {
-        VillagerController vC;
-        PathFindingController pF;
+       readonly VillagerController vC;
+        readonly PathFindingController pF;
 
         public Construction(VillagerController vC, PathFindingController pF)
         {
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Concrete.Resources
                 float distance = Vector2.Distance(vC.transform.position, constructionPos);
                 if (distance > .1f)
                 {
-                    pF.MoveAI(constructionPos);
+                    pF.MoveAI(constructionPos, 0);
                 }
 
                 if (distance <= .1f)

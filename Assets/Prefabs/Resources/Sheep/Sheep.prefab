@@ -106,6 +106,7 @@ MonoBehaviour:
   resourceMeat: {fileID: 3246526810110024777, guid: 305c2a09551e4324985e3671a16eaae1, type: 3}
   sheepPoints: []
   sheepPoint: {fileID: 0}
+  patrol: 0
 --- !u!114 &-2009713950975530326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStopped: 1
+  isStoping: 1
   isUserControl: 0
   agent: {fileID: 0}
   lastMousePos: {x: 0, y: 0}
@@ -132,7 +133,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1640151222203747707}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.14
+  m_Radius: 0.2
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50

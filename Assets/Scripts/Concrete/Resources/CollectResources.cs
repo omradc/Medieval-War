@@ -7,8 +7,8 @@ namespace Assets.Scripts.Concrete.Resources
 {
     internal class CollectResources
     {
-        VillagerController vC;
-        PathFindingController pF;
+        readonly VillagerController vC;
+        readonly PathFindingController pF;
         public CollectResources(VillagerController collectResourcesController, PathFindingController pF)
         {
             vC = collectResourcesController;
@@ -136,14 +136,14 @@ namespace Assets.Scripts.Concrete.Resources
                         vC.goldIdle.SetActive(true);
                     if (mine.CompareTag("RockMine"))
                         vC.rockIdle.SetActive(true);
-                    pF.MoveAI(vC.homePos);
+                    pF.MoveAI(vC.homePos,0);
                     AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
                     vC.workOnce = false;
                 }
                 if (vC.tCollect > vC.woodCollectTime && vC.isTree)
                 {
                     vC.woodIdle.SetActive(true);
-                    pF.MoveAI(vC.homePos);
+                    pF.MoveAI(vC.homePos, 0);
                     AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
                     vC.workOnce = false;
                     vC.tCollect = 0;
@@ -152,7 +152,7 @@ namespace Assets.Scripts.Concrete.Resources
                 if (vC.tCollect > vC.meatCollectTime && vC.sheepController)
                 {
                     vC.meatIdle.SetActive(true);
-                    pF.MoveAI(vC.homePos);
+                    pF.MoveAI(vC.homePos, 0);
                     AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
                     vC.workOnce = false;
                     vC.tCollect = 0;

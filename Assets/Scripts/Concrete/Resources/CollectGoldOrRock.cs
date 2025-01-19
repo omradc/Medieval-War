@@ -7,8 +7,8 @@ namespace Assets.Scripts.Concrete.Resources
 {
     internal class CollectGoldOrRock
     {
-        VillagerController vC;
-        PathFindingController pF;
+       readonly VillagerController vC;
+       readonly PathFindingController pF;
 
         public CollectGoldOrRock(VillagerController vC, PathFindingController pF)
         {
@@ -24,7 +24,7 @@ namespace Assets.Scripts.Concrete.Resources
                 // Hedefe ulaşınca dur
                 if (Vector2.Distance(vC.transform.position, vC.targetResource.transform.position) > .1f)
                 {
-                    pF.MoveAI(vC.targetResource.transform.position);
+                    pF.MoveAI(vC.targetResource.transform.position, 0);
                 }
 
                 // Hedefe ulaşıldı

@@ -9,9 +9,9 @@ namespace Assets.Scripts.Concrete.Combats
 {
     internal class EnemyAttack
     {
-        GoblinController gC;
-        EnemyAI enemyAI;
-        PathFindingController pF;
+       readonly GoblinController gC;
+       readonly EnemyAI enemyAI;
+       readonly PathFindingController pF;
 
         public EnemyAttack(GoblinController gC, EnemyAI enemyAI, AnimationEventController animationEventController, PathFindingController pF)
         {
@@ -33,12 +33,12 @@ namespace Assets.Scripts.Concrete.Combats
         // Saldırılar event ile tetiklenir
         void TorchAttack()
         {
-            gC.hitTargets = Physics2D.OverlapCircleAll(gC.torchAttackPoint.position, gC.attackRange, gC.targetAll);
+            gC.hitTargets = Physics2D.OverlapCircleAll(gC.transform.position, gC.attackRange, gC.targetAll);
             for (int i = 0; i < gC.hitTargets.Length; i++)
             {
                 if (gC.hitTargets != null)
                 {
-                    HealthController knightHealth = null;
+                    HealthController knightHealth;
                     knightHealth = gC.hitTargets[0].GetComponent<HealthController>();
                     knightHealth.GetHit(gC.damage);
                     if (knightHealth.isDead)
