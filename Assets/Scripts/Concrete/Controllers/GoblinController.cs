@@ -56,14 +56,14 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public float currentSightRange;
         [HideInInspector] public Direction direction;
         [HideInInspector] public Animator animator;
+        [HideInInspector] public CircleCollider2D goblinCollider;
 
         public bool aI = true;
         public bool onBuilding;
         public bool onBuildingStay;
         public bool goBuilding;
-
         EnemyAttack enemyAttack;
-        EnemyAI enemyAI;
+        GoblinAI enemyAI;
         PathFindingController pF;
         AnimationEventController animationEventController;
         Vector3 gizmosPos;
@@ -71,6 +71,7 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Awake()
         {
             animator = transform.GetChild(0).GetComponent<Animator>();
+            goblinCollider = GetComponent<CircleCollider2D>();
             pF = GetComponent<PathFindingController>();
             direction = new Direction(transform);
             enemyAI = new(this, pF);
@@ -128,7 +129,6 @@ namespace Assets.Scripts.Concrete.Controllers
                 woodTowers = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, woodTower);
             }
         }
-
         void AITurnDirection()
         {
             // Hedefte düşman varsa ve durduysan, hedefe yönel.
@@ -152,34 +152,13 @@ namespace Assets.Scripts.Concrete.Controllers
                 patrolPoints[i] = path.GetChild(i);
             }
         }
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(sightRangePosition, currentSightRange);
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attackRangePosition, attackRange);
-
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(gizmosPos, patrollingRadius);
-        }
-
         void RangeControl()
         {
             attackRangePosition = transform.GetChild(0).position;
 
             if (!aI)
                 sightRangePosition = transform.GetChild(0).position;
-
-            //if (behavior == BehaviorEnum.Default && troopType != TroopTypeEnum.Tnt)
-            //    stoppingDistance = attackRange;
-
-            //else
-            //    stoppingDistance = 0;
-
-            //pF.agent.stoppingDistance = stoppingDistance;
         }
-
         void AnimationControl()
         {
             if (canAttack)
@@ -201,7 +180,6 @@ namespace Assets.Scripts.Concrete.Controllers
 
             }
         }
-
         void AttackOn()
         {
             // Düşman varsa ve saldırı menzilindeyse, saldırı aktifleşir
@@ -222,6 +200,17 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 pF.agent.ResetPath();
             }
+        }
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(sightRangePosition, currentSightRange);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(attackRangePosition, attackRange);
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(gizmosPos, patrollingRadius);
         }
     }
 }

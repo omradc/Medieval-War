@@ -2,6 +2,7 @@
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.AI
@@ -193,7 +194,7 @@ namespace Assets.Scripts.Concrete.AI
                 }
 
                 // Kule dolu değilse, sıkışmaları engellemek için collider ları kapat
-                if (!bC.isFull && Vector2.Distance(kC.transform.position, gatePos) <= 2f)
+                if (!bC.isFull && Vector2.Distance(kC.transform.position, gatePos) <= 1f)
                 {
                     kC.knightCollider.isTrigger = true;
                     pF.agent.radius = 0;
@@ -204,7 +205,6 @@ namespace Assets.Scripts.Concrete.AI
                 if (Vector2.Distance(kC.transform.position, gatePos) <= .1f)
                 {
                     Debug.Log("Kuledeyim");
-                    unitSpriteRenderer.enabled = false;
                     kC.goBuilding = false;
                     kC.currentSightRange = kC.attackRange;
                     kC.unitOrderEnum = UnitOrderEnum.StayOrder;
@@ -213,9 +213,11 @@ namespace Assets.Scripts.Concrete.AI
                     // Kulede birim varsa, çıkma
                     if (bC.isFull)
                     {
-                        unitSpriteRenderer.enabled = true;
-                        kC.knightCollider.isTrigger = false;
-                        pF.agent.radius = kC.knightCollider.radius;
+                        kC.aI = true;
+                        pF.agent.ResetPath();
+                        kC.onBuildingStay = false;
+                        kC.unitOrderEnum = UnitOrderEnum.AttackOrder;
+                        tower = null;
                         return;
                     }
 
@@ -223,7 +225,6 @@ namespace Assets.Scripts.Concrete.AI
                     if (!bC.isFull)
                     {
                         Debug.Log("Kuleye çık");
-                        unitSpriteRenderer.enabled = true;
                         unitSpriteRenderer.sortingOrder = 12;
                         kC.aI = true;
                         CalculateTowerPos();
@@ -242,19 +243,25 @@ namespace Assets.Scripts.Concrete.AI
             // Kuleden in
             if (kC.onBuilding && kC.isSeleceted)
             {
-                unitSpriteRenderer.enabled = false;
                 Debug.Log("Kuleden in");
                 ActivateTowerPos();
-                unitSpriteRenderer.enabled = true;
                 unitSpriteRenderer.sortingOrder = 10;
                 kC.gameObject.layer = 6; // ölümlü ol
                 kC.onBuilding = false;
                 kC.transform.position = gatePos; // kulenin kapısına git
-                kC.knightCollider.isTrigger = false; // kuledeyken sıkışmaları engellemek için colliderları kapat
-                pF.agent.radius = kC.knightCollider.radius; // kuledeyken sıkışmaları engellemek için colliderları kapat 
                 kC.onBuildingStay = false;
                 kC.unitOrderEnum = UnitOrderEnum.AttackOrder;
                 bC.isFull = false; // Kulede birim var
+            }
+
+            if(kC.onBuilding)
+            {
+                kC.transform.position = pos; // Birimi kuleye ışınla
+            }
+            if (!kC.onBuildingStay)
+            {
+                kC.knightCollider.isTrigger = false; // kuledeyken sıkışmaları engellemek için colliderları kapat
+                pF.agent.radius = kC.knightCollider.radius; // kuledeyken sıkışmaları engellemek için colliderları kapat 
             }
         }
         public void DestructTower()
@@ -264,7 +271,6 @@ namespace Assets.Scripts.Concrete.AI
             {
                 Debug.Log("Kuleden düş");
                 ActivateTowerPos();
-                unitSpriteRenderer.enabled = true;
                 kC.gameObject.layer = 6; // ölümlü ol
                 kC.onBuilding = false;
                 kC.transform.position = gatePos; // kulenin kapısına git

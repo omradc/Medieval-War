@@ -3,11 +3,11 @@ using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using UnityEngine;
-using UnityEngine.UIElements;
+using static UnityEditor.PlayerSettings;
 
 namespace Assets.Scripts.Concrete.AI
 {
-    internal class EnemyAI
+    internal class GoblinAI
     {
         readonly GoblinController gC;
         readonly PathFindingController pF;
@@ -19,12 +19,10 @@ namespace Assets.Scripts.Concrete.AI
         Vector2 gatePos;
         Vector2 towerPos;
         readonly Vector3 firstPoint;
-        float time;
-        readonly float timeToGetOffTower = 1;
         bool patrol;
         int index;
-
-        public EnemyAI(GoblinController goblinController, PathFindingController pF)
+        float time;
+        public GoblinAI(GoblinController goblinController, PathFindingController pF)
         {
             gC = goblinController;
             this.pF = pF;
@@ -124,15 +122,13 @@ namespace Assets.Scripts.Concrete.AI
             if (nearestTarget == null) return;
 
             CalculateNearestAttackPoint();
-            //nearestAttackPoint = nearestTarget.transform.GetChild(1);
-            //SetAttackRangeForEnemyType();
 
             if (Vector2.Distance(nearestAttackPoint.position, gC.sightRangePosition) < gC.currentSightRange)
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
                 if (Vector2.Distance(nearestAttackPoint.position, gC.attackRangePosition) < gC.attackRange) return;
 
-                pF.MoveAI(nearestAttackPoint.position, gC.attackRange); 
+                pF.MoveAI(nearestAttackPoint.position, gC.attackRange);
 
             }
         }
@@ -250,35 +246,6 @@ namespace Assets.Scripts.Concrete.AI
 
         }
 
-        //void SetAttackRangeForEnemyType()
-        //{
-        //    // Düşman şovalye ise
-        //    if (nearestTarget.layer == 6)
-        //    {
-        //        gC.attackRange = gC.knightRange;
-        //        return;
-        //    }
-
-        //    // Düşman ev ise
-        //    if (nearestTarget.layer == 8)
-        //    {
-        //        gC.attackRange = gC.houseRange;
-        //        return;
-        //    }
-        //    // Düşman kule ise
-        //    if (nearestTarget.layer == 9)
-        //    {
-        //        gC.attackRange = gC.towerRange;
-        //        return;
-        //    }
-        //    // Düşman kale ise
-        //    if (nearestTarget.layer == 10)
-        //    {
-        //        gC.attackRange = gC.castleRange;
-        //        return;
-        //    }
-        //}
-
         public void GoUpToTower()
         {
             if (gC.troopType == TroopTypeEnum.Tnt) // Goblin türü tnt ise
@@ -288,7 +255,6 @@ namespace Assets.Scripts.Concrete.AI
                     if (gC.woodTowers.Length == 0 || gC.onBuilding) // Kuledeyse veya tespit edilen kuleler yoksa
                     {
                         gC.aI = true;
-                        goblinSpriteRenderer.enabled = true;
                         return;
                     }
 
@@ -305,29 +271,33 @@ namespace Assets.Scripts.Concrete.AI
                     gC.onBuildingStay = true;
                     gC.goBuilding = true;
 
+                    // Kule dolu değilse, sıkışmaları engellemek için collider ları kapat
+                    if (!bC.isFull && Vector2.Distance(gC.transform.position, gatePos) <= 1f)
+                    {
+                        gC.goblinCollider.isTrigger = true;
+                        pF.agent.radius = 0;
+
+                    }
                     // Kuleye çık
                     if (Vector2.Distance(gC.transform.position, gatePos) < .1f)
                     {
-                        goblinSpriteRenderer.enabled = false;
-
                         // Kulede birim varsa, çıkma
                         if (bC.isFull)
                         {
-                            goblinSpriteRenderer.enabled = true;
-                            for (int i = 0; i < gC.woodTowers.Length; i++)
+                            for (int i = 0; i < gC.woodTowers.Length; i++) // kuleyi boşa düşür
                             {
                                 gC.woodTowers[i] = null;
                             }
-                            time = 0;
+                            pF.agent.ResetPath();
+                            gC.aI = true;
+                            gC.onBuildingStay = false;
                             return;
                         }
-                        time++;
                         // Kulede birim yoksa, çık
-                        if (time > timeToGetOffTower && !bC.isFull)
+                        if (!bC.isFull)
                         {
                             Debug.Log("Kuleye çık");
                             pF.agent.ResetPath();
-                            goblinSpriteRenderer.enabled = true;
                             goblinSpriteRenderer.sortingOrder = 12;
                             gC.currentSightRange = gC.attackRange; // Kulede sabit kal
                             gC.aI = true;
@@ -337,7 +307,6 @@ namespace Assets.Scripts.Concrete.AI
                             gC.gameObject.layer = 24; // ölümsüz ol
                             bC.isFull = true;
                             bC.gameObject.layer = 28; // Kulenin katmanı dolu olacak şekilde değişti
-                            time = 0;
                         }
                     }
                 }
@@ -345,22 +314,26 @@ namespace Assets.Scripts.Concrete.AI
                 // Kuleden in
                 if (gC.onBuilding && gC.attackTheAllKnights)
                 {
-                    goblinSpriteRenderer.enabled = false;
-                    time++;
-                    if (time > timeToGetOffTower)
-                    {
-                        Debug.Log("Kuleden in");
-                        goblinSpriteRenderer.enabled = true;
-                        goblinSpriteRenderer.sortingOrder = 9;
-                        gC.onBuildingStay = false;
-                        gC.currentSightRange = gC.sightRange;
-                        gC.onBuilding = false;
-                        gC.gameObject.layer = 13; // ölümlü ol
-                        gC.transform.position = gatePos; // kulenin kapısına git
-                        bC.isFull = false;
-                        bC.gameObject.layer = 27; // Kulenin katmanı boş olacak şekilde değişti
-                        time = 0;
-                    }
+                    Debug.Log("Kuleden in");
+                    goblinSpriteRenderer.sortingOrder = 9;
+                    gC.onBuildingStay = false;
+                    gC.currentSightRange = gC.sightRange;
+                    gC.onBuilding = false;
+                    gC.gameObject.layer = 13; // ölümlü ol
+                    gC.transform.position = gatePos; // kulenin kapısına git
+                    bC.isFull = false;
+                    bC.gameObject.layer = 27; // Kulenin katmanı boş olacak şekilde değişti
+
+                }
+
+                if (gC.onBuilding)
+                {
+                    gC.transform.position = towerPos; // Birimi kuleye ışınla
+                }
+                if (!gC.onBuilding)
+                {
+                    gC.goblinCollider.isTrigger = false;
+                    pF.agent.radius = gC.goblinCollider.radius;
                 }
             }
         }
@@ -370,7 +343,6 @@ namespace Assets.Scripts.Concrete.AI
             if (bC.destruct && gC.onBuilding)
             {
                 Debug.Log("Kuleden düş");
-                goblinSpriteRenderer.enabled = true;
                 goblinSpriteRenderer.sortingOrder = 9;
                 gC.onBuildingStay = false;
                 gC.currentSightRange = gC.sightRange;
@@ -379,8 +351,6 @@ namespace Assets.Scripts.Concrete.AI
                 gC.transform.position = gatePos; // kulenin kapısına git
                 bC.isFull = false;
                 bC.gameObject.layer = 29; // Kulenin katmanı yıkıldı olacak şekilde değişti
-                time = 0;
-
             }
         }
         GameObject DetechNearestTower()

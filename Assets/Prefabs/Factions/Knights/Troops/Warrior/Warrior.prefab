@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4088060588445281749}
   - component: {fileID: -8081813939892308413}
+  - component: {fileID: 6197728433067721383}
   - component: {fileID: -5201736685492982202}
   - component: {fileID: 2140753509579492637}
   - component: {fileID: 6747969190704152676}
@@ -74,6 +75,33 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.25
+--- !u!50 &6197728433067721383
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195786962051834586}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!114 &-5201736685492982202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +152,7 @@ MonoBehaviour:
   enemy:
     serializedVersion: 2
     m_Bits: 403709952
-  followTargets: []
+  enemies: []
   hitTargets: []
   followingObj: {fileID: 0}
   workOnce: 1

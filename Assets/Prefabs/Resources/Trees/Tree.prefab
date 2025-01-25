@@ -253,6 +253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4677250772119034372}
   - component: {fileID: 8050851955718696025}
+  - component: {fileID: 7407887079165214044}
   m_Layer: 7
   m_Name: Physical Collider
   m_TagString: Untagged
@@ -311,3 +312,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.007928684, y: 0.11417287}
   m_Radius: 0.2
+--- !u!208 &7407887079165214044
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4584225458282042600}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.1, y: 0.1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.1, z: 0}
+  m_TimeToStationary: 0.5

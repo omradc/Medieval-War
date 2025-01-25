@@ -333,18 +333,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2448890714371085590, guid: 6727fa4fb299f9c45954f7a355d61397, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.267
-      objectReference: {fileID: 0}
-    - target: {fileID: 4241488879608301705, guid: 6727fa4fb299f9c45954f7a355d61397, type: 3}
-      propertyPath: hitPoint
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4241488879608301705, guid: 6727fa4fb299f9c45954f7a355d61397, type: 3}
-      propertyPath: sleepingTorch
-      value: 
-      objectReference: {fileID: 4992413997479346119, guid: f72f6682981188540a9c90ba1e265c99, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1270,10 +1258,6 @@ PrefabInstance:
     - target: {fileID: 1777926609881761062, guid: 59743d61ca81b6a42b1f2625ad1217ba, type: 3}
       propertyPath: m_Name
       value: GoldMine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4430660359632478922, guid: 59743d61ca81b6a42b1f2625ad1217ba, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4475153313919298364, guid: 59743d61ca81b6a42b1f2625ad1217ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19865,10 +19849,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockMine
       objectReference: {fileID: 0}
-    - target: {fileID: 2329828777415325597, guid: 7786a988be8f9e546bfea48449c2bc6a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4604139343062931107, guid: 7786a988be8f9e546bfea48449c2bc6a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.6707067
@@ -19907,10 +19887,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4604139343062931107, guid: 7786a988be8f9e546bfea48449c2bc6a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8277620801563922064, guid: 7786a988be8f9e546bfea48449c2bc6a, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

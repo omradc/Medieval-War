@@ -10,10 +10,10 @@ namespace Assets.Scripts.Concrete.Combats
     internal class EnemyAttack
     {
        readonly GoblinController gC;
-       readonly EnemyAI enemyAI;
+       readonly GoblinAI enemyAI;
        readonly PathFindingController pF;
 
-        public EnemyAttack(GoblinController gC, EnemyAI enemyAI, AnimationEventController animationEventController, PathFindingController pF)
+        public EnemyAttack(GoblinController gC, GoblinAI enemyAI, AnimationEventController animationEventController, PathFindingController pF)
         {
             this.gC = gC;
             this.enemyAI = enemyAI;

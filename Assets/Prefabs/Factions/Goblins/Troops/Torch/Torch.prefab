@@ -334,7 +334,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8054090689530960466}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -389,10 +389,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b4d6f76c6e5cd4398b5a612f2c8365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knightRange: 0
-  houseRange: 0
-  towerRange: 0
-  castleRange: 0
   troopType: 0
   dynamiteSpeed: 0
   dynamiteExplosionRadius: 0.5
@@ -407,8 +403,8 @@ MonoBehaviour:
   attackTheAllKnights: 0
   playerUnits: []
   playerBuildings: []
-  playerObjs: []
-  hitTargets: []
+  enemies: []
+  hitEnemies: []
   woodTowers: []
   targetAll:
     serializedVersion: 2

@@ -53,6 +53,7 @@ namespace Assets.Scripts.Concrete.Resources
                         {
                             vC.treeChopPos = vC.nearestTree.transform.GetChild(1).position;
                             tree = vC.nearestTree.GetComponent<TreeController>();
+                            vC.targetResource = vC.nearestTree;
 
                         }
 

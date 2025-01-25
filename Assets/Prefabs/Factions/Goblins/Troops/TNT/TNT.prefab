@@ -208,7 +208,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3147751460133698815}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -264,9 +264,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   troopType: 1
-  attackRadius: 0
-  torchAttackPoint: {fileID: 0}
-  torchAttackPointDistance: 0
   dynamiteSpeed: 6
   dynamiteExplosionRadius: 0.5
   barrelExplosionRadius: 2
@@ -280,8 +277,8 @@ MonoBehaviour:
   attackTheAllKnights: 0
   playerUnits: []
   playerBuildings: []
-  playerObjs: []
-  hitTargets: []
+  enemies: []
+  hitEnemies: []
   woodTowers: []
   targetAll:
     serializedVersion: 2
@@ -322,7 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStopped: 1
+  isStoping: 1
   isUserControl: 0
   agent: {fileID: 0}
   lastMousePos: {x: 0, y: 0}

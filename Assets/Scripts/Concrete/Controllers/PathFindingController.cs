@@ -24,15 +24,13 @@ namespace Assets.Scripts.Concrete.Movements
         {
             agent.updateRotation = false;
             agent.updateUpAxis = false;
+            InvokeRepeating(nameof(SetDirection), 0, .5f);
 
         }
 
         private void Update()
         {
-
-            SetDirection();
             MovementControl();
-
         }
 
         // Kullanıcı hareketi

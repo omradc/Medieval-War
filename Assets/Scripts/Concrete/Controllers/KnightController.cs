@@ -131,13 +131,17 @@ namespace Assets.Scripts.Concrete.Controllers
                 // hedefte düþman yoksa;
                 else
                 {
+                    // Köylü deðilse
                     if (troopType != TroopTypeEnum.Villager)
                         transform.localScale = Vector3.one;
 
+                    // Köylü ise
                     else
                     {
+                        // Köylü çalýþmýyorsa, saða bak
                         if (villagerController.targetResource == null)
                             transform.localScale = Vector3.one;
+                        // Köylü çalýþýyorsa, hedefe bakar
                         else
                         {
                             direction.Turn2DirectionWithPos(villagerController.targetResource.transform.position.x);
