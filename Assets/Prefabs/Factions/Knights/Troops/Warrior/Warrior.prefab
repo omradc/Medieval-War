@@ -117,7 +117,7 @@ MonoBehaviour:
   moveSpeed: 1
   damage: 1
   attackSpeed: 1
-  attackRange: 0.8
+  attackRange: 0.6
   sightRange: 8
   unitAIPerTime: 0.1
   collectResourcesPerTime: 1
@@ -139,7 +139,7 @@ MonoBehaviour:
   onBuildingStay: 0
   goBuilding: 0
   canAttack: 0
-  circleCollider: {fileID: 0}
+  knightCollider: {fileID: 0}
 --- !u!114 &6747969190704152676
 MonoBehaviour:
   m_ObjectHideFlags: 0

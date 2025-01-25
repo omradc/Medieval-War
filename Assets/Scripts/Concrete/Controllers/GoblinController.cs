@@ -11,10 +11,6 @@ namespace Assets.Scripts.Concrete.Controllers
 {
     internal class GoblinController : MonoBehaviour
     {
-        public float knightRange;
-        public float houseRange;
-        public float towerRange;
-        public float castleRange;
         [Header("ENEMY TYPE")]
         public TroopTypeEnum troopType;
 
@@ -38,8 +34,8 @@ namespace Assets.Scripts.Concrete.Controllers
         public bool attackTheAllKnights;
         public Collider2D[] playerUnits;
         public Collider2D[] playerBuildings;
-        public Collider2D[] playerObjs;
-        public Collider2D[] hitTargets;
+        public Collider2D[] enemies;
+        public Collider2D[] hitEnemies;
         public Collider2D[] woodTowers;
         public LayerMask targetAll;
         public LayerMask targetUnits;
@@ -111,6 +107,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 AITurnDirection();
                 enemyAI.CatchNeraestTarget();
                 enemyAI.GoblinBehaviour();
+                ResetPath();
             }
 
             enemyAI.GoUpToTower();
@@ -124,7 +121,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 playerBuildings = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetBuildings);
             }
             else
-                playerObjs = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetAll);
+                enemies = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetAll);
 
             if (troopType == TroopTypeEnum.Tnt)
             {
@@ -218,6 +215,13 @@ namespace Assets.Scripts.Concrete.Controllers
 
             else
                 canAttack = false;
+        }
+        void ResetPath()
+        {
+            if (enemies.Length == 0 && pF.agent.velocity.magnitude < 0.1f && pF.agent.velocity.magnitude > 0)
+            {
+                pF.agent.ResetPath();
+            }
         }
     }
 }

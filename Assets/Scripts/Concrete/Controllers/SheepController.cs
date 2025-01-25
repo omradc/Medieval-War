@@ -17,6 +17,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         [Header("Movement")]
         [Range(0.1f, 2)] public float moveSpeed;
+        [Range(0.1f, 2)] public float followSpeed;
         public float currentSheepScale;
         public float followDistance;
         public BehaviorEnum behavior;
@@ -24,13 +25,13 @@ namespace Assets.Scripts.Concrete.Controllers
         public float waitingTime;
 
 
-        public float currentGrowTime;
-        public int currentMeatAmount;
-        public float currentTameTime;
-        public bool isDomestic;
-        public bool goFence;
-        public bool inFence;
-        public bool growed;
+        [HideInInspector] public float currentGrowTime;
+        [HideInInspector] public int currentMeatAmount;
+        [HideInInspector] public float currentTameTime;
+        [HideInInspector] public bool isDomestic;
+        [HideInInspector] public bool goFence;
+        [HideInInspector] public bool inFence;
+        [HideInInspector] public bool growed;
         [SerializeField] GameObject resourceMeat;
         GameObject fenceObj;
         Animator animator;
@@ -38,7 +39,7 @@ namespace Assets.Scripts.Concrete.Controllers
         VillagerController vC;
         public Transform[] sheepPoints;
         public Transform sheepPoint;
-        PathFindingController pF;
+        [HideInInspector] public PathFindingController pF;
         Vector3 rightDirection;
         Vector3 leftDirection;
         Vector3 scale;
@@ -46,7 +47,7 @@ namespace Assets.Scripts.Concrete.Controllers
         Vector3 targetPoint;
         public bool patrol;
         float time;
-
+        int singleOrDouble;
         private void Awake()
         {
             pF = GetComponent<PathFindingController>();
@@ -97,8 +98,14 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             if (inFence || goFence) return;
             if (villager != null)
+            {
+                pF.agent.speed = followSpeed;
                 if (vC.kC.isSeleceted)
+                {
+                    pF.agent.speed = moveSpeed;
                     isDomestic = false;
+                }
+            }
 
             // Eğer koyun; çitlere gitmiyorsa, evcilse ve köylüsü varsa, onu takip eder
             if (!goFence && isDomestic && villager != null && !inFence)
@@ -132,7 +139,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 {
                     goFence = false;
                     inFence = true;
-                    transform.localScale = leftDirection; // Koyun çitin içindeyse sola bakar
+                    singleOrDouble = System.Convert.ToInt32(sheepPoint.name);
                 }
             }
         }
@@ -148,7 +155,10 @@ namespace Assets.Scripts.Concrete.Controllers
 
                     // Increase Scale
                     float scaleFactor = currentGrowTime / growTime * (maxSheepScale - currentSheepScale) + currentSheepScale;
-                    scale.x = -scaleFactor;
+                    if (singleOrDouble == 0) // Çift ise sola bakar
+                        scale.x = scaleFactor;
+                    else // Tek ise sağa bakar
+                        scale.x = -scaleFactor;
                     scale.y = scaleFactor;
                     scale.z = scaleFactor;
                     transform.localScale = scale;
@@ -168,6 +178,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         public void CutSheep()
         {
+            sheepPoint.gameObject.SetActive(true); // Koyun kesilirse, yerine yeni koyun gelebilmesi için
             GameObject meat = Instantiate(resourceMeat, transform.position, Quaternion.identity);
             Destroy(meat, vC.meatCollectTime - 1.5f); // Yere düşen et 1 saniye erken yok olur
             gameObject.SetActive(false);

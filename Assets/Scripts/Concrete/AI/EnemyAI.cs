@@ -90,21 +90,21 @@ namespace Assets.Scripts.Concrete.AI
             if (gC.troopType != TroopTypeEnum.Barrel)
             {
                 // Yapı yoksa birimler
-                if (gC.playerObjs.Length > 0)
+                if (gC.enemies.Length > 0)
                 {
                     GameObject nearestTarget = null;
                     float shortestDistance = Mathf.Infinity;
 
-                    for (int i = 0; i < gC.playerObjs.Length; i++)
+                    for (int i = 0; i < gC.enemies.Length; i++)
                     {
-                        if (gC.playerObjs[i] != null)
+                        if (gC.enemies[i] != null)
                         {
-                            float distanceToEnemy = Vector2.Distance(gC.transform.position, gC.playerObjs[i].transform.position);
+                            float distanceToEnemy = Vector2.Distance(gC.transform.position, gC.enemies[i].transform.position);
 
                             if (shortestDistance > distanceToEnemy)
                             {
                                 shortestDistance = distanceToEnemy;
-                                nearestTarget = gC.playerObjs[i].gameObject;
+                                nearestTarget = gC.enemies[i].gameObject;
                             }
 
                         }

@@ -32,7 +32,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
         public LayerMask enemy;
 
-        [HideInInspector] public Collider2D[] followTargets;
+        public Collider2D[] enemies;
         [HideInInspector] public Collider2D[] hitTargets;
         [HideInInspector] public GameObject followingObj;
         [HideInInspector] public bool workOnce = true;
@@ -54,6 +54,7 @@ namespace Assets.Scripts.Concrete.Controllers
         PathFindingController pF;
         UnitAttack unitAttack;
         Rigidbody2D rb2D;
+        VillagerController villagerController;
 
         private void Awake()
         {
@@ -61,16 +62,17 @@ namespace Assets.Scripts.Concrete.Controllers
             direction = new Direction(transform);
             knightAI = new KnightAI(this, pF);
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
+            rb2D = GetComponent<Rigidbody2D>();
+            knightCollider = GetComponent<CircleCollider2D>();
+            animator = transform.GetChild(0).GetComponent<Animator>();
+            unitAttack = new UnitAttack(this, knightAI, animationEventController, pF);
+            if (troopType == TroopTypeEnum.Villager)
+                villagerController = GetComponent<VillagerController>();
         }
         private void Start()
         {
-            unitAttack = new UnitAttack(this, knightAI, animationEventController, pF);
             currentSightRange = sightRange;
             pF.agent.speed = moveSpeed;
-            rb2D = GetComponent<Rigidbody2D>();
-            animator = transform.GetChild(0).GetComponent<Animator>();
-            knightCollider = GetComponent<CircleCollider2D>();
-
             // Invoke
             InvokeRepeating(nameof(OptimumUnitAI), 0.1f, unitAIPerTime);
         }
@@ -91,7 +93,7 @@ namespace Assets.Scripts.Concrete.Controllers
             }
 
             knightAI.SelectTower();
-            //towerAI.DestructTower();
+            knightAI.DestructTower();
         }
         void OptimumUnitAI()
         {
@@ -102,12 +104,13 @@ namespace Assets.Scripts.Concrete.Controllers
                 AITurnDirection();
                 knightAI.CatchNeraestTarget();
                 knightAI.UnitBehaviours();
+                ResetPath();
             }
 
         }
         void DetechEnemies()
         {
-            followTargets = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemy);
+            enemies = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemy);
         }
         void AITurnDirection()
         {
@@ -125,10 +128,21 @@ namespace Assets.Scripts.Concrete.Controllers
                         direction.Turn4Direction(knightAI.nearestAttackPoint.position);
                 }
 
-                // Hedefte düþman yoksa;
+                // hedefte düþman yoksa;
                 else
                 {
-                    transform.localScale = Vector3.one;
+                    if (troopType != TroopTypeEnum.Villager)
+                        transform.localScale = Vector3.one;
+
+                    else
+                    {
+                        if (villagerController.targetResource == null)
+                            transform.localScale = Vector3.one;
+                        else
+                        {
+                            direction.Turn2DirectionWithPos(villagerController.targetResource.transform.position.x);
+                        }
+                    }
                 }
 
             }
@@ -191,6 +205,14 @@ namespace Assets.Scripts.Concrete.Controllers
             else
                 canAttack = false;
         }
+        void ResetPath()
+        {
+            if (enemies.Length == 0 && pF.agent.velocity.magnitude < 0.1f && pF.agent.velocity.magnitude > 0)
+            {
+                pF.agent.ResetPath();
+            }
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;

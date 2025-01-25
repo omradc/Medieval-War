@@ -67,7 +67,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -91,11 +91,12 @@ MonoBehaviour:
   maxMeatAmount: 100
   tameTime: 0.5
   moveSpeed: 1
+  followSpeed: 0.1
   currentSheepScale: 1
   followDistance: 0.5
   behavior: 0
   patrollingRadius: 3
-  waitingTime: 2
+  waitingTime: 5
   currentGrowTime: 0
   currentMeatAmount: 0
   currentTameTime: 0
@@ -133,7 +134,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1640151222203747707}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.2
+  m_Radius: 0.1
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
@@ -281,7 +282,7 @@ Transform:
   m_GameObject: {fileID: 8811572112823715642}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0.45, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

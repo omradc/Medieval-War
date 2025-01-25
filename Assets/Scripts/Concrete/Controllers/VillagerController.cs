@@ -71,7 +71,6 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public GameObject rockIdle;
         [HideInInspector] public GameObject woodIdle;
         [HideInInspector] public GameObject meatIdle;
-        [HideInInspector] public Direction direction;
         [HideInInspector] public IInput ıInput;
         [HideInInspector] public AnimationEventController animationEventController;
         public SheepController sheepController;
@@ -96,12 +95,11 @@ namespace Assets.Scripts.Concrete.Controllers
             collectResources = new(this, pF);
             collectGoldAndRock = new(this, pF);
             collectWood = new(this, pF);
-            collectFood = new(this, pF);
             construction = new(this, pF);
+            collectFood = new(this, pF);
         }
         private void Start()
         {
-            direction = kC.direction;
             currentChopTreeSightRange = chopTreeSightRange;
             currentTreeDamage = treeDamage;
             //  Events

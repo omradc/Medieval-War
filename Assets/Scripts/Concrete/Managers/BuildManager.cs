@@ -14,7 +14,7 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject houseConstructionArcherBlue;
         public GameObject towerConstructionBlue;
         public GameObject castleConstructionBlue;
-        public GameObject fence4x4;
+        public GameObject fence2x2;
 
 
         private void Awake()
@@ -56,7 +56,7 @@ namespace Assets.Scripts.Concrete.Managers
                         Build(castleConstructionBlue);
                         break;
                     case "Preview_Fence4x4(Clone)":
-                        Build(fence4x4);
+                        Build(fence2x2);
                         break;
                 }
             }

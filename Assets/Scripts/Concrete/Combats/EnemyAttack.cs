@@ -33,13 +33,13 @@ namespace Assets.Scripts.Concrete.Combats
         // Saldırılar event ile tetiklenir
         void TorchAttack()
         {
-            gC.hitTargets = Physics2D.OverlapCircleAll(gC.transform.position, gC.attackRange, gC.targetAll);
-            for (int i = 0; i < gC.hitTargets.Length; i++)
+            gC.hitEnemies = Physics2D.OverlapCircleAll(gC.transform.position, gC.attackRange, gC.targetAll);
+            for (int i = 0; i < gC.hitEnemies.Length; i++)
             {
-                if (gC.hitTargets != null)
+                if (gC.hitEnemies != null)
                 {
                     HealthController knightHealth;
-                    knightHealth = gC.hitTargets[0].GetComponent<HealthController>();
+                    knightHealth = gC.hitEnemies[0].GetComponent<HealthController>();
                     knightHealth.GetHit(gC.damage);
                     if (knightHealth.isDead)
                         pF.agent.ResetPath();

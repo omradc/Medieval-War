@@ -87,13 +87,9 @@ namespace Assets.Scripts.Concrete.Managers
                     if (interactedObj.layer == 16)
                         interactedSheep = interactedObj;
 
-
                     // Etkileşim olan obje, çitler ise,
                     if (interactedObj.layer == 12)
-                    {
                         interactedFences = interactedObj;
-                        print("ok");
-                    }
 
                     // Etkileşim olan obje, kule ise,
                     if (interactedObj.layer == 9)

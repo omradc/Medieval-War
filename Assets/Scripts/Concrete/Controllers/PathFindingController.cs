@@ -60,7 +60,7 @@ namespace Assets.Scripts.Concrete.Movements
         void SetDirection()
         {
             // Yön için durma kontrolü
-            if (agent.hasPath && agent.velocity.magnitude > 0.1f)
+            if (agent.hasPath && agent.velocity.magnitude > 0.12f)
                 forDirectionStopping = false;
 
             else

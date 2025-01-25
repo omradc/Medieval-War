@@ -19,8 +19,6 @@ namespace Assets.Scripts.Concrete.AI
         Vector2 gatePos;
         Vector2 pos;
         bool workOnce;
-        float time;
-        readonly float timeToGetOffTower = 1;
         public KnightAI(KnightController kC, PathFindingController pF)
         {
             this.kC = kC;
@@ -30,21 +28,21 @@ namespace Assets.Scripts.Concrete.AI
 
         GameObject DetechNearestTarget()
         {
-            if (kC.followTargets.Length > 0)
+            if (kC.enemies.Length > 0)
             {
                 GameObject nearestTarget = null;
                 float shortestDistance = Mathf.Infinity;
 
-                for (int i = 0; i < kC.followTargets.Length; i++)
+                for (int i = 0; i < kC.enemies.Length; i++)
                 {
-                    if (kC.followTargets[i] != null)
+                    if (kC.enemies[i] != null)
                     {
-                        float distanceToEnemy = Vector2.Distance(kC.transform.position, kC.followTargets[i].transform.position);
+                        float distanceToEnemy = Vector2.Distance(kC.transform.position, kC.enemies[i].transform.position);
 
                         if (shortestDistance > distanceToEnemy)
                         {
                             shortestDistance = distanceToEnemy;
-                            nearestTarget = kC.followTargets[i].gameObject;
+                            nearestTarget = kC.enemies[i].gameObject;
                         }
 
                     }
@@ -121,7 +119,7 @@ namespace Assets.Scripts.Concrete.AI
         {
             kC.sightRangePosition = pF.lastMousePos; // Seçili pozisyon merkezdir
             kC.currentSightRange = kC.sightRange;
-            if (kC.followTargets.Length == 0) // Düşman yoksa merkeze dön
+            if (kC.enemies.Length == 0) // Düşman yoksa merkeze dön
             {
                 pF.MoveAI(kC.sightRangePosition, 0);
                 kC.direction.Turn2DirectionWithPos(kC.sightRangePosition.x);
@@ -135,13 +133,13 @@ namespace Assets.Scripts.Concrete.AI
                 kC.sightRangePosition = kC.followingObj.transform.position;
 
             // Kendi saldırı menzilini geçmeyecek şekilde, görüş menzilinde düşman yoksa hedefi (kendi görüş menzilini) takip et
-            if (kC.followTargets.Length == 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) > kC.attackRange)
+            if (kC.enemies.Length == 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) > kC.attackRange)
             {
                 pF.MoveAI(kC.sightRangePosition, kC.attackRange);
             }
 
             // Görüş menzilde düşman varsa, menzilden çıkmayacak şekilde düşmanı takip et
-            if (kC.followTargets.Length > 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) < kC.currentSightRange)
+            if (kC.enemies.Length > 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) < kC.currentSightRange)
             {
                 if (nearestTarget == null) return;
                 pF.MoveAI(nearestTarget.transform.position, kC.attackRange);
@@ -192,6 +190,13 @@ namespace Assets.Scripts.Concrete.AI
                     kC.goBuilding = true;
                     workOnce = false;
 
+                }
+
+                // Kule dolu değilse, sıkışmaları engellemek için collider ları kapat
+                if (!bC.isFull && Vector2.Distance(kC.transform.position, gatePos) <= 2f)
+                {
+                    kC.knightCollider.isTrigger = true;
+                    pF.agent.radius = 0;
 
                 }
 
@@ -209,13 +214,13 @@ namespace Assets.Scripts.Concrete.AI
                     if (bC.isFull)
                     {
                         unitSpriteRenderer.enabled = true;
-                        time = 0;
+                        kC.knightCollider.isTrigger = false;
+                        pF.agent.radius = kC.knightCollider.radius;
                         return;
                     }
 
-                    time++;
                     // Kulede birim yoksa, çık
-                    if (time > timeToGetOffTower && !bC.isFull)
+                    if (!bC.isFull)
                     {
                         Debug.Log("Kuleye çık");
                         unitSpriteRenderer.enabled = true;
@@ -226,13 +231,10 @@ namespace Assets.Scripts.Concrete.AI
                         kC.transform.position = pos; // Birimi kuleye ışınla
                         kC.onBuilding = true;
                         kC.gameObject.layer = 25; // ölümsüz ol
-                        kC.knightCollider.isTrigger = true;
-                        pF.agent.radius = 0;
                         kC.isSeleceted = false;
                         InteractManager.Instance.selectedUnits.Remove(kC.gameObject); // Kuledeyse seçimi kaldır
                         InteractManager.Instance.SelectedObjColor(1, kC.gameObject);  // Kuledeyse seçimi kaldır
                         tower = null;
-                        time = 0;
                     }
                 }
             }
@@ -241,23 +243,18 @@ namespace Assets.Scripts.Concrete.AI
             if (kC.onBuilding && kC.isSeleceted)
             {
                 unitSpriteRenderer.enabled = false;
-                time++;
-                if (time > timeToGetOffTower)
-                {
-                    Debug.Log("Kuleden in");
-                    ActivateTowerPos();
-                    unitSpriteRenderer.enabled = true;
-                    unitSpriteRenderer.sortingOrder = 10;
-                    kC.gameObject.layer = 6; // ölümlü ol
-                    kC.onBuilding = false;
-                    kC.transform.position = gatePos; // kulenin kapısına git
-                    kC.knightCollider.isTrigger = false;
-                    pF.agent.radius = kC.knightCollider.radius;
-                    kC.onBuildingStay = false;
-                    kC.unitOrderEnum = UnitOrderEnum.AttackOrder;
-                    bC.isFull = false; // Kulede birim var
-                    time = 0;
-                }
+                Debug.Log("Kuleden in");
+                ActivateTowerPos();
+                unitSpriteRenderer.enabled = true;
+                unitSpriteRenderer.sortingOrder = 10;
+                kC.gameObject.layer = 6; // ölümlü ol
+                kC.onBuilding = false;
+                kC.transform.position = gatePos; // kulenin kapısına git
+                kC.knightCollider.isTrigger = false; // kuledeyken sıkışmaları engellemek için colliderları kapat
+                pF.agent.radius = kC.knightCollider.radius; // kuledeyken sıkışmaları engellemek için colliderları kapat 
+                kC.onBuildingStay = false;
+                kC.unitOrderEnum = UnitOrderEnum.AttackOrder;
+                bC.isFull = false; // Kulede birim var
             }
         }
         public void DestructTower()
@@ -271,11 +268,10 @@ namespace Assets.Scripts.Concrete.AI
                 kC.gameObject.layer = 6; // ölümlü ol
                 kC.onBuilding = false;
                 kC.transform.position = gatePos; // kulenin kapısına git
-                kC.knightCollider.isTrigger = false;
-                pF.agent.radius = kC.knightCollider.radius;
+                kC.knightCollider.isTrigger = false; // collider ı aç
+                pF.agent.radius = kC.knightCollider.radius; // collider ı aç
                 kC.onBuildingStay = false;
                 bC.isFull = false; // Kulede birim var
-                time = 0;
             }
         }
         void CalculateTowerPos()

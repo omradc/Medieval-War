@@ -1,15 +1,14 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using Unity.VisualScripting;
+using Assets.Scripts.Concrete.Enums;
 using UnityEngine;
-
 namespace Assets.Scripts.Concrete.Resources
 {
     internal class CollectFood
     {
-       readonly VillagerController vC;
-       readonly PathFindingController pF;
+        readonly VillagerController vC;
+        readonly PathFindingController pF;
         public CollectFood(VillagerController vC, PathFindingController pF)
         {
             this.vC = vC;
@@ -18,7 +17,7 @@ namespace Assets.Scripts.Concrete.Resources
 
         public void GoToSheep()
         {
-            if (vC.isSheep && vC.targetResource != null)
+            if (vC.isSheep && vC.targetResource != null && vC.fenceObj != null)
             {
                 // Hedef varsa ona git
                 float distance = Vector2.Distance(vC.transform.position, vC.targetResource.transform.GetChild(1).position);
@@ -27,10 +26,17 @@ namespace Assets.Scripts.Concrete.Resources
                     // Koyuna ulaşınca dur
                     if (distance > .1f)
                     {
-                        pF.MoveAI(vC.targetResource.transform.GetChild(1).position,0);
+                        pF.MoveAI(vC.targetResource.transform.GetChild(1).position, 0f);
                     }
+
+                    //  // Koyun evcil değilse, durdur
+                    if (distance <= 1 && !vC.sheepController.isDomestic)
+                    {
+                        vC.sheepController.pF.agent.ResetPath();
+                    }
+
                     // Koyuna ulaşıldı
-                    if (distance < .1f)
+                    if (distance <= .1f)
                     {
                         // Koyunu evcilleştir
                         if (!vC.sheepController.isDomestic)
