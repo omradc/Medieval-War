@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Concrete.Managers;
+using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
@@ -17,8 +18,8 @@ namespace Assets.Scripts.Concrete.Controllers
         //Event trigger bileşeni ile tetiklenir
         public void InteractablePanelVisibility(bool visibility)
         {
-            if (bC.isFull)
-                interactablePanel.SetActive(false); // üzerinde birim varsa, panelleri kapat
+            if (bC.isFull || InteractManager.Instance.selectedUnits.Count > 0)
+                interactablePanel.SetActive(false); // üzerinde birim varsa veya en az 1 birim seçili ise panelleri kapat
             else if (!bC.destruct) // yıkılmadıysa paneli aç
                 interactablePanel.SetActive(visibility);
             else

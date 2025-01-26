@@ -13,11 +13,9 @@ namespace Assets.Scripts.Concrete.Controllers
     {
         [Header("UNIT TYPE")]
         public TroopTypeEnum troopType;
-        public bool isSeleceted;
 
         [Header("ARCHER")]
         public float arrowSpeed;
-        [HideInInspector] public GameObject arrow;
 
         [Space(30)]
         [Header("UNIT")]
@@ -32,7 +30,9 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
         public LayerMask enemy;
 
-        public Collider2D[] enemies;
+        [HideInInspector] public bool isSeleceted;
+        [HideInInspector] public Collider2D[] enemies;
+        [HideInInspector] public GameObject arrow;
         [HideInInspector] public Collider2D[] hitTargets;
         [HideInInspector] public GameObject followingObj;
         [HideInInspector] public bool workOnce = true;
