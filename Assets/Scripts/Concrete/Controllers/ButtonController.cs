@@ -18,17 +18,12 @@ namespace Assets.Scripts.Concrete.Controllers
             panelController = GetComponent<BuildingPanelController>();
             buildingController = GetComponent<BuildingController>();
         }
-
-        private void Update()
-        {
-
-        }
         public void TrainUnitButton()
         {
             if (ResourcesManager.Instance.Buy(KnightName()))
             {
                 trainUnitButton = true;
-                panelController.InteractablePanelVisibility(false);
+                panelController.interactablePanel.SetActive(false);
                 panelController.TimerPanelVisibility(true);
             }
         }
@@ -52,8 +47,8 @@ namespace Assets.Scripts.Concrete.Controllers
         //*********************************************************
         public void CloseButton()
         {
-            panelController.InteractablePanelVisibility(false);
-            panelController.DestructPanelVisiblity(false);
+            panelController.interactablePanel.SetActive(false);
+            panelController.destructPanel.SetActive(false);
         }
 
         public void RebuildButton()

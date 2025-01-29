@@ -31,7 +31,6 @@ namespace Assets.Scripts.Concrete.Managers
             formationDropdown.onValueChanged.AddListener(FormationDropdown);
             orderDropdown.onValueChanged.AddListener(OrderDropdown);
         }
-
         public void FormationDropdown(int index)
         {
             switch (index)
@@ -80,11 +79,12 @@ namespace Assets.Scripts.Concrete.Managers
                     break;
             }
         }
-
-        public void BarrackPreview(GameObject obj)
+        public void PreviewBuilding(GameObject obj)
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             previewObj = Instantiate(obj, pos, Quaternion.identity);
         }
+
+
     }
 }

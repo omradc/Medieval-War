@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Concrete.Managers;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
@@ -9,33 +10,40 @@ namespace Assets.Scripts.Concrete.Controllers
         public GameObject destructPanel;
         [SerializeField] GameObject trainTimePanel;
         BuildingController bC;
-
+        float time;
         private void Awake()
         {
             bC = GetComponent<BuildingController>();
         }
 
-        //Event trigger bileşeni ile tetiklenir
-        public void InteractablePanelVisibility(bool visibility)
+        private void Update()
         {
-            if (bC.isFull || InteractManager.Instance.selectedUnits.Count > 0)
-                interactablePanel.SetActive(false); // üzerinde birim varsa veya en az 1 birim seçili ise panelleri kapat
-            else if (!bC.destruct) // yıkılmadıysa paneli aç
-                interactablePanel.SetActive(visibility);
-            else
-                interactablePanel.SetActive(false);
+            if (Input.GetMouseButtonDown(0) && interactablePanel.activeSelf)
+                if (!InteractManager.Instance.CheckUIElements())
+                    interactablePanel.SetActive(false);
+
         }
 
         //Event trigger bileşeni ile tetiklenir
-        public void DestructPanelVisiblity(bool visibility)
+        public void PanelVisibility()
         {
-            if (bC.isFull) // üzerinde birim varsa, panelleri kapat
-                destructPanel.SetActive(false);
-            else if (bC.destruct) // yıkıldıysa paneli aç
-                destructPanel.SetActive(visibility);
-            else
-                destructPanel.SetActive(false);
+            if(!bC.destruct) // Bina yıkılmadıysa
+            {
+                if (bC.isFull || InteractManager.Instance.selectedUnits.Count > 0)  // üzerinde birim varsa, yıkıldıysa veya 1 birim seçili ise panelleri kapat
+                    interactablePanel.SetActive(false);
+                else
+                    interactablePanel.SetActive(true);
+            }
+
+            if(bC.destruct) // Bina yıkıldıysa
+            {
+                if (InteractManager.Instance.selectedUnits.Count > 0) // 1 birim seçili ise panelleri kapat
+                    destructPanel.SetActive(false);
+                else
+                    destructPanel.SetActive(true);
+            }
         }
+
         public void TimerPanelVisibility(bool visibility)
         {
             trainTimePanel.SetActive(visibility);

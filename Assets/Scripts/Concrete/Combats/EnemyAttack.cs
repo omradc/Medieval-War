@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.AI;
 using Assets.Scripts.Concrete.Enums;
-using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using UnityEngine;
 
@@ -33,19 +32,12 @@ namespace Assets.Scripts.Concrete.Combats
         // Saldırılar event ile tetiklenir
         void TorchAttack()
         {
-            gC.hitEnemies = Physics2D.OverlapCircleAll(gC.transform.position, gC.attackRange, gC.targetAll);
-            for (int i = 0; i < gC.hitEnemies.Length; i++)
-            {
-                if (gC.hitEnemies != null)
-                {
-                    HealthController knightHealth;
-                    knightHealth = gC.hitEnemies[0].GetComponent<HealthController>();
-                    knightHealth.GetHit(gC.damage);
-                    if (knightHealth.isDead)
-                        pF.agent.ResetPath();
+            HealthController targetHealth;
+            targetHealth =  enemyAI.nearestTarget.GetComponent<HealthController>();
+            targetHealth.GetHit(gC.damage);
+            if (targetHealth.isDead)
+                pF.agent.ResetPath();
 
-                }
-            }
         }
         void DynamiteAttack()
         {

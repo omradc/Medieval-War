@@ -24,7 +24,7 @@ namespace Assets.Scripts.Concrete.Movements
         {
             agent.updateRotation = false;
             agent.updateUpAxis = false;
-            InvokeRepeating(nameof(SetDirection), 0, .5f);
+            InvokeRepeating(nameof(SetDirection), 0, .1f);
 
         }
 

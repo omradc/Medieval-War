@@ -20,39 +20,23 @@ namespace Assets.Scripts.Concrete.Combats
             this.pF = pF;
 
             if (kC.troopType == TroopTypeEnum.Worrior)
-                animationEventController.AttackEvent += WorriorAttack;
+                animationEventController.AttackEvent += WorriorOrVillagerAttack;
             if (kC.troopType == TroopTypeEnum.Archer)
                 animationEventController.AttackEvent += ArcherAttack;
             if (kC.troopType == TroopTypeEnum.Villager)
-                animationEventController.AttackEvent += VillagerAttack;
+                animationEventController.AttackEvent += WorriorOrVillagerAttack;
         }
 
-        void WorriorAttack()
+        void WorriorOrVillagerAttack()
         {
-            kC.hitTargets = Physics2D.OverlapCircleAll(kC.transform.position, kC.attackRange, kC.enemy);
-            for (int i = 0; i < kC.hitTargets.Length; i++)
-            {
-                if (kC.hitTargets != null)
-                {
-                    HealthController enemyHealth;
-                    enemyHealth = kC.hitTargets[0].GetComponent<HealthController>();
-                    enemyHealth.GetHit(kC.damage);
-                    if (enemyHealth.isDead)
-                        pF.agent.ResetPath();
+            HealthController enemyHealth;
+            enemyHealth = knightAI.nearestTarget.GetComponent<HealthController>();
+            enemyHealth.GetHit(kC.damage);
+            if (enemyHealth.isDead)
+                pF.agent.ResetPath();
 
+        }
 
-                }
-            }
-        }
-        void VillagerAttack()
-        {
-            kC.hitTargets = Physics2D.OverlapCircleAll(kC.transform.position, kC.attackRange, kC.enemy);
-            for (int i = 0; i < kC.hitTargets.Length; i++)
-            {
-                //if (kC.hitTargets != null)
-                kC.hitTargets?[i].GetComponent<HealthController>().GetHit(kC.damage);
-            }
-        }
         void ArcherAttack()
         {
             GameObject obj = Object.Instantiate(kC.arrow, kC.attackRangePosition, Quaternion.identity);

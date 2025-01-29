@@ -45,7 +45,7 @@ namespace Assets.Scripts.Concrete.Controllers
             visualDestructed.SetActive(true);
             gameObject.layer = 26; // Katman = Destructed
             if (buildingPanelController != null)
-                buildingPanelController.InteractablePanelVisibility(false);
+                buildingPanelController.interactablePanel.SetActive(false);
             workOnce = false;
             if (destroyPermanent)
                 Destroy(gameObject, destroyTime);

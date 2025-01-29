@@ -13,9 +13,6 @@ namespace Assets.Scripts.Concrete.Managers
 {
     internal class InteractManager : MonoBehaviour
     {
-        public GraphicRaycaster raycaster; // Sahnedeki UI'yi taramak için
-        public EventSystem eventSystem;    // EventSystem'i kullanarak raycast işlemi yapmak için
-        private PointerEventData pointerEventData; // Pointer verilerini tutar
         public static InteractManager Instance { get; private set; }
         [SerializeField] LayerMask unitLayer;
         [SerializeField] LayerMask interactableLayers;
@@ -98,7 +95,6 @@ namespace Assets.Scripts.Concrete.Managers
                     // Etkileşim olan obje, inşaat ise,
                     if (interactedObj.layer == 30)
                         interactedConstruction = interactedObj;
-
                 }
             }
             if (ıInput.GetButtonUp0)
@@ -116,29 +112,17 @@ namespace Assets.Scripts.Concrete.Managers
 
         }
 
-        public bool CheckUIElements()
+        public bool CheckUIElements() // Tıklanan yerde UI elemanı olup olmadığını sorgular. Sadece 1 kez kullan
         {
-            // Sol fare tuşuna basıldığında
-            if (Input.GetMouseButtonDown(0))
+            PointerEventData eventData = new(EventSystem.current)
             {
-                // Pointer event datası oluşturuyoruz ve fare pozisyonunu alıyoruz
-                pointerEventData = new PointerEventData(eventSystem);
-                pointerEventData.position = Input.mousePosition;
+                position = Input.mousePosition // Dokunmatik ekranlar için de geçerli
+            };
 
-                // Raycast sonuçlarını tutmak için bir liste
-                List<RaycastResult> results = new List<RaycastResult>();
+            List<RaycastResult> results = new();
+            EventSystem.current.RaycastAll(eventData, results);
 
-                // UI nesnelerine raycast yapıyoruz
-                raycaster.Raycast(pointerEventData, results);
-
-                // Eğer raycast sonucu varsa, bir UI nesnesine tıklanmıştır
-                if (results.Count > 0)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return results.Count > 0;
         }
         public void SelectOneByOne()
         {
@@ -186,7 +170,7 @@ namespace Assets.Scripts.Concrete.Managers
                     // Aynı nesneyi tekrar diziye atma
                     if (!selectedUnits.Contains(currentUnit))
                         selectedUnits.Add(currentUnit);
-                    KnightController uC = selectedUnits[i].gameObject.GetComponent<KnightController>();
+                    KnightController uC = selectedUnits[i].GetComponent<KnightController>();
                     uC.unitOrderEnum = KnightManager.Instance.unitOrderEnum;
                     uC.workOnce = true;
                     uC.followingObj = null;

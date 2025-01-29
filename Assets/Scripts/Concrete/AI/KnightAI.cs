@@ -208,7 +208,7 @@ namespace Assets.Scripts.Concrete.AI
                     kC.goBuilding = false;
                     kC.currentSightRange = kC.attackRange;
                     kC.unitOrderEnum = UnitOrderEnum.StayOrder;
-                    bC.buildingPanelController.InteractablePanelVisibility(false); // Etkileşim ekranını kapat
+                    bC.buildingPanelController.interactablePanel.SetActive(false); // Etkileşim ekranını kapat
 
                     // Kulede birim varsa, çıkma
                     if (bC.isFull)
@@ -254,15 +254,18 @@ namespace Assets.Scripts.Concrete.AI
                 bC.isFull = false; // Kulede birim var
             }
 
-            if(kC.onBuilding)
+            if (kC.onBuilding)
             {
                 kC.transform.position = pos; // Birimi kuleye ışınla
             }
-            if (!kC.onBuildingStay)
+
+            if (tower == null)
             {
-                kC.knightCollider.isTrigger = false; // kuledeyken sıkışmaları engellemek için colliderları kapat
-                pF.agent.radius = kC.knightCollider.radius; // kuledeyken sıkışmaları engellemek için colliderları kapat 
+                kC.knightCollider.isTrigger = false; // colliderları aç
+                pF.agent.radius = kC.knightCollider.radius; // colliderları aç
             }
+
+
         }
         public void DestructTower()
         {

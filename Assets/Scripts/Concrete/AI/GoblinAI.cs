@@ -12,6 +12,7 @@ namespace Assets.Scripts.Concrete.AI
         readonly GoblinController gC;
         readonly PathFindingController pF;
         BuildingController bC;
+        GameObject nearestWoodTower;
         readonly SpriteRenderer goblinSpriteRenderer;
         public Transform nearestAttackPoint;
         public GameObject nearestTarget;
@@ -245,7 +246,6 @@ namespace Assets.Scripts.Concrete.AI
             }
 
         }
-
         public void GoUpToTower()
         {
             if (gC.troopType == TroopTypeEnum.Tnt) // Goblin türü tnt ise
@@ -258,55 +258,59 @@ namespace Assets.Scripts.Concrete.AI
                         return;
                     }
 
-                    GameObject nearestWoodTower = DetechNearestTower(); // En yakın kuleyi bul
-                    if (nearestWoodTower == null) return;
-
-                    Debug.Log("kuleye git");
-                    bC = nearestWoodTower.GetComponent<BuildingController>();
-                    gC.aI = false;
-
-                    gatePos = nearestWoodTower.transform.GetChild(0).position;
-                    towerPos = nearestWoodTower.transform.GetChild(1).position;
-                    pF.MoveAI(gatePos, 0);
-                    gC.onBuildingStay = true;
-                    gC.goBuilding = true;
-
-                    // Kule dolu değilse, sıkışmaları engellemek için collider ları kapat
-                    if (!bC.isFull && Vector2.Distance(gC.transform.position, gatePos) <= 1f)
+                    nearestWoodTower = DetechNearestTower(); // En yakın kuleyi bul
+                    if (nearestWoodTower != null)
                     {
-                        gC.goblinCollider.isTrigger = true;
-                        pF.agent.radius = 0;
+                        Debug.Log("kuleye git");
+                        bC = nearestWoodTower.GetComponent<BuildingController>();
+                        gC.aI = false;
 
-                    }
-                    // Kuleye çık
-                    if (Vector2.Distance(gC.transform.position, gatePos) < .1f)
-                    {
-                        // Kulede birim varsa, çıkma
-                        if (bC.isFull)
+                        gatePos = nearestWoodTower.transform.GetChild(0).position;
+                        towerPos = nearestWoodTower.transform.GetChild(1).position;
+                        pF.MoveAI(gatePos, 0);
+                        gC.onBuildingStay = true;
+                        gC.goBuilding = true;
+
+                        // Kule dolu değilse, sıkışmaları engellemek için collider ları kapat
+                        if (!bC.isFull && Vector2.Distance(gC.transform.position, gatePos) <= 1f)
                         {
-                            for (int i = 0; i < gC.woodTowers.Length; i++) // kuleyi boşa düşür
-                            {
-                                gC.woodTowers[i] = null;
-                            }
-                            pF.agent.ResetPath();
-                            gC.aI = true;
-                            gC.onBuildingStay = false;
-                            return;
+                            gC.goblinCollider.isTrigger = true;
+                            pF.agent.radius = 0;
+
                         }
-                        // Kulede birim yoksa, çık
-                        if (!bC.isFull)
+                        // Kuleye çık
+                        if (Vector2.Distance(gC.transform.position, gatePos) < .1f)
                         {
-                            Debug.Log("Kuleye çık");
-                            pF.agent.ResetPath();
-                            goblinSpriteRenderer.sortingOrder = 12;
-                            gC.currentSightRange = gC.attackRange; // Kulede sabit kal
-                            gC.aI = true;
-                            gC.onBuilding = true;
-                            gC.goBuilding = false;
-                            gC.transform.position = towerPos; // Birimi kuleye ışınla
-                            gC.gameObject.layer = 24; // ölümsüz ol
-                            bC.isFull = true;
-                            bC.gameObject.layer = 28; // Kulenin katmanı dolu olacak şekilde değişti
+                            // Kulede birim varsa, çıkma
+                            if (bC.isFull)
+                            {
+                                for (int i = 0; i < gC.woodTowers.Length; i++) // kuleyi boşa düşür
+                                {
+                                    gC.woodTowers[i] = null;
+                                }
+                                gC.goblinCollider.isTrigger = false;
+                                pF.agent.radius = gC.goblinCollider.radius;
+                                pF.agent.ResetPath();
+                                gC.aI = true;
+                                gC.goBuilding = false;
+                                gC.onBuildingStay = false;
+                                return;
+                            }
+                            // Kulede birim yoksa, çık
+                            if (!bC.isFull)
+                            {
+                                Debug.Log("Kuleye çık");
+                                pF.agent.ResetPath();
+                                goblinSpriteRenderer.sortingOrder = 12;
+                                gC.currentSightRange = gC.attackRange; // Kulede sabit kal
+                                gC.aI = true;
+                                gC.onBuilding = true;
+                                gC.goBuilding = false;
+                                gC.transform.position = towerPos; // Birimi kuleye ışınla
+                                gC.gameObject.layer = 24; // ölümsüz ol
+                                bC.isFull = true;
+                                bC.gameObject.layer = 28; // Kulenin katmanı dolu olacak şekilde değişti
+                            }
                         }
                     }
                 }
@@ -323,18 +327,20 @@ namespace Assets.Scripts.Concrete.AI
                     gC.transform.position = gatePos; // kulenin kapısına git
                     bC.isFull = false;
                     bC.gameObject.layer = 27; // Kulenin katmanı boş olacak şekilde değişti
-
-                }
-
-                if (gC.onBuilding)
-                {
-                    gC.transform.position = towerPos; // Birimi kuleye ışınla
-                }
-                if (!gC.onBuilding)
-                {
                     gC.goblinCollider.isTrigger = false;
                     pF.agent.radius = gC.goblinCollider.radius;
+
                 }
+
+                //if (gC.onBuilding)
+                //{
+                //    gC.transform.position = towerPos; // Birimi kuleye ışınla
+                //}
+                //if (nearestWoodTower == null)
+                //{
+                //    gC.goblinCollider.isTrigger = false;
+                //    pF.agent.radius = gC.goblinCollider.radius;
+                //}
             }
         }
         public void DestructTower()

@@ -35,7 +35,6 @@ namespace Assets.Scripts.Concrete.Controllers
         public Collider2D[] playerUnits;
         public Collider2D[] playerBuildings;
         public Collider2D[] enemies;
-        public Collider2D[] hitEnemies;
         public Collider2D[] woodTowers;
         public LayerMask targetAll;
         public LayerMask targetUnits;
@@ -161,7 +160,11 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void AnimationControl()
         {
-            if (canAttack)
+            if(goBuilding)
+            {
+                AnimationManager.Instance.RunAnim(animator, 1);
+            }
+            else if (canAttack)
             {
                 //Animasyonlar, saldırıları event ile tetikler ve yöne göre animasyonlar oynatılır.
                 if (direction.right || direction.left)

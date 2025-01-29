@@ -139,20 +139,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   troopType: 3
-  isSeleceted: 0
   arrowSpeed: 0
-  arrow: {fileID: 0}
   moveSpeed: 1
   damage: 1
   attackSpeed: 1
-  attackRange: 0.6
+  attackRange: 0.8
   sightRange: 8
   unitAIPerTime: 0.1
   collectResourcesPerTime: 1
   enemy:
     serializedVersion: 2
     m_Bits: 403709952
+  isSeleceted: 0
   enemies: []
+  arrow: {fileID: 0}
   hitTargets: []
   followingObj: {fileID: 0}
   workOnce: 1

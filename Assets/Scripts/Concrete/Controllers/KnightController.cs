@@ -3,7 +3,6 @@ using Assets.Scripts.Concrete.Combats;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using System.Security.Cryptography;
 using UnityEngine;
 
 
@@ -31,9 +30,8 @@ namespace Assets.Scripts.Concrete.Controllers
         public LayerMask enemy;
 
         [HideInInspector] public bool isSeleceted;
-        [HideInInspector] public Collider2D[] enemies;
+        public Collider2D[] enemies;
         [HideInInspector] public GameObject arrow;
-        [HideInInspector] public Collider2D[] hitTargets;
         [HideInInspector] public GameObject followingObj;
         [HideInInspector] public bool workOnce = true;
         [HideInInspector] public float currentSightRange;
@@ -74,7 +72,7 @@ namespace Assets.Scripts.Concrete.Controllers
             currentSightRange = sightRange;
             pF.agent.speed = moveSpeed;
             // Invoke
-            InvokeRepeating(nameof(OptimumUnitAI), 0.1f, unitAIPerTime);
+            InvokeRepeating(nameof(OptimumUnitAI), 0, unitAIPerTime);
         }
         private void Update()
         {
@@ -100,10 +98,10 @@ namespace Assets.Scripts.Concrete.Controllers
             knightAI.GoTower();
             if (aI) //Knight AI
             {
-                DetechEnemies();
-                AITurnDirection();
-                knightAI.CatchNeraestTarget();
                 knightAI.UnitBehaviours();
+                AITurnDirection();
+                DetechEnemies();
+                knightAI.CatchNeraestTarget();
                 ResetPath();
             }
 

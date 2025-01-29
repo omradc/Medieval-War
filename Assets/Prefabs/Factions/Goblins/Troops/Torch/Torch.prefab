@@ -398,13 +398,12 @@ MonoBehaviour:
   attackSpeed: 1
   attackDelay: 0
   sightRange: 8
-  attackRange: 0.6
+  attackRange: 0.8
   enemyAIPerTime: 0.1
   attackTheAllKnights: 0
   playerUnits: []
   playerBuildings: []
   enemies: []
-  hitEnemies: []
   woodTowers: []
   targetAll:
     serializedVersion: 2
@@ -429,6 +428,7 @@ MonoBehaviour:
   sightRangePosition: {x: 0, y: 0}
   currentSightRange: 0
   animator: {fileID: 0}
+  goblinCollider: {fileID: 0}
   aI: 1
   onBuilding: 0
   onBuildingStay: 0

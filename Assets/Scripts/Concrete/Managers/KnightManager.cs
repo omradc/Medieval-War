@@ -36,9 +36,10 @@ namespace Assets.Scripts.Concrete.Managers
 
         private void Update()
         {
-            if (ıInput.GetButtonDown0 && !InteractManager.Instance.CheckUIElements())
+            if (ıInput.GetButtonDown0)
             {
-                ıMove.MoveCommand();
+                if (!InteractManager.Instance.CheckUIElements())
+                    ıMove.MoveCommand();
             }
 
         }
