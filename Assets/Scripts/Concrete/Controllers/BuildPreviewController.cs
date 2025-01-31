@@ -14,7 +14,7 @@ namespace Assets.Scripts.Concrete.Controllers
         IInput ıInput;
         Vector2 firstPos;
         public Button buildConfirmButton;
-        int collisionCount;
+        bool value = true;
         private void Awake()
         {
             ıInput = new PcInput();
@@ -26,16 +26,29 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void Update()
         {
-            if (ıInput.GetButtonDown0)
+            if (Input.GetMouseButtonDown(0))
             {
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                firstPos = transform.position - mousePos;
+                if (!InteractManager.Instance.CheckUIElements() || UIManager.Instance.canDragPreviewObj)
+                {
+                    value = true;
+                    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    firstPos = transform.position - mousePos;
+                }
+
             }
-            if (ıInput.GetButton0)
+
+            if (Input.GetMouseButton(0) && value)
             {
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 transform.position = firstPos + mousePos;
             }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                value = false;
+                UIManager.Instance.canDragPreviewObj = false;
+            }
+
         }
 
         public void BuildConfirmButton()
@@ -43,6 +56,7 @@ namespace Assets.Scripts.Concrete.Controllers
             if (ResourcesManager.Instance.Buy(BuildingName()))
             {
                 UIManager.Instance.canBuild = true;
+                UIManager.Instance.BuildPanelVisibility(true);
                 Destroy(gameObject);
             }
 
@@ -53,38 +67,23 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         public void BuildCancelButton()
         {
+            UIManager.Instance.BuildPanelVisibility(true);
             Destroy(gameObject);
-        }
-
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            collisionCount++;
         }
         private void OnTriggerStay2D(Collider2D collision)
         {
-            if (collision.CompareTag("Building") && collisionCount == 1)
-            {
-                print("ok");
-                buildConfirmButton.interactable = true;
-                visual.gameObject.SetActive(true);
-                visualRed.gameObject.SetActive(false);
-                return;
-            }
             // İnşaa edilemez
             buildConfirmButton.interactable = false;
             visual.gameObject.SetActive(false);
             visualRed.gameObject.SetActive(true);
         }
-
         private void OnTriggerExit2D(Collider2D collision)
         {
             // İnşaa edilebilir
             buildConfirmButton.interactable = true;
             visual.gameObject.SetActive(true);
             visualRed.gameObject.SetActive(false);
-            collisionCount--;
         }
-
         string BuildingName()
         {
             if (gameObject.name == "Preview_PawnHouse(Clone)")

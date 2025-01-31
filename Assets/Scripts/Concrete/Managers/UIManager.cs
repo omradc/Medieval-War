@@ -1,7 +1,8 @@
 ﻿using Assets.Scripts.Concrete.Enums;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
+
 
 namespace Assets.Scripts.Concrete.Managers
 {
@@ -9,8 +10,16 @@ namespace Assets.Scripts.Concrete.Managers
     {
         public TMP_Dropdown formationDropdown;
         public TMP_Dropdown orderDropdown;
-        public bool canBuild;
+        public GameObject build;
+        public GameObject buildingMovement;
+        [HideInInspector] public bool canBuild;
         [HideInInspector] public GameObject previewObj;
+        public bool canDragPreviewObj = true;
+        public float previewObjMovementValue;
+        Vector3 up;
+        Vector3 down;
+        Vector3 right;
+        Vector3 left;
 
         public static UIManager Instance { get; private set; }
         private void Awake()
@@ -28,6 +37,11 @@ namespace Assets.Scripts.Concrete.Managers
         }
         private void Start()
         {
+            up = new Vector3(0, previewObjMovementValue, 0);
+            down = new Vector3(0, -previewObjMovementValue, 0);
+            right = new Vector3(previewObjMovementValue, 0, 0);
+            left = new Vector3(-previewObjMovementValue, 0, 0);
+
             formationDropdown.onValueChanged.AddListener(FormationDropdown);
             orderDropdown.onValueChanged.AddListener(OrderDropdown);
         }
@@ -83,8 +97,38 @@ namespace Assets.Scripts.Concrete.Managers
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             previewObj = Instantiate(obj, pos, Quaternion.identity);
+            BuildPanelVisibility(false);
+            canDragPreviewObj = true;
         }
-
-
+        public void BuildPanelVisibility(bool visiblity)
+        {
+            build.SetActive(visiblity);
+            buildingMovement.SetActive(!visiblity);
+        }
+        public void Up()
+        {
+            Move(up);
+        }
+        public void Down()
+        {
+            Move(down);
+        }
+        public void Right()
+        {
+            Move(right);
+        }
+        public void Left()
+        {
+            Move(left);
+        }
+        void Move(Vector3 pos)
+        {
+            previewObj.transform.position += pos;
+            previewObj.transform.position = new Vector3(TruncateToOneDecimal(previewObj.transform.position.x), TruncateToOneDecimal(previewObj.transform.position.y));
+        }
+        float TruncateToOneDecimal(float value)
+        {
+            return Mathf.Round(value * 10) / 10;
+        }
     }
 }
