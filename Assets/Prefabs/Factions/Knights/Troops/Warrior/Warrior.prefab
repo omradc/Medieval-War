@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2140753509579492637}
   - component: {fileID: 6747969190704152676}
   - component: {fileID: 6455696069564880554}
+  - component: {fileID: 675483745330298091}
   m_Layer: 6
   m_Name: Warrior
   m_TagString: Warrior
@@ -143,15 +144,15 @@ MonoBehaviour:
   damage: 1
   attackSpeed: 1
   attackInterval: 0.1
-  attackRange: 0.8
+  attackRange: 0.6
   sightRange: 8
   unitAIPerTime: 0.1
   collectResourcesPerTime: 1
-  enemy:
+  enemiesLayer:
     serializedVersion: 2
     m_Bits: 403709952
   isSeleceted: 0
-  enemies: []
+  targetEnemies: []
   arrow: {fileID: 0}
   followingObj: {fileID: 0}
   workOnce: 1
@@ -206,6 +207,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &675483745330298091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195786962051834586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51de4870408a204bbe993d8115687ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority: 0
 --- !u!1 &7966265824583163113
 GameObject:
   m_ObjectHideFlags: 0

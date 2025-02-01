@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Concrete.Controllers;
+﻿using Assets.Scripts.Concrete.Combats;
+using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
@@ -29,30 +30,21 @@ namespace Assets.Scripts.Concrete.AI
 
         GameObject DetechNearestTarget()
         {
-            if (kC.enemies.Length > 0)
+            GameObject bestTarget = null;
+            float bestScore = Mathf.Infinity;
+
+            for (int i = 0; i < kC.targetEnemies.Length; i++)
             {
-                GameObject nearestTarget = null;
-                float shortestDistance = Mathf.Infinity;
+                float distance = Vector2.Distance(kC.transform.position, kC.targetEnemies[i].transform.position);
+                float currentScore = distance + kC.targetEnemies[i].GetComponent<TargetPriority>().priority;
 
-                for (int i = 0; i < kC.enemies.Length; i++)
+                if (bestScore > currentScore)
                 {
-                    if (kC.enemies[i] != null)
-                    {
-                        float distanceToEnemy = Vector2.Distance(kC.transform.position, kC.enemies[i].transform.position);
-
-                        if (shortestDistance > distanceToEnemy)
-                        {
-                            shortestDistance = distanceToEnemy;
-                            nearestTarget = kC.enemies[i].gameObject;
-                        }
-
-                    }
+                    bestScore = currentScore;
+                    bestTarget = kC.targetEnemies[i].gameObject;
                 }
-                return nearestTarget;
             }
-            else
-                return null;
-
+            return bestTarget;
         }
         public void CatchNeraestTarget()
         {
@@ -120,7 +112,7 @@ namespace Assets.Scripts.Concrete.AI
         {
             kC.sightRangePosition = pF.lastMousePos; // Seçili pozisyon merkezdir
             kC.currentSightRange = kC.sightRange;
-            if (kC.enemies.Length == 0) // Düşman yoksa merkeze dön
+            if (kC.targetEnemies.Length == 0) // Düşman yoksa merkeze dön
             {
                 pF.MoveAI(kC.sightRangePosition, 0);
                 kC.direction.Turn2DirectionWithPos(kC.sightRangePosition.x);
@@ -134,13 +126,13 @@ namespace Assets.Scripts.Concrete.AI
                 kC.sightRangePosition = kC.followingObj.transform.position;
 
             // Kendi saldırı menzilini geçmeyecek şekilde, görüş menzilinde düşman yoksa hedefi (kendi görüş menzilini) takip et
-            if (kC.enemies.Length == 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) > kC.attackRange)
+            if (kC.targetEnemies.Length == 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) > kC.attackRange)
             {
                 pF.MoveAI(kC.sightRangePosition, kC.attackRange);
             }
 
             // Görüş menzilde düşman varsa, menzilden çıkmayacak şekilde düşmanı takip et
-            if (kC.enemies.Length > 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) < kC.currentSightRange)
+            if (kC.targetEnemies.Length > 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) < kC.currentSightRange)
             {
                 if (nearestTarget == null) return;
                 pF.MoveAI(nearestTarget.transform.position, kC.attackRange);

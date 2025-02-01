@@ -650,6 +650,7 @@ GameObject:
   - component: {fileID: -5228110553876610301}
   - component: {fileID: 8702562768780749070}
   - component: {fileID: 5343585358144450122}
+  - component: {fileID: 7842470555026536466}
   m_Layer: 20
   m_Name: Goblin_House
   m_TagString: Untagged
@@ -788,6 +789,19 @@ MonoBehaviour:
   destruct: 0
   unitValue: 0
   buildingPanelController: {fileID: 0}
+--- !u!114 &7842470555026536466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8342234495937756783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51de4870408a204bbe993d8115687ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority: 5
 --- !u!1 &8926458195536190719
 GameObject:
   m_ObjectHideFlags: 0

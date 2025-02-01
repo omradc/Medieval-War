@@ -263,6 +263,7 @@ GameObject:
   - component: {fileID: 7485362444082039687}
   - component: {fileID: 5566946402393527068}
   - component: {fileID: 4369337085645971239}
+  - component: {fileID: -6626190799074779083}
   m_Layer: 13
   m_Name: Torch
   m_TagString: Untagged
@@ -397,24 +398,17 @@ MonoBehaviour:
   damage: 1
   attackSpeed: 1
   attackDelay: 0
+  largeRange: 0
   sightRange: 8
-  attackRange: 0.8
+  attackRange: 0.6
   enemyAIPerTime: 0.1
   attackTheAllKnights: 0
-  playerUnits: []
-  playerBuildings: []
-  enemies: []
+  targetEenemies: []
   woodTowers: []
-  targetAll:
+  enemiesLayer:
     serializedVersion: 2
     m_Bits: 1856
-  targetUnits:
-    serializedVersion: 2
-    m_Bits: 64
-  targetBuildings:
-    serializedVersion: 2
-    m_Bits: 1792
-  woodTower:
+  targetWoodTower:
     serializedVersion: 2
     m_Bits: 0
   patrollingRadius: 4
@@ -472,6 +466,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-6626190799074779083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054090689530960466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51de4870408a204bbe993d8115687ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority: 0
 --- !u!1001 &4673381150033136589
 PrefabInstance:
   m_ObjectHideFlags: 0

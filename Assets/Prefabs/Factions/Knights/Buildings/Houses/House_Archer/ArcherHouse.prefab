@@ -886,6 +886,7 @@ GameObject:
   - component: {fileID: 4591220666811815571}
   - component: {fileID: 8191330307033178946}
   - component: {fileID: 3048150471120658330}
+  - component: {fileID: -5852052855475248499}
   m_Layer: 8
   m_Name: ArcherHouse
   m_TagString: Building
@@ -1049,6 +1050,19 @@ MonoBehaviour:
   destruct: 0
   unitValue: 0
   buildingPanelController: {fileID: 0}
+--- !u!114 &-5852052855475248499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8389996312057332968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51de4870408a204bbe993d8115687ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority: 5
 --- !u!1 &8506387375756377643
 GameObject:
   m_ObjectHideFlags: 0

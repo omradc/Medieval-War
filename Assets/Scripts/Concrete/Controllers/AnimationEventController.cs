@@ -37,7 +37,6 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             GetHitTreeEvent?.Invoke();
         }
-
         void IsTreeBeingCutAlready()
         {
             IsTreeBeingCutAlreadyEvent?.Invoke();

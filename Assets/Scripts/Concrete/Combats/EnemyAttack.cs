@@ -43,7 +43,7 @@ namespace Assets.Scripts.Concrete.Combats
         {
             GameObject obj = Object.Instantiate(gC.dynamite, gC.attackRangePosition, Quaternion.identity);
             Dynamite dynamite = obj.GetComponent<Dynamite>();
-            dynamite.targetLayer = gC.targetAll;
+            dynamite.targetLayer = gC.enemiesLayer;
             dynamite.target = enemyAI.nearestTarget;
             dynamite.damage = gC.damage;
             dynamite.radius = gC.dynamiteExplosionRadius;
@@ -53,7 +53,7 @@ namespace Assets.Scripts.Concrete.Combats
         {
             GameObject obj = Object.Instantiate(gC.explosion, gC.attackRangePosition, Quaternion.identity);
             Explosion explosion = obj.GetComponent<Explosion>();
-            explosion.targetLayer = gC.targetAll;
+            explosion.targetLayer = gC.enemiesLayer;
             explosion.damage = gC.damage;
             explosion.radius = gC.barrelExplosionRadius;
             Object.Destroy(gC.gameObject);

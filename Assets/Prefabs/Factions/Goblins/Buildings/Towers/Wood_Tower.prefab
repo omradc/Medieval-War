@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 8778633108490885336}
   - component: {fileID: 5659189621024181204}
   - component: {fileID: 7156048797368147480}
+  - component: {fileID: 7981795032378355210}
   m_Layer: 27
   m_Name: Wood_Tower
   m_TagString: Untagged
@@ -345,6 +346,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7981795032378355210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3674963534610148226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51de4870408a204bbe993d8115687ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority: 10
 --- !u!1 &4955810259052460833
 GameObject:
   m_ObjectHideFlags: 0

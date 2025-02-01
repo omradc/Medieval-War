@@ -5,13 +5,12 @@ using Assets.Scripts.Concrete.Movements;
 using UnityEngine;
 using Assets.Scripts.Concrete.Managers;
 using System;
-using Assets.Scripts.Concrete.KnightBuildings;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
     internal class GoblinController : MonoBehaviour
     {
-        [Header("ENEMY TYPE")]
+        [Header("ENEMY")]
         public TroopTypeEnum troopType;
 
         [Header("DYNAMİTE")]
@@ -25,22 +24,15 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(2f, 4f)] public float moveSpeed;
         public int damage;
         public float attackSpeed;
-        public float attackDelay;
+        public float attackInterveal;
         public float largeRange;
         public float sightRange;
         public float attackRange;
 
         [Header("ENEMY SETTİNGS")]
         [Range(0.1f, 1f)] public float enemyAIPerTime = 0.5f;
-        public bool attackTheAllKnights;
-        public Collider2D[] playerUnits;
-        public Collider2D[] playerBuildings;
-        public Collider2D[] enemies;
-        public Collider2D[] woodTowers;
-        public LayerMask targetAll;
-        public LayerMask targetUnits;
-        public LayerMask targetBuildings;
-        public LayerMask woodTower;
+        public LayerMask enemiesLayer;
+        public LayerMask targetWoodTower;
 
         [Header("PATROLLİNG")]
         public float patrollingRadius;
@@ -48,26 +40,30 @@ namespace Assets.Scripts.Concrete.Controllers
         public BehaviorEnum behavior;
         public Transform path;
 
+        [HideInInspector] public bool attackTheAllKnights;
+        [HideInInspector] public bool aI = true;
+        [HideInInspector] public bool onBuilding;
+        [HideInInspector] public bool goBuilding;
+        [HideInInspector] public float currentSightRange;
+        [HideInInspector] public Vector2 sightRangePosition;
+        [HideInInspector] public Vector2 attackRangePosition;
+        [HideInInspector] public Collider2D[] woodTowers;
+        [HideInInspector] public Collider2D[] targetEenemies;
         [HideInInspector] public Transform[] patrolPoints;
         [HideInInspector] public GameObject explosion;
         [HideInInspector] public GameObject dynamite;
-        [HideInInspector] public Vector2 attackRangePosition;
-        [HideInInspector] public Vector2 sightRangePosition;
-        [HideInInspector] public float currentSightRange;
         [HideInInspector] public Direction direction;
         [HideInInspector] public Animator animator;
         [HideInInspector] public CircleCollider2D goblinCollider;
 
-        public bool aI = true;
-        public bool onBuilding;
-        public bool onBuildingStay;
-        public bool goBuilding;
+
+        bool canAttack;
+        float time;
         EnemyAttack enemyAttack;
         GoblinAI enemyAI;
         PathFindingController pF;
         AnimationEventController animationEventController;
         Vector3 gizmosPos;
-        bool canAttack;
         private void Awake()
         {
             animator = transform.GetChild(0).GetComponent<Animator>();
@@ -83,9 +79,9 @@ namespace Assets.Scripts.Concrete.Controllers
             pF.agent.speed = moveSpeed;
             currentSightRange = sightRange;
             gizmosPos = transform.position;
+            time = attackInterveal;
+            animationEventController.ResetAttackEvent += ResetAttack;
             //PatrolSetup();
-
-
             // Invoke
             InvokeRepeating(nameof(OptimumEnemyAI), .1f, enemyAIPerTime);
         }
@@ -115,19 +111,10 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void DetechEnemies()
         {
-            // Varil için iki farklı hedef türü vardır, önceliği yapılar.
-            if (troopType == TroopTypeEnum.Barrel)
-            {
-                playerUnits = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetUnits);
-                playerBuildings = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetBuildings);
-            }
-            else
-                enemies = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetAll);
+            targetEenemies = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemiesLayer);
 
             if (troopType == TroopTypeEnum.Tnt)
-            {
-                woodTowers = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, woodTower);
-            }
+                woodTowers = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetWoodTower);
         }
         void AITurnDirection()
         {
@@ -136,12 +123,9 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 if (troopType == TroopTypeEnum.Tnt || troopType == TroopTypeEnum.Barrel)
                     direction.Turn2DirectionWithPos(enemyAI.nearestAttackPoint.position.x);
-
                 if (troopType == TroopTypeEnum.Torch)
                     direction.Turn4Direction(enemyAI.nearestAttackPoint.position);
-
             }
-
         }
         void PatrolSetup()
         {
@@ -167,13 +151,20 @@ namespace Assets.Scripts.Concrete.Controllers
             }
             else if (canAttack)
             {
-                //Animasyonlar, saldırıları event ile tetikler ve yöne göre animasyonlar oynatılır.
-                if (direction.right || direction.left)
-                    AnimationManager.Instance.AttackFrontAnim(animator, attackSpeed);
-                if (direction.up)
-                    AnimationManager.Instance.AttackUpAnim(animator, attackSpeed);
-                if (direction.down)
-                    AnimationManager.Instance.AttackDownAnim(animator, attackSpeed);
+                time += Time.deltaTime;
+                if (time >= attackInterveal)
+                {
+                    //Animasyonlar, saldırıları event ile tetikler ve yöne göre animasyonlar oynatılır.
+                    if (direction.right || direction.left)
+                        AnimationManager.Instance.AttackFrontAnim(animator, attackSpeed);
+                    if (direction.up)
+                        AnimationManager.Instance.AttackUpAnim(animator, attackSpeed);
+                    if (direction.down)
+                        AnimationManager.Instance.AttackDownAnim(animator, attackSpeed);
+                }
+
+                else
+                    AnimationManager.Instance.IdleAnim(animator);
             }
             else
             {
@@ -200,10 +191,14 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void ResetPath()
         {
-            if (enemies.Length == 0 && pF.agent.velocity.magnitude < 0.1f && pF.agent.velocity.magnitude > 0)
+            if (targetEenemies.Length == 0 && pF.agent.velocity.magnitude < 0.1f && pF.agent.velocity.magnitude > 0)
             {
                 pF.agent.ResetPath();
             }
+        }
+        void ResetAttack()
+        {
+            time = 0;
         }
         private void OnDrawGizmos()
         {

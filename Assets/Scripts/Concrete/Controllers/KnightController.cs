@@ -10,9 +10,8 @@ namespace Assets.Scripts.Concrete.Controllers
 {
     internal class KnightController : MonoBehaviour
     {
-        [Header("UNIT TYPE")]
+        [Header("UNIT")]
         public TroopTypeEnum troopType;
-
         [Space(30)]
         [Header("UNIT")]
         [Range(2, 4f)] public float moveSpeed = 1f;
@@ -25,10 +24,10 @@ namespace Assets.Scripts.Concrete.Controllers
         [Header("UNIT SETTÝNGS")]
         [Range(0.1f, 1f)] public float unitAIPerTime = 0.5f;
         [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
-        public LayerMask enemy;
+        public LayerMask enemiesLayer;
 
         [HideInInspector] public bool isSeleceted;
-        [HideInInspector] public Collider2D[] enemies;
+        [HideInInspector] public Collider2D[] targetEnemies;
         [HideInInspector] public GameObject arrow;
         [HideInInspector] public GameObject followingObj;
         [HideInInspector] public bool workOnce = true;
@@ -71,7 +70,6 @@ namespace Assets.Scripts.Concrete.Controllers
             currentSightRange = sightRange;
             pF.agent.speed = moveSpeed;
             time = attackInterval;
-
             animationEventController.ResetAttackEvent += ResetAttack;
             // Invoke
             InvokeRepeating(nameof(OptimumUnitAI), 0, unitAIPerTime);
@@ -110,7 +108,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void DetechEnemies()
         {
-            enemies = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemy);
+            targetEnemies = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemiesLayer);
         }
         void AITurnDirection()
         {
@@ -212,7 +210,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void ResetPath()
         {
-            if (enemies.Length == 0 && pF.agent.velocity.magnitude < 0.1f && pF.agent.velocity.magnitude > 0)
+            if (targetEnemies.Length == 0 && pF.agent.velocity.magnitude < 0.1f && pF.agent.velocity.magnitude > 0)
             {
                 pF.agent.ResetPath();
             }
