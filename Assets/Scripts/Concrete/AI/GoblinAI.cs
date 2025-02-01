@@ -1,9 +1,7 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
-using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 namespace Assets.Scripts.Concrete.AI
 {
@@ -151,7 +149,6 @@ namespace Assets.Scripts.Concrete.AI
                 targetPoint = firstPoint;
                 targetPoint += new Vector3(Random.Range(-gC.patrollingRadius, gC.patrollingRadius), Random.Range(-gC.patrollingRadius, gC.patrollingRadius));
                 pF.MoveAI(targetPoint, 0);
-                AnimationManager.Instance.RunAnim(gC.animator, 1);
             }
 
             if (pF.isStoping)
@@ -175,7 +172,6 @@ namespace Assets.Scripts.Concrete.AI
                 patrol = false;
                 targetPoint += new Vector3(Random.Range(-gC.patrollingRadius, gC.patrollingRadius), Random.Range(-gC.patrollingRadius, gC.patrollingRadius));
                 pF.MoveAI(targetPoint, 0);
-                AnimationManager.Instance.RunAnim(gC.animator, 1);
             }
 
             if (pF.isStoping)
@@ -202,7 +198,6 @@ namespace Assets.Scripts.Concrete.AI
                 index++;
                 if (index == gC.patrolPoints.Length)
                     index = 0;
-                AnimationManager.Instance.RunAnim(gC.animator, 1);
                 patrol = false;
             }
 

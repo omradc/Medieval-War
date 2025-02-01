@@ -238,12 +238,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   troopType: 4
-  isSeleceted: 0
-  arrowSpeed: 25
-  arrow: {fileID: 1411157220445716811, guid: 242c389db1e0b0940949f72e3804e8e3, type: 3}
-  moveSpeed: 1.4
+  moveSpeed: 2
   damage: 1
   attackSpeed: 1
+  attackInterval: 0.3
   attackRange: 4
   sightRange: 10
   unitAIPerTime: 0.1
@@ -251,8 +249,9 @@ MonoBehaviour:
   enemy:
     serializedVersion: 2
     m_Bits: 403709952
+  isSeleceted: 0
   enemies: []
-  hitTargets: []
+  arrow: {fileID: 1411157220445716811, guid: 242c389db1e0b0940949f72e3804e8e3, type: 3}
   followingObj: {fileID: 0}
   workOnce: 1
   currentSightRange: 4
@@ -319,7 +318,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.25
   m_Speed: 1
-  m_Acceleration: 8
+  m_Acceleration: 25
   avoidancePriority: 50
   m_AngularSpeed: 0
   m_StoppingDistance: 0

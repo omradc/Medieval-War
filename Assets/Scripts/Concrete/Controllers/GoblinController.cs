@@ -22,10 +22,11 @@ namespace Assets.Scripts.Concrete.Controllers
         public float barrelExplosionRadius = 2;
 
         [Header("ENEMY UNİT")]
-        [Range(0.1f, 2f)] public float moveSpeed;
+        [Range(2f, 4f)] public float moveSpeed;
         public int damage;
         public float attackSpeed;
         public float attackDelay;
+        public float largeRange;
         public float sightRange;
         public float attackRange;
 
@@ -160,7 +161,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void AnimationControl()
         {
-            if(goBuilding)
+            if (goBuilding)
             {
                 AnimationManager.Instance.RunAnim(animator, 1);
             }

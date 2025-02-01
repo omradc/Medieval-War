@@ -52,7 +52,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public float tChop;
         [HideInInspector] public float tCollect;
         [HideInInspector] public float tMining;
-        public bool returnHome;
+        [HideInInspector] public bool returnHome;
         [HideInInspector] public bool returnFences;
         [HideInInspector] public bool workOnce;
         [HideInInspector] public bool workOnce2;
@@ -73,7 +73,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public GameObject meatIdle;
         [HideInInspector] public IInput ıInput;
         [HideInInspector] public AnimationEventController animationEventController;
-        public SheepController sheepController;
+        [HideInInspector] public SheepController sheepController;
         TreeController treeController;
         CollectResources collectResources;
         CollectGoldOrRock collectGoldAndRock;
@@ -120,7 +120,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         void OptimumVillager()
         {
-            if (kC.knightAI.nearestTarget != null) //Düşman varsa kaynak toplama
+            if (kC.knightAI.nearestTarget != null && targetResource != null) //Düşman varsa ve elinde kaynak varsa, onu yere at
             {
                 // Elinde herhangi bir kaynak varsa onu yere at
                 collectResources.DropAnyResources();

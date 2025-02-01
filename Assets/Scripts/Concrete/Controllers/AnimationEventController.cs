@@ -5,6 +5,7 @@ namespace Assets.Scripts.Concrete.Controllers
     internal class AnimationEventController:MonoBehaviour
     {
         public System.Action AttackEvent;
+        public System.Action ResetAttackEvent;
         public System.Action ChopWoodEvent;
         public System.Action ChopSheepEvent;
         public System.Action GetHitSheepEvent;
@@ -12,6 +13,10 @@ namespace Assets.Scripts.Concrete.Controllers
         public System.Action IsTreeBeingCutAlreadyEvent;
         public System.Action BuildEvent;
 
+        void ResetAttack()
+        {
+            ResetAttackEvent?.Invoke();
+        }
         void Attack()
         {
             AttackEvent?.Invoke();

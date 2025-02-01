@@ -6,25 +6,23 @@ using Assets.Scripts.Concrete.Movements;
 
 namespace Assets.Scripts.Concrete.Combats
 {
-    internal class UnitAttack
+    internal class KnightAttack
     {
 
         readonly KnightController kC;
         readonly KnightAI knightAI;
         readonly PathFindingController pF;
 
-        public UnitAttack(KnightController kC, KnightAI knightAI, AnimationEventController animationEventController, PathFindingController pF)
+        public KnightAttack(KnightController kC, KnightAI knightAI, AnimationEventController animationEventController, PathFindingController pF)
         {
             this.kC = kC;
             this.knightAI = knightAI;
             this.pF = pF;
 
-            if (kC.troopType == TroopTypeEnum.Worrior)
+            if (kC.troopType == TroopTypeEnum.Worrior || kC.troopType == TroopTypeEnum.Villager)
                 animationEventController.AttackEvent += WorriorOrVillagerAttack;
             if (kC.troopType == TroopTypeEnum.Archer)
                 animationEventController.AttackEvent += ArcherAttack;
-            if (kC.troopType == TroopTypeEnum.Villager)
-                animationEventController.AttackEvent += WorriorOrVillagerAttack;
         }
 
         void WorriorOrVillagerAttack()
@@ -43,7 +41,6 @@ namespace Assets.Scripts.Concrete.Combats
             Arrow arrow = obj.GetComponent<Arrow>();
             arrow.target = knightAI.nearestTarget;
             arrow.damage = kC.damage;
-            arrow.arrowSpeed = kC.arrowSpeed;
         }
 
     }

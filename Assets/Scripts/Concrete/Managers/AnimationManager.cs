@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Managers
 {
-    internal class AnimationManager : MonoBehaviour, IAnimation
+    internal class AnimationManager : MonoBehaviour
     {
         public static AnimationManager Instance { get; private set; }
         private void Awake()
@@ -84,7 +84,7 @@ namespace Assets.Scripts.Concrete.Managers
             }
         }
 
-        // Tree
+        //Tree
         public void DestroyedTreeAnim(Animator animator)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Destroyed"))
@@ -92,8 +92,7 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.speed = 1f;
                 animator.Play("Destroyed");
             }
-        }
-
+        } 
         public void IdleTreeAnim(Animator animator)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
@@ -102,7 +101,6 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.Play("Idle");
             }
         }
-
         public void GetHitTreeAnim(Animator animator, float speed)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"))
@@ -129,7 +127,6 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.Play("Chop_Wood");
             }
         }
-
         public void ChopSheepAnim(Animator animator, float speed)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Sheep"))
@@ -138,7 +135,6 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.Play("Chop_Sheep");
             }
         }
-
         public void BuildAnim(Animator animator, float speed)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Build"))
@@ -148,7 +144,7 @@ namespace Assets.Scripts.Concrete.Managers
             }
         }
 
-        //Sheep
+        // Sheep
         public void HappyAnim(Animator animator)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Happy"))
@@ -156,6 +152,6 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.speed = 1f;
                 animator.Play("Happy");
             }
-        }
+        } 
     }
 }

@@ -393,7 +393,7 @@ MonoBehaviour:
   dynamiteSpeed: 0
   dynamiteExplosionRadius: 0.5
   barrelExplosionRadius: 2
-  moveSpeed: 1
+  moveSpeed: 2
   damage: 1
   attackSpeed: 1
   attackDelay: 0
@@ -461,7 +461,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.25
   m_Speed: 1
-  m_Acceleration: 8
+  m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 0
   m_StoppingDistance: 0

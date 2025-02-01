@@ -10,9 +10,9 @@ namespace Assets.Scripts.Concrete.Combats
 {
     internal class Arrow : MonoBehaviour
     {
+        public float arrowSpeed = 25;
         [HideInInspector] public GameObject target;
         [HideInInspector] public int damage = 0;
-        [HideInInspector] public float arrowSpeed = 2;
         float arrowStabDistance = 0.3f;
         bool isStabbed;
         private void Start()

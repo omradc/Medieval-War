@@ -13,14 +13,12 @@ namespace Assets.Scripts.Concrete.Controllers
         [Header("UNIT TYPE")]
         public TroopTypeEnum troopType;
 
-        [Header("ARCHER")]
-        public float arrowSpeed;
-
         [Space(30)]
         [Header("UNIT")]
-        [Range(0.1f, 2f)] public float moveSpeed = 1f;
+        [Range(2, 4f)] public float moveSpeed = 1f;
         public int damage;
         public float attackSpeed;
+        public float attackInterval;
         public float attackRange;
         public float sightRange;
 
@@ -30,7 +28,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public LayerMask enemy;
 
         [HideInInspector] public bool isSeleceted;
-        public Collider2D[] enemies;
+        [HideInInspector] public Collider2D[] enemies;
         [HideInInspector] public GameObject arrow;
         [HideInInspector] public GameObject followingObj;
         [HideInInspector] public bool workOnce = true;
@@ -50,9 +48,10 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public CircleCollider2D knightCollider;
         AnimationEventController animationEventController;
         PathFindingController pF;
-        UnitAttack unitAttack;
+        KnightAttack knightAttack;
         Rigidbody2D rb2D;
         VillagerController villagerController;
+        float time;
 
         private void Awake()
         {
@@ -63,7 +62,7 @@ namespace Assets.Scripts.Concrete.Controllers
             rb2D = GetComponent<Rigidbody2D>();
             knightCollider = GetComponent<CircleCollider2D>();
             animator = transform.GetChild(0).GetComponent<Animator>();
-            unitAttack = new UnitAttack(this, knightAI, animationEventController, pF);
+            knightAttack = new KnightAttack(this, knightAI, animationEventController, pF);
             if (troopType == TroopTypeEnum.Villager)
                 villagerController = GetComponent<VillagerController>();
         }
@@ -71,6 +70,9 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             currentSightRange = sightRange;
             pF.agent.speed = moveSpeed;
+            time = attackInterval;
+
+            animationEventController.ResetAttackEvent += ResetAttack;
             // Invoke
             InvokeRepeating(nameof(OptimumUnitAI), 0, unitAIPerTime);
         }
@@ -154,17 +156,26 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             if (canAttack)
             {
-                //Animasyonlar, saldýrýlarý event ile tetikler ve yöne göre animasyonlar oynatýlýr.
-                if (direction.right || direction.left)
-                    AnimationManager.Instance.AttackFrontAnim(animator, attackSpeed);
-                else if (direction.up)
-                    AnimationManager.Instance.AttackUpAnim(animator, attackSpeed);
-                else if (direction.down)
-                    AnimationManager.Instance.AttackDownAnim(animator, attackSpeed);
-                else if (direction.upRight || direction.upLeft)
-                    AnimationManager.Instance.AttackUpFrontAnim(animator, attackSpeed);
-                else if (direction.downRight || direction.downLeft)
-                    AnimationManager.Instance.AttackDownFrontAnim(animator, attackSpeed);
+                time += Time.deltaTime;
+                if (time >= attackInterval)
+                {
+                    //Animasyonlar, saldýrýlarý event ile tetikler ve yöne göre animasyonlar oynatýlýr.
+                    if (direction.right || direction.left)
+                        AnimationManager.Instance.AttackFrontAnim(animator, attackSpeed);
+                    else if (direction.up)
+                        AnimationManager.Instance.AttackUpAnim(animator, attackSpeed);
+                    else if (direction.down)
+                        AnimationManager.Instance.AttackDownAnim(animator, attackSpeed);
+                    else if (direction.upRight || direction.upLeft)
+                        AnimationManager.Instance.AttackUpFrontAnim(animator, attackSpeed);
+                    else if (direction.downRight || direction.downLeft)
+                        AnimationManager.Instance.AttackDownFrontAnim(animator, attackSpeed);
+                    // time = 0; // Animasyon bittiðinde süre sýfýrlanýr.
+                }
+
+                else
+                    AnimationManager.Instance.IdleAnim(animator);
+
             }
             else
             {
@@ -184,14 +195,6 @@ namespace Assets.Scripts.Concrete.Controllers
 
             if (!aI)
                 sightRangePosition = transform.GetChild(0).position;
-
-            //if (pF.isUserControl || knightAI.nearestTarget == null || goBuilding)
-            //    stoppingDistance = 0;
-
-            //else
-            //    stoppingDistance = attackRange;
-
-            //pF.agent.stoppingDistance = stoppingDistance;
         }
         void AttackOn()
         {
@@ -215,6 +218,10 @@ namespace Assets.Scripts.Concrete.Controllers
             }
         }
 
+        void ResetAttack()
+        {
+            time = 0;
+        }
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;

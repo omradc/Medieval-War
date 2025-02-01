@@ -136,7 +136,7 @@ namespace Assets.Scripts.Concrete.Resources
                         vC.goldIdle.SetActive(true);
                     if (mine.CompareTag("RockMine"))
                         vC.rockIdle.SetActive(true);
-                    pF.MoveAI(vC.homePos,0);
+                    pF.MoveAI(vC.homePos, 0);
                     AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
                     vC.workOnce = false;
                 }
@@ -191,7 +191,6 @@ namespace Assets.Scripts.Concrete.Resources
                     vC.meatIdle.SetActive(false);
                     vC.isSheep = false;
                 }
-
                 AnimationManager.Instance.IdleAnim(vC.animator);
                 ResourcesManager.Instance.DisplayResources();
                 vC.workOnce2 = false;
@@ -200,7 +199,7 @@ namespace Assets.Scripts.Concrete.Resources
         public void ReadyToNextCommand()
         {
             // Eğer elinde kaynak varken seçip, başka bir yere gönderirsen. Kaynak yere düşer.
-            if (vC.ıInput.GetButtonDown0 && vC.kC.isSeleceted)
+            if (Input.GetMouseButtonDown(0) && vC.kC.isSeleceted)
             {
                 DropAnyResources();
             }
