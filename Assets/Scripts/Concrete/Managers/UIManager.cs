@@ -15,7 +15,7 @@ namespace Assets.Scripts.Concrete.Managers
         [HideInInspector] public bool canBuild;
         [HideInInspector] public GameObject previewObj;
         public bool canDragPreviewObj = true;
-        public float previewObjMovementValue;
+        public float gridSize = 0.1f;
         Vector3 up;
         Vector3 down;
         Vector3 right;
@@ -37,10 +37,10 @@ namespace Assets.Scripts.Concrete.Managers
         }
         private void Start()
         {
-            up = new Vector3(0, previewObjMovementValue, 0);
-            down = new Vector3(0, -previewObjMovementValue, 0);
-            right = new Vector3(previewObjMovementValue, 0, 0);
-            left = new Vector3(-previewObjMovementValue, 0, 0);
+            up = new Vector3(0, gridSize, 0);
+            down = new Vector3(0, -gridSize, 0);
+            right = new Vector3(gridSize, 0, 0);
+            left = new Vector3(-gridSize, 0, 0);
 
             formationDropdown.onValueChanged.AddListener(FormationDropdown);
             orderDropdown.onValueChanged.AddListener(OrderDropdown);

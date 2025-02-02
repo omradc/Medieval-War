@@ -21,7 +21,7 @@ GameObject:
   m_Layer: 9
   m_Name: '[GameManager]'
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -183,16 +183,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3c2f9ca91df654780b98ab3082dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raycaster: {fileID: 0}
-  eventSystem: {fileID: 0}
   unitLayer:
     serializedVersion: 2
     m_Bits: 33554496
   interactableLayers:
     serializedVersion: 2
-    m_Bits: 2146434889
+    m_Bits: 1073862464
   interactedObj: {fileID: 0}
-  interactedUnit: {fileID: 0}
+  interactedKnight: {fileID: 0}
   interactedMine: {fileID: 0}
   interactedTree: {fileID: 0}
   interactedSheep: {fileID: 0}
@@ -231,8 +229,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   formationDropdown: {fileID: 0}
   orderDropdown: {fileID: 0}
+  build: {fileID: 0}
+  buildingMovement: {fileID: 0}
   canBuild: 1
   previewObj: {fileID: 0}
+  canDragPreviewObj: 1
+  gridSize: 0.1
 --- !u!114 &3724882387064550949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,7 +264,7 @@ MonoBehaviour:
   houseConstructionArcherBlue: {fileID: 5494979510523353086, guid: ee903871f87b7b3409a386910652f66f, type: 3}
   towerConstructionBlue: {fileID: 4023670001020676894, guid: 65f89bf0045ea764990de885599d11ea, type: 3}
   castleConstructionBlue: {fileID: 1844819989577762619, guid: 29ecfb5f6f80f3649a2bc051f0d1122b, type: 3}
-  fence4x4: {fileID: 2192484165252331637, guid: 065a13aec618bfb4684796439f395a10, type: 3}
+  fence2x2: {fileID: 4448285308025197226, guid: e93a9dad41dfeda45a9914836311e561, type: 3}
 --- !u!114 &4923174947444017873
 MonoBehaviour:
   m_ObjectHideFlags: 0
