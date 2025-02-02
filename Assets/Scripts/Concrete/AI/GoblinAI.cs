@@ -14,7 +14,7 @@ namespace Assets.Scripts.Concrete.AI
         GameObject nearestWoodTower;
         readonly SpriteRenderer goblinSpriteRenderer;
         public Transform nearestAttackPoint;
-        public GameObject nearestTarget;
+        public GameObject target;
         Vector3 targetPoint;
         Vector2 gatePos;
         Vector2 towerPos;
@@ -34,21 +34,23 @@ namespace Assets.Scripts.Concrete.AI
         GameObject ChooseTarget()
         {
             // Görüş menzilinde düşman varsa
-            if (gC.targetEnemiesWithSightRange.Length > 0)
+            if (gC.sightRangeDetechEnemies.Length > 0)
             {
                 GameObject bestTarget = null;
                 float bestScore = Mathf.Infinity;
 
-                for (int i = 0; i < gC.targetEnemiesWithSightRange.Length; i++)
+                for (int i = 0; i < gC.sightRangeDetechEnemies.Length; i++)
                 {
-                    float distance = Vector2.Distance(gC.transform.position, gC.targetEnemiesWithSightRange[i].transform.position);
-                    float currentScore = gC.targetEnemiesWithSightRange[i].GetComponent<TargetPriority>().priority + distance;
+                    float distance = Vector2.Distance(gC.transform.position, gC.sightRangeDetechEnemies[i].transform.position);
+                    TargetPriority targetPriority = gC.sightRangeDetechEnemies[i].GetComponent<TargetPriority>();
+                    float currentScore = targetPriority.priority + targetPriority.attackingPersonNumber + distance;
                     if (bestScore > currentScore)
                     {
                         bestScore = currentScore;
-                        bestTarget = gC.targetEnemiesWithSightRange[i].gameObject;
+                        bestTarget = gC.sightRangeDetechEnemies[i].gameObject;
                     }
                 }
+                SpotEnemy(bestTarget);
                 return bestTarget;
             }
 
@@ -58,14 +60,14 @@ namespace Assets.Scripts.Concrete.AI
                 GameObject target = null;
                 float nearestDistance = Mathf.Infinity;
 
-                for (int i = 0; i < gC.targetEnemiesWithLongRange.Length; i++)
+                for (int i = 0; i < gC.longRangeDetechEnemies.Length; i++)
                 {
-                    float distance = Vector2.Distance(gC.transform.position, gC.targetEnemiesWithLongRange[i].transform.position);
+                    float distance = Vector2.Distance(gC.transform.position, gC.longRangeDetechEnemies[i].transform.position);
 
                     if (nearestDistance > distance)
                     {
                         nearestDistance = distance;
-                        target = gC.targetEnemiesWithLongRange[i].gameObject;
+                        target = gC.longRangeDetechEnemies[i].gameObject;
                     }
                 }
                 return target;
@@ -74,24 +76,34 @@ namespace Assets.Scripts.Concrete.AI
             // Saldırı emri yoksa ve görüş menzilinde düşman yosa 
             else
             {
-                if (gC.targetEnemiesDetech.Length > 0)
+                // Görüş menzili dışından saldırılırsa
+                if (gC.nonRangeDetechEnemy != null)
                 {
-                    Debug.Log("Düşman tespit edildi");
-                    return gC.targetEnemiesDetech[0].gameObject;
+                    GameObject nonRangeTarget = gC.nonRangeDetechEnemy;
+                    SpotEnemy(nonRangeTarget);
+                    return nonRangeTarget;
                 }
                 else
                     return null;
             }
         }
+
+        void SpotEnemy(GameObject enemy)
+        {
+            for (int i = 0; i < gC.friendsDetech.Length; i++)
+            {
+                gC.friendsDetech[i].GetComponent<GoblinController>().nonRangeDetechEnemy = enemy;
+            }
+        }
         public void CatchNeraestTarget()
         {
-            nearestTarget = ChooseTarget();
-            if (nearestTarget == null) return;
+            target = ChooseTarget();
+            if (target == null) return;
 
             CalculateNearestAttackPoint();
 
             // hedef, saldırı menziline girerse; yakalamayı bırak
-            if (Vector2.Distance(nearestAttackPoint.position, gC.attackRangePosition) < gC.attackRange) return;
+            if (Vector2.Distance(nearestAttackPoint.position, gC.transform.position) < gC.attackRange) return;
             pF.MoveAI(nearestAttackPoint.position, gC.attackRange);
 
         }
@@ -106,7 +118,7 @@ namespace Assets.Scripts.Concrete.AI
         void CirclePatrollingAnchor()
         {
             if (gC.behavior != BehaviorEnum.CirclePatrollingAnchor) return;
-            if (nearestTarget != null) return;
+            if (target != null) return;
             if (patrol)
             {
                 patrol = false;
@@ -129,7 +141,7 @@ namespace Assets.Scripts.Concrete.AI
         void CirclePatrollingFree()
         {
             if (gC.behavior != BehaviorEnum.CirclePatrollingFree) return;
-            if (nearestTarget != null) return;
+            if (target != null) return;
 
             if (patrol)
             {
@@ -152,7 +164,7 @@ namespace Assets.Scripts.Concrete.AI
         void PointPatrolling()
         {
             if (gC.behavior != BehaviorEnum.PointPatrolling) return;
-            if (nearestTarget != null) return;
+            if (target != null) return;
 
             // Devriye gez
             if (patrol)
@@ -174,22 +186,22 @@ namespace Assets.Scripts.Concrete.AI
             if (gC.behavior != BehaviorEnum.AttackOrder) return;
 
             // Görüş menzilinde düşman yoksa, uzun menzil etkindir
-            if (gC.targetEnemiesWithSightRange.Length == 0)
+            if (gC.sightRangeDetechEnemies.Length == 0)
                 gC.currentLongRange = gC.longRange;
             // Görüş menzilinde düşman varsa, uzun menzil kapalıdır
-            if (gC.targetEnemiesWithSightRange.Length > 0)
+            if (gC.sightRangeDetechEnemies.Length > 0)
                 gC.currentLongRange = 0;
         }
         void CalculateNearestAttackPoint()
         {
             // Düşman şovalye ise
-            if (nearestTarget.layer == 6)
+            if (target.layer == 6)
             {
-                nearestAttackPoint = nearestTarget.transform;
+                nearestAttackPoint = target.transform;
                 return;
             }
 
-            Transform obj = nearestTarget.transform.GetChild(4);
+            Transform obj = target.transform.GetChild(4);
             // Saldırı noktası sayısı 1 ise
             if (obj.transform.childCount == 0)
             {

@@ -1,11 +1,5 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
-using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Combats
@@ -68,10 +62,10 @@ namespace Assets.Scripts.Concrete.Combats
                 for (int i = 0; i < hits.Length; i++)
                 {
                     HealthController targetHealth = hits[i].GetComponent<HealthController>();
-                    targetHealth.GetHit(damage);
+                    targetHealth.GetHit(damage, dynamite);
                     if (targetHealth.isDead)
                     {
-                        dynamite.GetComponent<GoblinController>().targetEnemiesDetech = new Collider2D[0]; // Diziyi sıfıla
+                        dynamite.GetComponent<GoblinController>().nonRangeDetechEnemy = null;
                         dynamite.GetComponent<PathFindingController>().agent.ResetPath();
                     }
                 }

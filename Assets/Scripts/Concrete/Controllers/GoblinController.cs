@@ -28,10 +28,12 @@ namespace Assets.Scripts.Concrete.Controllers
         public float longRange;
         public float sightRange;
         public float attackRange;
+        public float reportRange;
 
         [Header("ENEMY SETTİNGS")]
         [Range(0.1f, 1f)] public float enemyAIPerTime = 0.5f;
         public LayerMask enemiesLayer;
+        public LayerMask friendsLayer;
         public LayerMask targetWoodTower;
 
         [Header("PATROLLİNG")]
@@ -45,12 +47,11 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool goBuilding;
         [HideInInspector] public float currentSightRange;
         public float currentLongRange;
-        [HideInInspector] public Vector2 sightRangePosition;
-        [HideInInspector] public Vector2 attackRangePosition;
         [HideInInspector] public Collider2D[] woodTowers;
-        public Collider2D[] targetEnemiesWithSightRange;
-        public Collider2D[] targetEnemiesWithLongRange;
-        public Collider2D[] targetEnemiesDetech;
+        public Collider2D[] sightRangeDetechEnemies;
+        public Collider2D[] longRangeDetechEnemies;
+        public Collider2D[] friendsDetech;
+        public GameObject nonRangeDetechEnemy;
         [HideInInspector] public Transform[] patrolPoints;
         [HideInInspector] public GameObject explosion;
         [HideInInspector] public GameObject dynamite;
@@ -92,14 +93,10 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             AttackOn();
             AnimationControl();
-            RangeControl();
             goblinAI.DestructTower();
         }
         void OptimumEnemyAI()
         {
-            attackRangePosition = transform.GetChild(0).position;
-            sightRangePosition = transform.GetChild(0).position;
-
             if (aI)
             {
                 DetechEnemies();
@@ -114,19 +111,20 @@ namespace Assets.Scripts.Concrete.Controllers
         void DetechEnemies()
         {
             // Görüş menzilindeki düşmanları bulur
-            targetEnemiesWithSightRange = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemiesLayer);
+            sightRangeDetechEnemies = Physics2D.OverlapCircleAll(transform.position, currentSightRange, enemiesLayer);
+            friendsDetech = Physics2D.OverlapCircleAll(transform.position, reportRange, friendsLayer);
 
             // Saldırı emri varsa ve görüş menzlinde düşman yoksa, düşmaları bulur
-            if (behavior == BehaviorEnum.AttackOrder && targetEnemiesWithSightRange.Length == 0)
-                targetEnemiesWithLongRange = Physics2D.OverlapCircleAll(sightRangePosition, currentLongRange, enemiesLayer);
+            if (behavior == BehaviorEnum.AttackOrder && sightRangeDetechEnemies.Length == 0)
+                longRangeDetechEnemies = Physics2D.OverlapCircleAll(transform.position, currentLongRange, enemiesLayer);
 
             if (factionType == FactionTypeEnum.Tnt)
-                woodTowers = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetWoodTower);
+                woodTowers = Physics2D.OverlapCircleAll(transform.position, currentSightRange, targetWoodTower);
         }
         void AITurnDirection()
         {
             // Hedefte düşman varsa ve durduysan, hedefe yönel.
-            if (goblinAI.nearestTarget != null && pF.isStoping)
+            if (goblinAI.target != null && pF.isStoping)
             {
                 if (factionType == FactionTypeEnum.Tnt || factionType == FactionTypeEnum.Barrel)
                     direction.Turn2DirectionWithPos(goblinAI.nearestAttackPoint.position.x);
@@ -142,13 +140,6 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 patrolPoints[i] = path.GetChild(i);
             }
-        }
-        void RangeControl()
-        {
-            attackRangePosition = transform.GetChild(0).position;
-
-            if (!aI)
-                sightRangePosition = transform.GetChild(0).position;
         }
         void AnimationControl()
         {
@@ -185,9 +176,9 @@ namespace Assets.Scripts.Concrete.Controllers
         void AttackOn()
         {
             // Düşman varsa ve saldırı menzilindeyse, saldırı aktifleşir
-            if (goblinAI.nearestTarget != null)
+            if (goblinAI.target != null)
             {
-                if (Vector2.Distance(attackRangePosition, goblinAI.nearestAttackPoint.position) < attackRange)
+                if (Vector2.Distance(transform.position, goblinAI.nearestAttackPoint.position) < attackRange)
                     canAttack = true;
                 else
                     canAttack = false;
@@ -198,7 +189,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void ResetPath()
         {
-            if (targetEnemiesWithSightRange.Length == 0 && pF.agent.velocity.magnitude < 0.1f && pF.agent.velocity.magnitude > 0)
+            if (sightRangeDetechEnemies.Length == 0 && pF.agent.velocity.magnitude < 0.1f && pF.agent.velocity.magnitude > 0)
             {
                 pF.agent.ResetPath();
             }
@@ -220,6 +211,9 @@ namespace Assets.Scripts.Concrete.Controllers
 
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, currentLongRange);
+
+            Gizmos.color = Color.black;
+            Gizmos.DrawWireSphere(transform.position, reportRange);
         }
     }
 }

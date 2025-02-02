@@ -36,7 +36,8 @@ namespace Assets.Scripts.Concrete.AI
             for (int i = 0; i < kC.targetEnemies.Length; i++)
             {
                 float distance = Vector2.Distance(kC.transform.position, kC.targetEnemies[i].transform.position);
-                float currentScore = distance + kC.targetEnemies[i].GetComponent<TargetPriority>().priority;
+                TargetPriority targetPriority = kC.targetEnemies[i].GetComponent<TargetPriority>();
+                float currentScore = targetPriority.priority + targetPriority.attackingPersonNumber + distance;
 
                 if (bestScore > currentScore)
                 {

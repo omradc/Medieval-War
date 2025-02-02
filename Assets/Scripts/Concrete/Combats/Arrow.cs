@@ -8,7 +8,7 @@ namespace Assets.Scripts.Concrete.Combats
         public float arrowSpeed = 25;
         public float destroyTime = 10;
         [HideInInspector] public GameObject target;
-        [HideInInspector] public Transform archer;
+        [HideInInspector] public GameObject archer;
         [HideInInspector] public int damage = 0;
         float arrowStabDistance = 0.3f;
         bool isStabbed;
@@ -45,7 +45,7 @@ namespace Assets.Scripts.Concrete.Combats
                 transform.GetChild(0).gameObject.SetActive(false);
                 // Hasar ver
                 HealthController health = target.GetComponent<HealthController>();
-                health.GetHit(damage);
+                health.GetHit(damage, archer);
 
                 // Hedefe saplanınca dur
                 isStabbed = true;
@@ -55,8 +55,8 @@ namespace Assets.Scripts.Concrete.Combats
                 if (target.layer == 13)
                 {
                     GoblinController gC = target.GetComponent<GoblinController>();
-                    if (gC.targetEnemiesDetech.Length == 0) // İlk saldıran hedefi takip et
-                        gC.targetEnemiesDetech = Physics2D.OverlapCircleAll(archer.position, 1, gC.enemiesLayer); ;
+                    if (gC.nonRangeDetechEnemy == null) // İlk saldıran hedefi takip et
+                        gC.nonRangeDetechEnemy = archer;
                 }
 
             }

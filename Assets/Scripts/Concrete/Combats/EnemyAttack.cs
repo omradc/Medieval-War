@@ -33,21 +33,21 @@ namespace Assets.Scripts.Concrete.Combats
         void TorchAttack()
         {
             HealthController targetHealth;
-            targetHealth =  enemyAI.nearestTarget.GetComponent<HealthController>();
-            targetHealth.GetHit(gC.damage);
+            targetHealth =  enemyAI.target.GetComponent<HealthController>();
+            targetHealth.GetHit(gC.damage,gC.gameObject);
             if (targetHealth.isDead)
             {
-                gC.targetEnemiesDetech = new Collider2D[0]; // Diziyi sıfıla
+                gC.nonRangeDetechEnemy = null;
                 pF.agent.ResetPath();
             }
 
         }
         void DynamiteAttack()
         {
-            GameObject obj = Object.Instantiate(gC.dynamite, gC.attackRangePosition, Quaternion.identity);
+            GameObject obj = Object.Instantiate(gC.dynamite, gC.transform.position, Quaternion.identity);
             Dynamite dynamite = obj.GetComponent<Dynamite>();
             dynamite.targetLayer = gC.enemiesLayer;
-            dynamite.target = enemyAI.nearestTarget;
+            dynamite.target = enemyAI.target;
             dynamite.dynamite = gC.gameObject; // dinamit atan asker
             dynamite.damage = gC.damage;
             dynamite.radius = gC.dynamiteExplosionRadius;
@@ -55,7 +55,7 @@ namespace Assets.Scripts.Concrete.Combats
         }
         void BarrelAttack()
         {
-            GameObject obj = Object.Instantiate(gC.explosion, gC.attackRangePosition, Quaternion.identity);
+            GameObject obj = Object.Instantiate(gC.explosion, gC.transform.position, Quaternion.identity);
             Explosion explosion = obj.GetComponent<Explosion>();
             explosion.targetLayer = gC.enemiesLayer;
             explosion.damage = gC.damage;

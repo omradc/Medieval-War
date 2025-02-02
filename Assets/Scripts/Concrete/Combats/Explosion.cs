@@ -1,9 +1,4 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Combats
@@ -21,7 +16,7 @@ namespace Assets.Scripts.Concrete.Combats
             hits = Physics2D.OverlapCircleAll(transform.position, radius, targetLayer);
             for (int i = 0; i < hits.Length; i++)
             {
-                hits[i].GetComponent<HealthController>().GetHit(damage);
+                hits[i].GetComponent<HealthController>().GetHit(damage,null);
             }
             Destroy(gameObject, 0.67f);
         }

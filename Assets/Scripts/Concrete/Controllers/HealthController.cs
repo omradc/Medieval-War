@@ -1,4 +1,7 @@
-﻿using Assets.Scripts.Concrete.Managers;
+﻿using Assets.Scripts.Concrete.Combats;
+using Assets.Scripts.Concrete.Managers;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +23,8 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool isDead;
         [HideInInspector] public GoblinHouseController goblinHouseController;
         Image fillImage;
+        public List<GameObject> attackingPersons;
+        TargetPriority targetPriority;
         private void Awake()
         {
             currentHealth = health;
@@ -28,15 +33,18 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Start()
         {
+            targetPriority = GetComponent<TargetPriority>();
             UpdateHealthBar();
             HealthBarVisibility(false);
 
             InvokeRepeating(nameof(Regeneration), 0, 1);
             InvokeRepeating(nameof(WhenHealthIsFullSetVisibility), 0, 5);
+            InvokeRepeating(nameof(AttackingPersonsAssignment), 0, 0.5f);
         }
-        // Hasar al
-        public void GetHit(int attackDamage) 
+
+        public void GetHit(int attackDamage, GameObject attacker) // Hasar al
         {
+            AttackingPerson(attacker);
             currentTakeDamageTime = 0;
             isTakeDamage = true;
             HealthBarVisibility(true);
@@ -51,9 +59,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 Dead();
             }
         }
-
-        // Yenilenme
-        void Regeneration()
+        void Regeneration() // Yenilenme
         {
             if (!regeneration) return;
             currentTakeDamageTime += 1;
@@ -66,10 +72,8 @@ namespace Assets.Scripts.Concrete.Controllers
             if (!isTakeDamage)
             {
                 // Can dolu
-                if (currentHealth >= health)
-                {
-                    return;
-                }
+                if (currentHealth >= health) return;
+
                 currentRegrenationPerTime += 1;
                 if (currentRegrenationPerTime >= regrenationPerTime)
                 {
@@ -78,17 +82,19 @@ namespace Assets.Scripts.Concrete.Controllers
                 }
             }
         }
-
         void WhenHealthIsFullSetVisibility()
         {
             if (currentHealth >= health)
+            {
                 HealthBarVisibility(false);
+            }
         }
+
+
         public void HealthBarVisibility(bool visibility)
         {
             healthObj.SetActive(visibility);
         }
-
         public void Dead()
         {
             isDead = true;
@@ -108,11 +114,30 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             fillImage.fillAmount = currentHealth / health;
         }
-
         public void FillHealth()
         {
             currentHealth = health;
             isDead = false;
+        }
+        void AttackingPerson(GameObject attacker)
+        {
+            if (!attackingPersons.Contains(attacker) && attacker != null)
+                attackingPersons.Add(attacker);
+        }
+        void AttackingPersonsAssignment()
+        {
+            // Bir düşmana ilk kez saldırılıyorsa, hedefin değişmemesi için, attacking person = 0;
+            if (attackingPersons.Count == 1)
+                targetPriority.attackingPersonNumber = 0;
+            else
+                targetPriority.attackingPersonNumber = attackingPersons.Count;
+
+
+            for (int i = 0; i < attackingPersons.Count; i++)
+            {
+                if (attackingPersons[i] == null)
+                    attackingPersons.RemoveAt(i);
+            }
         }
     }
 }

@@ -401,10 +401,14 @@ MonoBehaviour:
   longRange: 100
   sightRange: 8
   attackRange: 0.6
+  reportRange: 3
   enemyAIPerTime: 0.1
   enemiesLayer:
     serializedVersion: 2
     m_Bits: 1856
+  friendsLayer:
+    serializedVersion: 2
+    m_Bits: 8192
   targetWoodTower:
     serializedVersion: 2
     m_Bits: 134217728
@@ -417,11 +421,11 @@ MonoBehaviour:
   goBuilding: 0
   currentSightRange: 0
   currentLongRange: 0
-  sightRangePosition: {x: 0, y: 0}
-  attackRangePosition: {x: 0, y: 0}
   woodTowers: []
-  targetEnemiesWithSightRange: []
-  targetEnemiesWithLongRange: []
+  sightRangeDetechEnemies: []
+  longRangeDetechEnemies: []
+  nonRangeDetechEnemy: {fileID: 0}
+  friendsDetech: []
   patrolPoints: []
   explosion: {fileID: 0}
   dynamite: {fileID: 0}

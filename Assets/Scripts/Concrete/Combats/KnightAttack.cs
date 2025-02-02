@@ -12,7 +12,6 @@ namespace Assets.Scripts.Concrete.Combats
         readonly KnightController kC;
         readonly KnightAI knightAI;
         readonly PathFindingController pF;
-
         public KnightAttack(KnightController kC, KnightAI knightAI, AnimationEventController animationEventController, PathFindingController pF)
         {
             this.kC = kC;
@@ -29,10 +28,9 @@ namespace Assets.Scripts.Concrete.Combats
         {
             HealthController enemyHealth;
             enemyHealth = knightAI.nearestTarget.GetComponent<HealthController>();
-            enemyHealth.GetHit(kC.damage);
+            enemyHealth.GetHit(kC.damage, kC.gameObject);
             if (enemyHealth.isDead)
                 pF.agent.ResetPath();
-
         }
 
         void ArcherAttack()
@@ -41,7 +39,7 @@ namespace Assets.Scripts.Concrete.Combats
             Arrow arrow = obj.GetComponent<Arrow>();
             arrow.target = knightAI.nearestTarget;
             arrow.damage = kC.damage;
-            arrow.archer = kC.transform;
+            arrow.archer = kC.gameObject;
         }
 
     }
