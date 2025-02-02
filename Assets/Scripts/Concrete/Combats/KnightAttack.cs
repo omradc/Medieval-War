@@ -19,9 +19,9 @@ namespace Assets.Scripts.Concrete.Combats
             this.knightAI = knightAI;
             this.pF = pF;
 
-            if (kC.troopType == TroopTypeEnum.Worrior || kC.troopType == TroopTypeEnum.Villager)
+            if (kC.factionType == FactionTypeEnum.Warrior || kC.factionType == FactionTypeEnum.Villager)
                 animationEventController.AttackEvent += WorriorOrVillagerAttack;
-            if (kC.troopType == TroopTypeEnum.Archer)
+            if (kC.factionType == FactionTypeEnum.Archer)
                 animationEventController.AttackEvent += ArcherAttack;
         }
 
@@ -41,6 +41,7 @@ namespace Assets.Scripts.Concrete.Combats
             Arrow arrow = obj.GetComponent<Arrow>();
             arrow.target = knightAI.nearestTarget;
             arrow.damage = kC.damage;
+            arrow.archer = kC.transform;
         }
 
     }

@@ -1,13 +1,25 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class Test : MonoBehaviour
 {
-    private void Update()
+    public Transform target; // Hedef
+    public float gravity = 9.81f; // Yerçekimi
+    public float speed;
+    Vector2 direction;
+    public Quaternion rot;
+    void Start()
     {
-        transform.position = Input.mousePosition;
+        direction = (target.position - transform.position);
+        transform.rotation = rot;
+        Destroy(gameObject, 2);
+    }
+
+    void Update()
+    {
+        transform.Translate(direction * speed * Time.deltaTime, Space.Self);
     }
 }
+
+
+
 

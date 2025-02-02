@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Concrete.Enums
 {
-    internal enum UnitOrderEnum
+    internal enum KnightOrderEnum
     {
         AttackOrder,
         DefendOrder,

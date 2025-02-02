@@ -11,7 +11,7 @@ namespace Assets.Scripts.Concrete.Controllers
     internal class GoblinController : MonoBehaviour
     {
         [Header("ENEMY")]
-        public TroopTypeEnum troopType;
+        public FactionTypeEnum factionType;
 
         [Header("DYNAMİTE")]
         public float dynamiteSpeed;
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public int damage;
         public float attackSpeed;
         public float attackInterveal;
-        public float largeRange;
+        public float longRange;
         public float sightRange;
         public float attackRange;
 
@@ -40,15 +40,17 @@ namespace Assets.Scripts.Concrete.Controllers
         public BehaviorEnum behavior;
         public Transform path;
 
-        [HideInInspector] public bool attackTheAllKnights;
         [HideInInspector] public bool aI = true;
         [HideInInspector] public bool onBuilding;
         [HideInInspector] public bool goBuilding;
         [HideInInspector] public float currentSightRange;
+        public float currentLongRange;
         [HideInInspector] public Vector2 sightRangePosition;
         [HideInInspector] public Vector2 attackRangePosition;
         [HideInInspector] public Collider2D[] woodTowers;
-        [HideInInspector] public Collider2D[] targetEenemies;
+        public Collider2D[] targetEnemiesWithSightRange;
+        public Collider2D[] targetEnemiesWithLongRange;
+        public Collider2D[] targetEnemiesDetech;
         [HideInInspector] public Transform[] patrolPoints;
         [HideInInspector] public GameObject explosion;
         [HideInInspector] public GameObject dynamite;
@@ -60,7 +62,7 @@ namespace Assets.Scripts.Concrete.Controllers
         bool canAttack;
         float time;
         EnemyAttack enemyAttack;
-        GoblinAI enemyAI;
+        GoblinAI goblinAI;
         PathFindingController pF;
         AnimationEventController animationEventController;
         Vector3 gizmosPos;
@@ -70,12 +72,12 @@ namespace Assets.Scripts.Concrete.Controllers
             goblinCollider = GetComponent<CircleCollider2D>();
             pF = GetComponent<PathFindingController>();
             direction = new Direction(transform);
-            enemyAI = new(this, pF);
+            goblinAI = new(this, pF);
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
         }
         private void Start()
         {
-            enemyAttack = new(this, enemyAI, animationEventController, pF);
+            enemyAttack = new(this, goblinAI, animationEventController, pF);
             pF.agent.speed = moveSpeed;
             currentSightRange = sightRange;
             gizmosPos = transform.position;
@@ -91,7 +93,7 @@ namespace Assets.Scripts.Concrete.Controllers
             AttackOn();
             AnimationControl();
             RangeControl();
-            enemyAI.DestructTower();
+            goblinAI.DestructTower();
         }
         void OptimumEnemyAI()
         {
@@ -102,29 +104,34 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 DetechEnemies();
                 AITurnDirection();
-                enemyAI.CatchNeraestTarget();
-                enemyAI.GoblinBehaviour();
+                goblinAI.CatchNeraestTarget();
+                goblinAI.GoblinBehaviour();
                 ResetPath();
             }
 
-            enemyAI.GoUpToTower();
+            goblinAI.GoUpToTower();
         }
         void DetechEnemies()
         {
-            targetEenemies = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemiesLayer);
+            // Görüş menzilindeki düşmanları bulur
+            targetEnemiesWithSightRange = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, enemiesLayer);
 
-            if (troopType == TroopTypeEnum.Tnt)
+            // Saldırı emri varsa ve görüş menzlinde düşman yoksa, düşmaları bulur
+            if (behavior == BehaviorEnum.AttackOrder && targetEnemiesWithSightRange.Length == 0)
+                targetEnemiesWithLongRange = Physics2D.OverlapCircleAll(sightRangePosition, currentLongRange, enemiesLayer);
+
+            if (factionType == FactionTypeEnum.Tnt)
                 woodTowers = Physics2D.OverlapCircleAll(sightRangePosition, currentSightRange, targetWoodTower);
         }
         void AITurnDirection()
         {
             // Hedefte düşman varsa ve durduysan, hedefe yönel.
-            if (enemyAI.nearestTarget != null && pF.isStoping)
+            if (goblinAI.nearestTarget != null && pF.isStoping)
             {
-                if (troopType == TroopTypeEnum.Tnt || troopType == TroopTypeEnum.Barrel)
-                    direction.Turn2DirectionWithPos(enemyAI.nearestAttackPoint.position.x);
-                if (troopType == TroopTypeEnum.Torch)
-                    direction.Turn4Direction(enemyAI.nearestAttackPoint.position);
+                if (factionType == FactionTypeEnum.Tnt || factionType == FactionTypeEnum.Barrel)
+                    direction.Turn2DirectionWithPos(goblinAI.nearestAttackPoint.position.x);
+                if (factionType == FactionTypeEnum.Torch)
+                    direction.Turn4Direction(goblinAI.nearestAttackPoint.position);
             }
         }
         void PatrolSetup()
@@ -178,9 +185,9 @@ namespace Assets.Scripts.Concrete.Controllers
         void AttackOn()
         {
             // Düşman varsa ve saldırı menzilindeyse, saldırı aktifleşir
-            if (enemyAI.nearestTarget != null)
+            if (goblinAI.nearestTarget != null)
             {
-                if (Vector2.Distance(attackRangePosition, enemyAI.nearestAttackPoint.position) < attackRange)
+                if (Vector2.Distance(attackRangePosition, goblinAI.nearestAttackPoint.position) < attackRange)
                     canAttack = true;
                 else
                     canAttack = false;
@@ -191,7 +198,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void ResetPath()
         {
-            if (targetEenemies.Length == 0 && pF.agent.velocity.magnitude < 0.1f && pF.agent.velocity.magnitude > 0)
+            if (targetEnemiesWithSightRange.Length == 0 && pF.agent.velocity.magnitude < 0.1f && pF.agent.velocity.magnitude > 0)
             {
                 pF.agent.ResetPath();
             }
@@ -203,13 +210,16 @@ namespace Assets.Scripts.Concrete.Controllers
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(sightRangePosition, currentSightRange);
+            Gizmos.DrawWireSphere(transform.position, currentSightRange);
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attackRangePosition, attackRange);
+            Gizmos.DrawWireSphere(transform.position, attackRange);
 
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(gizmosPos, patrollingRadius);
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, currentLongRange);
         }
     }
 }

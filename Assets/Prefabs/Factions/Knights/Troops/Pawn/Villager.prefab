@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: -8796921048083903118}
   - component: {fileID: 3561191684523338778}
   m_Layer: 6
-  m_Name: Pawn
+  m_Name: Villager
   m_TagString: Villager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,12 +204,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84475765e22c092489325f6d04f6e281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  troopType: 5
+  factionType: 5
   moveSpeed: 2
   damage: 1
   attackSpeed: 1
   attackInterval: 0.3
-  attackRange: 0.8
+  attackRange: 0.6
   sightRange: 8
   unitAIPerTime: 0.1
   collectResourcesPerTime: 0.5

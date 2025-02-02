@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Managers;
+using Assets.Scripts.Concrete.Movements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Assets.Scripts.Concrete.Combats
     internal class Dynamite : MonoBehaviour
     {
         [HideInInspector] public GameObject target;
+        [HideInInspector] public GameObject dynamite;
         [HideInInspector] public LayerMask targetLayer;
         [HideInInspector] public int damage = 0;
         [HideInInspector] public float radius = 0.5f;
@@ -22,13 +24,10 @@ namespace Assets.Scripts.Concrete.Combats
         public float rotateValue;
         Transform visual;
         GameObject explosion;
-        Animator animator;
         private void Awake()
         {
             visual = transform.GetChild(0);
             explosion = transform.GetChild(1).gameObject;
-            animator = visual.GetComponent<Animator>();
-
         }
         private void Start()
         {
@@ -68,7 +67,13 @@ namespace Assets.Scripts.Concrete.Combats
                 hits = Physics2D.OverlapCircleAll(transform.position, radius, targetLayer);
                 for (int i = 0; i < hits.Length; i++)
                 {
-                    hits[i].GetComponent<HealthController>().GetHit(damage);
+                    HealthController targetHealth = hits[i].GetComponent<HealthController>();
+                    targetHealth.GetHit(damage);
+                    if (targetHealth.isDead)
+                    {
+                        dynamite.GetComponent<GoblinController>().targetEnemiesDetech = new Collider2D[0]; // Diziyi sıfıla
+                        dynamite.GetComponent<PathFindingController>().agent.ResetPath();
+                    }
                 }
 
                 explosion.SetActive(true);

@@ -68,7 +68,7 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 for (int i = 0; i < goblins.Count; ++i)
                 {
-                    goblins[i].GetComponent<GoblinController>().behavior = BehaviorEnum.FindNearestPlayerUnit;
+                    goblins[i].GetComponent<GoblinController>().behavior = BehaviorEnum.AttackOrder;
                 }
                 attackOrder = false;
             }

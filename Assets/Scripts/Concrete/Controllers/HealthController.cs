@@ -34,8 +34,8 @@ namespace Assets.Scripts.Concrete.Controllers
             InvokeRepeating(nameof(Regeneration), 0, 1);
             InvokeRepeating(nameof(WhenHealthIsFullSetVisibility), 0, 5);
         }
-
-        public void GetHit(int attackDamage)
+        // Hasar al
+        public void GetHit(int attackDamage) 
         {
             currentTakeDamageTime = 0;
             isTakeDamage = true;
@@ -52,6 +52,7 @@ namespace Assets.Scripts.Concrete.Controllers
             }
         }
 
+        // Yenilenme
         void Regeneration()
         {
             if (!regeneration) return;

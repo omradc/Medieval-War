@@ -11,7 +11,7 @@ namespace Assets.Scripts.Concrete.Controllers
     internal class KnightController : MonoBehaviour
     {
         [Header("UNIT")]
-        public TroopTypeEnum troopType;
+        public FactionTypeEnum factionType;
         [Space(30)]
         [Header("UNIT")]
         [Range(2, 4f)] public float moveSpeed = 1f;
@@ -32,7 +32,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public GameObject followingObj;
         [HideInInspector] public bool workOnce = true;
         [HideInInspector] public float currentSightRange;
-        [HideInInspector] public UnitOrderEnum unitOrderEnum;
+        [HideInInspector] public KnightOrderEnum unitOrderEnum;
         [HideInInspector] public Vector2 attackRangePosition;
         [HideInInspector] public Vector2 sightRangePosition;
         [HideInInspector] public KnightAI knightAI;
@@ -62,7 +62,7 @@ namespace Assets.Scripts.Concrete.Controllers
             knightCollider = GetComponent<CircleCollider2D>();
             animator = transform.GetChild(0).GetComponent<Animator>();
             knightAttack = new KnightAttack(this, knightAI, animationEventController, pF);
-            if (troopType == TroopTypeEnum.Villager)
+            if (factionType == FactionTypeEnum.Villager)
                 villagerController = GetComponent<VillagerController>();
         }
         private void Start()
@@ -80,7 +80,7 @@ namespace Assets.Scripts.Concrete.Controllers
             AnimationControl();
             RangeControl();
 
-            if (unitOrderEnum == UnitOrderEnum.FollowOrder)  // Sadece takip edilecek birim atamasý yapýlýr
+            if (unitOrderEnum == KnightOrderEnum.FollowOrder)  // Sadece takip edilecek birim atamasý yapýlýr
             {
                 // Hedef boþ ise, hedefi belirle, sadece 1 kez
                 if (InteractManager.Instance.interactedKnight != null && workOnce)
@@ -118,11 +118,11 @@ namespace Assets.Scripts.Concrete.Controllers
                 // Hedefte düþman varsa;
                 if (knightAI.nearestTarget != null)
                 {
-                    if (troopType == TroopTypeEnum.Villager)
+                    if (factionType == FactionTypeEnum.Villager)
                         direction.Turn2DirectionWithPos(knightAI.nearestAttackPoint.position.x);
-                    if (troopType == TroopTypeEnum.Archer)
+                    if (factionType == FactionTypeEnum.Archer)
                         direction.Turn8Direction(knightAI.nearestAttackPoint.position);
-                    if (troopType == TroopTypeEnum.Worrior)
+                    if (factionType == FactionTypeEnum.Warrior)
                         direction.Turn4Direction(knightAI.nearestAttackPoint.position);
                 }
 
@@ -130,7 +130,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 else
                 {
                     // Köylü deðilse
-                    if (troopType != TroopTypeEnum.Villager)
+                    if (factionType != FactionTypeEnum.Villager)
                         transform.localScale = Vector3.one;
 
                     // Köylü ise

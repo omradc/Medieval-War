@@ -1,9 +1,4 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Combats
@@ -11,7 +6,9 @@ namespace Assets.Scripts.Concrete.Combats
     internal class Arrow : MonoBehaviour
     {
         public float arrowSpeed = 25;
+        public float destroyTime = 10;
         [HideInInspector] public GameObject target;
+        [HideInInspector] public Transform archer;
         [HideInInspector] public int damage = 0;
         float arrowStabDistance = 0.3f;
         bool isStabbed;
@@ -28,7 +25,7 @@ namespace Assets.Scripts.Concrete.Combats
             // Z ekseni etrafında rotasyonu ayarla
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-            Destroy(gameObject, 10);
+            Destroy(gameObject, destroyTime);
         }
         private void Update()
         {
@@ -53,6 +50,14 @@ namespace Assets.Scripts.Concrete.Combats
                 // Hedefe saplanınca dur
                 isStabbed = true;
                 transform.SetParent(health.transform);
+
+                // Hedef goblin ise
+                if (target.layer == 13)
+                {
+                    GoblinController gC = target.GetComponent<GoblinController>();
+                    if (gC.targetEnemiesDetech.Length == 0) // İlk saldıran hedefi takip et
+                        gC.targetEnemiesDetech = Physics2D.OverlapCircleAll(archer.position, 1, gC.enemiesLayer); ;
+                }
 
             }
         }

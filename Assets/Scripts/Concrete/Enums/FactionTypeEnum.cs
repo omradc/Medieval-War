@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Concrete.Enums
 {
-    internal enum TroopTypeEnum
+    internal enum FactionTypeEnum
     {
         Torch,
         Tnt,
         Barrel,
-        Worrior,
+        Warrior,
         Archer,
         Villager
     }

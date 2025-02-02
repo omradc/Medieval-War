@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Concrete.Enums
 {
-    internal enum TroopFormation
+    internal enum KnightFormation
     {
         HorizontalLineFormation,
         VerticalLineFormation,

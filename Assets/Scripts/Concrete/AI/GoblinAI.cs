@@ -30,112 +30,59 @@ namespace Assets.Scripts.Concrete.AI
             targetPoint = firstPoint;
             goblinSpriteRenderer = gC.transform.GetChild(0).GetComponent<SpriteRenderer>();
         }
-        //GameObject DetechNearestTarget()
-        //{
-        //    if (gC.troopType == TroopTypeEnum.Barrel)
-        //    {
-
-        //        // Varilin Önceliği yapılardır
-        //        if (gC.playerBuildings.Length > 0)
-        //        {
-        //            GameObject nearestTarget = null;
-        //            float shortestDistance = Mathf.Infinity;
-
-        //            for (int i = 0; i < gC.playerBuildings.Length; i++)
-        //            {
-        //                if (gC.playerBuildings[i] != null)
-        //                {
-        //                    float distanceToEnemy = Vector2.Distance(gC.transform.position, gC.playerBuildings[i].transform.position);
-
-        //                    if (shortestDistance > distanceToEnemy)
-        //                    {
-        //                        shortestDistance = distanceToEnemy;
-        //                        nearestTarget = gC.playerBuildings[i].gameObject;
-        //                    }
-
-        //                }
-        //            }
-
-        //            return nearestTarget;
-        //        }
-
-        //        // Yapı yoksa birimler
-        //        if (gC.playerUnits.Length > 0)
-        //        {
-        //            GameObject nearestTarget = null;
-        //            float shortestDistance = Mathf.Infinity;
-
-        //            for (int i = 0; i < gC.playerUnits.Length; i++)
-        //            {
-        //                if (gC.playerUnits[i] != null)
-        //                {
-        //                    float distanceToEnemy = Vector2.Distance(gC.transform.position, gC.playerUnits[i].transform.position);
-
-        //                    if (shortestDistance > distanceToEnemy)
-        //                    {
-        //                        shortestDistance = distanceToEnemy;
-        //                        nearestTarget = gC.playerUnits[i].gameObject;
-        //                    }
-
-        //                }
-        //            }
-
-        //            return nearestTarget;
-        //        }
-        //        else
-        //            return null;
-        //    }
-        //    if (gC.troopType != TroopTypeEnum.Barrel)
-        //    {
-        //        // Yapı yoksa birimler
-        //        if (gC.enemies.Length > 0)
-        //        {
-        //            GameObject nearestTarget = null;
-        //            float shortestDistance = Mathf.Infinity;
-
-        //            for (int i = 0; i < gC.enemies.Length; i++)
-        //            {
-        //                if (gC.enemies[i] != null)
-        //                {
-        //                    float distanceToEnemy = Vector2.Distance(gC.transform.position, gC.enemies[i].transform.position);
-
-        //                    if (shortestDistance > distanceToEnemy)
-        //                    {
-        //                        shortestDistance = distanceToEnemy;
-        //                        nearestTarget = gC.enemies[i].gameObject;
-        //                    }
-
-        //                }
-        //            }
-
-        //            return nearestTarget;
-        //        }
-        //        else
-        //            return null;
-        //    }
-        //    else
-        //        return null;
-        //}
 
         GameObject ChooseTarget()
         {
-            GameObject bestTarget = null;
-            float bestScore = Mathf.Infinity;
-
-            for (int i = 0; i < gC.targetEenemies.Length; i++)
+            // Görüş menzilinde düşman varsa
+            if (gC.targetEnemiesWithSightRange.Length > 0)
             {
-                float distance = Vector2.Distance(gC.transform.position, gC.targetEenemies[i].transform.position);
-                float currentScore = gC.targetEenemies[i].GetComponent<TargetPriority>().priority + distance;
+                GameObject bestTarget = null;
+                float bestScore = Mathf.Infinity;
 
-                if (bestScore > currentScore)
+                for (int i = 0; i < gC.targetEnemiesWithSightRange.Length; i++)
                 {
-                    bestScore = currentScore;
-                    bestTarget = gC.targetEenemies[i].gameObject;
+                    float distance = Vector2.Distance(gC.transform.position, gC.targetEnemiesWithSightRange[i].transform.position);
+                    float currentScore = gC.targetEnemiesWithSightRange[i].GetComponent<TargetPriority>().priority + distance;
+                    if (bestScore > currentScore)
+                    {
+                        bestScore = currentScore;
+                        bestTarget = gC.targetEnemiesWithSightRange[i].gameObject;
+                    }
                 }
+                return bestTarget;
             }
-            return bestTarget;
-        }
 
+            // Saldırı emri varsa
+            else if (gC.currentLongRange > 0)
+            {
+                GameObject target = null;
+                float nearestDistance = Mathf.Infinity;
+
+                for (int i = 0; i < gC.targetEnemiesWithLongRange.Length; i++)
+                {
+                    float distance = Vector2.Distance(gC.transform.position, gC.targetEnemiesWithLongRange[i].transform.position);
+
+                    if (nearestDistance > distance)
+                    {
+                        nearestDistance = distance;
+                        target = gC.targetEnemiesWithLongRange[i].gameObject;
+                    }
+                }
+                return target;
+            }
+
+            // Saldırı emri yoksa ve görüş menzilinde düşman yosa 
+            else
+            {
+                if (gC.targetEnemiesDetech.Length > 0)
+                {
+                    Debug.Log("Düşman tespit edildi");
+                    return gC.targetEnemiesDetech[0].gameObject;
+                }
+                else
+                    return null;
+            }
+        }
         public void CatchNeraestTarget()
         {
             nearestTarget = ChooseTarget();
@@ -143,18 +90,14 @@ namespace Assets.Scripts.Concrete.AI
 
             CalculateNearestAttackPoint();
 
-            if (Vector2.Distance(nearestAttackPoint.position, gC.sightRangePosition) < gC.currentSightRange)
-            {
-                // hedef, saldırı menziline girerse; yakalamayı bırak
-                if (Vector2.Distance(nearestAttackPoint.position, gC.attackRangePosition) < gC.attackRange) return;
+            // hedef, saldırı menziline girerse; yakalamayı bırak
+            if (Vector2.Distance(nearestAttackPoint.position, gC.attackRangePosition) < gC.attackRange) return;
+            pF.MoveAI(nearestAttackPoint.position, gC.attackRange);
 
-                pF.MoveAI(nearestAttackPoint.position, gC.attackRange);
-
-            }
         }
         public void GoblinBehaviour()
         {
-            AttackTheAllUnit();
+            AttackOrder();
             if (gC.onBuilding) return;
             CirclePatrollingAnchor();
             CirclePatrollingFree();
@@ -226,11 +169,16 @@ namespace Assets.Scripts.Concrete.AI
             if (pF.isStoping)
                 patrol = true;
         }
-        void AttackTheAllUnit()
+        void AttackOrder()
         {
-            if (gC.behavior != BehaviorEnum.FindNearestPlayerUnit) return;
-            gC.currentSightRange = 100;
-            gC.attackTheAllKnights = true;
+            if (gC.behavior != BehaviorEnum.AttackOrder) return;
+
+            // Görüş menzilinde düşman yoksa, uzun menzil etkindir
+            if (gC.targetEnemiesWithSightRange.Length == 0)
+                gC.currentLongRange = gC.longRange;
+            // Görüş menzilinde düşman varsa, uzun menzil kapalıdır
+            if (gC.targetEnemiesWithSightRange.Length > 0)
+                gC.currentLongRange = 0;
         }
         void CalculateNearestAttackPoint()
         {
@@ -264,9 +212,9 @@ namespace Assets.Scripts.Concrete.AI
         }
         public void GoUpToTower()
         {
-            if (gC.troopType == TroopTypeEnum.Tnt) // Goblin türü tnt ise
+            if (gC.factionType == FactionTypeEnum.Tnt) // Goblin türü tnt ise
             {
-                if (!gC.attackTheAllKnights) // Saldırı emri yoksa
+                if (gC.behavior != BehaviorEnum.AttackOrder) // Saldırı emri yoksa
                 {
                     if (gC.woodTowers.Length == 0 || gC.onBuilding) // Kuledeyse veya tespit edilen kuleler yoksa
                     {
@@ -330,7 +278,7 @@ namespace Assets.Scripts.Concrete.AI
                 }
 
                 // Kuleden in
-                if (gC.onBuilding && gC.attackTheAllKnights)
+                if (gC.onBuilding && gC.behavior == BehaviorEnum.AttackOrder)
                 {
                     Debug.Log("Kuleden in");
                     goblinSpriteRenderer.sortingOrder = 9;
@@ -344,16 +292,6 @@ namespace Assets.Scripts.Concrete.AI
                     pF.agent.radius = gC.goblinCollider.radius;
 
                 }
-
-                //if (gC.onBuilding)
-                //{
-                //    gC.transform.position = towerPos; // Birimi kuleye ışınla
-                //}
-                //if (nearestWoodTower == null)
-                //{
-                //    gC.goblinCollider.isTrigger = false;
-                //    pF.agent.radius = gC.goblinCollider.radius;
-                //}
             }
         }
         public void DestructTower()

@@ -18,11 +18,11 @@ namespace Assets.Scripts.Concrete.Combats
             this.enemyAI = enemyAI;
             this.pF = pF;
 
-            if (gC.troopType == TroopTypeEnum.Torch)
+            if (gC.factionType == FactionTypeEnum.Torch)
                 animationEventController.AttackEvent += TorchAttack;
-            if (gC.troopType == TroopTypeEnum.Tnt)
+            if (gC.factionType == FactionTypeEnum.Tnt)
                 animationEventController.AttackEvent += DynamiteAttack;
-            if (gC.troopType == TroopTypeEnum.Barrel)
+            if (gC.factionType == FactionTypeEnum.Barrel)
                 animationEventController.AttackEvent += BarrelAttack;
 
         }
@@ -36,7 +36,10 @@ namespace Assets.Scripts.Concrete.Combats
             targetHealth =  enemyAI.nearestTarget.GetComponent<HealthController>();
             targetHealth.GetHit(gC.damage);
             if (targetHealth.isDead)
+            {
+                gC.targetEnemiesDetech = new Collider2D[0]; // Diziyi sıfıla
                 pF.agent.ResetPath();
+            }
 
         }
         void DynamiteAttack()
@@ -45,6 +48,7 @@ namespace Assets.Scripts.Concrete.Combats
             Dynamite dynamite = obj.GetComponent<Dynamite>();
             dynamite.targetLayer = gC.enemiesLayer;
             dynamite.target = enemyAI.nearestTarget;
+            dynamite.dynamite = gC.gameObject; // dinamit atan asker
             dynamite.damage = gC.damage;
             dynamite.radius = gC.dynamiteExplosionRadius;
             dynamite.dynamiteSpeed = gC.dynamiteSpeed;

@@ -6,7 +6,7 @@ namespace Assets.Scripts.Concrete.Enums
     public enum BehaviorEnum
     {
         Default,
-        FindNearestPlayerUnit,
+        AttackOrder,
         CirclePatrollingAnchor,
         CirclePatrollingFree,
         PointPatrolling

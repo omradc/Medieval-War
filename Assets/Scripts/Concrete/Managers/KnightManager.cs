@@ -11,11 +11,11 @@ namespace Assets.Scripts.Concrete.Managers
     {
         public static KnightManager Instance { get; private set; }
         [Header("Units")]
-        public TroopFormation troopFormation;
+        public KnightFormation troopFormation;
         public float distanceBetweenUnits;
 
         [Header("Setups")]
-        public UnitOrderEnum unitOrderEnum;
+        public KnightOrderEnum unitOrderEnum;
         IMove ıMove;
         IInput ıInput;
         private void Awake()

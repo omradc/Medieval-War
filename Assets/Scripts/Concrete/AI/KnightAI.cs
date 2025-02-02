@@ -28,7 +28,7 @@ namespace Assets.Scripts.Concrete.AI
             unitSpriteRenderer = kC.transform.GetChild(0).GetComponent<SpriteRenderer>();
         }
 
-        GameObject DetechNearestTarget()
+        GameObject ChooseTarget()
         {
             GameObject bestTarget = null;
             float bestScore = Mathf.Infinity;
@@ -48,7 +48,7 @@ namespace Assets.Scripts.Concrete.AI
         }
         public void CatchNeraestTarget()
         {
-            nearestTarget = DetechNearestTarget();
+            nearestTarget = ChooseTarget();
 
             if (nearestTarget == null) return;
 
@@ -94,13 +94,13 @@ namespace Assets.Scripts.Concrete.AI
         }
         public void UnitBehaviours()
         {
-            if (kC.unitOrderEnum == UnitOrderEnum.AttackOrder)
+            if (kC.unitOrderEnum == KnightOrderEnum.AttackOrder)
                 Attack();
-            if (kC.unitOrderEnum == UnitOrderEnum.DefendOrder)
+            if (kC.unitOrderEnum == KnightOrderEnum.DefendOrder)
                 Defend();
-            if (kC.unitOrderEnum == UnitOrderEnum.FollowOrder)
+            if (kC.unitOrderEnum == KnightOrderEnum.FollowOrder)
                 Follow();
-            if (kC.unitOrderEnum == UnitOrderEnum.StayOrder)
+            if (kC.unitOrderEnum == KnightOrderEnum.StayOrder)
                 Stay();
         }
         void Attack()
@@ -199,7 +199,7 @@ namespace Assets.Scripts.Concrete.AI
                     Debug.Log("Kuledeyim");
                     kC.goBuilding = false;
                     kC.currentSightRange = kC.attackRange;
-                    kC.unitOrderEnum = UnitOrderEnum.StayOrder;
+                    kC.unitOrderEnum = KnightOrderEnum.StayOrder;
                     bC.buildingPanelController.interactablePanel.SetActive(false); // Etkileşim ekranını kapat
 
                     // Kulede birim varsa, çıkma
@@ -208,7 +208,7 @@ namespace Assets.Scripts.Concrete.AI
                         kC.aI = true;
                         pF.agent.ResetPath();
                         kC.onBuildingStay = false;
-                        kC.unitOrderEnum = UnitOrderEnum.AttackOrder;
+                        kC.unitOrderEnum = KnightOrderEnum.AttackOrder;
                         tower = null;
                         return;
                     }
@@ -242,7 +242,7 @@ namespace Assets.Scripts.Concrete.AI
                 kC.onBuilding = false;
                 kC.transform.position = gatePos; // kulenin kapısına git
                 kC.onBuildingStay = false;
-                kC.unitOrderEnum = UnitOrderEnum.AttackOrder;
+                kC.unitOrderEnum = KnightOrderEnum.AttackOrder;
                 bC.isFull = false; // Kulede birim var
             }
 

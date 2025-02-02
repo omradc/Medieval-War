@@ -264,49 +264,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b4d6f76c6e5cd4398b5a612f2c8365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  troopType: 1
+  factionType: 1
   dynamiteSpeed: 6
   dynamiteExplosionRadius: 0.5
   barrelExplosionRadius: 2
-  moveSpeed: 1
+  moveSpeed: 2
   damage: 1
   attackSpeed: 1
-  attackDelay: 0
-  largeRange: 0
+  attackInterveal: 0
+  longRange: 100
   sightRange: 10
   attackRange: 5
   enemyAIPerTime: 0.1
-  attackTheAllKnights: 0
-  targetEenemies: []
-  woodTowers: []
   enemiesLayer:
     serializedVersion: 2
     m_Bits: 1856
-  targetEnemyKnights:
-    serializedVersion: 2
-    m_Bits: 0
-  targetEnemyBuildings:
-    serializedVersion: 2
-    m_Bits: 0
   targetWoodTower:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 134217728
   patrollingRadius: 3
   waitingTime: 2
   behavior: 0
   path: {fileID: 0}
+  aI: 1
+  onBuilding: 0
+  goBuilding: 0
+  currentSightRange: 0
+  currentLongRange: 0
+  sightRangePosition: {x: 0, y: 0}
+  attackRangePosition: {x: 0, y: 0}
+  woodTowers: []
+  targetEnemiesWithSightRange: []
+  targetEnemiesWithLongRange: []
   patrolPoints: []
   explosion: {fileID: 0}
   dynamite: {fileID: 2882941088727587294, guid: 4688edc9212076e4ebd96473555dcd61, type: 3}
-  attackRangePosition: {x: 0, y: 0}
-  sightRangePosition: {x: 0, y: 0}
-  currentSightRange: 0
   animator: {fileID: 0}
   goblinCollider: {fileID: 0}
-  aI: 1
-  onBuilding: 0
-  onBuildingStay: 0
-  goBuilding: 0
 --- !u!114 &-8565848495876418399
 MonoBehaviour:
   m_ObjectHideFlags: 0
