@@ -11,14 +11,11 @@ namespace Assets.Scripts.Concrete.Controllers
     {
         GameObject visual;
         GameObject visualRed;
-        IInput ıInput;
         Vector2 firstPos;
         public Button buildConfirmButton;
         bool value = true;
-        private void Awake()
-        {
-            ıInput = new PcInput();
-        }
+        public float gridSize;
+
         private void Start()
         {
             visual = transform.GetChild(0).gameObject;
@@ -28,19 +25,28 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             if (Input.GetMouseButtonDown(0))
             {
+
                 if (!InteractManager.Instance.CheckUIElements() || UIManager.Instance.canDragPreviewObj)
                 {
                     value = true;
-                    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    firstPos = transform.position - mousePos;
+                    Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    mouseWorldPos.z = 0;
+
+                    float gridX = Mathf.Round(mouseWorldPos.x / gridSize) * gridSize;
+                    float gridY = Mathf.Round(mouseWorldPos.y / gridSize) * gridSize;
+
+                    firstPos = transform.position - new Vector3(gridX, gridY, 0);
                 }
 
             }
 
             if (Input.GetMouseButton(0) && value)
             {
-                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                transform.position = firstPos + mousePos;
+                Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mouseWorldPos.z = 0;
+                float gridX = Mathf.Round(mouseWorldPos.x / gridSize) * gridSize;
+                float gridY = Mathf.Round(mouseWorldPos.y / gridSize) * gridSize;
+                transform.position = firstPos + new Vector2(gridX,gridY);
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -50,7 +56,6 @@ namespace Assets.Scripts.Concrete.Controllers
             }
 
         }
-
         public void BuildConfirmButton()
         {
             if (ResourcesManager.Instance.Buy(BuildingName()))
