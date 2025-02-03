@@ -55,7 +55,7 @@ namespace Assets.Scripts.Concrete.Managers
                     case "Preview_Castle(Clone)":
                         Build(castleConstructionBlue);
                         break;
-                    case "Preview_Fence4x4(Clone)":
+                    case "Preview_Fence2x2(Clone)":
                         Build(fence2x2);
                         break;
                 }

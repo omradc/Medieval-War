@@ -46,7 +46,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 mouseWorldPos.z = 0;
                 float gridX = Mathf.Round(mouseWorldPos.x / gridSize) * gridSize;
                 float gridY = Mathf.Round(mouseWorldPos.y / gridSize) * gridSize;
-                transform.position = firstPos + new Vector2(gridX,gridY);
+                transform.position = firstPos + new Vector2(gridX, gridY);
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -101,10 +101,13 @@ namespace Assets.Scripts.Concrete.Controllers
                 return "towerLvl1";
             if (gameObject.name == "Preview_Castle(Clone)")
                 return "castleLvl1";
-            if (gameObject.name == "Preview_Fence4x4(Clone)")
-                return "fence4x4";
+            if (gameObject.name == "Preview_Fence2x2(Clone)")
+                return "fence2x2";
             else
+            {
+                Debug.Log("Preview name not found ");
                 return "";
+            }
         }
     }
 }
