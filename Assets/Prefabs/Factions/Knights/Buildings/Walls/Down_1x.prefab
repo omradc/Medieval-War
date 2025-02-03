@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4143650481316395973, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: m_Size.x
-      value: 0.48
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 4143650481316395973, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: m_Size.y
@@ -19,14 +19,26 @@ PrefabInstance:
     - target: {fileID: 4143650481316395973, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1471230753, guid: 9c3a795c5e0af7f499dc2c12b1f360ab, type: 3}
+      objectReference: {fileID: 2029603016695656400, guid: 9c3a795c5e0af7f499dc2c12b1f360ab, type: 3}
+    - target: {fileID: 4143650481316395973, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4143650481316395973, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5533806708739620861, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
+      propertyPath: m_Extents.x
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533806708739620861, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
+      propertyPath: m_Extents.y
+      value: 0.125
+      objectReference: {fileID: 0}
     - target: {fileID: 6198312127698026226, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6198312127698026226, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -66,7 +78,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6293339253157804456, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: m_Name
-      value: Wall_0
+      value: Down_1x
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227471878602223427, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.282
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227471878602223427, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227471878602223427, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227471878602223427, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
