@@ -17,18 +17,18 @@ namespace Assets.Scripts.Concrete.Managers
         public int collectRockAmount;
         public int collectWoodAmount;
         public int collectMeatAmount;
-
-
-        public int goldPrice;
-        public int rockPrice;
-        public int woodPrice;
-        public int meatPrice;
         public Value[] value;
 
-        public int totalGold;
-        public int totalRock;
-        public int totalWood;
-        public int totalMeat;
+
+        [HideInInspector] public int goldPrice;
+        [HideInInspector] public int rockPrice;
+        [HideInInspector] public int woodPrice;
+        [HideInInspector] public int meatPrice;
+
+        [HideInInspector] public int totalGold;
+        [HideInInspector] public int totalRock;
+        [HideInInspector] public int totalWood;
+        [HideInInspector] public int totalMeat;
 
         [HideInInspector] public bool goldIsEnough;
         [HideInInspector] public bool rockIsEnough;
@@ -65,7 +65,7 @@ namespace Assets.Scripts.Concrete.Managers
             totalRock = 99;
             totalWood = 99;
             totalMeat = 99;
-            
+
             DisplayResources();
         }
         public void DisplayResources()

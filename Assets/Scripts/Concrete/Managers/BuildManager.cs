@@ -1,7 +1,4 @@
-﻿using Assets.Scripts.Abstracts.Inputs;
-using Assets.Scripts.Concrete.Controllers;
-using Assets.Scripts.Concrete.Inputs;
-using System.Collections;
+﻿using Assets.Scripts.Concrete.Controllers;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Managers
@@ -15,7 +12,11 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject towerConstructionBlue;
         public GameObject castleConstructionBlue;
         public GameObject fence2x2;
-
+        public GameObject down_3x;
+        public GameObject top_1x;
+        public GameObject down_1x;
+        public GameObject door;
+        [HideInInspector] public GameObject lastBuidingObj;
 
         private void Awake()
         {
@@ -58,6 +59,26 @@ namespace Assets.Scripts.Concrete.Managers
                     case "Preview_Fence2x2(Clone)":
                         Build(fence2x2);
                         break;
+                    case "Preview_Wall(Clone)":
+                        switch (UIManager.Instance.previewObj.GetComponent<BuildPreviewController>().index)
+                        {
+                            case 0:
+                                Build(down_3x);
+                                break;
+                            case 1:
+                                Build(top_1x);
+                                break;
+                            case 2:
+                                Build(down_1x);
+                                break;
+                            case 3:
+                                Build(door);
+                                break;
+                        }
+                        break;
+                    default:
+                        Debug.Log("Building Not Found");
+                        break;
                 }
             }
         }
@@ -65,7 +86,7 @@ namespace Assets.Scripts.Concrete.Managers
         GameObject Build(GameObject construct)
         {
             Vector2 pos = UIManager.Instance.previewObj.transform.position;
-            return Instantiate(construct, pos, Quaternion.identity);
+            return lastBuidingObj = Instantiate(construct, pos, Quaternion.identity);
         }
 
     }

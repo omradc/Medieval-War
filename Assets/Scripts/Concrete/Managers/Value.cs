@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-
-namespace Assets.Scripts.Concrete.Managers
+﻿namespace Assets.Scripts.Concrete.Managers
 {
     [System.Serializable]
     public class Value

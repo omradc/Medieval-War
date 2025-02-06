@@ -48,20 +48,18 @@ namespace Assets.Scripts.Concrete.Controllers
         AnimationEventController animationEventController;
         PathFindingController pF;
         KnightAttack knightAttack;
-        Rigidbody2D rb2D;
         VillagerController villagerController;
         float time;
 
         private void Awake()
         {
             pF = GetComponent<PathFindingController>();
-            direction = new Direction(transform);
-            knightAI = new KnightAI(this, pF);
-            animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
-            rb2D = GetComponent<Rigidbody2D>();
             knightCollider = GetComponent<CircleCollider2D>();
             animator = transform.GetChild(0).GetComponent<Animator>();
-            knightAttack = new KnightAttack(this, knightAI, animationEventController, pF);
+            animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
+            direction = new(transform);
+            knightAI = new(this, pF);
+            knightAttack = new(this, knightAI, animationEventController, pF);
             if (factionType == FactionTypeEnum.Villager)
                 villagerController = GetComponent<VillagerController>();
         }
