@@ -188,7 +188,7 @@ MonoBehaviour:
     m_Bits: 33554496
   interactableLayers:
     serializedVersion: 2
-    m_Bits: 1073862464
+    m_Bits: 3221346112
   interactedObj: {fileID: 0}
   interactedKnight: {fileID: 0}
   interactedMine: {fileID: 0}
@@ -265,6 +265,11 @@ MonoBehaviour:
   towerConstructionBlue: {fileID: 4023670001020676894, guid: 65f89bf0045ea764990de885599d11ea, type: 3}
   castleConstructionBlue: {fileID: 1844819989577762619, guid: 29ecfb5f6f80f3649a2bc051f0d1122b, type: 3}
   fence2x2: {fileID: 4448285308025197226, guid: e93a9dad41dfeda45a9914836311e561, type: 3}
+  down_3x: {fileID: 2603522970388996191, guid: dc149f2d104051a43932ec54353b3fd4, type: 3}
+  top_1x: {fileID: 2603522970388996191, guid: bf5146aabc3635a438015a4b0091ed35, type: 3}
+  down_1x: {fileID: 2603522970388996191, guid: 1a9cdadb5b1045844b0d7d1642088a61, type: 3}
+  door: {fileID: 2508427244137312361, guid: 32ed4cf4f8d33b740990d6c90b737ed2, type: 3}
+  lastBuidingObj: {fileID: 0}
 --- !u!114 &4923174947444017873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,10 +287,6 @@ MonoBehaviour:
   collectRockAmount: 10
   collectWoodAmount: 10
   collectMeatAmount: 10
-  goldPrice: 0
-  rockPrice: 0
-  woodPrice: 0
-  meatPrice: 0
   value:
   - name: pawnHouseLvl1
     goldPrice: 1
@@ -552,6 +553,30 @@ MonoBehaviour:
     rockPrice: 1
     woodPrice: 1
     meatPrice: 1
+  - name: Down_3x
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 0
+    meatPrice: 0
+  - name: Top_1x
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 0
+    meatPrice: 0
+  - name: Down_1x
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 0
+    meatPrice: 0
+  - name: Door
+    goldPrice: 5
+    rockPrice: 5
+    woodPrice: 5
+    meatPrice: 0
+  goldPrice: 0
+  rockPrice: 0
+  woodPrice: 0
+  meatPrice: 0
   totalGold: 0
   totalRock: 0
   totalWood: 0

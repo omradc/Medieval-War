@@ -107,6 +107,7 @@ MonoBehaviour:
   resourceMeat: {fileID: 3246526810110024777, guid: 305c2a09551e4324985e3671a16eaae1, type: 3}
   sheepPoints: []
   sheepPoint: {fileID: 0}
+  pF: {fileID: 0}
   patrol: 0
 --- !u!114 &-2009713950975530326
 MonoBehaviour:
@@ -122,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStoping: 1
   isUserControl: 0
+  visualSprite: {fileID: 6306144715676814428}
   agent: {fileID: 0}
   lastMousePos: {x: 0, y: 0}
   moveSpeed: 0

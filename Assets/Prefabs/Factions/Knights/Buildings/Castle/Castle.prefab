@@ -722,6 +722,7 @@ MonoBehaviour:
   currentRegrenationPerTime: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
+  attackingPersons: []
 --- !u!114 &7004866084959604303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,6 +767,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   construction: {fileID: 0}
+  visualBuilding: {fileID: 3983658696136428888}
+  visualDestructed: {fileID: 2615832424367074588}
+  visualSprite: {fileID: 3762693370062532412}
+  visualDestructedSprite: {fileID: 2915956595236107981}
   destroyPermanent: 0
   destroyTime: 0
   isFull: 0
@@ -785,6 +790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 10
+  attackingPersonNumber: 0
 --- !u!1 &5377870383954355044
 GameObject:
   m_ObjectHideFlags: 0

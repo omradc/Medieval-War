@@ -13,12 +13,12 @@ TagManager:
   - GoldMine
   - RockMine
   - Goblins
-  - Undefined
   - Warrior
   - Ground
   - Building
-  - Wall
   - Door
+  - Wall
+  - Preview
   layers:
   - Default
   - TransparentFX
@@ -30,8 +30,8 @@ TagManager:
   - Obstacle
   - House
   - Tower
-  - Castle
   - 
+  - Wall
   - Fence
   - Goblin
   - Mine
@@ -51,10 +51,16 @@ TagManager:
   - WoodTowerFull
   - WoodTowerDestructed
   - Construct
-  - 
+  - Door
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3740967127
+    locked: 0
+  - name: Character
+    uniqueID: 3064721287
     locked: 0
   m_RenderingLayers:
   - Default

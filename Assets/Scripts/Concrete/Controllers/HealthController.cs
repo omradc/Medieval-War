@@ -126,13 +126,12 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void AttackingPersonsAssignment()
         {
-            // Bir düşmana ilk kez saldırılıyorsa, hedefin değişmemesi için, attacking person = 0;
-            if (attackingPersons.Count == 1)
+
+
+            if (attackingPersons.Count <= targetPriority.maxAttacker)
                 targetPriority.attackingPersonNumber = 0;
             else
-                targetPriority.attackingPersonNumber = attackingPersons.Count;
-
-
+                targetPriority.attackingPersonNumber = attackingPersons.Count - targetPriority.maxAttacker;
             for (int i = 0; i < attackingPersons.Count; i++)
             {
                 if (attackingPersons[i] == null)

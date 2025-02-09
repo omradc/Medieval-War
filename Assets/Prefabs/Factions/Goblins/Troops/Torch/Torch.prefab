@@ -197,7 +197,7 @@ GameObject:
   m_Layer: 13
   m_Name: VillagerStoppingPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -378,6 +378,7 @@ MonoBehaviour:
   currentRegrenationPerTime: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
+  attackingPersons: []
 --- !u!114 &7485362444082039687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,7 +406,7 @@ MonoBehaviour:
   enemyAIPerTime: 0.1
   enemiesLayer:
     serializedVersion: 2
-    m_Bits: 1856
+    m_Bits: 2880
   friendsLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -424,13 +425,14 @@ MonoBehaviour:
   woodTowers: []
   sightRangeDetechEnemies: []
   longRangeDetechEnemies: []
-  nonRangeDetechEnemy: {fileID: 0}
   friendsDetech: []
+  nonRangeDetechEnemy: {fileID: 0}
   patrolPoints: []
   explosion: {fileID: 0}
   dynamite: {fileID: 0}
   animator: {fileID: 0}
   goblinCollider: {fileID: 0}
+  canAttack: 0
 --- !u!114 &5566946402393527068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,6 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visualSprite: {fileID: 3857208795512620348}
   isStoping: 1
   isUserControl: 0
   agent: {fileID: 0}
@@ -483,6 +486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 0
+  attackingPersonNumber: 0
 --- !u!1001 &4673381150033136589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -557,7 +561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 83114464382988047, guid: f35e0b02163bcb2409270ccd9525c482, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.6
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 83114464382988047, guid: f35e0b02163bcb2409270ccd9525c482, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

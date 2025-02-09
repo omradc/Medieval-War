@@ -127,6 +127,7 @@ MonoBehaviour:
   currentRegrenationPerTime: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
+  attackingPersons: []
 --- !u!114 &2140753509579492637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visualSprite: {fileID: 7307113097883127245}
   isStoping: 1
   isUserControl: 0
   agent: {fileID: 0}
@@ -220,6 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 0
+  attackingPersonNumber: 0
 --- !u!1 &7966265824583163113
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,11 +380,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 83114464382988047, guid: f0933309c56f0ad499417b6e94c1caef, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 83114464382988047, guid: f0933309c56f0ad499417b6e94c1caef, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 83114464382988047, guid: f0933309c56f0ad499417b6e94c1caef, type: 3}
       propertyPath: m_LocalPosition.x
@@ -417,7 +420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 83114464382988047, guid: f0933309c56f0ad499417b6e94c1caef, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.65
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 83114464382988047, guid: f0933309c56f0ad499417b6e94c1caef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -434,6 +437,10 @@ PrefabInstance:
     - target: {fileID: 1060580182308916039, guid: f0933309c56f0ad499417b6e94c1caef, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079860006499010729, guid: f0933309c56f0ad499417b6e94c1caef, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2081227297410851166, guid: f0933309c56f0ad499417b6e94c1caef, type: 3}
       propertyPath: m_Layer

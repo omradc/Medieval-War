@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 7581565704054758252}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -160,11 +160,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.4, y: 0.25, z: 0.5}
+  m_Extents: {x: 0.25, y: 0.15, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.59, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &8839615709272474171
 GameObject:
@@ -262,6 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   constructing: {fileID: 0}
+  visualSprite: {fileID: 8907799663371169010}
   hitNumber: 3
   currentHitNumber: 0
   isFull: 0

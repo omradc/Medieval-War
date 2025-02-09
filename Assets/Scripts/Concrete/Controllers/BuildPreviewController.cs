@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Concrete.Managers;
+using Assets.Scripts.Concrete.Movements;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,44 +10,78 @@ namespace Assets.Scripts.Concrete.Controllers
 {
     public class BuildPreviewController : MonoBehaviour
     {
-        public Button buildConfirmButton;
-        public float gridSize;
-        bool value = true;
-        Vector2 firstPos;
-        GameObject visual;
-        GameObject visualRed;
-        GameObject down_3x;
-        GameObject top_1x;
-        GameObject down_1x;
-        GameObject door;
-        GameObject down_3xRed;
-        GameObject top_1xRed;
-        GameObject down_1xRed;
-        GameObject doorRed;
-        [HideInInspector] public int index;
-        BoxCollider2D coll;
-        public List<Vector3> wallsPos;
+        [SerializeField] float gridSize = 0.2f;
+        [SerializeField] Button buildConfirmButton;
+        [SerializeField] GameObject visual;
+        [SerializeField] GameObject visualRed;
+        [SerializeField] GameObject down_3x;
+        [SerializeField] GameObject top_1x;
+        [SerializeField] GameObject down_1x;
+        [SerializeField] GameObject door;
+        [SerializeField] GameObject down_3xRed;
+        [SerializeField] GameObject top_1xRed;
+        [SerializeField] GameObject down_1xRed;
+        [SerializeField] GameObject doorRed;
 
+        SpriteRenderer visualSprite;
+        SpriteRenderer visualRedSprite;
+        SpriteRenderer down_3xSprite;
+        SpriteRenderer top_1xSprite;
+        SpriteRenderer top_1xDownSprite;
+        SpriteRenderer down_1xSprite;
+        SpriteRenderer wallDoorSprite;
+        SpriteRenderer doorSprite;
+        SpriteRenderer down_3xRedSprite;
+        SpriteRenderer top_1xRedSprite;
+        SpriteRenderer top_1xRedDownSprite;
+        SpriteRenderer down_1xRedSprite;
+        SpriteRenderer wallDoorRedSprite;
+        SpriteRenderer doorRedSprite;
+        Vector2 firstPos;
+        BoxCollider2D coll;
+        List<Vector3> wallsPos;
+        DynamicOrderInLayer dynamicOrderInLayer;
+
+        [HideInInspector] public int index;
+        bool obj;
+        bool anyObj;
+        bool value = true;
+        private void Awake()
+        {
+            dynamicOrderInLayer = new();
+            coll = GetComponent<BoxCollider2D>();
+            wallsPos = new List<Vector3>();
+        }
         private void Start()
         {
-            coll = GetComponent<BoxCollider2D>();
-            visual = transform.GetChild(0).gameObject;
-            down_3x = transform.GetChild(0).GetChild(0).gameObject;
-            top_1x = transform.GetChild(0).GetChild(1).gameObject;
-            down_1x = transform.GetChild(0).GetChild(2).gameObject;
-            door = transform.GetChild(0).GetChild(3).gameObject;
+            if (gameObject.name == "Preview_Wall(Clone)")
+            {
+                down_3xSprite = down_3x.GetComponent<SpriteRenderer>();
+                top_1xSprite = top_1x.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                top_1xDownSprite = top_1x.transform.GetChild(1).GetComponent<SpriteRenderer>();
+                down_1xSprite = down_1x.GetComponent<SpriteRenderer>();
+                wallDoorSprite = door.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
+                doorSprite = door.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
+                down_3xRedSprite = down_3xRed.GetComponent<SpriteRenderer>();
+                top_1xRedSprite = top_1xRed.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                top_1xRedDownSprite = top_1xRed.transform.GetChild(1).GetComponent<SpriteRenderer>();
+                down_1xRedSprite = down_1xRed.GetComponent<SpriteRenderer>();
+                wallDoorRedSprite = doorRed.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
+                doorRedSprite = doorRed.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
+            }
 
-            visualRed = transform.GetChild(1).gameObject;
-            down_3xRed = transform.GetChild(1).GetChild(0).gameObject;
-            top_1xRed = transform.GetChild(1).GetChild(1).gameObject;
-            down_1xRed = transform.GetChild(1).GetChild(2).gameObject;
-            doorRed = transform.GetChild(1).GetChild(3).gameObject;
+            else
+            {
+                visualSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+                visualRedSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
+            }
+
         }
         void Update()
         {
+            SetOrderInLayer();
             if (Input.GetMouseButtonDown(0))
             {
-
                 if (!InteractManager.Instance.CheckUIElements() || UIManager.Instance.canDragPreviewObj)
                 {
                     value = true;
@@ -55,7 +90,6 @@ namespace Assets.Scripts.Concrete.Controllers
 
                     float gridX = Mathf.Round(mouseWorldPos.x / gridSize) * gridSize;
                     float gridY = Mathf.Round(mouseWorldPos.y / gridSize) * gridSize;
-
                     firstPos = transform.position - new Vector3(gridX, gridY, 0);
                 }
 
@@ -67,7 +101,6 @@ namespace Assets.Scripts.Concrete.Controllers
                 mouseWorldPos.z = 0;
                 float gridX = Mathf.Round(mouseWorldPos.x / gridSize) * gridSize;
                 float gridY = Mathf.Round(mouseWorldPos.y / gridSize) * gridSize;
-
                 transform.position = firstPos + new Vector2(gridX, gridY);
             }
 
@@ -78,8 +111,21 @@ namespace Assets.Scripts.Concrete.Controllers
             }
 
         }
+
+
         private void OnTriggerStay2D(Collider2D collision)
         {
+            if (collision.gameObject.layer == 11)// duvar ise
+            {
+                obj = true;
+            }
+            else
+            {
+                obj = false;
+                anyObj = true;
+            }
+            if (!anyObj && obj) return; 
+
             // İnşaa edilemez
             buildConfirmButton.interactable = false;
             visual.gameObject.SetActive(false);
@@ -87,6 +133,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
+            anyObj = false;
             // İnşaa edilebilir
             buildConfirmButton.interactable = true;
             visual.gameObject.SetActive(true);
@@ -112,7 +159,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 case 0: // down_3x
                     down_3x.SetActive(true);
                     down_3xRed.SetActive(true);
-                    SetColliderSizeForWalls(1.175f, 0.95f);
+                    SetColliderSizeForWalls(1.175f, 0.15f, 0, 0.374f);
                     break;
                 case 1: // top_1x
                     top_1x.SetActive(true);
@@ -136,7 +183,6 @@ namespace Assets.Scripts.Concrete.Controllers
             if (ResourcesManager.Instance.Buy(BuildingName()))
             {
                 UIManager.Instance.canBuild = true;
-                UIManager.Instance.BuildPanelVisibility(true);
 
                 wallsPos.Add(transform.position);
                 if (wallsPos.Count == 3)
@@ -246,5 +292,32 @@ namespace Assets.Scripts.Concrete.Controllers
             }
 
         }
+        void SetOrderInLayer()
+        {
+
+
+            if (gameObject.name == "Preview_Wall(Clone)")
+            {
+                dynamicOrderInLayer.OrderInLayerWithYPos(down_3xSprite.transform, down_3xSprite);
+                dynamicOrderInLayer.OrderInLayerWithYPos(down_3xRedSprite.transform, down_3xRedSprite);
+                dynamicOrderInLayer.OrderInLayerWithYPos(top_1xSprite.transform, top_1xSprite);
+                dynamicOrderInLayer.OrderInLayerWithNumber(top_1xSprite.transform, top_1xDownSprite, -1);
+                dynamicOrderInLayer.OrderInLayerWithNumber(top_1xRedSprite.transform, top_1xRedDownSprite, -1);
+                dynamicOrderInLayer.OrderInLayerWithYPos(top_1xRedSprite.transform, top_1xRedSprite);
+                dynamicOrderInLayer.OrderInLayerWithYPos(down_1xSprite.transform, down_1xSprite);
+                dynamicOrderInLayer.OrderInLayerWithYPos(down_1xRedSprite.transform, down_1xRedSprite);
+                dynamicOrderInLayer.OrderInLayerWithYPos(wallDoorSprite.transform, wallDoorSprite);
+                dynamicOrderInLayer.OrderInLayerWithYPos(doorSprite.transform, doorSprite);
+                dynamicOrderInLayer.OrderInLayerWithYPos(wallDoorRedSprite.transform, wallDoorRedSprite);
+                dynamicOrderInLayer.OrderInLayerWithYPos(doorRedSprite.transform, doorRedSprite);
+            }
+
+            else
+            {
+                dynamicOrderInLayer.OrderInLayerWithYPos(visual.transform, visualSprite);
+                dynamicOrderInLayer.OrderInLayerWithYPos(visualRed.transform, visualRedSprite);
+            }
+        }
+
     }
 }

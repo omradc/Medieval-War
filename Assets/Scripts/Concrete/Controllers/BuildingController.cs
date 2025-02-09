@@ -1,31 +1,58 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Concrete.Movements;
+using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
     class BuildingController : MonoBehaviour
     {
         public GameObject construction;
-        bool workOnce = true;
+        [SerializeField] GameObject visualBuilding;
+        [SerializeField] GameObject visualDestructed;
+        [SerializeField] SpriteRenderer top_1xDownVisualSprite;
+        [SerializeField] SpriteRenderer doorCloseVisualSprite;
+        [SerializeField] SpriteRenderer doorOpen1VisualSprite;
+        [SerializeField] SpriteRenderer doorOpen2VisualSprite;
         [SerializeField] bool destroyPermanent;
         [SerializeField] int destroyTime;
 
+        SpriteRenderer visualSprite;
+        SpriteRenderer visualDestructedSprite;
         // Kule yapay zekası için gerekli değerler
-        public bool isFull;
+        [HideInInspector] public bool isFull;
         [HideInInspector] public bool destruct;
         [HideInInspector] public int unitValue;
 
-        GameObject visualBuilding;
-        GameObject visualDestructed;
-        ButtonController buttonController;
         [HideInInspector] public BuildingPanelController buildingPanelController;
+        ButtonController buttonController;
         HealthController healthController;
+        DynamicOrderInLayer dynamicOrderInLayer;
+        bool workOnce = true;
+
         private void Awake()
         {
             healthController = GetComponent<HealthController>();
-            visualBuilding = transform.GetChild(2).gameObject;
-            visualDestructed = transform.GetChild(3).gameObject;
             buttonController = GetComponent<ButtonController>();
             buildingPanelController = GetComponent<BuildingPanelController>();
+            dynamicOrderInLayer = new();
+            visualSprite = visualBuilding.GetComponent<SpriteRenderer>();
+            visualDestructedSprite = visualDestructed.GetComponent<SpriteRenderer>();
+        }
+        private void Start()
+        {
+            dynamicOrderInLayer.OrderInLayerWithYPos(visualSprite.transform, visualSprite);
+            dynamicOrderInLayer.OrderInLayerWithYPos(visualDestructedSprite.transform, visualDestructedSprite);
+
+            if (top_1xDownVisualSprite != null)
+                dynamicOrderInLayer.OrderInLayerWithNumber(visualSprite.transform, top_1xDownVisualSprite, -1);
+            if (doorCloseVisualSprite != null)
+                dynamicOrderInLayer.OrderInLayerWithYPos(doorCloseVisualSprite.transform, doorCloseVisualSprite);
+            if (doorOpen1VisualSprite != null)
+                dynamicOrderInLayer.OrderInLayerWithYPos(doorOpen1VisualSprite.transform, doorOpen1VisualSprite);
+            if (doorOpen2VisualSprite != null)
+                dynamicOrderInLayer.OrderInLayerWithYPos(doorOpen2VisualSprite.transform, doorOpen2VisualSprite);
+
+
+
         }
         private void Update()
         {
@@ -44,9 +71,11 @@ namespace Assets.Scripts.Concrete.Controllers
             visualBuilding.SetActive(false);
             visualDestructed.SetActive(true);
             gameObject.layer = 26; // Katman = Destructed
+            workOnce = false;
+
             if (buildingPanelController != null)
                 buildingPanelController.interactablePanel.SetActive(false);
-            workOnce = false;
+
             if (destroyPermanent)
                 Destroy(gameObject, destroyTime);
         }
@@ -58,7 +87,7 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 GameObject obj = Instantiate(buttonController.construct, transform.position, Quaternion.identity);
                 obj.GetComponent<ConstructController>().constructing = buttonController.upgradedBuilding;
-                Destroy(gameObject, destroyTime);
+                Destroy(gameObject, 0);
 
             }
         }

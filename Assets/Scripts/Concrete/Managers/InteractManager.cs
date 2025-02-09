@@ -35,6 +35,7 @@ namespace Assets.Scripts.Concrete.Managers
         public bool isDragging;
         float time;
         bool clicked;
+        bool openCloseDoor;
 
         private void Awake()
         {
@@ -95,6 +96,12 @@ namespace Assets.Scripts.Concrete.Managers
                     // Etkileşim olan obje, inşaat ise,
                     if (interactedObj.layer == 30)
                         interactedConstruction = interactedObj;
+                    // Etkileşim olan obje, duvar kapı ise,
+                    if (interactedObj.layer == 31)
+                    {
+                        interactedObj.transform.parent.GetChild(2).GetChild(0).gameObject.SetActive(openCloseDoor);
+                        openCloseDoor = !openCloseDoor;
+                    }
                 }
             }
             if (ıInput.GetButtonUp0)

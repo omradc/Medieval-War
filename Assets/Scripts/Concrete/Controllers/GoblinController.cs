@@ -60,7 +60,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public CircleCollider2D goblinCollider;
 
 
-        bool canAttack;
+        public bool canAttack;
         float time;
         EnemyAttack enemyAttack;
         GoblinAI goblinAI;

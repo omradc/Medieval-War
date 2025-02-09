@@ -71,6 +71,7 @@ Transform:
   - {fileID: 1749985826212413488}
   - {fileID: 2341173166227496516}
   - {fileID: 744743274360844600}
+  - {fileID: 6338975488708039554}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &1875966729338327498
@@ -160,6 +161,7 @@ MonoBehaviour:
   currentRegrenationPerTime: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
+  attackingPersons: []
 --- !u!114 &6509422717109881787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +189,7 @@ MonoBehaviour:
   enemyAIPerTime: 0.1
   enemiesLayer:
     serializedVersion: 2
-    m_Bits: 1856
+    m_Bits: 2880
   friendsLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -206,13 +208,14 @@ MonoBehaviour:
   woodTowers: []
   sightRangeDetechEnemies: []
   longRangeDetechEnemies: []
-  nonRangeDetechEnemy: {fileID: 0}
   friendsDetech: []
+  nonRangeDetechEnemy: {fileID: 0}
   patrolPoints: []
   explosion: {fileID: 5760141080254190359, guid: 8daf93f34db32dc47827a45011fa44ba, type: 3}
   dynamite: {fileID: 0}
   animator: {fileID: 0}
   goblinCollider: {fileID: 0}
+  canAttack: 0
 --- !u!114 &8106347306641681872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visualSprite: {fileID: 7635113777096325598}
   isStoping: 1
   isUserControl: 0
   agent: {fileID: 0}
@@ -265,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 0
+  attackingPersonNumber: 0
 --- !u!1 &2674947529675144584
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +424,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd23bc4847eb7b647ac65a1e0dd5a2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7713705219990271166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6338975488708039554}
+  m_Layer: 13
+  m_Name: VillagerStoppingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6338975488708039554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7713705219990271166}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.7, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6304368153235747338}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1832537323022233407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -493,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 83114464382988047, guid: f35e0b02163bcb2409270ccd9525c482, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.9
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 83114464382988047, guid: f35e0b02163bcb2409270ccd9525c482, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -506,6 +542,10 @@ PrefabInstance:
     - target: {fileID: 83114464382988047, guid: f35e0b02163bcb2409270ccd9525c482, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079860006499010729, guid: f35e0b02163bcb2409270ccd9525c482, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6259866873440417149, guid: f35e0b02163bcb2409270ccd9525c482, type: 3}
       propertyPath: m_Name

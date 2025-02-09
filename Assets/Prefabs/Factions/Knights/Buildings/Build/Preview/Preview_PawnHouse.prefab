@@ -536,7 +536,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 318962612607029812, guid: b821fd1313e46544bb05439fbeabfada, type: 3}
       propertyPath: m_TagString
-      value: Building
+      value: Preview
       objectReference: {fileID: 0}
     - target: {fileID: 376808074872841365, guid: b821fd1313e46544bb05439fbeabfada, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -553,6 +553,10 @@ PrefabInstance:
     - target: {fileID: 3285648206039778820, guid: b821fd1313e46544bb05439fbeabfada, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5001609990032638508, guid: b821fd1313e46544bb05439fbeabfada, type: 3}
+      propertyPath: gridSize
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6624885541170259179, guid: b821fd1313e46544bb05439fbeabfada, type: 3}
       propertyPath: m_LocalPosition.x

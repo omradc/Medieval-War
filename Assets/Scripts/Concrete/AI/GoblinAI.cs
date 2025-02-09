@@ -3,6 +3,7 @@ using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Movements;
 using Assets.Scripts.Concrete.Combats;
 using UnityEngine;
+using Unity.VisualScripting.FullSerializer;
 
 namespace Assets.Scripts.Concrete.AI
 {
@@ -73,7 +74,7 @@ namespace Assets.Scripts.Concrete.AI
                 return target;
             }
 
-            // Saldırı emri yoksa ve görüş menzilinde düşman yosa 
+            // Saldırı emri yoksa ve görüş menzilinde düşman yoksa 
             else
             {
                 // Görüş menzili dışından saldırılırsa
@@ -90,10 +91,11 @@ namespace Assets.Scripts.Concrete.AI
 
         void SpotEnemy(GameObject enemy)
         {
-            for (int i = 0; i < gC.friendsDetech.Length; i++)
-            {
-                gC.friendsDetech[i].GetComponent<GoblinController>().nonRangeDetechEnemy = enemy;
-            }
+            if (target == null)
+                for (int i = 0; i < gC.friendsDetech.Length; i++)
+                {
+                    gC.friendsDetech[i].GetComponent<GoblinController>().nonRangeDetechEnemy = enemy;
+                }
         }
         public void CatchNeraestTarget()
         {
