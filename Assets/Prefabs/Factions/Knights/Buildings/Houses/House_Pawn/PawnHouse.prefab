@@ -340,11 +340,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.4, y: 0.25, z: 0.5}
+  m_Extents: {x: 0.25, y: 0.15, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: -0.4, z: 0}
+  m_Center: {x: 0, y: -0.33, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &3371040887707264446
 GameObject:
@@ -885,8 +885,6 @@ MonoBehaviour:
   construction: {fileID: 0}
   visualBuilding: {fileID: 3901313617460208119}
   visualDestructed: {fileID: 2816178403449089175}
-  visualSprite: {fileID: 335372585888908915}
-  visualDestructedSprite: {fileID: 7501834591736829520}
   top_1xDownVisualSprite: {fileID: 0}
   doorCloseVisualSprite: {fileID: 0}
   doorOpen1VisualSprite: {fileID: 0}
@@ -910,6 +908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 5
+  maxAttacker: 3
   attackingPersonNumber: 0
 --- !u!1 &8564265837313200084
 GameObject:

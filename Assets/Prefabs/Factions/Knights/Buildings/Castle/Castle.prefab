@@ -769,8 +769,10 @@ MonoBehaviour:
   construction: {fileID: 0}
   visualBuilding: {fileID: 3983658696136428888}
   visualDestructed: {fileID: 2615832424367074588}
-  visualSprite: {fileID: 3762693370062532412}
-  visualDestructedSprite: {fileID: 2915956595236107981}
+  top_1xDownVisualSprite: {fileID: 0}
+  doorCloseVisualSprite: {fileID: 0}
+  doorOpen1VisualSprite: {fileID: 0}
+  doorOpen2VisualSprite: {fileID: 0}
   destroyPermanent: 0
   destroyTime: 0
   isFull: 0
@@ -790,6 +792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 10
+  maxAttacker: 3
   attackingPersonNumber: 0
 --- !u!1 &5377870383954355044
 GameObject:
@@ -1329,6 +1332,14 @@ PrefabInstance:
     - target: {fileID: 5324620465103170753, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638168152339918008, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7651174370483823263}
+    - target: {fileID: 5638168152339918008, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RebuildButton
       objectReference: {fileID: 0}
     - target: {fileID: 6378934098478984178, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
       propertyPath: m_Name
