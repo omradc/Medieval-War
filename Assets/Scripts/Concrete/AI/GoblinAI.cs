@@ -23,6 +23,8 @@ namespace Assets.Scripts.Concrete.AI
         bool patrol;
         int index;
         float time;
+        Transform obj;
+
         public GoblinAI(GoblinController goblinController, PathFindingController pF)
         {
             gC = goblinController;
@@ -203,7 +205,14 @@ namespace Assets.Scripts.Concrete.AI
                 return;
             }
 
-            Transform obj = target.transform.GetChild(4);
+            for (int i = 0; i < target.transform.childCount; i++)
+            {
+                if (target.transform.GetChild(i).name == "AttackPoints")
+                    obj = target.transform.GetChild(i);
+            }
+            if (obj == null)
+                Debug.Log("AttackPoints Bulunanamadı");
+
             // Saldırı noktası sayısı 1 ise
             if (obj.transform.childCount == 0)
             {

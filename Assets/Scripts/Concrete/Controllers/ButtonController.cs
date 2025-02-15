@@ -101,8 +101,15 @@ namespace Assets.Scripts.Concrete.Controllers
             if (gameObject.name == "Castle_Red(Clone)")
                 return "castleLvl4";
 
-            if (gameObject.name == "Fence4x4(Clone)")
-                return "fence4x4";
+            if (gameObject.name == "Fence 2x2(Clone)")
+                return "fence 2x2";
+
+            if (gameObject.name == "WallDoor_Blue(Clone)")
+                return "wallDoorLvl2";
+            if (gameObject.name == "WallDoor_Yellow(Clone)")
+                return "wallDoorLvl3";
+            if (gameObject.name == "WallDoor_Red(Clone)")
+                return "wallDoorLvl4";
 
             else
                 return "";

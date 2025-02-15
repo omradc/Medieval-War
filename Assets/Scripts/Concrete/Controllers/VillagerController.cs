@@ -120,7 +120,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         void OptimumVillager()
         {
-            if (kC.knightAI.nearestTarget != null && targetResource != null) //Düşman varsa ve elinde kaynak varsa, onu yere at
+            if (kC.knightAI.target != null && targetResource != null) //Düşman varsa ve elinde kaynak varsa, onu yere at
             {
                 // Elinde herhangi bir kaynak varsa onu yere at
                 collectResources.DropAnyResources();

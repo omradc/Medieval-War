@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting.FullSerializer;
+using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Movements
 {
@@ -32,15 +33,13 @@ namespace Assets.Scripts.Concrete.Movements
         /// <summary>
         ///  Use to Initialize
         /// </summary>
-        public void OrderInLayerWithYPos(Transform transform, SpriteRenderer[] spriteRenderers, int changeLayerValue = 0)
+        public void OrderInLayerWithYPos(Transform transform, SpriteRenderer[] spriteRenderers)
         {
             if (spriteRenderers.Length == 0) return;
             int orderInLayer = Mathf.RoundToInt(-transform.position.y * 10);
-            int magnitudeLayerValue = 0;
             for (int i = 0; i < spriteRenderers.Length; i++)
             {
-                magnitudeLayerValue += changeLayerValue;
-                spriteRenderers[i].sortingOrder = orderInLayer + magnitudeLayerValue;
+                spriteRenderers[i].sortingOrder = orderInLayer;
             }
         }
 

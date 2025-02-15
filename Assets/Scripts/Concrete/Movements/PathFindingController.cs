@@ -62,19 +62,6 @@ namespace Assets.Scripts.Concrete.Movements
 
         void SetDirection()
         {
-            //if (transform.GetChild(1).hasChanged) // Nesne hareket etti veya değişti!
-            //{
-            //    forDirectionStopping = false;
-            //    transform.GetChild(1).hasChanged = false; // Değişiklik algılandıktan sonra sıfırla
-            //}
-            //else // Dur
-            //    forDirectionStopping = true;
-
-            //// Birim hareket ederken gittiği yolu izler
-            //if (!forDirectionStopping)
-            //    direction.Turn2DirectionWithVelocity(agent.velocity.x);
-
-            #region Durma Kontrolü
             if (agent.hasPath && agent.velocity.magnitude > 0.12f)
                 forDirectionStopping = false;
 
@@ -84,29 +71,10 @@ namespace Assets.Scripts.Concrete.Movements
             // Birim hareket ederken gittiği yolu izler
             if (!forDirectionStopping)
                 direction.Turn2DirectionWithVelocity(agent.velocity.x);
-            #endregion
         }
-
-        // *****************transform.hasChanged; aynı transformda 1 den fazla kullanılırsa; düzgün çalışmaz, çalışması için farklı transformlar verilmelidir*************
 
         void MovementControl()
         {
-            //if (transform.hasChanged) // Nesne hareket etti veya değişti!
-            //{
-            //    isStoping = false;
-            //    transform.hasChanged = false; // Değişiklik algılandıktan sonra sıfırla
-            //}
-            //else // Dur
-            //{
-            //    isStoping = true;
-            //    if (time > Time.deltaTime * 5) // 5 Frame bekle
-            //    {
-            //        time = 0;
-            //        isUserControl = false;
-            //    }
-            //    time += Time.deltaTime;
-            //}
-            #region Durma Kontrolü
             // Durma kontrolü
             if (agent.hasPath && agent.velocity.magnitude > 0.01f)
                 isStoping = false;
@@ -120,7 +88,6 @@ namespace Assets.Scripts.Concrete.Movements
                 }
                 time += Time.deltaTime;
             }
-            #endregion
         }
     }
 }

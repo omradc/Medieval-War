@@ -114,7 +114,7 @@ namespace Assets.Scripts.Concrete.Controllers
             if (pF.isStoping)
             {
                 // Hedefte düþman varsa;
-                if (knightAI.nearestTarget != null)
+                if (knightAI.target != null)
                 {
                     if (factionType == FactionTypeEnum.Villager)
                         direction.Turn2DirectionWithPos(knightAI.nearestAttackPoint.position.x);
@@ -195,7 +195,7 @@ namespace Assets.Scripts.Concrete.Controllers
         void AttackOn()
         {
             // Düþman varsa ve saldýrý menzilindeyse, saldýrý aktifleþir
-            if (knightAI.nearestTarget != null)
+            if (knightAI.target != null)
             {
                 if (Vector2.Distance(attackRangePosition, knightAI.nearestAttackPoint.position) < attackRange && !pF.isUserControl && !goBuilding)
                     canAttack = true;

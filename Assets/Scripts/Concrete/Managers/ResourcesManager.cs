@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TMPro;
-using Unity.VisualScripting;
+﻿using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Managers
@@ -97,6 +91,7 @@ namespace Assets.Scripts.Concrete.Managers
                 totalRock -= v.rockPrice;
                 totalWood -= v.woodPrice;
                 totalMeat -= v.meatPrice;
+                print($"{v.name}:  gold: {v.goldPrice}, rock: {v.rockPrice}, wood: {v.woodPrice}, meat: {v.meatPrice}");
                 DisplayResources();
                 return true;
             }

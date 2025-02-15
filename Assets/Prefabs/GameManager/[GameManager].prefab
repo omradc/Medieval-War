@@ -21,7 +21,7 @@ GameObject:
   m_Layer: 9
   m_Name: '[GameManager]'
   m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -188,7 +188,7 @@ MonoBehaviour:
     m_Bits: 33554496
   interactableLayers:
     serializedVersion: 2
-    m_Bits: 3221346112
+    m_Bits: 3221345088
   interactedObj: {fileID: 0}
   interactedKnight: {fileID: 0}
   interactedMine: {fileID: 0}
@@ -548,30 +548,170 @@ MonoBehaviour:
     rockPrice: 4
     woodPrice: 4
     meatPrice: 4
-  - name: fence4x4
+  - name: fence 2x2
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 1
-  - name: Down_3x
-    goldPrice: 3
-    rockPrice: 3
-    woodPrice: 0
+  - name: wallDoorLvl1
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
     meatPrice: 0
-  - name: Top_1x
-    goldPrice: 3
-    rockPrice: 3
-    woodPrice: 0
-    meatPrice: 0
-  - name: Down_1x
+  - name: wallDoorLvl2
     goldPrice: 2
     rockPrice: 2
-    woodPrice: 0
+    woodPrice: 2
     meatPrice: 0
-  - name: Door
-    goldPrice: 5
-    rockPrice: 5
-    woodPrice: 5
+  - name: wallDoorLvl3
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: wallDoorLvl4
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: wallDoorLvl1_Destructed
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: wallDoorLvl2_Destructed
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: wallDoorLvl3_Destructed
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: wallDoorLvl4_Destructed
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: wallHorizontalLvl1
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: wallHorizontalLvl2
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: wallHorizontalLvl3
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: wallHorizontalLvl4
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: wallHorizontalLvl1_Destructed
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: wallHorizontalLvl2_Destructed
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: wallHorizontalLvl3_Destructed
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: wallHorizontalLvl4_Destructed
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: wallOneLvl1
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: wallOneLvl2
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: wallOneLvl3
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: wallOneLvl4
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: wallOneLvl1_Destructed
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: wallOneLvl2_Destructed
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: wallOneLvl3_Destructed
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: wallOneLvl4_Destructed
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: wallVerticalLvl1
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: wallVerticalLvl2
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: wallVerticalLvl3
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: wallVerticalLvl4
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
+    meatPrice: 0
+  - name: wallVerticalLvl1_Destructed
+    goldPrice: 1
+    rockPrice: 1
+    woodPrice: 1
+    meatPrice: 0
+  - name: wallVerticalLvl2_Destructed
+    goldPrice: 2
+    rockPrice: 2
+    woodPrice: 2
+    meatPrice: 0
+  - name: wallVerticalLvl3_Destructed
+    goldPrice: 3
+    rockPrice: 3
+    woodPrice: 3
+    meatPrice: 0
+  - name: wallVerticalLvl4_Destructed
+    goldPrice: 4
+    rockPrice: 4
+    woodPrice: 4
     meatPrice: 0
   goldPrice: 0
   rockPrice: 0

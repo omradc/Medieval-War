@@ -115,7 +115,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         private void OnTriggerStay2D(Collider2D collision)
         {
-            if (collision.gameObject.layer == 11)// duvar ise
+            if (collision.gameObject.layer == 11 || collision.CompareTag("Buildable"))// duvar ise, inşa edilebilir
             {
                 obj = true;
             }
@@ -219,13 +219,13 @@ namespace Assets.Scripts.Concrete.Controllers
                 switch (index)
                 {
                     case 0:
-                        return "Down_3x";
+                        return "WallHorizontal_Blue(Clone)";
                     case 1:
-                        return "Top_1x";
+                        return "WallDoor_Blue(Clone)";
                     case 2:
-                        return "Down_1x";
+                        return "WallVertical_Blue(Clone)";
                     case 3:
-                        return "Door";
+                        return "WallOne_Blue(Clone)";
                     default:
                         return "";
                 }

@@ -27,7 +27,7 @@ namespace Assets.Scripts.Concrete.Combats
         void WorriorOrVillagerAttack()
         {
             HealthController enemyHealth;
-            enemyHealth = knightAI.nearestTarget.GetComponent<HealthController>();
+            enemyHealth = knightAI.target.GetComponent<HealthController>();
             enemyHealth.GetHit(kC.damage, kC.gameObject);
             if (enemyHealth.isDead)
                 pF.agent.ResetPath();
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Concrete.Combats
         {
             GameObject obj = Object.Instantiate(kC.arrow, kC.attackRangePosition, Quaternion.identity);
             Arrow arrow = obj.GetComponent<Arrow>();
-            arrow.target = knightAI.nearestTarget;
+            arrow.target = knightAI.target;
             arrow.damage = kC.damage;
             arrow.archer = kC.gameObject;
         }

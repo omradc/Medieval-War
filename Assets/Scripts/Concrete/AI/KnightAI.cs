@@ -10,7 +10,7 @@ namespace Assets.Scripts.Concrete.AI
 {
     internal class KnightAI
     {
-        public GameObject nearestTarget;
+        public GameObject target;
         public Transform nearestAttackPoint;
         readonly KnightController kC;
         readonly PathFindingController pF;
@@ -21,6 +21,7 @@ namespace Assets.Scripts.Concrete.AI
         Vector2 gatePos;
         Vector2 pos;
         bool workOnce;
+        Transform obj;
         public KnightAI(KnightController kC, PathFindingController pF)
         {
             this.kC = kC;
@@ -49,9 +50,9 @@ namespace Assets.Scripts.Concrete.AI
         }
         public void CatchNeraestTarget()
         {
-            nearestTarget = ChooseTarget();
+            target = ChooseTarget();
 
-            if (nearestTarget == null) return;
+            if (target == null) return;
 
             CalculateNearestAttackPoint();
 
@@ -63,16 +64,25 @@ namespace Assets.Scripts.Concrete.AI
             }
 
         }
+
+
         void CalculateNearestAttackPoint()
         {
             // Düşman goblin ise
-            if (nearestTarget.layer == 13)
+            if (target.layer == 13)
             {
-                nearestAttackPoint = nearestTarget.transform;
+                nearestAttackPoint = target.transform;
                 return;
             }
 
-            Transform obj = nearestTarget.transform.GetChild(4);
+            for (int i = 0; i < target.transform.childCount; i++)
+            {
+                if (target.transform.GetChild(i).name == "AttackPoints")
+                    obj = target.transform.GetChild(i);
+            }
+            if (obj == null)
+                Debug.Log("AttackPoints Bulunanamadı");
+
             // Saldırı noktası sayısı 1 ise
             if (obj.transform.childCount == 0)
             {
@@ -135,8 +145,8 @@ namespace Assets.Scripts.Concrete.AI
             // Görüş menzilde düşman varsa, menzilden çıkmayacak şekilde düşmanı takip et
             if (kC.targetEnemies.Length > 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) < kC.currentSightRange)
             {
-                if (nearestTarget == null) return;
-                pF.MoveAI(nearestTarget.transform.position, kC.attackRange);
+                if (target == null) return;
+                pF.MoveAI(target.transform.position, kC.attackRange);
             }
 
         }
