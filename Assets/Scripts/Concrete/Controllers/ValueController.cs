@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Concrete.Managers;
+using Assets.Scripts.Concrete.Names;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,74 +8,37 @@ namespace Assets.Scripts.Concrete.Controllers
 {
     public class ValueController : MonoBehaviour
     {
-        public string objName;
-        public GameObject valuePanel;
-        Image goldPanel;
-        Image rockPanel;
-        Image woodPanel;
-        Image meatPanel; 
-        TextMeshProUGUI goldText;
-        TextMeshProUGUI rockText;
-        TextMeshProUGUI woodText;
-        TextMeshProUGUI meatText;
+        [HideInInspector] public Image goldPanel;
+        [HideInInspector] public Image rockPanel;
+        [HideInInspector] public Image woodPanel;
+        [HideInInspector] public Image meatPanel;
+        [HideInInspector] public TextMeshProUGUI goldText;
+        [HideInInspector] public TextMeshProUGUI rockText;
+        [HideInInspector] public TextMeshProUGUI woodText;
+        [HideInInspector] public TextMeshProUGUI meatText;
 
-        ResourcesManager rM;
-
+        int gold, wood, rock, meat;
+        public string itemName;
         private void Awake()
         {
-            goldPanel = valuePanel.transform.GetChild(0).GetComponent<Image>();
-            rockPanel = valuePanel.transform.GetChild(1).GetComponent<Image>();
-            woodPanel = valuePanel.transform.GetChild(2).GetComponent<Image>();
-            meatPanel = valuePanel.transform.GetChild(3).GetComponent<Image>();
+            goldPanel = transform.GetChild(0).GetComponent<Image>();
+            rockPanel = transform.GetChild(1).GetComponent<Image>();
+            woodPanel = transform.GetChild(2).GetComponent<Image>();
+            meatPanel = transform.GetChild(3).GetComponent<Image>();
 
-            goldText = valuePanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
-            rockText = valuePanel.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>();
-            woodText = valuePanel.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>();
-            meatText = valuePanel.transform.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>();
-        }
-        void Start()
-        {
-            rM = ResourcesManager.Instance;
-            DisplayResourcesValues();
-            InvokeRepeating(nameof(Optimum), 0.1f, 1f);
+            goldText = transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
+            rockText = transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>();
+            woodText = transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>();
+            meatText = transform.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>();
         }
 
-        void Optimum()
+        private void Start()
         {
-            DisplayPanelColor();
-        }
-
-        void DisplayPanelColor()
-        {
-            rM.CheckResources(objName);
-            if (rM.goldIsEnough)
-                goldPanel.color = Color.white;
-            if (!rM.goldIsEnough)
-                goldPanel.color = Color.red;
-
-            if (rM.rockIsEnough)
-                rockPanel.color = Color.white;
-            if (!rM.rockIsEnough)
-                rockPanel.color = Color.red;
-
-            if (rM.woodIsEnough)
-                woodPanel.color = Color.white;
-            if (!rM.woodIsEnough)
-                woodPanel.color = Color.red;
-
-            if (rM.meatIsEnough)
-                meatPanel.color = Color.white;
-            if (!rM.meatIsEnough)
-                meatPanel.color = Color.red;
-        }
-
-        void DisplayResourcesValues()
-        {
-            rM.ResourcesValues(objName);
-            goldText.text = rM.goldPrice.ToString();
-            rockText.text = rM.rockPrice.ToString();
-            woodText.text = rM.woodPrice.ToString();
-            meatText.text = rM.meatPrice.ToString();
+            ResourcesManager.Instance.FirstItemValuesDisplay(itemName, out gold, out rock, out wood, out meat);
+            goldText.text = gold.ToString();
+            rockText.text = rock.ToString();
+            woodText.text = wood.ToString();
+            meatText.text = meat.ToString();
         }
     }
 }

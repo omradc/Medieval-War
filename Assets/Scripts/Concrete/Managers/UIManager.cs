@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Concrete.Enums;
+﻿using Assets.Scripts.Concrete.Controllers;
+using Assets.Scripts.Concrete.Enums;
+using Assets.Scripts.Concrete.Names;
 using TMPro;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
@@ -20,7 +22,7 @@ namespace Assets.Scripts.Concrete.Managers
         Vector3 down;
         Vector3 right;
         Vector3 left;
-
+        [HideInInspector] public GameObject valuePanel;
         public static UIManager Instance { get; private set; }
         private void Awake()
         {
@@ -93,10 +95,19 @@ namespace Assets.Scripts.Concrete.Managers
                     break;
             }
         }
-        public void PreviewBuilding(GameObject obj)
+
+        public void ValuePanel(GameObject valuePanel)
+        {
+            this.valuePanel = valuePanel;
+        }
+
+        public void PreviewBuilding(GameObject previewObj)
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            previewObj = Instantiate(obj, pos, Quaternion.identity);
+            this.previewObj = Instantiate(previewObj, pos, Quaternion.identity);
+            //// Ön izleme objenin ValueController değerinin  ataması yapıldı
+            //previewObj.GetComponent<BuildPreviewController>().valueController = valuePanel.GetComponent<ValueController>();
+
             BuildPanelVisibility(false);
             canDragPreviewObj = true;
         }

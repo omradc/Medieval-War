@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.605
       objectReference: {fileID: 0}
+    - target: {fileID: 3002457814068815293, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
+      propertyPath: itemName
+      value: WallHorizontal_Yellow
+      objectReference: {fileID: 0}
     - target: {fileID: 4143650481316395973, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: m_Size.x
       value: 0.48
@@ -116,9 +120,13 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 6561868187795925463, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
+      propertyPath: itemName
+      value: WallHorizontal_Blue
+      objectReference: {fileID: 0}
     - target: {fileID: 6735518750008747564, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: objName
-      value: wallHorizontalLvl2
+      value: WallHorizontal_Blue
       objectReference: {fileID: 0}
     - target: {fileID: 7810103534694025139, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument

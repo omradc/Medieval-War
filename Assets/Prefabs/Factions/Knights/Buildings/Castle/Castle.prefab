@@ -619,7 +619,6 @@ GameObject:
   - component: {fileID: 2352619709376859486}
   - component: {fileID: 8435280991516039195}
   - component: {fileID: 5189584629740394554}
-  - component: {fileID: 7004866084959604303}
   - component: {fileID: 7651174370483823263}
   - component: {fileID: 7905084520350405072}
   - component: {fileID: 1201669178334663449}
@@ -723,21 +722,6 @@ MonoBehaviour:
   isDead: 0
   goblinHouseController: {fileID: 0}
   attackingPersons: []
---- !u!114 &7004866084959604303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5296483771844846597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aa2a8769ac23e24fac7a0f708cadc41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactablePanel: {fileID: 713694371337608218}
-  destructPanel: {fileID: 3809785112434550503}
-  trainTimePanel: {fileID: 0}
 --- !u!114 &7651174370483823263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,10 +734,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1f63c9f73dbb49488b99b92668875e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactablePanel: {fileID: 713694371337608218}
+  destructPanel: {fileID: 3809785112434550503}
+  trainButton: {fileID: 0}
+  upgradeButton: {fileID: 2705654298846350383}
+  rebuildButton: {fileID: 4464841587431980603}
   trainUnitButton: 0
   upgrade: 0
   construct: {fileID: 0}
   upgradedBuilding: {fileID: 0}
+  trainTimePanel: {fileID: 0}
 --- !u!114 &7905084520350405072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,7 +768,7 @@ MonoBehaviour:
   isFull: 0
   destruct: 0
   unitValue: 0
-  buildingPanelController: {fileID: 0}
+  interactableObjUIController: {fileID: 0}
 --- !u!114 &1201669178334663449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1444,19 +1434,7 @@ PrefabInstance:
     - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7004866084959604303}
-    - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 7004866084959604303}
-    - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
-      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 7004866084959604303}
-    - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
-      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 7004866084959604303}
+      objectReference: {fileID: 7651174370483823263}
     - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: PanelVisibility
@@ -1475,7 +1453,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Assets.Scripts.Concrete.Controllers.BuildingPanelController, Assembly-CSharp
+      value: Assets.Scripts.Concrete.Controllers.InteractableObjUIController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -1541,8 +1519,30 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6513960741865516999, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
   m_PrefabInstance: {fileID: 8676119289586277783}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2705654298846350383 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6767694976710775224, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
+  m_PrefabInstance: {fileID: 8676119289586277783}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3809785112434550503 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5528405871577529200, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
   m_PrefabInstance: {fileID: 8676119289586277783}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4464841587431980603 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5012938776833581996, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
+  m_PrefabInstance: {fileID: 8676119289586277783}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

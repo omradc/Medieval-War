@@ -80,6 +80,10 @@ PrefabInstance:
       propertyPath: construction
       value: 
       objectReference: {fileID: 5494979510523353086, guid: 2ecfac7a7e8a70f4383c60598678f505, type: 3}
+    - target: {fileID: 2527904746535543064, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: itemName
+      value: PawnHouse_Blue
+      objectReference: {fileID: 0}
     - target: {fileID: 2764102408215337153, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: unit
       value: 
@@ -91,6 +95,10 @@ PrefabInstance:
     - target: {fileID: 2816178403449089175, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664101791448561865, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: itemName
+      value: Pawn_Blue
       objectReference: {fileID: 0}
     - target: {fileID: 3844268819050014133, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -161,14 +169,6 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6123638556111727623, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6621170632582260810}
-    - target: {fileID: 6123638556111727623, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
-      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6621170632582260810}
-    - target: {fileID: 6123638556111727623, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: InteractablePanelVisibility
       objectReference: {fileID: 0}
@@ -215,6 +215,10 @@ PrefabInstance:
     - target: {fileID: 7285924397851850293, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: objName
       value: pawnLvl1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7579282239575886650, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
+      propertyPath: itemName
+      value: PawnHouse_Yellow
       objectReference: {fileID: 0}
     - target: {fileID: 7757900011624172198, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
       propertyPath: m_Color.g
@@ -286,17 +290,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6621170632582260810 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8157668699481582750, guid: a70e00047ea81b44ea5a3fd01c97ba8d, type: 3}
-  m_PrefabInstance: {fileID: 3086870004998358228}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aa2a8769ac23e24fac7a0f708cadc41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7654854333882939156 stripped

@@ -1,4 +1,7 @@
-﻿using TMPro;
+﻿using Assets.Scripts.Concrete.Controllers;
+using Assets.Scripts.Concrete.Names;
+using System.ComponentModel;
+using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Managers
@@ -13,24 +16,13 @@ namespace Assets.Scripts.Concrete.Managers
         public int collectMeatAmount;
         public Value[] value;
 
-
-        [HideInInspector] public int goldPrice;
-        [HideInInspector] public int rockPrice;
-        [HideInInspector] public int woodPrice;
-        [HideInInspector] public int meatPrice;
-
         [HideInInspector] public int totalGold;
         [HideInInspector] public int totalRock;
         [HideInInspector] public int totalWood;
         [HideInInspector] public int totalMeat;
 
-        [HideInInspector] public bool goldIsEnough;
-        [HideInInspector] public bool rockIsEnough;
-        [HideInInspector] public bool woodIsEnough;
-        [HideInInspector] public bool meatIsEnough;
-
-
         int index;
+        bool isObjFound;
         TextMeshProUGUI goldText;
         TextMeshProUGUI rockText;
         TextMeshProUGUI woodText;
@@ -71,16 +63,26 @@ namespace Assets.Scripts.Concrete.Managers
         }
 
         // Satın alma işlemi
-        public bool Buy(string name)
+        public bool Buy(string name, ValueController valueController)
         {
+
             // Satın alınan ürünün adını değer listesinde ara, bulunca index sırasını eşitle
             for (int i = 0; i < value.Length; i++)
             {
                 if (value[i].name == name)
                 {
+                    isObjFound = true;
                     index = i;
                     break;
                 }
+                else
+                    isObjFound = false;
+            }
+
+            if (!isObjFound)
+            {
+                print("name not found");
+                return false;
             }
 
             Value v = value[index];
@@ -91,6 +93,11 @@ namespace Assets.Scripts.Concrete.Managers
                 totalRock -= v.rockPrice;
                 totalWood -= v.woodPrice;
                 totalMeat -= v.meatPrice;
+
+
+                DisplayCost(valueController, v);
+                DisplayPanelColor(valueController, v);
+
                 print($"{v.name}:  gold: {v.goldPrice}, rock: {v.rockPrice}, wood: {v.woodPrice}, meat: {v.meatPrice}");
                 DisplayResources();
                 return true;
@@ -102,44 +109,39 @@ namespace Assets.Scripts.Concrete.Managers
             }
         }
 
-        // Bir panelde nesnenin satın alınıp alınamayacağını kontrol eder
-        public void CheckResources(string name)
+        void DisplayCost(ValueController valueController, Value v)
         {
-            // Satın alınan ürünün adını değer listesinde ara, bulunca index sırasını eşitle
-            for (int i = 0; i < value.Length; i++)
-            {
-                if (value[i].name == name)
-                {
-                    index = i;
-                    break;
-                }
-            }
+            valueController.goldText.text = v.goldPrice.ToString();
+            valueController.rockText.text = v.rockPrice.ToString();
+            valueController.woodText.text = v.woodPrice.ToString();
+            valueController.meatText.text = v.meatPrice.ToString();
+        }
 
-            Value v = value[index];
-
+        void DisplayPanelColor(ValueController valueController, Value v)
+        {
             if (totalGold >= v.goldPrice)
-                goldIsEnough = true;
+                valueController.goldPanel.color = Color.white;
             if (totalGold < v.goldPrice)
-                goldIsEnough = false;
+                valueController.goldPanel.color = Color.red;
 
             if (totalRock >= v.rockPrice)
-                rockIsEnough = true;
+                valueController.rockPanel.color = Color.white;
             if (totalRock < v.rockPrice)
-                rockIsEnough = false;
+                valueController.rockPanel.color = Color.red;
 
             if (totalWood >= v.woodPrice)
-                woodIsEnough = true;
+                valueController.woodPanel.color = Color.white;
             if (totalWood < v.woodPrice)
-                woodIsEnough = false;
+                valueController.woodPanel.color = Color.red;
 
             if (totalMeat >= v.meatPrice)
-                meatIsEnough = true;
+                valueController.meatPanel.color = Color.white;
             if (totalMeat < v.meatPrice)
-                meatIsEnough = false;
+                valueController.meatPanel.color = Color.red;
         }
 
         // Nesnelerin  text fiyatını göstermek için
-        public void ResourcesValues(string name)
+        public void FirstItemValuesDisplay(string name, out int goldPrice,out int rockPrice, out int woodPrice, out int meatPrice)
         {
             // Satın alınan ürünün adını değer listesinde ara, bulunca index sırasını eşitle
             for (int i = 0; i < value.Length; i++)

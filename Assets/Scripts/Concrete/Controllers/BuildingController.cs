@@ -22,8 +22,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool destruct;
         [HideInInspector] public int unitValue;
 
-        [HideInInspector] public BuildingPanelController buildingPanelController;
-        ButtonController buttonController;
+        [HideInInspector] public InteractableObjUIController interactableObjUIController;
         HealthController healthController;
         DynamicOrderInLayer dynamicOrderInLayer;
         bool workOnce = true;
@@ -31,8 +30,7 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Awake()
         {
             healthController = GetComponent<HealthController>();
-            buttonController = GetComponent<ButtonController>();
-            buildingPanelController = GetComponent<BuildingPanelController>();
+            interactableObjUIController = GetComponent<InteractableObjUIController>();
             dynamicOrderInLayer = new();
             visualSprite = visualBuilding.GetComponent<SpriteRenderer>();
             visualDestructedSprite = visualDestructed.GetComponent<SpriteRenderer>();
@@ -73,8 +71,8 @@ namespace Assets.Scripts.Concrete.Controllers
             gameObject.layer = 26; // Katman = Destructed
             workOnce = false;
 
-            if (buildingPanelController != null)
-                buildingPanelController.interactablePanel.SetActive(false);
+            if (interactableObjUIController != null)
+                interactableObjUIController.interactablePanel.SetActive(false);
 
             if (destroyPermanent)
                 Destroy(gameObject, destroyTime);
@@ -82,11 +80,11 @@ namespace Assets.Scripts.Concrete.Controllers
 
         void Upgrade()
         {
-            if (buttonController == null) return;
-            if (buttonController.upgrade)
+            if (interactableObjUIController == null) return;
+            if (interactableObjUIController.upgrade)
             {
-                GameObject obj = Instantiate(buttonController.construct, transform.position, Quaternion.identity);
-                obj.GetComponent<ConstructController>().constructing = buttonController.upgradedBuilding;
+                GameObject obj = Instantiate(interactableObjUIController.construct, transform.position, Quaternion.identity);
+                obj.GetComponent<ConstructController>().constructing = interactableObjUIController.upgradedBuilding;
                 Destroy(gameObject, 0);
 
             }

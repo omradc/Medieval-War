@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
+using Assets.Scripts.Concrete.Names;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,19 +42,23 @@ namespace Assets.Scripts.Concrete.Controllers
         BoxCollider2D coll;
         List<Vector3> wallsPos;
         DynamicOrderInLayer dynamicOrderInLayer;
-
+        ObjNames names;
         [HideInInspector] public int index;
+        public ValueController valueController;
+
         bool obj;
         bool anyObj;
         bool value = true;
         private void Awake()
         {
+            names = new(gameObject.name);
             dynamicOrderInLayer = new();
             coll = GetComponent<BoxCollider2D>();
             wallsPos = new List<Vector3>();
         }
         private void Start()
         {
+            valueController = UIManager.Instance.valuePanel.GetComponent<ValueController>();
             if (gameObject.name == "Preview_Wall(Clone)")
             {
                 down_3xSprite = down_3x.GetComponent<SpriteRenderer>();
@@ -112,7 +117,6 @@ namespace Assets.Scripts.Concrete.Controllers
 
         }
 
-
         private void OnTriggerStay2D(Collider2D collision)
         {
             if (collision.gameObject.layer == 11 || collision.CompareTag("Buildable"))// duvar ise, inşa edilebilir
@@ -124,7 +128,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 obj = false;
                 anyObj = true;
             }
-            if (!anyObj && obj) return; 
+            if (!anyObj && obj) return;
 
             // İnşaa edilemez
             buildConfirmButton.interactable = false;
@@ -180,7 +184,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         public void BuildConfirmButton()
         {
-            if (ResourcesManager.Instance.Buy(BuildingName()))
+            if (ResourcesManager.Instance.Buy(names.PrewiewBuildingName(index), valueController))
             {
                 UIManager.Instance.canBuild = true;
 
@@ -200,40 +204,6 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             UIManager.Instance.BuildPanelVisibility(true);
             Destroy(gameObject);
-        }
-        string BuildingName()
-        {
-            if (gameObject.name == "Preview_PawnHouse(Clone)")
-                return "pawnHouseLvl1";
-            if (gameObject.name == "Preview_WarriorHouse(Clone)")
-                return "warriorHouseLvl1";
-            if (gameObject.name == "Preview_ArcherHouse(Clone)")
-                return "archerHouseLvl1";
-            if (gameObject.name == "Preview_Tower(Clone)")
-                return "towerLvl1";
-            if (gameObject.name == "Preview_Castle(Clone)")
-                return "castleLvl1";
-            if (gameObject.name == "Preview_Fence2x2(Clone)")
-                return "fence2x2";
-            if (gameObject.name == "Preview_Wall(Clone)")
-                switch (index)
-                {
-                    case 0:
-                        return "WallHorizontal_Blue(Clone)";
-                    case 1:
-                        return "WallDoor_Blue(Clone)";
-                    case 2:
-                        return "WallVertical_Blue(Clone)";
-                    case 3:
-                        return "WallOne_Blue(Clone)";
-                    default:
-                        return "";
-                }
-            else
-            {
-                Debug.Log("Preview name not found ");
-                return "";
-            }
         }
         void SetColliderSizeForWalls(float sizeX, float sizeY, float offsetX = 0, float offsetY = 0)
         {

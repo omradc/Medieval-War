@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2705654298846350383, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: itemName
+      value: Castle_Yellow
+      objectReference: {fileID: 0}
     - target: {fileID: 2838604630567928238, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -176,6 +180,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4464841587431980603, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: itemName
+      value: Castle_Blue
+      objectReference: {fileID: 0}
     - target: {fileID: 5154746384366468252, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
       propertyPath: objName
       value: castleLvl2
@@ -220,6 +228,14 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7651174370483823263, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: upgradeButton
+      value: 
+      objectReference: {fileID: 3650911286837146151}
+    - target: {fileID: 7651174370483823263, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+      propertyPath: destructButton
+      value: 
+      objectReference: {fileID: 3085110346308681779}
     - target: {fileID: 7905084520350405072, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
       propertyPath: construction
       value: 
@@ -233,6 +249,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+--- !u!114 &3085110346308681779 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4464841587431980603, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+  m_PrefabInstance: {fileID: 1668247517161766408}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3650911286837146151 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2705654298846350383, guid: 985f850e430e38640a8a31ac544439dc, type: 3}
+  m_PrefabInstance: {fileID: 1668247517161766408}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &9009627845384232087 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7651174370483823263, guid: 985f850e430e38640a8a31ac544439dc, type: 3}

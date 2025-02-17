@@ -509,6 +509,8 @@ GameObject:
   - component: {fileID: 6326413030231986139}
   - component: {fileID: 6335887299980227161}
   - component: {fileID: 2594251611338194644}
+  - component: {fileID: 4738946292135156093}
+  - component: {fileID: 8047560030843375650}
   m_Layer: 5
   m_Name: ValuePanel
   m_TagString: Untagged
@@ -601,6 +603,39 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &4738946292135156093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4382732782277031453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldPanel: {fileID: 0}
+  rockPanel: {fileID: 0}
+  woodPanel: {fileID: 0}
+  meatPanel: {fileID: 0}
+  goldText: {fileID: 0}
+  rockText: {fileID: 0}
+  woodText: {fileID: 0}
+  meatText: {fileID: 0}
+  itemName: 
+--- !u!225 &8047560030843375650
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4382732782277031453}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5447603366467545238
 GameObject:
   m_ObjectHideFlags: 0

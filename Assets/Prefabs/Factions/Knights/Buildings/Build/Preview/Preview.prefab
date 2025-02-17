@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6624885541170259179}
   - component: {fileID: 7650643589716692509}
-  - component: {fileID: 5001609990032638508}
   - component: {fileID: -5356403488571372232}
-  - component: {fileID: 2824101086386692797}
+  - component: {fileID: 5001609990032638508}
   m_Layer: 0
   m_Name: Preview
   m_TagString: Preview
@@ -84,31 +83,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3, y: 3}
   m_EdgeRadius: 0
---- !u!114 &5001609990032638508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 318962612607029812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06592f9df1a32c64896223e25641931c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridSize: 0.2
-  buildConfirmButton: {fileID: 4317161609345246021}
-  visual: {fileID: 8668321940580897174}
-  visualRed: {fileID: 2982536187220490405}
-  down_3x: {fileID: 0}
-  top_1x: {fileID: 0}
-  down_1x: {fileID: 0}
-  door: {fileID: 0}
-  down_3xRed: {fileID: 0}
-  top_1xRed: {fileID: 0}
-  down_1xRed: {fileID: 0}
-  doorRed: {fileID: 0}
-  index: 0
 --- !u!50 &-5356403488571372232
 Rigidbody2D:
   serializedVersion: 5
@@ -136,7 +110,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2824101086386692797
+--- !u!114 &5001609990032638508
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,10 +119,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 318962612607029812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2ee95399c757d14ca16cb9b1508c23b, type: 3}
+  m_Script: {fileID: 11500000, guid: 06592f9df1a32c64896223e25641931c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coll: {fileID: 7650643589716692509}
+  gridSize: 0.2
+  buildConfirmButton: {fileID: 4317161609345246021}
+  visual: {fileID: 8668321940580897174}
+  visualRed: {fileID: 2982536187220490405}
+  down_3x: {fileID: 0}
+  top_1x: {fileID: 0}
+  down_1x: {fileID: 0}
+  door: {fileID: 0}
+  down_3xRed: {fileID: 0}
+  top_1xRed: {fileID: 0}
+  down_1xRed: {fileID: 0}
+  doorRed: {fileID: 0}
+  index: 0
 --- !u!1 &2982536187220490405
 GameObject:
   m_ObjectHideFlags: 0

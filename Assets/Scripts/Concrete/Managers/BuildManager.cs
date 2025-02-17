@@ -16,7 +16,7 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject top_1x;
         public GameObject down_1x;
         public GameObject door;
-        [HideInInspector] public GameObject lastBuidingObj;
+
 
         private void Awake()
         {
@@ -86,7 +86,7 @@ namespace Assets.Scripts.Concrete.Managers
         GameObject Build(GameObject construct)
         {
             Vector2 pos = UIManager.Instance.previewObj.transform.position;
-            return lastBuidingObj = Instantiate(construct, pos, Quaternion.identity);
+            return Instantiate(construct, pos, Quaternion.identity);
         }
 
     }

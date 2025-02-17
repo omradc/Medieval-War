@@ -148,7 +148,6 @@ GameObject:
   - component: {fileID: 2225448539666547309}
   - component: {fileID: 6392159587438546909}
   - component: {fileID: 1838449135668178184}
-  - component: {fileID: 5903064638722946897}
   m_Layer: 8
   m_Name: UpgradeButton
   m_TagString: Untagged
@@ -271,20 +270,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5903064638722946897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021544953365309646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objName: 
-  valuePanel: {fileID: 628104793091713691}
 --- !u!1 &1540668074578041099
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,7 +662,6 @@ GameObject:
   - component: {fileID: 1823141888128166528}
   - component: {fileID: 2246051227743344713}
   - component: {fileID: 2719443045825362817}
-  - component: {fileID: 7961520489900914594}
   m_Layer: 8
   m_Name: Rebuild Button
   m_TagString: Untagged
@@ -801,20 +785,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7961520489900914594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4271291180272950900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objName: 
-  valuePanel: {fileID: 4795373764880416953}
 --- !u!1 &4877118761330876086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,7 +983,6 @@ GameObject:
   - component: {fileID: 1667863799109321228}
   - component: {fileID: 6897448037530953440}
   - component: {fileID: 1814093202264563820}
-  - component: {fileID: 8760125694571133172}
   m_Layer: 8
   m_Name: TrainButton
   m_TagString: Untagged
@@ -1137,20 +1106,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8760125694571133172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5210634909978524056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objName: 
-  valuePanel: {fileID: 5999355297880299880}
 --- !u!1 &5888156521882166492
 GameObject:
   m_ObjectHideFlags: 0
@@ -2304,11 +2259,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f19aa548e511f4799020f0da0e1866, type: 3}
---- !u!1 &628104793091713691 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4382732782277031453, guid: 49f19aa548e511f4799020f0da0e1866, type: 3}
-  m_PrefabInstance: {fileID: 3775672102752312454}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6514984751514244879 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7929715075411118985, guid: 49f19aa548e511f4799020f0da0e1866, type: 3}
@@ -2540,11 +2490,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7929715075411118985, guid: 49f19aa548e511f4799020f0da0e1866, type: 3}
   m_PrefabInstance: {fileID: 8039881794722967413}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5999355297880299880 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4382732782277031453, guid: 49f19aa548e511f4799020f0da0e1866, type: 3}
-  m_PrefabInstance: {fileID: 8039881794722967413}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8571862576725964913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2639,7 +2584,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4544560297067205808, guid: ce7bde90cc6144044b12efbe49328efc, type: 3}
       propertyPath: m_PresetInfoIsWorld
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9116814190444537388, guid: ce7bde90cc6144044b12efbe49328efc, type: 3}
       propertyPath: m_SortingOrder
@@ -2889,10 +2834,5 @@ PrefabInstance:
 --- !u!224 &1176018869841083693 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7929715075411118985, guid: 49f19aa548e511f4799020f0da0e1866, type: 3}
-  m_PrefabInstance: {fileID: 9105732223708444324}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4795373764880416953 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4382732782277031453, guid: 49f19aa548e511f4799020f0da0e1866, type: 3}
   m_PrefabInstance: {fileID: 9105732223708444324}
   m_PrefabAsset: {fileID: 0}

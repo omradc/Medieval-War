@@ -235,6 +235,7 @@ MonoBehaviour:
   previewObj: {fileID: 0}
   canDragPreviewObj: 1
   gridSize: 0.1
+  valuePanel: {fileID: 0}
 --- !u!114 &3724882387064550949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +270,6 @@ MonoBehaviour:
   top_1x: {fileID: 2603522970388996191, guid: bf5146aabc3635a438015a4b0091ed35, type: 3}
   down_1x: {fileID: 2603522970388996191, guid: 1a9cdadb5b1045844b0d7d1642088a61, type: 3}
   door: {fileID: 2508427244137312361, guid: 32ed4cf4f8d33b740990d6c90b737ed2, type: 3}
-  lastBuidingObj: {fileID: 0}
 --- !u!114 &4923174947444017873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,427 +288,427 @@ MonoBehaviour:
   collectWoodAmount: 10
   collectMeatAmount: 10
   value:
-  - name: pawnHouseLvl1
+  - name: PawnHouse_Blue
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: pawnHouseLvl2
+  - name: PawnHouse_Yellow
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: pawnHouseLvl3
+  - name: PawnHouse_Red
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: pawnHouseLvl4
+  - name: PawnHouse_Purple
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: pawnHouseLvl1_Destructed
+  - name: PawnHouse_Blue_Destructed
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: pawnHouseLvl2_Destructed
+  - name: PawnHouse_Yellow_Destructed
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: pawnHouseLvl3_Destructed
+  - name: PawnHouse_Red_Destructed
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: pawnHouseLvl4_Destructed
+  - name: PawnHouse_Purple_Destructed
     goldPrice: 0
     rockPrice: 0
     woodPrice: 0
     meatPrice: 0
-  - name: warriorHouseLvl1
+  - name: WarriorHouse_Blue
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: warriorHouseLvl2
+  - name: WarriorHouse_Yellow
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: warriorHouseLvl3
+  - name: WarriorHouse_Red
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: warriorHouseLvl4
+  - name: WarriorHouse_Purple
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: warriorHouseLvl1_Destructed
+  - name: WarriorHouse_Blue_Destructed
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: warriorHouseLvl2_Destructed
+  - name: WarriorHouse_Yellow_Destructed
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: warriorHouseLvl3_Destructed
+  - name: WarriorHouse_Red_Destructed
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: warriorHouseLvl4_Destructed
+  - name: WarriorHouse_Purple_Destructed
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: archerHouseLvl1
+  - name: ArcherHouse_Blue
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: archerHouseLvl2
+  - name: ArcherHouse_Yellow
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: archerHouseLvl3
+  - name: ArcherHouse_Red
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: archerHouseLvl4
+  - name: ArcherHouse_Purple
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: archerHouseLvl1_Destructed
+  - name: ArcherHouse_Blue_Destructed
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: archerHouseLvl2_Destructed
+  - name: ArcherHouse_Yellow_Destructed
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: archerHouseLvl3_Destructed
+  - name: ArcherHouse_Red_Destructed
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: archerHouseLvl4_Destructed
+  - name: ArcherHouse_Purple_Destructed
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: towerLvl1
+  - name: Tower_Blue
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: towerLvl2
+  - name: Tower_Yellow
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: towerLvl3
+  - name: Tower_Red
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: towerLvl4
+  - name: Tower_Purple
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: towerLvl1_Destructed
+  - name: Tower_Blue_Destructed
     goldPrice: 0
     rockPrice: 0
     woodPrice: 0
     meatPrice: 0
-  - name: towerLvl2_Destructed
+  - name: Tower_Yellow_Destructed
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: towerLvl3_Destructed
+  - name: Tower_Red_Destructed
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: towerLvl4_Destructed
+  - name: Tower_Purple_Destructed
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: castleLvl1
+  - name: Castle_Blue
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: castleLvl2
+  - name: Castle_Yellow
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: castleLvl3
+  - name: Castle_Red
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: castleLvl4
+  - name: Castle_Purple
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: castleLvl1_Destructed
+  - name: Castle_Blue_Destructed
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: castleLvl2_Destructed
+  - name: Castle_Yellow_Destructed
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: castleLvl3_Destructed
+  - name: Castle_Red_Destructed
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: castleLvl4_Destructed
+  - name: Castle_Purple_Destructed
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: pawnLvl1
+  - name: Pawn_Blue
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 1
-  - name: pawnLvl2
+  - name: Pawn_Yellow
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 2
-  - name: pawnLvl3
+  - name: Pawn_Red
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 3
-  - name: pawnLvl4
+  - name: Pawn_Purple
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 4
-  - name: warriorLvl1
+  - name: Warrior_Blue
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 1
-  - name: warriorLvl2
+  - name: Warrior_Yellow
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 2
-  - name: warriorLvl3
+  - name: Warrior_Red
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 3
-  - name: warriorLvl4
+  - name: Warrior_Purple
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 4
-  - name: archerLvl1
+  - name: Archer_Blue
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 1
-  - name: archerLvl2
+  - name: Archer_Yellow
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 2
-  - name: archerLvl3
+  - name: Archer_Red
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 3
-  - name: archerLvl4
+  - name: Archer_Purple
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 4
-  - name: fence 2x2
+  - name: Fence2x2
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 1
-  - name: wallDoorLvl1
+  - name: WallDoor_Blue
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: wallDoorLvl2
+  - name: WallDoor_Yellow
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: wallDoorLvl3
+  - name: WallDoor_Red
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: wallDoorLvl4
+  - name: WallDoor_Purple
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: wallDoorLvl1_Destructed
+  - name: WallDoor_Blue_Destructed
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: wallDoorLvl2_Destructed
+  - name: WallDoor_Yellow_Destructed
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: wallDoorLvl3_Destructed
+  - name: WallDoor_Red_Destructed
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: wallDoorLvl4_Destructed
+  - name: WallDoor_Purple_Destructed
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: wallHorizontalLvl1
+  - name: WallHorizontal_Blue
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: wallHorizontalLvl2
+  - name: WallHorizontal_Yellow
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: wallHorizontalLvl3
+  - name: WallHorizontal_Red
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: wallHorizontalLvl4
+  - name: WallHorizontal_Purple
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: wallHorizontalLvl1_Destructed
+  - name: WallHorizontal_Blue_Destructed
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: wallHorizontalLvl2_Destructed
+  - name: WallHorizontal_Yellow_Destructed
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: wallHorizontalLvl3_Destructed
+  - name: WallHorizontal_Red_Destructed
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: wallHorizontalLvl4_Destructed
+  - name: WallHorizontal_Purple_Destructed
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: wallOneLvl1
+  - name: WallOne_Blue
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: wallOneLvl2
+  - name: WallOne_Yellow
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: wallOneLvl3
+  - name: WallOne_Red
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: wallOneLvl4
+  - name: WallOne_Purple
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: wallOneLvl1_Destructed
+  - name: WallOne_Blue_Destructed
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: wallOneLvl2_Destructed
+  - name: WallOne_Yellow_Destructed
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: wallOneLvl3_Destructed
+  - name: WallOne_Red_Destructed
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: wallOneLvl4_Destructed
+  - name: WallOne_Purple_Destructed
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: wallVerticalLvl1
+  - name: WallVertical_Blue
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: wallVerticalLvl2
+  - name: WallVertical_Yellow
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: wallVerticalLvl3
+  - name: WallVertical_Red
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: wallVerticalLvl4
+  - name: WallVertical_Purple
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4
     meatPrice: 0
-  - name: wallVerticalLvl1_Destructed
+  - name: WallVertical_Blue_Destructed
     goldPrice: 1
     rockPrice: 1
     woodPrice: 1
     meatPrice: 0
-  - name: wallVerticalLvl2_Destructed
+  - name: WallVertical_Yellow_Destructed
     goldPrice: 2
     rockPrice: 2
     woodPrice: 2
     meatPrice: 0
-  - name: wallVerticalLvl3_Destructed
+  - name: WallVertical_Red_Destructed
     goldPrice: 3
     rockPrice: 3
     woodPrice: 3
     meatPrice: 0
-  - name: wallVerticalLvl4_Destructed
+  - name: WallVertical_Purple_Destructed
     goldPrice: 4
     rockPrice: 4
     woodPrice: 4

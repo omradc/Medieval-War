@@ -387,7 +387,6 @@ GameObject:
   - component: {fileID: 6198312127698026226}
   - component: {fileID: 1542833100297424088}
   - component: {fileID: -8530563437224599635}
-  - component: {fileID: 384195447975110197}
   - component: {fileID: 3416967471483132282}
   - component: {fileID: 2630437242065980615}
   - component: {fileID: 4174268104845637586}
@@ -442,7 +441,7 @@ MonoBehaviour:
   isFull: 0
   destruct: 0
   unitValue: 0
-  buildingPanelController: {fileID: 0}
+  interactableObjUIController: {fileID: 0}
 --- !u!114 &-8530563437224599635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,21 +467,6 @@ MonoBehaviour:
   isDead: 0
   goblinHouseController: {fileID: 0}
   attackingPersons: []
---- !u!114 &384195447975110197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6293339253157804456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aa2a8769ac23e24fac7a0f708cadc41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactablePanel: {fileID: 414674734560720264}
-  destructPanel: {fileID: 1202856553688070551}
-  trainTimePanel: {fileID: 0}
 --- !u!114 &3416967471483132282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -510,10 +494,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1f63c9f73dbb49488b99b92668875e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactablePanel: {fileID: 414674734560720264}
+  destructPanel: {fileID: 1202856553688070551}
+  trainButton: {fileID: 0}
+  upgradeButton: {fileID: 3002457814068815293}
+  rebuildButton: {fileID: 6561868187795925463}
   trainUnitButton: 0
   upgrade: 0
   construct: {fileID: 0}
   upgradedBuilding: {fileID: 0}
+  trainTimePanel: {fileID: 0}
 --- !u!61 &4174268104845637586
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -544,7 +534,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -783,14 +773,14 @@ PrefabInstance:
     - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 384195447975110197}
+      objectReference: {fileID: 2630437242065980615}
     - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: PanelVisibility
       objectReference: {fileID: 0}
     - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Assets.Scripts.Concrete.Controllers.BuildingPanelController, Assembly-CSharp
+      value: Assets.Scripts.Concrete.Controllers.InteractableObjUIController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1111,10 +1101,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5848511167072975918, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6735518750008747564}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
 --- !u!1 &92728276377362436 stripped
 GameObject:
@@ -1131,32 +1118,30 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1301724282251516400, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
   m_PrefabInstance: {fileID: 189644864555180135}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &3325711548136790978 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3208407879720795045, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
-  m_PrefabInstance: {fileID: 189644864555180135}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6020139611253365833 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5848511167072975918, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
-  m_PrefabInstance: {fileID: 189644864555180135}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6735518750008747564
+--- !u!114 &3002457814068815293 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3101607431007045082, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
+  m_PrefabInstance: {fileID: 189644864555180135}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6020139611253365833}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objName: 
-  valuePanel: {fileID: 6105853930701376221}
---- !u!1 &6105853930701376221 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6205284307463383738, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
+--- !u!224 &3325711548136790978 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3208407879720795045, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
   m_PrefabInstance: {fileID: 189644864555180135}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6561868187795925463 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6463141168838003120, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
+  m_PrefabInstance: {fileID: 189644864555180135}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

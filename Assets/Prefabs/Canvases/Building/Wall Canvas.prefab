@@ -497,7 +497,6 @@ GameObject:
   - component: {fileID: 1200932671171976049}
   - component: {fileID: 5408627883944838539}
   - component: {fileID: 4949334863713360994}
-  - component: {fileID: 5429732776545415052}
   m_Layer: 8
   m_Name: Rebuild Button
   m_TagString: Untagged
@@ -621,20 +620,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5429732776545415052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8775328575542302717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objName: 
-  valuePanel: {fileID: 2641139163931403984}
 --- !u!1001 &1762506338246856909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -856,11 +841,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f19aa548e511f4799020f0da0e1866, type: 3}
---- !u!1 &2641139163931403984 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4382732782277031453, guid: 49f19aa548e511f4799020f0da0e1866, type: 3}
-  m_PrefabInstance: {fileID: 1762506338246856909}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8537048038989142852 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7929715075411118985, guid: 49f19aa548e511f4799020f0da0e1866, type: 3}

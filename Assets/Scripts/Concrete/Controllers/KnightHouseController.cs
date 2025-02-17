@@ -11,20 +11,18 @@ namespace Assets.Scripts.Concrete.Controllers
         public float trainingTime;
 
         Transform trainedUnitPos;
-        BuildingPanelController panelController;
-        ButtonController buttonController;
+        InteractableObjUIController interactableObjUIController;
         KnightHouse knightHouse;
         
         private void Awake()
         {
-            panelController = GetComponent<BuildingPanelController>();
-            buttonController = GetComponent<ButtonController>();
+            interactableObjUIController = GetComponent<InteractableObjUIController>();
             trainedUnitPos = transform.GetChild(0);
 
         }
         private void Start()
         {
-            knightHouse = new KnightHouse(unit, trainedUnitPos.position, panelController, buttonController, this);
+            knightHouse = new KnightHouse(unit, trainedUnitPos.position, interactableObjUIController, this);
         }
         private void Update()
         {           

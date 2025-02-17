@@ -211,7 +211,7 @@ namespace Assets.Scripts.Concrete.AI
                     kC.goBuilding = false;
                     kC.currentSightRange = kC.attackRange;
                     kC.unitOrderEnum = KnightOrderEnum.StayOrder;
-                    bC.buildingPanelController.interactablePanel.SetActive(false); // Etkileşim ekranını kapat
+                    bC.interactableObjUIController.interactablePanel.SetActive(false); // Etkileşim ekranını kapat
 
                     // Kulede birim varsa, çıkma
                     if (bC.isFull)

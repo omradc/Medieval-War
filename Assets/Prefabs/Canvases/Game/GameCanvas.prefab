@@ -712,7 +712,6 @@ GameObject:
   - component: {fileID: 3720953075543548983}
   - component: {fileID: 8410985630826346855}
   - component: {fileID: 1730059374883304190}
-  - component: {fileID: 7698310972795188150}
   m_Layer: 5
   m_Name: TowerClicker
   m_TagString: Untagged
@@ -768,6 +767,18 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
+          m_MethodName: ValuePanel
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6286496734103261382}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
           m_MethodName: PreviewBuilding
           m_Mode: 2
           m_Arguments:
@@ -778,20 +789,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &7698310972795188150
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1120780354599514599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objName: towerLvl1
-  valuePanel: {fileID: 6286496734103261382}
 --- !u!1 &1124703659326924457
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,7 +982,6 @@ GameObject:
   - component: {fileID: 4024296808534011763}
   - component: {fileID: 7158159129276340472}
   - component: {fileID: 900374901624484664}
-  - component: {fileID: 3755417690818648477}
   m_Layer: 5
   m_Name: CastleClicker
   m_TagString: Untagged
@@ -1041,6 +1037,18 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
+          m_MethodName: ValuePanel
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 3534275437325395730}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
           m_MethodName: PreviewBuilding
           m_Mode: 2
           m_Arguments:
@@ -1051,20 +1059,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &3755417690818648477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525377943052436483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objName: castleLvl1
-  valuePanel: {fileID: 3534275437325395730}
 --- !u!1 &1566690083081473339
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,7 +1421,6 @@ GameObject:
   - component: {fileID: 8995914106569296745}
   - component: {fileID: 3575908244867114698}
   - component: {fileID: 1109056742836522493}
-  - component: {fileID: 8717268527808895977}
   m_Layer: 5
   m_Name: ArcherHouseClicker
   m_TagString: Untagged
@@ -1484,6 +1477,18 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
+          m_MethodName: ValuePanel
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 2593084754175810275}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
           m_MethodName: PreviewBuilding
           m_Mode: 2
           m_Arguments:
@@ -1494,20 +1499,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &8717268527808895977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1927699506139666773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objName: archerHouseLvl1
-  valuePanel: {fileID: 2593084754175810275}
 --- !u!1 &1940332618062863558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,7 +1767,6 @@ GameObject:
   - component: {fileID: 5390578823311802234}
   - component: {fileID: 431765741720346026}
   - component: {fileID: 4532612167270805385}
-  - component: {fileID: 4348389539470954195}
   m_Layer: 5
   m_Name: FenceClicker
   m_TagString: Untagged
@@ -1832,6 +1822,18 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
+          m_MethodName: ValuePanel
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 644529263466030582}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
           m_MethodName: PreviewBuilding
           m_Mode: 2
           m_Arguments:
@@ -1842,20 +1844,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &4348389539470954195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2161828879340094662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objName: fence4x4
-  valuePanel: {fileID: 644529263466030582}
 --- !u!1 &2371835358391634651
 GameObject:
   m_ObjectHideFlags: 0
@@ -2559,7 +2547,6 @@ GameObject:
   - component: {fileID: 3720307333666854504}
   - component: {fileID: 8325707446067912829}
   - component: {fileID: 3483105172941419719}
-  - component: {fileID: 8144267505492555376}
   m_Layer: 5
   m_Name: WallClicker
   m_TagString: Untagged
@@ -2615,6 +2602,18 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
+          m_MethodName: ValuePanel
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 5523626929214504328}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
           m_MethodName: PreviewBuilding
           m_Mode: 2
           m_Arguments:
@@ -2625,20 +2624,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &8144267505492555376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3506799393491733559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objName: Down_3x
-  valuePanel: {fileID: 5523626929214504328}
 --- !u!1 &3977567371286247926
 GameObject:
   m_ObjectHideFlags: 0
@@ -3274,7 +3259,6 @@ GameObject:
   - component: {fileID: 2290708400444666402}
   - component: {fileID: 5148249647944015635}
   - component: {fileID: 8567685013040362556}
-  - component: {fileID: 6925541392290361123}
   m_Layer: 5
   m_Name: WarriorHouseClicker
   m_TagString: Untagged
@@ -3331,6 +3315,18 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
+          m_MethodName: ValuePanel
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 2181918295859567236}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
           m_MethodName: PreviewBuilding
           m_Mode: 2
           m_Arguments:
@@ -3341,20 +3337,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &6925541392290361123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4911731986415267930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objName: warriorHouseLvl1
-  valuePanel: {fileID: 2181918295859567236}
 --- !u!1 &4946171057329904478
 GameObject:
   m_ObjectHideFlags: 0
@@ -6057,7 +6039,6 @@ GameObject:
   - component: {fileID: 8130185439962243546}
   - component: {fileID: 2860143734393135148}
   - component: {fileID: 5678603484212364730}
-  - component: {fileID: 7311106797662160615}
   m_Layer: 5
   m_Name: PawnHouseClicker
   m_TagString: Untagged
@@ -6114,6 +6095,18 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
+          m_MethodName: ValuePanel
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 4855298773038300010}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
           m_MethodName: PreviewBuilding
           m_Mode: 2
           m_Arguments:
@@ -6124,20 +6117,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &7311106797662160615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9068905882418270079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139c57f3e5654304790261382dab96a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objName: pawnHouseLvl1
-  valuePanel: {fileID: 4855298773038300010}
 --- !u!1 &9072485929641701402
 GameObject:
   m_ObjectHideFlags: 0
