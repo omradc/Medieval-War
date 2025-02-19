@@ -413,6 +413,8 @@ MonoBehaviour:
   targetWoodTower:
     serializedVersion: 2
     m_Bits: 134217728
+  orderInLayerSpriteAnchor: {fileID: 2715725370843426436}
+  visual: {fileID: 3857208795512620348}
   patrollingRadius: 4
   waitingTime: 2
   behavior: 0
@@ -445,8 +447,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualSprite: {fileID: 3857208795512620348}
-  OrderInLayerSpriteAnchor: {fileID: 2715725370843426436}
   isStoping: 1
   isUserControl: 0
   agent: {fileID: 0}

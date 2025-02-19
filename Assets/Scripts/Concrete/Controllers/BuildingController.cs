@@ -99,7 +99,7 @@ namespace Assets.Scripts.Concrete.Controllers
             if (spriteParent != null)
             {
                 visualSprites = new SpriteRenderer[spriteParent.childCount];
-                for (int i = 0; i < spriteParent.childCount; i++)
+                for (int i = 0; i < visualSprites.Length; i++)
                 {
                     visualSprites[i] = spriteParent.GetChild(i).GetComponent<SpriteRenderer>();
                 }

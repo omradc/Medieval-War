@@ -24,7 +24,13 @@ namespace Assets.Scripts.Concrete.Controllers
         public float patrollingRadius;
         public float waitingTime;
 
-
+        [Header("Setup")]
+        [SerializeField] GameObject resourceMeat;
+        [SerializeField] Transform orderInLayerSpriteAnchor;
+        [SerializeField] SpriteRenderer visual;
+        Transform[] sheepPoints;
+        Transform sheepPoint;
+        
         [HideInInspector] public float currentGrowTime;
         [HideInInspector] public int currentMeatAmount;
         [HideInInspector] public float currentTameTime;
@@ -32,16 +38,11 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool goFence;
         [HideInInspector] public bool inFence;
         [HideInInspector] public bool growed;
-        [SerializeField] GameObject resourceMeat;
-        GameObject fenceObj;
         Animator animator;
         GameObject villager;
         VillagerController vC;
-        public Transform[] sheepPoints;
-        public Transform sheepPoint;
         [HideInInspector] public PathFindingController pF;
-        Vector3 rightDirection;
-        Vector3 leftDirection;
+        DynamicOrderInLayer dynamicOrderInLayer;
         Vector3 scale;
         Vector3 firstPoint;
         Vector3 targetPoint;
@@ -51,14 +52,13 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Awake()
         {
             pF = GetComponent<PathFindingController>();
+            dynamicOrderInLayer = new();
         }
         private void Start()
         {
             pF.agent.speed = moveSpeed;
             animator = transform.GetChild(0).GetComponent<Animator>();
             currentMeatAmount = ResourcesManager.Instance.collectMeatAmount;
-            rightDirection = new Vector3(currentSheepScale, currentSheepScale, currentSheepScale);
-            leftDirection = new Vector3(-currentSheepScale, currentSheepScale, currentSheepScale);
             scale = Vector3.one;
             firstPoint = transform.position;
             targetPoint = firstPoint;
@@ -67,6 +67,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         private void Update()
         {
+            dynamicOrderInLayer.OrderInLayerUpdate(orderInLayerSpriteAnchor, visual);
             AnimationControl();
             GrowUp();
         }
@@ -90,8 +91,11 @@ namespace Assets.Scripts.Concrete.Controllers
                 isDomestic = true;
                 this.villager = villager;
                 vC = villager.GetComponent<VillagerController>();
-                this.fenceObj = fenceObj;
-                sheepPoints = fenceObj.transform.GetChild(1).GetComponentsInChildren<Transform>();
+                sheepPoints = new Transform[fenceObj.transform.GetChild(1).childCount];
+                for (int i = 0; i < sheepPoints.Length; i++)
+                {
+                    sheepPoints[i] = fenceObj.transform.GetChild(1).GetChild(i);
+                }
             }
         }
         void FollowTheVillager()

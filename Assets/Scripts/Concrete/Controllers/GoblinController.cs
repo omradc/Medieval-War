@@ -35,6 +35,8 @@ namespace Assets.Scripts.Concrete.Controllers
         public LayerMask enemiesLayer;
         public LayerMask friendsLayer;
         public LayerMask targetWoodTower;
+        [SerializeField] Transform orderInLayerSpriteAnchor;
+        [SerializeField] SpriteRenderer visual;
 
         [Header("PATROLLİNG")]
         public float patrollingRadius;
@@ -62,10 +64,10 @@ namespace Assets.Scripts.Concrete.Controllers
 
         public bool canAttack;
         float time;
-        EnemyAttack enemyAttack;
         GoblinAI goblinAI;
         PathFindingController pF;
         AnimationEventController animationEventController;
+        DynamicOrderInLayer dynamicOrderInLayer;
         Vector3 gizmosPos;
         private void Awake()
         {
@@ -75,10 +77,11 @@ namespace Assets.Scripts.Concrete.Controllers
             direction = new Direction(transform);
             goblinAI = new(this, pF);
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
+            dynamicOrderInLayer = new();
         }
         private void Start()
         {
-            enemyAttack = new(this, goblinAI, animationEventController, pF);
+            new EnemyAttack(this, goblinAI, animationEventController, pF);
             pF.agent.speed = moveSpeed;
             currentSightRange = sightRange;
             gizmosPos = transform.position;
@@ -91,6 +94,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         private void Update()
         {
+            dynamicOrderInLayer.OrderInLayerUpdate(orderInLayerSpriteAnchor, visual);
             AttackOn();
             AnimationControl();
             goblinAI.DestructTower();

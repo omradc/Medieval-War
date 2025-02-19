@@ -25,6 +25,8 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(0.1f, 1f)] public float unitAIPerTime = 0.5f;
         [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
         public LayerMask enemiesLayer;
+        [SerializeField] Transform orderInLayerSpriteAnchor;
+        public SpriteRenderer visual;
 
         [HideInInspector] public bool isSeleceted;
         [HideInInspector] public Collider2D[] targetEnemies;
@@ -50,7 +52,7 @@ namespace Assets.Scripts.Concrete.Controllers
         KnightAttack knightAttack;
         VillagerController villagerController;
         float time;
-
+        DynamicOrderInLayer dynamicOrderInLayer;
         private void Awake()
         {
             pF = GetComponent<PathFindingController>();
@@ -60,8 +62,10 @@ namespace Assets.Scripts.Concrete.Controllers
             direction = new(transform);
             knightAI = new(this, pF);
             knightAttack = new(this, knightAI, animationEventController, pF);
+            dynamicOrderInLayer = new();
             if (factionType == FactionTypeEnum.Villager)
                 villagerController = GetComponent<VillagerController>();
+
         }
         private void Start()
         {
@@ -74,10 +78,11 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Update()
         {
+            if (!onBuilding)
+                dynamicOrderInLayer.OrderInLayerUpdate(orderInLayerSpriteAnchor, visual);
             AttackOn();
             AnimationControl();
             RangeControl();
-
             if (unitOrderEnum == KnightOrderEnum.FollowOrder)  // Sadece takip edilecek birim atamasý yapýlýr
             {
                 // Hedef boþ ise, hedefi belirle, sadece 1 kez

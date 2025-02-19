@@ -6,15 +6,12 @@ namespace Assets.Scripts.Concrete.Movements
 {
     public class PathFindingController : MonoBehaviour
     {
-        public SpriteRenderer visualSprite;
-        [SerializeField] Transform OrderInLayerSpriteAnchor;
         [HideInInspector] public bool isStoping;
         [HideInInspector] public bool isUserControl;
         [HideInInspector] public NavMeshAgent agent;
         [HideInInspector] public Vector2 lastMousePos;
         [HideInInspector] public float moveSpeed;
         Direction direction;
-        DynamicOrderInLayer dynamicOrderInLayer;
         float time;
         bool forDirectionStopping;
 
@@ -22,7 +19,6 @@ namespace Assets.Scripts.Concrete.Movements
         {
             agent = GetComponent<NavMeshAgent>();
             direction = new(transform);
-            dynamicOrderInLayer = new();
         }
         void Start()
         {
@@ -35,9 +31,7 @@ namespace Assets.Scripts.Concrete.Movements
 
         private void Update()
         {
-
             MovementControl();
-            dynamicOrderInLayer.OrderInLayerUpdate(OrderInLayerSpriteAnchor, visualSprite);
         }
 
         // Kullanıcı hareketi

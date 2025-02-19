@@ -15,8 +15,8 @@ namespace Assets.Scripts.Concrete.AI
         readonly KnightController kC;
         readonly PathFindingController pF;
         GameObject tower;
+        SpriteRenderer towerVisual;
         BuildingController bC;
-        readonly SpriteRenderer unitSpriteRenderer;
         Transform towerPos;
         Vector2 gatePos;
         Vector2 pos;
@@ -26,7 +26,6 @@ namespace Assets.Scripts.Concrete.AI
         {
             this.kC = kC;
             this.pF = pF;
-            unitSpriteRenderer = kC.transform.GetChild(0).GetComponent<SpriteRenderer>();
         }
 
         GameObject ChooseTarget()
@@ -64,8 +63,6 @@ namespace Assets.Scripts.Concrete.AI
             }
 
         }
-
-
         void CalculateNearestAttackPoint()
         {
             // Düşman goblin ise
@@ -174,7 +171,6 @@ namespace Assets.Scripts.Concrete.AI
         }
         public void GoTower()   // Optimum
         {
-
             if (tower != null)
             {
                 // Kuleye git
@@ -184,6 +180,7 @@ namespace Assets.Scripts.Concrete.AI
                     gatePos = tower.transform.GetChild(0).position;
                     towerPos = tower.transform.GetChild(1);
                     bC = tower.GetComponent<BuildingController>();
+                    towerVisual = tower.transform.GetChild(2).GetComponent<SpriteRenderer>();
                     if (bC.isFull)
                     {
                         tower = null; // eğer birim kuledeyken, kuleye tıklarsa; kodun devamlılığını sağlar
@@ -235,8 +232,10 @@ namespace Assets.Scripts.Concrete.AI
                         kC.onBuilding = true;
                         kC.gameObject.layer = 25; // ölümsüz ol
                         kC.isSeleceted = false;
+                        kC.visual.sortingOrder = towerVisual.sortingOrder + 1;
                         InteractManager.Instance.selectedUnits.Remove(kC.gameObject); // Kuledeyse seçimi kaldır
                         InteractManager.Instance.SelectedObjColor(1, kC.gameObject);  // Kuledeyse seçimi kaldır
+
                         tower = null;
                     }
                 }
@@ -323,7 +322,6 @@ namespace Assets.Scripts.Concrete.AI
 
             bC.isFull = false;
         }
-
     }
 }
 

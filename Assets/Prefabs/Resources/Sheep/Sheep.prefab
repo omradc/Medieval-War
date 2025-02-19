@@ -129,6 +129,11 @@ MonoBehaviour:
   behavior: 0
   patrollingRadius: 3
   waitingTime: 5
+  resourceMeat: {fileID: 3246526810110024777, guid: 305c2a09551e4324985e3671a16eaae1, type: 3}
+  orderInLayerSpriteAnchor: {fileID: 8044430441647594074}
+  visual: {fileID: 6306144715676814428}
+  sheepPoints: []
+  sheepPoint: {fileID: 0}
   currentGrowTime: 0
   currentMeatAmount: 0
   currentTameTime: 0
@@ -136,9 +141,6 @@ MonoBehaviour:
   goFence: 0
   inFence: 0
   growed: 0
-  resourceMeat: {fileID: 3246526810110024777, guid: 305c2a09551e4324985e3671a16eaae1, type: 3}
-  sheepPoints: []
-  sheepPoint: {fileID: 0}
   pF: {fileID: 0}
   patrol: 0
 --- !u!114 &-2009713950975530326
@@ -153,8 +155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualSprite: {fileID: 6306144715676814428}
-  OrderInLayerSpriteAnchor: {fileID: 8044430441647594074}
   isStoping: 1
   isUserControl: 0
   agent: {fileID: 0}
