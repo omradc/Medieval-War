@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7e941b502ac7e434ca8526d3805132ea
+guid: 4c34511dd31669e4ca6c64699d0e4bb6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -67,7 +67,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -80,7 +80,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -93,7 +93,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Pawn_Blue_0
+      name: Pawn_Red_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,20 +118,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf0dd58cdb4d7bf459af119a5e01f84d
-      internalID: -135396442
+      spriteID: 65762d6469b4f004ba01daa36b168d12
+      internalID: 1509096849
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_1
+      name: Pawn_Red_1
       rect:
         serializedVersion: 2
         x: 192
@@ -139,20 +140,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 50a160ba289ebfa4e8a2ccd9e2f9ad3e
-      internalID: 1813701883
+      spriteID: 4b30787b5d2412c4fb16b9f39aa1e096
+      internalID: -1649821261
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_2
+      name: Pawn_Red_2
       rect:
         serializedVersion: 2
         x: 384
@@ -160,20 +162,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55a96f4bfcc93a142a977d4727c973b8
-      internalID: 1578538406
+      spriteID: a72c8d1f86647db48857659f694c2891
+      internalID: -624155196
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_3
+      name: Pawn_Red_3
       rect:
         serializedVersion: 2
         x: 576
@@ -181,20 +184,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5aba46cd17963e5418932d9173a23503
-      internalID: 429097258
+      spriteID: 418aae7713709af48aba39d793748ea7
+      internalID: 418461052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_4
+      name: Pawn_Red_4
       rect:
         serializedVersion: 2
         x: 768
@@ -202,20 +206,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93614cf08a0f34c42b1c3bd02b2b557d
-      internalID: -624722515
+      spriteID: 2c66ba0ccc02e5340920575874dbda36
+      internalID: 372475761
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_5
+      name: Pawn_Red_5
       rect:
         serializedVersion: 2
         x: 960
@@ -223,20 +228,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 900af414cee577d4f8452b5c13218335
-      internalID: -1221323277
+      spriteID: abccfa909cd7af14191065fcad187b68
+      internalID: 459115596
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_6
+      name: Pawn_Red_6
       rect:
         serializedVersion: 2
         x: 0
@@ -244,20 +250,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c82efb70f443804428c13e02a52e12ce
-      internalID: -935841941
+      spriteID: f2ac086183c79a043be2b3571bc26739
+      internalID: 2139790221
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_7
+      name: Pawn_Red_7
       rect:
         serializedVersion: 2
         x: 192
@@ -265,20 +272,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1493653de9c7b5f468791d266ef5ed34
-      internalID: 1468458523
+      spriteID: e708c137b545f90419904bf7c01c8b0a
+      internalID: -1728262812
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_8
+      name: Pawn_Red_8
       rect:
         serializedVersion: 2
         x: 384
@@ -286,20 +294,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce9929cd8cd92aa45bf35999114254e8
-      internalID: 770544204
+      spriteID: a966f86ed6d50f84998d571d81778bdf
+      internalID: 100706234
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_9
+      name: Pawn_Red_9
       rect:
         serializedVersion: 2
         x: 576
@@ -307,20 +316,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 448fb56f4abc0164d8c42c90abedb875
-      internalID: 1987414595
+      spriteID: 9bc8320a949bf0c4b99c7d74a0c08eea
+      internalID: -208021391
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_10
+      name: Pawn_Red_10
       rect:
         serializedVersion: 2
         x: 768
@@ -328,20 +338,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89d16b2547562604099d1c324667b6b8
-      internalID: -1179059656
+      spriteID: 049be4e49446e87458d3bd8c2dac8af2
+      internalID: -1100719262
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_11
+      name: Pawn_Red_11
       rect:
         serializedVersion: 2
         x: 960
@@ -349,20 +360,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7060dd58cc065f54a9ba6ca9b132163d
-      internalID: -1839826714
+      spriteID: ceba317b4f6820749ac43c09d54b198e
+      internalID: 1051238672
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_12
+      name: Pawn_Red_12
       rect:
         serializedVersion: 2
         x: 0
@@ -370,20 +382,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ed86e38ec7ec3241888ffdc8bc0b5d3
-      internalID: 263418069
+      spriteID: 258b55000fed3994aa57d7ea271d2dc7
+      internalID: 1737324074
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_13
+      name: Pawn_Red_13
       rect:
         serializedVersion: 2
         x: 192
@@ -391,41 +404,43 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c099d3d535c2a9847b40b5bc86c607ce
-      internalID: -1344133300
+      spriteID: 66a66522286f7a44788401c68d7dd811
+      internalID: -1870017369
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_14
+      name: Red_Hammer
       rect:
         serializedVersion: 2
-        x: 384
-        y: 576
-        width: 192
-        height: 192
+        x: 483
+        y: 679
+        width: 29
+        height: 38
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d13001761603a747a92cfaf00e78482
-      internalID: -298150225
+      spriteID: 0363056c662f7c8468f6cd287a8c13eb
+      internalID: -974052833
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_15
+      name: Pawn_Red_15
       rect:
         serializedVersion: 2
         x: 576
@@ -433,20 +448,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 588381c6187e4ca468088fe84c83e260
-      internalID: 2042450506
+      spriteID: 107358d27c9acd64d821f9eebfc6d846
+      internalID: 1891101560
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_16
+      name: Pawn_Red_16
       rect:
         serializedVersion: 2
         x: 768
@@ -454,20 +470,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2cf8119e69ce7414a872bb5ee924a7ff
-      internalID: 474236608
+      spriteID: f9592bf164850a044a260b799343512e
+      internalID: -2108171576
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_17
+      name: Pawn_Red_17
       rect:
         serializedVersion: 2
         x: 960
@@ -475,20 +492,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c30b8f0437e8bd469de790341841d4d
-      internalID: -1013581749
+      spriteID: 155b11a9692798041a8bd3c90d3b57c2
+      internalID: -1100907258
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_18
+      name: Pawn_Red_18
       rect:
         serializedVersion: 2
         x: 0
@@ -496,41 +514,43 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3703abdb2daa47f4dbbf94dbb26744e7
-      internalID: -998139417
+      spriteID: 89de5c303f0cfdd49a09a4aa86e0c067
+      internalID: 478462662
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_19
+      name: Red_Axe
       rect:
         serializedVersion: 2
-        x: 192
-        y: 384
-        width: 192
-        height: 192
+        x: 229
+        y: 475
+        width: 28
+        height: 37
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c3f2e69e064904458db53fc2b087e90
-      internalID: -1459518916
+      spriteID: 0c68b22daf28a1f4787c3e66deb589f7
+      internalID: -362969700
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_20
+      name: Pawn_Red_20
       rect:
         serializedVersion: 2
         x: 384
@@ -538,20 +558,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f75bc55fd98c6d84a873efd9856d7ce5
-      internalID: 1723029812
+      spriteID: a48f331c26894c84e94e3839f6183153
+      internalID: 1602188745
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_21
+      name: Pawn_Red_21
       rect:
         serializedVersion: 2
         x: 576
@@ -559,20 +580,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c6e581bf0be7aa84b90ea2579ac0bf7e
-      internalID: -843126990
+      spriteID: fe18b0f1c20a1824ba541720c42e87e2
+      internalID: 1772777476
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_22
+      name: Pawn_Red_22
       rect:
         serializedVersion: 2
         x: 768
@@ -580,20 +602,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83db3bcd205a2294e93abafd49bcf938
-      internalID: -44372088
+      spriteID: 007e221557920d74993952cfe0c63613
+      internalID: -410357818
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_23
+      name: Pawn_Red_23
       rect:
         serializedVersion: 2
         x: 960
@@ -601,20 +624,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6c6dfeb7002dfc43b29216ddeccc535
-      internalID: -2092631429
+      spriteID: e737973c573a7c747814fcbefefe3c03
+      internalID: 310490335
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_24
+      name: Pawn_Red_24
       rect:
         serializedVersion: 2
         x: 0
@@ -622,20 +646,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f1fcee8264982944967a2d9ad75fd7a
-      internalID: -1375162826
+      spriteID: d5d3c7026cf6b9944a003f483d5ffcdc
+      internalID: -1455495240
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_25
+      name: Pawn_Red_25
       rect:
         serializedVersion: 2
         x: 192
@@ -643,20 +668,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b2fab6001ade2c34e815f83517c3500f
-      internalID: -1260949847
+      spriteID: 1801e94c1ed3b2d4fb8450e8f047992e
+      internalID: 1169211880
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_26
+      name: Pawn_Red_26
       rect:
         serializedVersion: 2
         x: 384
@@ -664,20 +690,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a96d7f5190106b409d535487b933476
-      internalID: 1377477354
+      spriteID: 72902664d1a61d4409a48c9b9a81ca8d
+      internalID: 1161701647
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_27
+      name: Pawn_Red_27
       rect:
         serializedVersion: 2
         x: 576
@@ -685,20 +712,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d13f4fd6ebb3e5645bf7e403e1da52f9
-      internalID: -991109176
+      spriteID: b06093477499d5d4f8ece7590fbed74a
+      internalID: 767834251
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_28
+      name: Pawn_Red_28
       rect:
         serializedVersion: 2
         x: 768
@@ -706,20 +734,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 800f5a76b2893d34bb0ce5b68750f578
-      internalID: 1819691220
+      spriteID: e2d0798e30c890b408eb700318c9c341
+      internalID: 1038919196
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_29
+      name: Pawn_Red_29
       rect:
         serializedVersion: 2
         x: 960
@@ -727,20 +756,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b9d43980a72ac974982abb81ecafab71
-      internalID: 1395950342
+      spriteID: 6e939dc32f79a3249b42ac47bcc42bd1
+      internalID: 1192991834
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_30
+      name: Pawn_Red_30
       rect:
         serializedVersion: 2
         x: 0
@@ -748,20 +778,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e8a3e7c592e49247b4fe14cc470792e
-      internalID: -44307778
+      spriteID: d15315a64b22067419839317ab884463
+      internalID: 2075730466
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_31
+      name: Pawn_Red_31
       rect:
         serializedVersion: 2
         x: 192
@@ -769,20 +800,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e34fabcfe1bb8245a30abf4d88231d7
-      internalID: 1332554726
+      spriteID: 43738ef8b1a0a124c926c0390fa8c6fb
+      internalID: -713998189
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_32
+      name: Pawn_Red_32
       rect:
         serializedVersion: 2
         x: 384
@@ -790,20 +822,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b4efe3a39432b74e8d2ea29bed2b73a
-      internalID: 1938404132
+      spriteID: 430a3de068915d248b273b8d20064acc
+      internalID: 1103667736
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_33
+      name: Pawn_Red_33
       rect:
         serializedVersion: 2
         x: 576
@@ -811,20 +844,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0142ea1437617f14286fc1b8a29367cc
-      internalID: -1579361749
+      spriteID: 27961ebf1cb510848b7d108ba252b91e
+      internalID: 921747169
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_34
+      name: Pawn_Red_34
       rect:
         serializedVersion: 2
         x: 768
@@ -832,20 +866,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 334666327d31939489588ac1182058a0
-      internalID: -116902151
+      spriteID: ff7bd86f2955ed84db4c14c0052f9792
+      internalID: -716053184
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Blue_35
+      name: Pawn_Red_35
       rect:
         serializedVersion: 2
         x: 960
@@ -853,19 +888,21 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 94c4908722c76f34fba22d5e8493ea83
-      internalID: 1477744716
+      spriteID: 13669ca9630447c4c985f90f746ed690
+      internalID: 1860828656
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
@@ -875,43 +912,45 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
-      Pawn_Blue_0: -135396442
-      Pawn_Blue_1: 1813701883
-      Pawn_Blue_10: -1179059656
-      Pawn_Blue_11: -1839826714
-      Pawn_Blue_12: 263418069
-      Pawn_Blue_13: -1344133300
-      Pawn_Blue_14: -298150225
-      Pawn_Blue_15: 2042450506
-      Pawn_Blue_16: 474236608
-      Pawn_Blue_17: -1013581749
-      Pawn_Blue_18: -998139417
-      Pawn_Blue_19: -1459518916
-      Pawn_Blue_2: 1578538406
-      Pawn_Blue_20: 1723029812
-      Pawn_Blue_21: -843126990
-      Pawn_Blue_22: -44372088
-      Pawn_Blue_23: -2092631429
-      Pawn_Blue_24: -1375162826
-      Pawn_Blue_25: -1260949847
-      Pawn_Blue_26: 1377477354
-      Pawn_Blue_27: -991109176
-      Pawn_Blue_28: 1819691220
-      Pawn_Blue_29: 1395950342
-      Pawn_Blue_3: 429097258
-      Pawn_Blue_30: -44307778
-      Pawn_Blue_31: 1332554726
-      Pawn_Blue_32: 1938404132
-      Pawn_Blue_33: -1579361749
-      Pawn_Blue_34: -116902151
-      Pawn_Blue_35: 1477744716
-      Pawn_Blue_4: -624722515
-      Pawn_Blue_5: -1221323277
-      Pawn_Blue_6: -935841941
-      Pawn_Blue_7: 1468458523
-      Pawn_Blue_8: 770544204
-      Pawn_Blue_9: 1987414595
+      Pawn_Red_0: 1509096849
+      Pawn_Red_1: -1649821261
+      Pawn_Red_10: -1100719262
+      Pawn_Red_11: 1051238672
+      Pawn_Red_12: 1737324074
+      Pawn_Red_13: -1870017369
+      Pawn_Red_15: 1891101560
+      Pawn_Red_16: -2108171576
+      Pawn_Red_17: -1100907258
+      Pawn_Red_18: 478462662
+      Pawn_Red_2: -624155196
+      Pawn_Red_20: 1602188745
+      Pawn_Red_21: 1772777476
+      Pawn_Red_22: -410357818
+      Pawn_Red_23: 310490335
+      Pawn_Red_24: -1455495240
+      Pawn_Red_25: 1169211880
+      Pawn_Red_26: 1161701647
+      Pawn_Red_27: 767834251
+      Pawn_Red_28: 1038919196
+      Pawn_Red_29: 1192991834
+      Pawn_Red_3: 418461052
+      Pawn_Red_30: 2075730466
+      Pawn_Red_31: -713998189
+      Pawn_Red_32: 1103667736
+      Pawn_Red_33: 921747169
+      Pawn_Red_34: -716053184
+      Pawn_Red_35: 1860828656
+      Pawn_Red_4: 372475761
+      Pawn_Red_5: 459115596
+      Pawn_Red_6: 2139790221
+      Pawn_Red_7: -1728262812
+      Pawn_Red_8: 100706234
+      Pawn_Red_9: -208021391
+      Red_Axe: -362969700
+      Red_Hammer: -974052833
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

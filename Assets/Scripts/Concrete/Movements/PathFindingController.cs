@@ -7,8 +7,9 @@ namespace Assets.Scripts.Concrete.Movements
     public class PathFindingController : MonoBehaviour
     {
         public SpriteRenderer visualSprite;
-        public bool isStoping;
-        public bool isUserControl;
+        [SerializeField] Transform OrderInLayerSpriteAnchor;
+        [HideInInspector] public bool isStoping;
+        [HideInInspector] public bool isUserControl;
         [HideInInspector] public NavMeshAgent agent;
         [HideInInspector] public Vector2 lastMousePos;
         [HideInInspector] public float moveSpeed;
@@ -36,7 +37,7 @@ namespace Assets.Scripts.Concrete.Movements
         {
 
             MovementControl();
-            dynamicOrderInLayer.OrderInLayerWithYPos(visualSprite.transform, visualSprite);
+            dynamicOrderInLayer.OrderInLayerUpdate(OrderInLayerSpriteAnchor, visualSprite);
         }
 
         // Kullanıcı hareketi

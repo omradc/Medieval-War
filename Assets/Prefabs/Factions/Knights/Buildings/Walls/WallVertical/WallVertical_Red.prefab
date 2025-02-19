@@ -491,6 +491,10 @@ PrefabInstance:
       propertyPath: top_1xDownVisualSprite
       value: 
       objectReference: {fileID: 5749540817877040067}
+    - target: {fileID: 1542833100297424088, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
+      propertyPath: wallVerticalDownVisualSprite
+      value: 
+      objectReference: {fileID: 5749540817877040067}
     - target: {fileID: 2150745154905860377, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: m_Size.x
       value: 0.375
@@ -654,6 +658,18 @@ PrefabInstance:
     - target: {fileID: 8555691034453920301, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: layer
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8756432159518022012, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8756432159518022012, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8756432159518022012, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

@@ -840,6 +840,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6316760440286608315
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8799505072023029605}
+  m_Layer: 0
+  m_Name: OrderInLayerSpriteAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8799505072023029605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6316760440286608315}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.6898, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5487208195951278403}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8012214901330919184
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,6 +943,7 @@ Transform:
   - {fileID: 4625425654162411382}
   - {fileID: 6440747591733366151}
   - {fileID: 4916860498727965330}
+  - {fileID: 8799505072023029605}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1257398254531941140
@@ -1037,12 +1069,14 @@ MonoBehaviour:
   construction: {fileID: 0}
   visualBuilding: {fileID: 3743380984821159546}
   visualDestructed: {fileID: 559619209072002312}
-  top_1xDownVisualSprite: {fileID: 0}
-  doorCloseVisualSprite: {fileID: 0}
-  doorOpen1VisualSprite: {fileID: 0}
-  doorOpen2VisualSprite: {fileID: 0}
   destroyPermanent: 0
   destroyTime: 0
+  OrderInLayerSpriteAnchor: {fileID: 8799505072023029605}
+  wallVerticalDownVisualSprite: {fileID: 0}
+  wallDoorCloseVisualSprite: {fileID: 0}
+  wallDoorOpen1VisualSprite: {fileID: 0}
+  wallDoorOpen2VisualSprite: {fileID: 0}
+  spriteParent: {fileID: 3740323842657328628}
   isFull: 0
   destruct: 0
   unitValue: 0

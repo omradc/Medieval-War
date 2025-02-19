@@ -8,11 +8,12 @@ namespace Assets.Scripts.Concrete.Controllers
     {
         public GameObject constructing;
         public Transform visual;
-        public SpriteRenderer[] visualSprites;
-        public float hitNumber;
-        public float currentHitNumber;
-        public bool isFull;
         public Image constructionTimerImage;
+        public float hitNumber;
+        [SerializeField] Transform OrderInLayerSpriteAnchor;
+        [HideInInspector] public float currentHitNumber;
+        [HideInInspector] public bool isFull;
+        SpriteRenderer[] visualSprites;
         DynamicOrderInLayer dynamicOrderInLayer;
 
         private void Awake()
@@ -36,7 +37,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Start()
         {
-            dynamicOrderInLayer.OrderInLayerWithYPos(visual, visualSprites);
+            dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, visualSprites);
 
         }
         void Update()

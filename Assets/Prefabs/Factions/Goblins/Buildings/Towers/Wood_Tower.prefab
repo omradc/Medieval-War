@@ -367,6 +367,7 @@ Transform:
   - {fileID: 2061310714115943071}
   - {fileID: 8173960316754281211}
   - {fileID: 1227451687395594817}
+  - {fileID: 2455767363735097208}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8778633108490885336
@@ -409,16 +410,18 @@ MonoBehaviour:
   construction: {fileID: 0}
   visualBuilding: {fileID: 8594801951806895824}
   visualDestructed: {fileID: 8257700348692129232}
-  top_1xDownVisualSprite: {fileID: 0}
-  doorCloseVisualSprite: {fileID: 0}
-  doorOpen1VisualSprite: {fileID: 0}
-  doorOpen2VisualSprite: {fileID: 0}
   destroyPermanent: 1
   destroyTime: 30
+  OrderInLayerSpriteAnchor: {fileID: 2455767363735097208}
+  wallVerticalDownVisualSprite: {fileID: 0}
+  wallDoorCloseVisualSprite: {fileID: 0}
+  wallDoorOpen1VisualSprite: {fileID: 0}
+  wallDoorOpen2VisualSprite: {fileID: 0}
+  spriteParent: {fileID: 0}
   isFull: 0
   destruct: 0
   unitValue: 0
-  buildingPanelController: {fileID: 0}
+  interactableObjUIController: {fileID: 0}
 --- !u!61 &7156048797368147480
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -541,6 +544,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2061310714115943071}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6603628108954863274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2455767363735097208}
+  m_Layer: 0
+  m_Name: OrderInLayerSpriteAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2455767363735097208
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6603628108954863274}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.68, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7490314471804558288}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7325692584951218846
 GameObject:
@@ -811,15 +845,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -891121709, guid: 857cd8cdce5869d4aacd322a65c222cd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.28, y: 2.56}
+  m_Size: {x: 2.56, y: 1.92}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &2841650639934775806

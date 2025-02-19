@@ -13,38 +13,41 @@ namespace Assets.Scripts.Concrete.Controllers
     {
         [SerializeField] float gridSize = 0.2f;
         [SerializeField] Button buildConfirmButton;
+        [SerializeField] Transform OrderInLayerSpriteAnchor;
+
+        [Header("Sprites")]
         [SerializeField] GameObject visual;
         [SerializeField] GameObject visualRed;
-        [SerializeField] GameObject down_3x;
-        [SerializeField] GameObject top_1x;
-        [SerializeField] GameObject down_1x;
-        [SerializeField] GameObject door;
-        [SerializeField] GameObject down_3xRed;
-        [SerializeField] GameObject top_1xRed;
-        [SerializeField] GameObject down_1xRed;
-        [SerializeField] GameObject doorRed;
+        [SerializeField] GameObject wallHorizontal;
+        [SerializeField] GameObject wallHorizontalRed;
+        [SerializeField] GameObject wallVertical;
+        [SerializeField] GameObject wallVerticalRed;
+        [SerializeField] GameObject wallOne;
+        [SerializeField] GameObject wallOneRed;
+        [SerializeField] GameObject wallDoor;
+        [SerializeField] GameObject wallDoorRed;
 
         SpriteRenderer visualSprite;
         SpriteRenderer visualRedSprite;
-        SpriteRenderer down_3xSprite;
-        SpriteRenderer top_1xSprite;
-        SpriteRenderer top_1xDownSprite;
-        SpriteRenderer down_1xSprite;
+        SpriteRenderer wallHorizontalSprite;
+        SpriteRenderer wallHorizontalRedSprite;
+        SpriteRenderer wallVerticalTopSprite;
+        SpriteRenderer wallVerticalTopRedSprite;
+        SpriteRenderer wallVerticalDownSprite;
+        SpriteRenderer wallVerticalDownRedSprite;
+        SpriteRenderer wallOneSprite;
+        SpriteRenderer wallOneRedSprite;
         SpriteRenderer wallDoorSprite;
-        SpriteRenderer doorSprite;
-        SpriteRenderer down_3xRedSprite;
-        SpriteRenderer top_1xRedSprite;
-        SpriteRenderer top_1xRedDownSprite;
-        SpriteRenderer down_1xRedSprite;
         SpriteRenderer wallDoorRedSprite;
-        SpriteRenderer doorRedSprite;
+        SpriteRenderer woodenDoorSprite;
+        SpriteRenderer woodenDoorRedSprite;
         Vector2 firstPos;
         BoxCollider2D coll;
         List<Vector3> wallsPos;
         DynamicOrderInLayer dynamicOrderInLayer;
         ObjNames names;
         [HideInInspector] public int index;
-        public ValueController valueController;
+        ValueController valueController;
 
         bool obj;
         bool anyObj;
@@ -61,18 +64,18 @@ namespace Assets.Scripts.Concrete.Controllers
             valueController = UIManager.Instance.valuePanel.GetComponent<ValueController>();
             if (gameObject.name == "Preview_Wall(Clone)")
             {
-                down_3xSprite = down_3x.GetComponent<SpriteRenderer>();
-                top_1xSprite = top_1x.transform.GetChild(0).GetComponent<SpriteRenderer>();
-                top_1xDownSprite = top_1x.transform.GetChild(1).GetComponent<SpriteRenderer>();
-                down_1xSprite = down_1x.GetComponent<SpriteRenderer>();
-                wallDoorSprite = door.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
-                doorSprite = door.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
-                down_3xRedSprite = down_3xRed.GetComponent<SpriteRenderer>();
-                top_1xRedSprite = top_1xRed.transform.GetChild(0).GetComponent<SpriteRenderer>();
-                top_1xRedDownSprite = top_1xRed.transform.GetChild(1).GetComponent<SpriteRenderer>();
-                down_1xRedSprite = down_1xRed.GetComponent<SpriteRenderer>();
-                wallDoorRedSprite = doorRed.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
-                doorRedSprite = doorRed.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
+                wallHorizontalSprite = wallHorizontal.GetComponent<SpriteRenderer>();
+                wallHorizontalRedSprite = wallHorizontalRed.GetComponent<SpriteRenderer>();
+                wallVerticalTopSprite = wallVertical.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                wallVerticalTopRedSprite = wallVerticalRed.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                wallVerticalDownSprite = wallVertical.transform.GetChild(1).GetComponent<SpriteRenderer>();
+                wallVerticalDownRedSprite = wallVerticalRed.transform.GetChild(1).GetComponent<SpriteRenderer>();
+                wallOneSprite = wallOne.GetComponent<SpriteRenderer>();
+                wallOneRedSprite = wallOneRed.GetComponent<SpriteRenderer>();
+                wallDoorSprite = wallDoor.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
+                wallDoorRedSprite = wallDoorRed.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
+                woodenDoorSprite = wallDoor.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
+                woodenDoorRedSprite = wallDoorRed.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
             }
 
             else
@@ -81,6 +84,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 visualRedSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
             }
 
+            InitializeWallPreview();
         }
         void Update()
         {
@@ -145,14 +149,14 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         public void BuildChangeButton()
         {
-            down_3x.SetActive(false);
-            top_1x.SetActive(false);
-            down_1x.SetActive(false);
-            door.SetActive(false);
-            down_3xRed.SetActive(false);
-            top_1xRed.SetActive(false);
-            down_1xRed.SetActive(false);
-            doorRed.SetActive(false);
+            wallHorizontal.SetActive(false);
+            wallVertical.SetActive(false);
+            wallOne.SetActive(false);
+            wallDoor.SetActive(false);
+            wallHorizontalRed.SetActive(false);
+            wallVerticalRed.SetActive(false);
+            wallOneRed.SetActive(false);
+            wallDoorRed.SetActive(false);
             index++;
 
             if (index == 4)
@@ -161,23 +165,49 @@ namespace Assets.Scripts.Concrete.Controllers
             switch (index)
             {
                 case 0: // down_3x
-                    down_3x.SetActive(true);
-                    down_3xRed.SetActive(true);
+                    wallHorizontal.SetActive(true);
+                    wallHorizontalRed.SetActive(true);
                     SetColliderSizeForWalls(1.175f, 0.15f, 0, 0.374f);
                     break;
                 case 1: // top_1x
-                    top_1x.SetActive(true);
-                    top_1xRed.SetActive(true);
+                    wallVertical.SetActive(true);
+                    wallVerticalRed.SetActive(true);
                     SetColliderSizeForWalls(0.375f, .95f, 0, 0.8f);
                     break;
                 case 2: // down_1x
-                    down_1x.SetActive(true);
-                    down_1xRed.SetActive(true);
+                    wallOne.SetActive(true);
+                    wallOneRed.SetActive(true);
                     SetColliderSizeForWalls(.375f, .15f, 0, 0.375f);
                     break;
                 case 3: // door
-                    door.SetActive(true);
-                    doorRed.SetActive(true);
+                    wallDoor.SetActive(true);
+                    wallDoorRed.SetActive(true);
+                    SetColliderSizeForWalls(1.175f, 0.95f);
+                    break;
+            }
+        }
+        void InitializeWallPreview()
+        {
+            switch (index)
+            {
+                case 0: // down_3x
+                    wallHorizontal.SetActive(true);
+                    wallHorizontalRed.SetActive(true);
+                    SetColliderSizeForWalls(1.175f, 0.15f, 0, 0.374f);
+                    break;
+                case 1: // top_1x
+                    wallVertical.SetActive(true);
+                    wallVerticalRed.SetActive(true);
+                    SetColliderSizeForWalls(0.375f, .95f, 0, 0.8f);
+                    break;
+                case 2: // down_1x
+                    wallOne.SetActive(true);
+                    wallOneRed.SetActive(true);
+                    SetColliderSizeForWalls(.375f, .15f, 0, 0.375f);
+                    break;
+                case 3: // door
+                    wallDoor.SetActive(true);
+                    wallDoorRed.SetActive(true);
                     SetColliderSizeForWalls(1.175f, 0.95f);
                     break;
             }
@@ -264,28 +294,26 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void SetOrderInLayer()
         {
-
-
             if (gameObject.name == "Preview_Wall(Clone)")
             {
-                dynamicOrderInLayer.OrderInLayerWithYPos(down_3xSprite.transform, down_3xSprite);
-                dynamicOrderInLayer.OrderInLayerWithYPos(down_3xRedSprite.transform, down_3xRedSprite);
-                dynamicOrderInLayer.OrderInLayerWithYPos(top_1xSprite.transform, top_1xSprite);
-                dynamicOrderInLayer.OrderInLayerWithNumber(top_1xSprite.transform, top_1xDownSprite, -1);
-                dynamicOrderInLayer.OrderInLayerWithNumber(top_1xRedSprite.transform, top_1xRedDownSprite, -1);
-                dynamicOrderInLayer.OrderInLayerWithYPos(top_1xRedSprite.transform, top_1xRedSprite);
-                dynamicOrderInLayer.OrderInLayerWithYPos(down_1xSprite.transform, down_1xSprite);
-                dynamicOrderInLayer.OrderInLayerWithYPos(down_1xRedSprite.transform, down_1xRedSprite);
-                dynamicOrderInLayer.OrderInLayerWithYPos(wallDoorSprite.transform, wallDoorSprite);
-                dynamicOrderInLayer.OrderInLayerWithYPos(doorSprite.transform, doorSprite);
-                dynamicOrderInLayer.OrderInLayerWithYPos(wallDoorRedSprite.transform, wallDoorRedSprite);
-                dynamicOrderInLayer.OrderInLayerWithYPos(doorRedSprite.transform, doorRedSprite);
+                dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallHorizontalSprite);
+                dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallHorizontalRedSprite);
+                dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallVerticalTopSprite);
+                dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallVerticalTopRedSprite);
+                dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallVerticalDownSprite, -1);
+                dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallVerticalDownRedSprite, -1);
+                dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallOneSprite);
+                dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallOneRedSprite);
+                dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallDoorSprite);
+                dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallDoorRedSprite);
+                dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, woodenDoorSprite, -1);
+                dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, woodenDoorRedSprite, -1);
             }
 
             else
             {
-                dynamicOrderInLayer.OrderInLayerWithYPos(visual.transform, visualSprite);
-                dynamicOrderInLayer.OrderInLayerWithYPos(visualRed.transform, visualRedSprite);
+                dynamicOrderInLayer.OrderInLayerUpdate(OrderInLayerSpriteAnchor, visualSprite);
+                dynamicOrderInLayer.OrderInLayerUpdate(OrderInLayerSpriteAnchor, visualRedSprite);
             }
         }
 

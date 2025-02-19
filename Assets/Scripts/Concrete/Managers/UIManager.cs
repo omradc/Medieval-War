@@ -96,6 +96,10 @@ namespace Assets.Scripts.Concrete.Managers
             }
         }
 
+        public void IndexAssing(int index)
+        {
+            previewObj.GetComponent<BuildPreviewController>().index = index;
+        }
         public void ValuePanel(GameObject valuePanel)
         {
             this.valuePanel = valuePanel;
@@ -105,9 +109,6 @@ namespace Assets.Scripts.Concrete.Managers
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             this.previewObj = Instantiate(previewObj, pos, Quaternion.identity);
-            //// Ön izleme objenin ValueController değerinin  ataması yapıldı
-            //previewObj.GetComponent<BuildPreviewController>().valueController = valuePanel.GetComponent<ValueController>();
-
             BuildPanelVisibility(false);
             canDragPreviewObj = true;
         }

@@ -228,7 +228,6 @@ namespace Assets.Scripts.Concrete.AI
                     if (!bC.isFull)
                     {
                         Debug.Log("Kuleye çık");
-                        unitSpriteRenderer.sortingOrder = 12;
                         kC.aI = true;
                         CalculateTowerPos();
                         pF.agent.ResetPath(); // kulede kal
@@ -248,7 +247,6 @@ namespace Assets.Scripts.Concrete.AI
             {
                 Debug.Log("Kuleden in");
                 ActivateTowerPos();
-                unitSpriteRenderer.sortingOrder = 10;
                 kC.gameObject.layer = 6; // ölümlü ol
                 kC.onBuilding = false;
                 kC.transform.position = gatePos; // kulenin kapısına git
@@ -283,6 +281,7 @@ namespace Assets.Scripts.Concrete.AI
                 kC.knightCollider.isTrigger = false; // collider ı aç
                 pF.agent.radius = kC.knightCollider.radius; // collider ı aç
                 kC.onBuildingStay = false;
+                kC.unitOrderEnum = KnightOrderEnum.AttackOrder;
                 bC.isFull = false; // Kulede birim var
             }
         }

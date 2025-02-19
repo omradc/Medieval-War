@@ -401,6 +401,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1864280411127015436}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6032758636789799007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2139948097104962182}
+  m_Layer: 0
+  m_Name: OrderInLayerSpriteAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2139948097104962182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6032758636789799007}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.6595, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1291386682944323070}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6150643879121943174
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,6 +771,7 @@ Transform:
   - {fileID: 1864280411127015436}
   - {fileID: 8590679631388162634}
   - {fileID: 1811088221807214422}
+  - {fileID: 2139948097104962182}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &3710349250490382944
@@ -848,16 +880,18 @@ MonoBehaviour:
   construction: {fileID: 0}
   visualBuilding: {fileID: 6991240298155859929}
   visualDestructed: {fileID: 7707772758332103792}
-  top_1xDownVisualSprite: {fileID: 0}
-  doorCloseVisualSprite: {fileID: 0}
-  doorOpen1VisualSprite: {fileID: 0}
-  doorOpen2VisualSprite: {fileID: 0}
   destroyPermanent: 1
   destroyTime: 30
+  OrderInLayerSpriteAnchor: {fileID: 2139948097104962182}
+  wallVerticalDownVisualSprite: {fileID: 0}
+  wallDoorCloseVisualSprite: {fileID: 0}
+  wallDoorOpen1VisualSprite: {fileID: 0}
+  wallDoorOpen2VisualSprite: {fileID: 0}
+  spriteParent: {fileID: 0}
   isFull: 0
   destruct: 0
   unitValue: 0
-  buildingPanelController: {fileID: 0}
+  interactableObjUIController: {fileID: 0}
 --- !u!114 &7842470555026536466
 MonoBehaviour:
   m_ObjectHideFlags: 0

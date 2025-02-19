@@ -649,6 +649,7 @@ Transform:
   - {fileID: 1285114152098382901}
   - {fileID: 2450512689899745872}
   - {fileID: 7704243599389273118}
+  - {fileID: 5860618627109525183}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &8435280991516039195
@@ -759,12 +760,14 @@ MonoBehaviour:
   construction: {fileID: 0}
   visualBuilding: {fileID: 3983658696136428888}
   visualDestructed: {fileID: 2615832424367074588}
-  top_1xDownVisualSprite: {fileID: 0}
-  doorCloseVisualSprite: {fileID: 0}
-  doorOpen1VisualSprite: {fileID: 0}
-  doorOpen2VisualSprite: {fileID: 0}
   destroyPermanent: 0
   destroyTime: 0
+  OrderInLayerSpriteAnchor: {fileID: 5860618627109525183}
+  wallVerticalDownVisualSprite: {fileID: 0}
+  wallDoorCloseVisualSprite: {fileID: 0}
+  wallDoorOpen1VisualSprite: {fileID: 0}
+  wallDoorOpen2VisualSprite: {fileID: 0}
+  spriteParent: {fileID: 0}
   isFull: 0
   destruct: 0
   unitValue: 0
@@ -1006,6 +1009,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1285114152098382901}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6340521004217658874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5860618627109525183}
+  m_Layer: 0
+  m_Name: OrderInLayerSpriteAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5860618627109525183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6340521004217658874}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.09, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2352619709376859486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6358338878881578699
 GameObject:

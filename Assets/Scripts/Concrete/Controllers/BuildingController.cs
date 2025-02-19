@@ -8,15 +8,20 @@ namespace Assets.Scripts.Concrete.Controllers
         public GameObject construction;
         [SerializeField] GameObject visualBuilding;
         [SerializeField] GameObject visualDestructed;
-        [SerializeField] SpriteRenderer top_1xDownVisualSprite;
-        [SerializeField] SpriteRenderer doorCloseVisualSprite;
-        [SerializeField] SpriteRenderer doorOpen1VisualSprite;
-        [SerializeField] SpriteRenderer doorOpen2VisualSprite;
         [SerializeField] bool destroyPermanent;
         [SerializeField] int destroyTime;
+        [SerializeField] Transform OrderInLayerSpriteAnchor;
 
+        [Header("Other Sprites")]
+        [SerializeField] SpriteRenderer wallVerticalDownVisualSprite;
+        [SerializeField] SpriteRenderer wallDoorCloseVisualSprite;
+        [SerializeField] SpriteRenderer wallDoorOpen1VisualSprite;
+        [SerializeField] SpriteRenderer wallDoorOpen2VisualSprite;
+        [SerializeField] Transform spriteParent;
+        SpriteRenderer[] visualSprites;
         SpriteRenderer visualSprite;
         SpriteRenderer visualDestructedSprite;
+
         // Kule yapay zekası için gerekli değerler
         [HideInInspector] public bool isFull;
         [HideInInspector] public bool destruct;
@@ -37,19 +42,10 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Start()
         {
-            dynamicOrderInLayer.OrderInLayerWithYPos(visualSprite.transform, visualSprite);
-            dynamicOrderInLayer.OrderInLayerWithYPos(visualDestructedSprite.transform, visualDestructedSprite);
+            dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, visualSprite);
+            dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, visualDestructedSprite);
 
-            if (top_1xDownVisualSprite != null)
-                dynamicOrderInLayer.OrderInLayerWithNumber(visualSprite.transform, top_1xDownVisualSprite, -1);
-            if (doorCloseVisualSprite != null)
-                dynamicOrderInLayer.OrderInLayerWithYPos(doorCloseVisualSprite.transform, doorCloseVisualSprite);
-            if (doorOpen1VisualSprite != null)
-                dynamicOrderInLayer.OrderInLayerWithYPos(doorOpen1VisualSprite.transform, doorOpen1VisualSprite);
-            if (doorOpen2VisualSprite != null)
-                dynamicOrderInLayer.OrderInLayerWithYPos(doorOpen2VisualSprite.transform, doorOpen2VisualSprite);
-
-
+            SpriteAssingment();
 
         }
         private void Update()
@@ -87,6 +83,27 @@ namespace Assets.Scripts.Concrete.Controllers
                 obj.GetComponent<ConstructController>().constructing = interactableObjUIController.upgradedBuilding;
                 Destroy(gameObject, 0);
 
+            }
+        }
+
+        void SpriteAssingment()
+        {
+            if (wallVerticalDownVisualSprite != null)
+                dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, wallVerticalDownVisualSprite, -1);
+            if (wallDoorCloseVisualSprite != null)
+                dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, wallDoorCloseVisualSprite, -1);
+            if (wallDoorOpen1VisualSprite != null)
+                dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, wallDoorOpen1VisualSprite, -2);
+            if (wallDoorOpen2VisualSprite != null)
+                dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, wallDoorOpen2VisualSprite, -2);
+            if (spriteParent != null)
+            {
+                visualSprites = new SpriteRenderer[spriteParent.childCount];
+                for (int i = 0; i < spriteParent.childCount; i++)
+                {
+                    visualSprites[i] = spriteParent.GetChild(i).GetComponent<SpriteRenderer>();
+                }
+                dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, visualSprites, 1);
             }
         }
     }
