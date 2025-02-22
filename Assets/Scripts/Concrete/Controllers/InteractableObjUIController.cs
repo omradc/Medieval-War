@@ -20,6 +20,9 @@ namespace Assets.Scripts.Concrete.Controllers
         BuildingController buildingController;
         [SerializeField] GameObject trainTimePanel;
         ObjNames names;
+        float lastClickTime = 0f;
+        float doubleClickThreshold = 0.3f;
+
         private void Awake()
         {
             names = new(gameObject.name);
@@ -34,7 +37,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         public void TrainUnitButton()
         {
-            if (ResourcesManager.Instance.Buy(names.KnightName(),trainButton))
+            if (ResourcesManager.Instance.Buy(names.KnightName(), trainButton))
             {
                 trainUnitButton = true;
                 interactablePanel.SetActive(false);
@@ -43,7 +46,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         public void Construct(GameObject construct) // Upgrade: yükselecek yapının inşaatı oluşturur
         {
-            if (ResourcesManager.Instance.Buy(names.BuildingName(),upgradeButton))
+            if (ResourcesManager.Instance.Buy(names.BuildingName(), upgradeButton))
             {
                 // Son Seviye
                 if (construct == null) return;
@@ -58,7 +61,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         public void RebuildButton()
         {
-            if (ResourcesManager.Instance.Buy(names.DestructedBuildingName(),rebuildButton))
+            if (ResourcesManager.Instance.Buy(names.DestructedBuildingName(), rebuildButton))
             {
                 Destroy(gameObject);
                 Instantiate(buildingController.construction, transform.position, Quaternion.identity);
@@ -68,8 +71,21 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             Destroy(gameObject);
         }
+        public void TimerPanelVisibility(bool visibility)
+        {
+            trainTimePanel.SetActive(visibility);
+        }
+        public void DoubleClickForPanelVisibility() //Event trigger bileşeni ile tetiklenir
+        {
+            if (Time.time - lastClickTime <= doubleClickThreshold)
+            {
+                Debug.Log("Çift tıklama algılandı!");
+                PanelVisibility();
+            }
 
-        public void PanelVisibility()  //Event trigger bileşeni ile tetiklenir
+            lastClickTime = Time.time; // Tıklama zamanını güncelle
+        }
+        void PanelVisibility()
         {
             if (!buildingController.destruct) // Bina yıkılmadıysa
             {
@@ -86,10 +102,6 @@ namespace Assets.Scripts.Concrete.Controllers
                 else
                     destructPanel.SetActive(true);
             }
-        }
-        public void TimerPanelVisibility(bool visibility)
-        {
-            trainTimePanel.SetActive(visibility);
         }
     }
 }

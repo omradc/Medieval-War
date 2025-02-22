@@ -12,13 +12,14 @@ namespace Assets.Scripts.Concrete.Controllers
         [SerializeField] int destroyTime;
         [SerializeField] Transform OrderInLayerSpriteAnchor;
 
-        [Header("Other Sprites")]
-        [SerializeField] SpriteRenderer wallVerticalDownVisualSprite;
-        [SerializeField] SpriteRenderer wallDoorCloseVisualSprite;
-        [SerializeField] SpriteRenderer wallDoorOpen1VisualSprite;
-        [SerializeField] SpriteRenderer wallDoorOpen2VisualSprite;
-        [SerializeField] Transform spriteParent;
-        SpriteRenderer[] visualSprites;
+        // Sprite
+        SpriteRenderer wallVerticalDownVisualSprite;
+        SpriteRenderer wallDoorCloseVisualSprite;
+        SpriteRenderer wallDoorOpen1VisualSprite;
+        SpriteRenderer wallDoorOpen2VisualSprite;
+        Transform wallDestructed;
+        public SpriteRenderer[] visualSprites;
+        public SpriteRenderer[] destructedVisualSprites;
         SpriteRenderer visualSprite;
         SpriteRenderer visualDestructedSprite;
 
@@ -31,6 +32,7 @@ namespace Assets.Scripts.Concrete.Controllers
         HealthController healthController;
         DynamicOrderInLayer dynamicOrderInLayer;
         bool workOnce = true;
+
 
         private void Awake()
         {
@@ -88,6 +90,20 @@ namespace Assets.Scripts.Concrete.Controllers
 
         void SpriteAssingment()
         {
+            // Wall Vertical
+            if (gameObject.name == "WallVertical_Blue(Clone)" || gameObject.name == "WallVertical_Yellow(Clone)" || gameObject.name == "WallVertical_Red(Clone)" || gameObject.name == "WallVertical_Purple(Clone)")
+                wallVerticalDownVisualSprite = transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
+            // Wall Door
+            if (gameObject.name == "WallDoor_Blue(Clone)" || gameObject.name == "WallDoor_Yellow(Clone)" || gameObject.name == "WallDoor_Red(Clone)" || gameObject.name == "WallDoor_Purple(Clone)")
+            {
+                wallDoorCloseVisualSprite = transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
+                wallDoorOpen1VisualSprite = transform.GetChild(2).GetChild(1).GetChild(2).GetComponent<SpriteRenderer>();
+                wallDoorOpen2VisualSprite = transform.GetChild(2).GetChild(1).GetChild(3).GetComponent<SpriteRenderer>();
+            }
+            if (gameObject.layer == 11)
+                wallDestructed = transform.GetChild(1);
+
+
             if (wallVerticalDownVisualSprite != null)
                 dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, wallVerticalDownVisualSprite, -1);
             if (wallDoorCloseVisualSprite != null)
@@ -96,15 +112,25 @@ namespace Assets.Scripts.Concrete.Controllers
                 dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, wallDoorOpen1VisualSprite, -2);
             if (wallDoorOpen2VisualSprite != null)
                 dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, wallDoorOpen2VisualSprite, -2);
-            if (spriteParent != null)
+            if (visualBuilding != null && visualBuilding.transform.childCount > 0)
             {
-                visualSprites = new SpriteRenderer[spriteParent.childCount];
+                visualSprites = new SpriteRenderer[visualBuilding.transform.childCount];
                 for (int i = 0; i < visualSprites.Length; i++)
                 {
-                    visualSprites[i] = spriteParent.GetChild(i).GetComponent<SpriteRenderer>();
+                    visualSprites[i] = visualBuilding.transform.GetChild(i).GetComponent<SpriteRenderer>();
                 }
                 dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, visualSprites, 1);
             }
+            if (wallDestructed != null)
+            {
+                destructedVisualSprites = new SpriteRenderer[wallDestructed.childCount];
+                for (int i = 0; i < destructedVisualSprites.Length; i++)
+                {
+                    destructedVisualSprites[i] = wallDestructed.GetChild(i).GetComponent<SpriteRenderer>();
+                }
+                dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, destructedVisualSprites);
+            }
+
         }
     }
 }

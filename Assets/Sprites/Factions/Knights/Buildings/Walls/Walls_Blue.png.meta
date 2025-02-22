@@ -1,31 +1,19 @@
 fileFormatVersion: 2
-guid: 3d7b5f4641f4ed345870ddca33929f11
+guid: 3c52df24325cc0c4a95bc4c4748d5104
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5380237423685108026
-    second: TX Struct_0
+      213: 2395431977467720342
+    second: walls_Blue_0
   - first:
-      213: 141675554456027117
-    second: TX Struct_1
+      213: 5034944320781640758
+    second: walls_Blue_1
   - first:
-      213: 5869078902113103909
-    second: TX Struct_2
+      213: -1291353426258192773
+    second: walls_Blue_2
   - first:
-      213: -7381738133999487609
-    second: TX Struct_3
-  - first:
-      213: -510105923369629673
-    second: TX Struct_4
-  - first:
-      213: -2677049488981355681
-    second: TX Struct_5
-  - first:
-      213: -3684389700825655485
-    second: TX Struct_6
-  - first:
-      213: -5664187630041763615
-    second: TX Struct_7
+      213: 3617511205490479229
+    second: walls_Blue_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -58,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -96,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -134,177 +122,101 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TX Struct_0
+      name: Wall_Door_Blue
       rect:
         serializedVersion: 2
-        x: 31
-        y: 383
-        width: 66
-        height: 98
+        x: 16
+        y: 80
+        width: 48
+        height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: -24, y: -19.5}
+        - {x: -15, y: -19.5}
+        - {x: -15, y: 12.5}
+        - {x: -14, y: 12.5}
+        - {x: -9, y: 16.5}
+        - {x: 9, y: 16.5}
+        - {x: 14, y: 12.5}
+        - {x: 15, y: 12.5}
+        - {x: 15, y: -19.5}
+        - {x: 24, y: -19.5}
+        - {x: 24, y: 19.5}
+        - {x: -24, y: 19.5}
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6ce7cf1a19e8555b0800000000000000
-      internalID: -5380237423685108026
+      spriteID: 692339421b84e3120800000000000000
+      internalID: 2395431977467720342
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TX Struct_1
+      name: Wall_Horizontal_Blue
       rect:
         serializedVersion: 2
-        x: 127
-        y: 383
-        width: 67
-        height: 98
+        x: 16
+        y: 32
+        width: 48
+        height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: def35b88a2557f100800000000000000
-      internalID: 141675554456027117
+      spriteID: b76956496e0341ee0800000000000000
+      internalID: -1291353426258192773
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TX Struct_2
+      name: Wall_One_Blue
       rect:
         serializedVersion: 2
-        x: 223
-        y: 383
-        width: 67
-        height: 98
+        x: 0
+        y: 32
+        width: 16
+        height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 520f03f6a28237150800000000000000
-      internalID: 5869078902113103909
+      spriteID: a7036dee2f2d2aa42abd41ec7c978d41
+      internalID: -295056579
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TX Struct_3
+      name: Wall_Vertical_Blue
       rect:
         serializedVersion: 2
-        x: 407
-        y: 420
-        width: 82
-        height: 66
+        x: 0
+        y: 80
+        width: 16
+        height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 785710af64cce8990800000000000000
-      internalID: -7381738133999487609
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Struct_4
-      rect:
-        serializedVersion: 2
-        x: 31
-        y: 255
-        width: 66
-        height: 98
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7180bb78d5dbbe8f0800000000000000
-      internalID: -510105923369629673
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Struct_5
-      rect:
-        serializedVersion: 2
-        x: 127
-        y: 255
-        width: 67
-        height: 98
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f5310236ca539dad0800000000000000
-      internalID: -2677049488981355681
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Struct_6
-      rect:
-        serializedVersion: 2
-        x: 223
-        y: 255
-        width: 67
-        height: 98
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 347dd2c761b6edcc0800000000000000
-      internalID: -3684389700825655485
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Struct_7
-      rect:
-        serializedVersion: 2
-        x: 415
-        y: 319
-        width: 66
-        height: 66
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1e0f2325c53c461b0800000000000000
-      internalID: -5664187630041763615
+      spriteID: dc0413b9b1566394f84b1806f7331ac5
+      internalID: 282731518
       vertices: []
       indices: 
       edges: []
@@ -313,7 +225,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 1ce5f6f0526a1a74f87babc5bde706c2
     internalID: 0
     vertices: []
     indices: 
@@ -322,7 +234,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Wall_Door_Blue: 2395431977467720342
+      Wall_Horizontal_Blue: -1291353426258192773
+      Wall_One_Blue: -295056579
+      Wall_Vertical_Blue: 282731518
+      walls_Blue_1: 5034944320781640758
+      walls_Blue_3: 3617511205490479229
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

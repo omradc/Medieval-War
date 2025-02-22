@@ -767,11 +767,8 @@ MonoBehaviour:
   destroyPermanent: 0
   destroyTime: 0
   OrderInLayerSpriteAnchor: {fileID: 7887791421851241879}
-  wallVerticalDownVisualSprite: {fileID: 0}
-  wallDoorCloseVisualSprite: {fileID: 0}
-  wallDoorOpen1VisualSprite: {fileID: 0}
-  wallDoorOpen2VisualSprite: {fileID: 0}
-  spriteParent: {fileID: 0}
+  visualSprites: []
+  destructedVisualSprites: []
   isFull: 0
   destruct: 0
   unitValue: 0
@@ -1211,7 +1208,7 @@ PrefabInstance:
       objectReference: {fileID: 6589492766330503689}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PanelVisibility
+      value: DoubleClickForPanelVisibility
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName

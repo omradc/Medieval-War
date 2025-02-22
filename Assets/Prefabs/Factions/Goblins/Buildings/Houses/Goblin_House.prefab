@@ -505,7 +505,7 @@ GameObject:
   - component: {fileID: 7891557031990098600}
   - component: {fileID: 5047079939650417367}
   m_Layer: 20
-  m_Name: Visual
+  m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -887,7 +887,7 @@ MonoBehaviour:
   wallDoorCloseVisualSprite: {fileID: 0}
   wallDoorOpen1VisualSprite: {fileID: 0}
   wallDoorOpen2VisualSprite: {fileID: 0}
-  spriteParent: {fileID: 0}
+  spriteParent: {fileID: 7891557031990098600}
   isFull: 0
   destruct: 0
   unitValue: 0

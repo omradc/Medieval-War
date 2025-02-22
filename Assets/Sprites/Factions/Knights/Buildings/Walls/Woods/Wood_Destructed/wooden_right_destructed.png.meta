@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8d1511519954dfe498a0bb38f3bdd967
+guid: f2956f77fb7b1d04ba1b3ea4548cf406
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 70345852487738077
-    second: TX Tileset Grass_0
+      213: 4575034486378870654
+    second: wooden - Kopya (2)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TX Tileset Grass_0
+      name: wooden_right
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 256
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dd224fc1e2be9f000800000000000000
-      internalID: 70345852487738077
+      spriteID: e7736c330a9cd7f30800000000000000
+      internalID: 4575034486378870654
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 9f2c4e76f352afa4395d070c60716167
     internalID: 0
     vertices: []
     indices: 
@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      wooden_right: 4575034486378870654
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
