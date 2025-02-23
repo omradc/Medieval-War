@@ -744,6 +744,7 @@ GameObject:
   - component: {fileID: 8702562768780749070}
   - component: {fileID: 5343585358144450122}
   - component: {fileID: 7842470555026536466}
+  - component: {fileID: 5498481550098531007}
   m_Layer: 20
   m_Name: Goblin_House
   m_TagString: Untagged
@@ -854,17 +855,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthObj: {fileID: 320928598287813418}
   health: 10
-  currentHealth: 0
   regeneration: 0
-  regenerationValue: 1
-  takeDamageTime: 5
+  regenerationAmount: 1
+  regrenationAfterDamageTime: 5
   regrenationPerTime: 1
-  isTakeDamage: 0
-  currentTakeDamageTime: 0
+  currentregrenationAfterDamageTime: 0
   currentRegrenationPerTime: 0
+  isTakeDamage: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
-  attackingPersons: []
 --- !u!114 &5343585358144450122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -883,11 +882,8 @@ MonoBehaviour:
   destroyPermanent: 1
   destroyTime: 30
   OrderInLayerSpriteAnchor: {fileID: 2139948097104962182}
-  wallVerticalDownVisualSprite: {fileID: 0}
-  wallDoorCloseVisualSprite: {fileID: 0}
-  wallDoorOpen1VisualSprite: {fileID: 0}
-  wallDoorOpen2VisualSprite: {fileID: 0}
-  spriteParent: {fileID: 7891557031990098600}
+  visualSprites: []
+  destructedVisualSprites: []
   isFull: 0
   destruct: 0
   unitValue: 0
@@ -907,6 +903,23 @@ MonoBehaviour:
   priority: 5
   maxAttacker: 3
   attackingPersonNumber: 0
+--- !u!114 &5498481550098531007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8342234495937756783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6a73be2a691364daddd24b13566d73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  regrenation: 1
+  regenerationAmount: 1
+  regrenationPerTime: 1
+  regrenationAfterDamageTime: 5
 --- !u!1001 &919730415380096827
 PrefabInstance:
   m_ObjectHideFlags: 0

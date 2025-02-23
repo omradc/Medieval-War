@@ -19,5 +19,14 @@ namespace Assets.Scripts.Concrete.PowerStats
 
         [Header("CONSTRUCTION")]
         public float buildSpeed;
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, sightRange);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+        }
     }
 }

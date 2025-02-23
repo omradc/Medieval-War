@@ -42,11 +42,12 @@ GameObject:
   - component: {fileID: 6304368153235747338}
   - component: {fileID: 1875966729338327498}
   - component: {fileID: -8071581888276991135}
-  - component: {fileID: 80648527655793548}
-  - component: {fileID: 6509422717109881787}
-  - component: {fileID: 8106347306641681872}
   - component: {fileID: -1014295073010209394}
+  - component: {fileID: 8106347306641681872}
+  - component: {fileID: 6509422717109881787}
+  - component: {fileID: 80648527655793548}
   - component: {fileID: 2691220663528679492}
+  - component: {fileID: 6346517192939227192}
   m_Layer: 13
   m_Name: Barrel
   m_TagString: Barrel
@@ -137,104 +138,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &80648527655793548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219787817441663146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dc81ccb732316a409f31fe78ccab9a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthObj: {fileID: 5668565058135566213}
-  health: 10
-  currentHealth: 0
-  regeneration: 1
-  regenerationValue: 1
-  takeDamageTime: 5
-  regrenationPerTime: 1
-  isTakeDamage: 0
-  currentTakeDamageTime: 0
-  currentRegrenationPerTime: 0
-  isDead: 0
-  goblinHouseController: {fileID: 0}
-  attackingPersons: []
---- !u!114 &6509422717109881787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219787817441663146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47b4d6f76c6e5cd4398b5a612f2c8365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  factionType: 2
-  dynamiteSpeed: 0
-  dynamiteExplosionRadius: 0.5
-  barrelExplosionRadius: 2
-  moveSpeed: 2
-  damage: 10
-  attackSpeed: 1
-  attackInterveal: 0
-  longRange: 100
-  sightRange: 15
-  attackRange: 1
-  reportRange: 3
-  turnDirectionPerTime: 0.1
-  aIPerTime: 0.1
-  enemiesLayer:
-    serializedVersion: 2
-    m_Bits: 2880
-  friendsLayer:
-    serializedVersion: 2
-    m_Bits: 8192
-  targetWoodTower:
-    serializedVersion: 2
-    m_Bits: 134217728
-  orderInLayerSpriteAnchor: {fileID: 5347766753837462073}
-  visual: {fileID: 7635113777096325598}
-  patrollingRadius: 3
-  waitingTime: 2
-  behavior: 0
-  path: {fileID: 0}
-  aI: 1
-  onBuilding: 0
-  goBuilding: 0
-  currentSightRange: 0
-  currentLongRange: 0
-  woodTowers: []
-  sightRangeDetechEnemies: []
-  longRangeDetechEnemies: []
-  friendsDetech: []
-  nonRangeDetechEnemy: {fileID: 0}
-  patrolPoints: []
-  explosion: {fileID: 5760141080254190359, guid: 8daf93f34db32dc47827a45011fa44ba, type: 3}
-  dynamite: {fileID: 0}
-  animator: {fileID: 0}
-  goblinCollider: {fileID: 0}
---- !u!114 &8106347306641681872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219787817441663146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isStoping: 1
-  isUserControl: 0
-  agent: {fileID: 0}
-  lastMousePos: {x: 0, y: 0}
-  moveSpeed: 0
 --- !u!195 &-1014295073010209394
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -257,6 +160,97 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8106347306641681872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219787817441663146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isStoping: 1
+  isUserControl: 0
+  agent: {fileID: 0}
+  lastMousePos: {x: 0, y: 0}
+  moveSpeed: 0
+--- !u!114 &6509422717109881787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219787817441663146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b4d6f76c6e5cd4398b5a612f2c8365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  factionType: 2
+  turnDirectionPerTime: 0.1
+  aIPerTime: 0.1
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 2880
+  friendsLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  targetWoodTower:
+    serializedVersion: 2
+    m_Bits: 134217728
+  orderInLayerSpriteAnchor: {fileID: 5347766753837462073}
+  visual: {fileID: 7635113777096325598}
+  patrollingRadius: 3
+  waitingTime: 2
+  behavior: 0
+  path: {fileID: 0}
+  damage: 10
+  dynamiteSpeed: 0
+  dynamiteExplosionRadius: 0.5
+  barrelExplosionRadius: 2
+  longRange: 100
+  sightRange: 15
+  attackRange: 1
+  currentSightRange: 0
+  currentLongRange: 0
+  aI: 1
+  onBuilding: 0
+  goBuilding: 0
+  woodTowers: []
+  sightRangeDetechEnemies: []
+  longRangeDetechEnemies: []
+  friendsDetech: []
+  goblinCollider: {fileID: 0}
+  patrolPoints: []
+  nonRangeDetechEnemy: {fileID: 0}
+  explosion: {fileID: 5760141080254190359, guid: 8daf93f34db32dc47827a45011fa44ba, type: 3}
+  dynamite: {fileID: 0}
+--- !u!114 &80648527655793548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219787817441663146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc81ccb732316a409f31fe78ccab9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthObj: {fileID: 5668565058135566213}
+  health: 10
+  regeneration: 1
+  regenerationAmount: 1
+  regrenationAfterDamageTime: 5
+  regrenationPerTime: 1
+  currentregrenationAfterDamageTime: 0
+  currentRegrenationPerTime: 0
+  isTakeDamage: 0
+  isDead: 0
+  goblinHouseController: {fileID: 0}
 --- !u!114 &2691220663528679492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,6 +266,32 @@ MonoBehaviour:
   priority: 0
   maxAttacker: 3
   attackingPersonNumber: 0
+--- !u!114 &6346517192939227192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219787817441663146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcfc3765d110de5468c95b4103c9b5c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  regrenation: 1
+  regenerationAmount: 1
+  regrenationPerTime: 1
+  regrenationAfterDamageTime: 5
+  moveSpeed: 2
+  damage: 1
+  attackSpeed: 1
+  attackInterval: 1
+  attackRange: 0.6
+  sightRange: 10
+  longRange: 50
+  reportRange: 3
+  barrelExplosionRadius: 2
 --- !u!1 &6627527999264788008
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 4088060588445281749}
   - component: {fileID: -8081813939892308413}
   - component: {fileID: 6197728433067721383}
-  - component: {fileID: -5201736685492982202}
-  - component: {fileID: 2140753509579492637}
-  - component: {fileID: 6747969190704152676}
   - component: {fileID: 6455696069564880554}
+  - component: {fileID: 6747969190704152676}
+  - component: {fileID: 2140753509579492637}
+  - component: {fileID: -5201736685492982202}
   - component: {fileID: 675483745330298091}
-  - component: {fileID: -2703747722214115628}
+  - component: {fileID: 2990742206804797280}
   m_Layer: 6
   m_Name: Warrior
   m_TagString: Warrior
@@ -105,94 +105,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &-5201736685492982202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4195786962051834586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dc81ccb732316a409f31fe78ccab9a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthObj: {fileID: 517914095072558393}
-  health: 10
-  currentHealth: 0
-  regeneration: 1
-  regenerationAmount: 1
-  takeDamageTime: 5
-  regrenationPerTime: 1
-  isTakeDamage: 0
-  currentTakeDamageTime: 0
-  currentRegrenationPerTime: 0
-  isDead: 0
-  goblinHouseController: {fileID: 0}
-  attackingPersons: []
---- !u!114 &2140753509579492637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4195786962051834586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84475765e22c092489325f6d04f6e281, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  factionType: 3
-  moveSpeed: 2
-  damage: 1
-  attackSpeed: 1
-  attackInterval: 0.1
-  attackRange: 0.6
-  sightRange: 8
-  arrowSpeed: 25
-  arrowDestroyTime: 10
-  turnDirectionPerTime: 0.1
-  aIPerTime: 0.1
-  collectResourcesPerTime: 1
-  enemiesLayer:
-    serializedVersion: 2
-    m_Bits: 403709952
-  orderInLayerSpriteAnchor: {fileID: 3699232963510252676}
-  visual: {fileID: 7307113097883127245}
-  isSeleceted: 0
-  targetEnemies: []
-  arrow: {fileID: 0}
-  followingObj: {fileID: 0}
-  workOnce: 1
-  currentSightRange: 0
-  unitOrderEnum: 0
-  attackRangePosition: {x: 0, y: 0}
-  sightRangePosition: {x: 0, y: 0}
-  animator: {fileID: 0}
-  towerPosIndex: 0
-  aI: 1
-  onBuilding: 0
-  onBuildingStay: 0
-  goBuilding: 0
-  canAttack: 0
-  knightCollider: {fileID: 0}
---- !u!114 &6747969190704152676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4195786962051834586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isStoping: 1
-  isUserControl: 0
-  agent: {fileID: 0}
-  lastMousePos: {x: 0, y: 0}
-  moveSpeed: 0
 --- !u!195 &6455696069564880554
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -215,6 +127,87 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6747969190704152676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195786962051834586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isStoping: 1
+  isUserControl: 0
+  agent: {fileID: 0}
+  lastMousePos: {x: 0, y: 0}
+  moveSpeed: 0
+--- !u!114 &2140753509579492637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195786962051834586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84475765e22c092489325f6d04f6e281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  factionType: 3
+  turnDirectionPerTime: 0.1
+  aIPerTime: 0.1
+  collectResourcesPerTime: 1
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 403709952
+  orderInLayerSpriteAnchor: {fileID: 3699232963510252676}
+  visual: {fileID: 7307113097883127245}
+  damage: 1
+  towerPosIndex: 0
+  attackRange: 0.6
+  sightRange: 8
+  arrowSpeed: 25
+  arrowDestroyTime: 10
+  currentSightRange: 0
+  isSeleceted: 0
+  aI: 1
+  onBuilding: 0
+  onBuildingStay: 0
+  goBuilding: 0
+  workOnce: 1
+  unitOrderEnum: 0
+  attackRangePosition: {x: 0, y: 0}
+  sightRangePosition: {x: 0, y: 0}
+  targetEnemies: []
+  knightCollider: {fileID: 0}
+  arrow: {fileID: 0}
+  followingObj: {fileID: 0}
+--- !u!114 &-5201736685492982202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195786962051834586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc81ccb732316a409f31fe78ccab9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthObj: {fileID: 517914095072558393}
+  health: 10
+  regeneration: 1
+  regenerationAmount: 1
+  regrenationAfterDamageTime: 5
+  regrenationPerTime: 1
+  currentregrenationAfterDamageTime: 0
+  currentRegrenationPerTime: 0
+  isTakeDamage: 0
+  isDead: 0
+  goblinHouseController: {fileID: 0}
 --- !u!114 &675483745330298091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +223,7 @@ MonoBehaviour:
   priority: 0
   maxAttacker: 3
   attackingPersonNumber: 0
---- !u!114 &-2703747722214115628
+--- !u!114 &2990742206804797280
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -242,13 +235,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f32b11397b67d4996ff22eea435792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 10
+  regrenation: 1
+  regenerationAmount: 1
+  regrenationPerTime: 1
+  regrenationAfterDamageTime: 5
   moveSpeed: 2
-  damage: 3
+  damage: 1
   attackSpeed: 1
-  attackInterval: 0.1
+  attackInterval: 1
   attackRange: 0.6
-  sightRange: 8
+  sightRange: 10
 --- !u!1 &6865075020038010750
 GameObject:
   m_ObjectHideFlags: 0

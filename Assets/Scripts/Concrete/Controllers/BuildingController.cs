@@ -1,8 +1,10 @@
 ﻿using Assets.Scripts.Concrete.Movements;
+using Assets.Scripts.Concrete.PowerStats;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
+    [RequireComponent(typeof(BuildingStats))]
     class BuildingController : MonoBehaviour
     {
         public GameObject construction;
@@ -29,8 +31,9 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public int unitValue;
 
         [HideInInspector] public InteractableObjUIController interactableObjUIController;
-        HealthController healthController;
         DynamicOrderInLayer dynamicOrderInLayer;
+        HealthController healthController;
+        BuildingStats buildingStats;
         bool workOnce = true;
 
 
@@ -44,11 +47,18 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Start()
         {
+            PowerStatsAssign();
             dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, visualSprite);
             dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, visualDestructedSprite);
-
             SpriteAssingment();
-
+        }
+        void PowerStatsAssign()
+        {
+            healthController.health = buildingStats.health;
+            healthController.regeneration = buildingStats.regrenation;
+            healthController.regenerationAmount = buildingStats.regenerationAmount;
+            healthController.regrenationPerTime = buildingStats.regrenationPerTime;
+            healthController.regrenationAfterDamageTime = buildingStats.regrenationAfterDamageTime;
         }
         private void Update()
         {
@@ -57,7 +67,6 @@ namespace Assets.Scripts.Concrete.Controllers
             Upgrade();
 
         }
-
         void Destruct()
         {
             if (!workOnce) return;
@@ -75,7 +84,6 @@ namespace Assets.Scripts.Concrete.Controllers
             if (destroyPermanent)
                 Destroy(gameObject, destroyTime);
         }
-
         void Upgrade()
         {
             if (interactableObjUIController == null) return;
@@ -87,7 +95,6 @@ namespace Assets.Scripts.Concrete.Controllers
 
             }
         }
-
         void SpriteAssingment()
         {
             // Wall Vertical

@@ -10,21 +10,20 @@ namespace Assets.Scripts.Concrete.Controllers
     internal class HealthController : MonoBehaviour
     {
         [SerializeField] GameObject healthObj;
-        public int health;
-        [SerializeField] float currentHealth;
-        [SerializeField] bool regeneration;
-        public float regenerationAmount = 1;
-
-        public float regrenationAfterDamageTime = 5;
-        public float regrenationPerTime = 1;
-        [HideInInspector] public bool isTakeDamage;
+        [HideInInspector] public int health;
+        [HideInInspector] public bool regeneration;
+        [HideInInspector] public float regenerationAmount = 1;
+        [HideInInspector] public float regrenationAfterDamageTime = 5;
+        [HideInInspector] public float regrenationPerTime = 1;
         [HideInInspector] public float currentregrenationAfterDamageTime;
         [HideInInspector] public float currentRegrenationPerTime;
+        [HideInInspector] public bool isTakeDamage;
         [HideInInspector] public bool isDead;
         [HideInInspector] public GoblinHouseController goblinHouseController;
         Image fillImage;
-        public List<GameObject> attackingPersons;
+        List<GameObject> attackingPersons;
         TargetPriority targetPriority;
+        float currentHealth;
         private void Awake()
         {
             currentHealth = health;
@@ -33,6 +32,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Start()
         {
+            attackingPersons = new();
             targetPriority = GetComponent<TargetPriority>();
             UpdateHealthBar();
             HealthBarVisibility(false);

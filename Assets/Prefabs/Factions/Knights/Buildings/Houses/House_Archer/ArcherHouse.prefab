@@ -917,6 +917,7 @@ GameObject:
   - component: {fileID: 8191330307033178946}
   - component: {fileID: 3048150471120658330}
   - component: {fileID: -5852052855475248499}
+  - component: {fileID: 5923102275711421257}
   m_Layer: 8
   m_Name: ArcherHouse
   m_TagString: Building
@@ -1043,17 +1044,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthObj: {fileID: 7733261629387991380}
   health: 10
-  currentHealth: 0
   regeneration: 1
-  regenerationValue: 1
-  takeDamageTime: 5
+  regenerationAmount: 1
+  regrenationAfterDamageTime: 5
   regrenationPerTime: 1
-  isTakeDamage: 0
-  currentTakeDamageTime: 0
+  currentregrenationAfterDamageTime: 0
   currentRegrenationPerTime: 0
+  isTakeDamage: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
-  attackingPersons: []
 --- !u!114 &3048150471120658330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1093,6 +1092,23 @@ MonoBehaviour:
   priority: 5
   maxAttacker: 3
   attackingPersonNumber: 0
+--- !u!114 &5923102275711421257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8389996312057332968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6a73be2a691364daddd24b13566d73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  regrenation: 1
+  regenerationAmount: 1
+  regrenationPerTime: 1
+  regrenationAfterDamageTime: 5
 --- !u!1 &8488856285005044550
 GameObject:
   m_ObjectHideFlags: 0

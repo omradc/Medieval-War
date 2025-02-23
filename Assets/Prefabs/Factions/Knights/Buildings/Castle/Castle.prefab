@@ -622,6 +622,7 @@ GameObject:
   - component: {fileID: 7651174370483823263}
   - component: {fileID: 7905084520350405072}
   - component: {fileID: 1201669178334663449}
+  - component: {fileID: 8903543053516029910}
   m_Layer: 9
   m_Name: Castle
   m_TagString: Building
@@ -712,17 +713,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthObj: {fileID: 968232854713485718}
   health: 100
-  currentHealth: 0
   regeneration: 1
-  regenerationValue: 1
-  takeDamageTime: 5
+  regenerationAmount: 1
+  regrenationAfterDamageTime: 5
   regrenationPerTime: 1
-  isTakeDamage: 0
-  currentTakeDamageTime: 0
+  currentregrenationAfterDamageTime: 0
   currentRegrenationPerTime: 0
+  isTakeDamage: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
-  attackingPersons: []
 --- !u!114 &7651174370483823263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -784,6 +783,23 @@ MonoBehaviour:
   priority: 10
   maxAttacker: 3
   attackingPersonNumber: 0
+--- !u!114 &8903543053516029910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296483771844846597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6a73be2a691364daddd24b13566d73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  regrenation: 1
+  regenerationAmount: 1
+  regrenationPerTime: 1
+  regrenationAfterDamageTime: 5
 --- !u!1 &5377870383954355044
 GameObject:
   m_ObjectHideFlags: 0

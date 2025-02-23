@@ -5,37 +5,20 @@ using Assets.Scripts.Concrete.Movements;
 using UnityEngine;
 using Assets.Scripts.Concrete.Managers;
 using System;
+using Assets.Scripts.Concrete.PowerStats;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
     internal class GoblinController : MonoBehaviour
     {
-        [Header("ENEMY")]
+
+        [Header("SETTİNGS")]
         public FactionTypeEnum factionType;
-
-        [Header("DYNAMİTE")]
-        public float dynamiteSpeed;
-        public float dynamiteExplosionRadius = .5f;
-
-        [Header("BARREL")]
-        public float barrelExplosionRadius = 2;
-
-        [Header("UNİT")]
-        [Range(2f, 4f)] public float moveSpeed;
-        public int damage;
-        public float attackSpeed;
-        public float attackInterveal;
-        public float longRange;
-        public float sightRange;
-        public float attackRange;
-        public float reportRange;
-
-        [Header("ENEMY SETTİNGS")]
-        [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
-        [Range(0.1f, 1f)] public float aIPerTime = 0.5f;
+        [SerializeField][Range(0.1f, 1f)] float turnDirectionPerTime = 0.5f;
+        [SerializeField][Range(0.1f, 1f)] float aIPerTime = 0.5f;
         public LayerMask enemiesLayer;
-        public LayerMask friendsLayer;
-        public LayerMask targetWoodTower;
+        [SerializeField] LayerMask friendsLayer;
+        [SerializeField] LayerMask targetWoodTower;
         [SerializeField] Transform orderInLayerSpriteAnchor;
         [SerializeField] SpriteRenderer visual;
 
@@ -45,44 +28,60 @@ namespace Assets.Scripts.Concrete.Controllers
         public BehaviorEnum behavior;
         public Transform path;
 
+        [HideInInspector] public int damage;
+        [HideInInspector] public float dynamiteSpeed;
+        [HideInInspector] public float dynamiteExplosionRadius = .5f;
+        [HideInInspector] public float barrelExplosionRadius = 2;
+        [HideInInspector] public float longRange;
+        [HideInInspector] public float sightRange;
+        [HideInInspector] public float attackRange;
+        [HideInInspector] public float currentSightRange;
+        [HideInInspector] public float currentLongRange;
         [HideInInspector] public bool aI = true;
         [HideInInspector] public bool onBuilding;
         [HideInInspector] public bool goBuilding;
-        [HideInInspector] public float currentSightRange;
-        [HideInInspector] public float currentLongRange;
         [HideInInspector] public Collider2D[] woodTowers;
         [HideInInspector] public Collider2D[] sightRangeDetechEnemies;
         [HideInInspector] public Collider2D[] longRangeDetechEnemies;
         [HideInInspector] public Collider2D[] friendsDetech;
-        [HideInInspector] public GameObject nonRangeDetechEnemy;
+        [HideInInspector] public CircleCollider2D goblinCollider;
         [HideInInspector] public Transform[] patrolPoints;
+        [HideInInspector] public GameObject nonRangeDetechEnemy;
         [HideInInspector] public GameObject explosion;
         [HideInInspector] public GameObject dynamite;
-        [HideInInspector] public Direction direction;
-        [HideInInspector] public Animator animator;
-        [HideInInspector] public CircleCollider2D goblinCollider;
-
-
-        bool canAttack;
-        float time;
+        Direction direction;
+        Animator animator;
         GoblinAI goblinAI;
         PathFindingController pF;
         AnimationEventController animationEventController;
         DynamicOrderInLayer dynamicOrderInLayer;
+        TorchStats torchStats;
+        TntStats tntStats;
+        BarrelStats barrelStats;
+        HealthController healthController;
         Vector3 gizmosPos;
+        [Range(2f, 4f)] float moveSpeed;
+        float time;
+        float attackSpeed;
+        float attackInterveal;
+        float reportRange;
+        bool canAttack;
+
         private void Awake()
         {
             animator = transform.GetChild(0).GetComponent<Animator>();
             goblinCollider = GetComponent<CircleCollider2D>();
             pF = GetComponent<PathFindingController>();
+            healthController = GetComponent<HealthController>();
             direction = new Direction(transform);
             goblinAI = new(this, pF);
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
+            new EnemyAttack(this, goblinAI, animationEventController, pF);
             dynamicOrderInLayer = new();
         }
         private void Start()
         {
-            new EnemyAttack(this, goblinAI, animationEventController, pF);
+            PowerStatsAssign();
             pF.agent.speed = moveSpeed;
             currentSightRange = sightRange;
             gizmosPos = transform.position;
@@ -93,7 +92,70 @@ namespace Assets.Scripts.Concrete.Controllers
             InvokeRepeating(nameof(OptimumTurnDirection), 0, turnDirectionPerTime);
             InvokeRepeating(nameof(OptimumAI), 0, aIPerTime);
         }
+        void PowerStatsAssign()
+        {
+            if (factionType == FactionTypeEnum.Torch)
+                torchStats = GetComponent<TorchStats>();
+            if (factionType == FactionTypeEnum.Tnt)
+                tntStats = GetComponent<TntStats>();
+            if (factionType == FactionTypeEnum.Barrel)
+                barrelStats = GetComponent<BarrelStats>();
 
+            if (torchStats != null)
+            {
+                healthController.health = torchStats.health;
+                healthController.regeneration = torchStats.regrenation;
+                healthController.regenerationAmount = torchStats.regenerationAmount;
+                healthController.regrenationPerTime = torchStats.regrenationPerTime;
+                healthController.regrenationAfterDamageTime = torchStats.regrenationAfterDamageTime;
+                moveSpeed = torchStats.moveSpeed;
+                damage = torchStats.damage;
+                attackSpeed = torchStats.attackSpeed;
+                attackInterveal = torchStats.attackInterval;
+                attackRange = torchStats.attackRange;
+                sightRange = torchStats.sightRange;
+                longRange = torchStats.longRange;
+                reportRange = torchStats.reportRange;
+            }
+
+            if (tntStats != null)
+            {
+                healthController.health = tntStats.health;
+                healthController.regeneration = tntStats.regrenation;
+                healthController.regenerationAmount = tntStats.regenerationAmount;
+                healthController.regrenationPerTime = tntStats.regrenationPerTime;
+                healthController.regrenationAfterDamageTime = tntStats.regrenationAfterDamageTime;
+                moveSpeed = tntStats.moveSpeed;
+                damage = tntStats.damage;
+                attackSpeed = tntStats.attackSpeed;
+                attackInterveal = tntStats.attackInterval;
+                attackRange = tntStats.attackRange;
+                sightRange = tntStats.sightRange;
+                longRange = tntStats.longRange;
+                reportRange = tntStats.reportRange;
+                dynamiteSpeed = tntStats.dynamiteSpeed;
+                dynamiteExplosionRadius = tntStats.dynamiteExplosionRadius;
+            }
+
+            if (barrelStats != null)
+            {
+                healthController.health = barrelStats.health;
+                healthController.regeneration = barrelStats.regrenation;
+                healthController.regenerationAmount = barrelStats.regenerationAmount;
+                healthController.regrenationPerTime = barrelStats.regrenationPerTime;
+                healthController.regrenationAfterDamageTime = barrelStats.regrenationAfterDamageTime;
+                moveSpeed = barrelStats.moveSpeed;
+                damage = barrelStats.damage;
+                attackSpeed = barrelStats.attackSpeed;
+                attackInterveal = barrelStats.attackInterval;
+                attackRange = barrelStats.attackRange;
+                sightRange = barrelStats.sightRange;
+                longRange = barrelStats.longRange;
+                reportRange = barrelStats.reportRange;
+                barrelExplosionRadius = barrelStats.barrelExplosionRadius;
+            }
+
+        }
         private void Update()
         {
             dynamicOrderInLayer.OrderInLayerUpdate(orderInLayerSpriteAnchor, visual);
@@ -105,14 +167,13 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             if (aI)
             {
-                AITurnDirection(); 
+                AITurnDirection();
             }
 
         }
-
         void OptimumAI()
         {
-            if(aI)
+            if (aI)
             {
                 goblinAI.GoblinBehaviour();
                 DetechEnemies();
@@ -213,20 +274,8 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, currentSightRange);
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, attackRange);
-
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(gizmosPos, patrollingRadius);
-
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, currentLongRange);
-
-            Gizmos.color = Color.black;
-            Gizmos.DrawWireSphere(transform.position, reportRange);
         }
     }
 }
