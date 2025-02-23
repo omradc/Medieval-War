@@ -90,6 +90,7 @@ namespace Assets.Scripts.Concrete.AI
                     return null;
             }
         }
+
         void SpotEnemy(GameObject enemy)
         {
             if (target == null)

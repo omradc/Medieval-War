@@ -93,6 +93,7 @@ namespace Assets.Scripts.Concrete.Controllers
             InvokeRepeating(nameof(OptimumTurnDirection), 0, turnDirectionPerTime);
             InvokeRepeating(nameof(OptimumAI), 0, aIPerTime);
         }
+
         private void Update()
         {
             dynamicOrderInLayer.OrderInLayerUpdate(orderInLayerSpriteAnchor, visual);
@@ -108,6 +109,7 @@ namespace Assets.Scripts.Concrete.Controllers
             }
 
         }
+
         void OptimumAI()
         {
             if(aI)
