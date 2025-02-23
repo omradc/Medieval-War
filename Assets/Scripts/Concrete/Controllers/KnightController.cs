@@ -3,6 +3,7 @@ using Assets.Scripts.Concrete.Combats;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
+using Assets.Scripts.Concrete.PowerStats;
 using UnityEngine;
 
 
@@ -13,6 +14,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [Header("UNIT")]
         public FactionTypeEnum factionType;
         [Space(30)]
+
         [Header("UNIT")]
         [Range(2, 4f)] public float moveSpeed = 1f;
         public int damage;
@@ -21,8 +23,13 @@ namespace Assets.Scripts.Concrete.Controllers
         public float attackRange;
         public float sightRange;
 
+        //Archer
+        public float arrowSpeed = 25;
+        public float arrowDestroyTime = 10;
+
         [Header("UNIT SETTÝNGS")]
-        [Range(0.1f, 1f)] public float unitAIPerTime = 0.5f;
+        [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
+        [Range(0.1f, 1f)] public float aIPerTime = 0.5f;
         [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
         public LayerMask enemiesLayer;
         [SerializeField] Transform orderInLayerSpriteAnchor;
@@ -49,33 +56,94 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public CircleCollider2D knightCollider;
         AnimationEventController animationEventController;
         PathFindingController pF;
-        KnightAttack knightAttack;
         VillagerController villagerController;
         float time;
         DynamicOrderInLayer dynamicOrderInLayer;
+        //WarriorStats warriorStats;
+        //ArcherStats archerStats;
+        //VillagerStats villagerStats;
+        //HealthController healthController;
         private void Awake()
         {
             pF = GetComponent<PathFindingController>();
             knightCollider = GetComponent<CircleCollider2D>();
             animator = transform.GetChild(0).GetComponent<Animator>();
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
+            //healthController = GetComponent<HealthController>();
             direction = new(transform);
             knightAI = new(this, pF);
-            knightAttack = new(this, knightAI, animationEventController, pF);
+            new KnightAttack(this, knightAI, animationEventController, pF);
             dynamicOrderInLayer = new();
             if (factionType == FactionTypeEnum.Villager)
+            {
                 villagerController = GetComponent<VillagerController>();
+                //villagerStats = GetComponent<VillagerStats>();
+            }
+            //if (factionType == FactionTypeEnum.Warrior)
+            //    warriorStats = GetComponent<WarriorStats>();
+            //if (factionType == FactionTypeEnum.Archer)
+            //    archerStats = GetComponent<ArcherStats>();
 
         }
         private void Start()
         {
+            //PowerStatsAssign();
             currentSightRange = sightRange;
             pF.agent.speed = moveSpeed;
             time = attackInterval;
             animationEventController.ResetAttackEvent += ResetAttack;
             // Invoke
-            InvokeRepeating(nameof(OptimumUnitAI), 0, unitAIPerTime);
+            InvokeRepeating(nameof(OptimumTurnDirection), 0, turnDirectionPerTime);
+            InvokeRepeating(nameof(OptimumAI), 0, aIPerTime);
         }
+
+        //void PowerStatsAssign()
+        //{
+        //    if (warriorStats != null)
+        //    {
+        //        healthController.health = warriorStats.health;
+        //        healthController.regenerationAmount = warriorStats.regenerationAmount;
+        //        healthController.regrenationPerTime = warriorStats.regrenationPerTime;
+        //        healthController.regrenationAfterDamageTime = warriorStats.regrenationAfterDamageTime;
+        //        moveSpeed = warriorStats.moveSpeed;
+        //        damage = warriorStats.damage;
+        //        attackSpeed = warriorStats.attackSpeed;
+        //        attackInterval = warriorStats.attackInterval;
+        //        attackRange = warriorStats.attackRange;
+        //        sightRange = warriorStats.sightRange;
+        //    }
+        //    if (archerStats !=null)
+        //    {
+        //        healthController.health = archerStats.health;
+        //        healthController.regenerationAmount = archerStats.regenerationAmount;
+        //        healthController.regrenationPerTime = archerStats.regrenationPerTime;
+        //        healthController.regrenationAfterDamageTime = archerStats.regrenationAfterDamageTime;
+        //        moveSpeed = archerStats.moveSpeed;
+        //        damage = archerStats.damage;
+        //        attackSpeed = archerStats.attackSpeed;
+        //        attackInterval = archerStats.attackInterval;
+        //        attackRange = archerStats.attackRange;
+        //        sightRange = archerStats.sightRange;
+        //        arrowSpeed = archerStats.arrowSpeed;
+        //        arrowDestroyTime = archerStats.arrowDestroyTime;
+        //    }
+        //    if(villagerStats!=null)
+        //    {
+        //        healthController.health = villagerStats.health;
+        //        healthController.regenerationAmount = villagerStats.regenerationAmount;
+        //        healthController.regrenationPerTime = villagerStats.regrenationPerTime;
+        //        healthController.regrenationAfterDamageTime = villagerStats.regrenationAfterDamageTime;
+        //        moveSpeed = villagerStats.moveSpeed;
+        //        damage = villagerStats.damage;
+        //        attackSpeed = villagerStats.attackSpeed;
+        //        attackInterval = villagerStats.attackInterval;
+        //        attackRange = villagerStats.attackRange;
+        //        sightRange = villagerStats.sightRange;
+        //        villagerController.treeDamage = villagerStats.treeDamage;
+        //        villagerController.chopSpeed = villagerStats.chopSpeed;
+        //    }
+
+        //}
         private void Update()
         {
             if (!onBuilding)
@@ -96,18 +164,24 @@ namespace Assets.Scripts.Concrete.Controllers
             knightAI.SelectTower();
             knightAI.DestructTower();
         }
-        void OptimumUnitAI()
+        void OptimumTurnDirection()
         {
-            knightAI.GoTower();
             if (aI) //Knight AI
             {
-                knightAI.UnitBehaviours();
                 AITurnDirection();
+            }
+        }
+
+        void OptimumAI()
+        {
+            knightAI.GoTower();
+            if (aI)
+            {
+                knightAI.UnitBehaviours();
                 DetechEnemies();
                 knightAI.CatchNeraestTarget();
                 ResetPath();
             }
-
         }
         void DetechEnemies()
         {

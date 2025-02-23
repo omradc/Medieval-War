@@ -20,7 +20,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [Header("BARREL")]
         public float barrelExplosionRadius = 2;
 
-        [Header("ENEMY UNİT")]
+        [Header("UNİT")]
         [Range(2f, 4f)] public float moveSpeed;
         public int damage;
         public float attackSpeed;
@@ -31,7 +31,8 @@ namespace Assets.Scripts.Concrete.Controllers
         public float reportRange;
 
         [Header("ENEMY SETTİNGS")]
-        [Range(0.1f, 1f)] public float enemyAIPerTime = 0.5f;
+        [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
+        [Range(0.1f, 1f)] public float aIPerTime = 0.5f;
         public LayerMask enemiesLayer;
         public LayerMask friendsLayer;
         public LayerMask targetWoodTower;
@@ -48,12 +49,12 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool onBuilding;
         [HideInInspector] public bool goBuilding;
         [HideInInspector] public float currentSightRange;
-        public float currentLongRange;
+        [HideInInspector] public float currentLongRange;
         [HideInInspector] public Collider2D[] woodTowers;
-        public Collider2D[] sightRangeDetechEnemies;
-        public Collider2D[] longRangeDetechEnemies;
-        public Collider2D[] friendsDetech;
-        public GameObject nonRangeDetechEnemy;
+        [HideInInspector] public Collider2D[] sightRangeDetechEnemies;
+        [HideInInspector] public Collider2D[] longRangeDetechEnemies;
+        [HideInInspector] public Collider2D[] friendsDetech;
+        [HideInInspector] public GameObject nonRangeDetechEnemy;
         [HideInInspector] public Transform[] patrolPoints;
         [HideInInspector] public GameObject explosion;
         [HideInInspector] public GameObject dynamite;
@@ -62,7 +63,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public CircleCollider2D goblinCollider;
 
 
-        public bool canAttack;
+        bool canAttack;
         float time;
         GoblinAI goblinAI;
         PathFindingController pF;
@@ -89,7 +90,8 @@ namespace Assets.Scripts.Concrete.Controllers
             animationEventController.ResetAttackEvent += ResetAttack;
             //PatrolSetup();
             // Invoke
-            InvokeRepeating(nameof(OptimumEnemyAI), .1f, enemyAIPerTime);
+            InvokeRepeating(nameof(OptimumTurnDirection), 0, turnDirectionPerTime);
+            InvokeRepeating(nameof(OptimumAI), 0, aIPerTime);
         }
 
         private void Update()
@@ -99,17 +101,24 @@ namespace Assets.Scripts.Concrete.Controllers
             AnimationControl();
             goblinAI.DestructTower();
         }
-        void OptimumEnemyAI()
+        void OptimumTurnDirection()
         {
             if (aI)
             {
-                DetechEnemies();
-                AITurnDirection();
-                goblinAI.CatchNeraestTarget();
-                goblinAI.GoblinBehaviour();
-                ResetPath();
+                AITurnDirection(); 
             }
 
+        }
+
+        void OptimumAI()
+        {
+            if(aI)
+            {
+                goblinAI.GoblinBehaviour();
+                DetechEnemies();
+                goblinAI.CatchNeraestTarget();
+                ResetPath();
+            }
             goblinAI.GoUpToTower();
         }
         void DetechEnemies()

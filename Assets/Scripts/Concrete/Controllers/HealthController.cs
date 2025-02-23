@@ -10,15 +10,15 @@ namespace Assets.Scripts.Concrete.Controllers
     internal class HealthController : MonoBehaviour
     {
         [SerializeField] GameObject healthObj;
-        [SerializeField] float health;
+        public int health;
         [SerializeField] float currentHealth;
         [SerializeField] bool regeneration;
-        [SerializeField] float regenerationValue = 1;
+        public float regenerationAmount = 1;
 
-        public float takeDamageTime = 5;
+        public float regrenationAfterDamageTime = 5;
         public float regrenationPerTime = 1;
         [HideInInspector] public bool isTakeDamage;
-        [HideInInspector] public float currentTakeDamageTime;
+        [HideInInspector] public float currentregrenationAfterDamageTime;
         [HideInInspector] public float currentRegrenationPerTime;
         [HideInInspector] public bool isDead;
         [HideInInspector] public GoblinHouseController goblinHouseController;
@@ -45,7 +45,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public void GetHit(int attackDamage, GameObject attacker) // Hasar al
         {
             AttackingPerson(attacker);
-            currentTakeDamageTime = 0;
+            currentregrenationAfterDamageTime = 0;
             isTakeDamage = true;
             HealthBarVisibility(true);
             currentHealth -= attackDamage;
@@ -62,9 +62,9 @@ namespace Assets.Scripts.Concrete.Controllers
         void Regeneration() // Yenilenme
         {
             if (!regeneration) return;
-            currentTakeDamageTime += 1;
+            currentregrenationAfterDamageTime += 1;
             UpdateHealthBar();
-            if (currentTakeDamageTime >= takeDamageTime)
+            if (currentregrenationAfterDamageTime >= regrenationAfterDamageTime)
             {
                 isTakeDamage = false;
             }
@@ -77,7 +77,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 currentRegrenationPerTime += 1;
                 if (currentRegrenationPerTime >= regrenationPerTime)
                 {
-                    currentHealth += regenerationValue;
+                    currentHealth += regenerationAmount;
                     currentRegrenationPerTime = 0;
                 }
             }
@@ -89,8 +89,6 @@ namespace Assets.Scripts.Concrete.Controllers
                 HealthBarVisibility(false);
             }
         }
-
-
         public void HealthBarVisibility(bool visibility)
         {
             healthObj.SetActive(visibility);

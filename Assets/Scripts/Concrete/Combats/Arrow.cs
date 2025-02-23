@@ -5,8 +5,8 @@ namespace Assets.Scripts.Concrete.Combats
 {
     internal class Arrow : MonoBehaviour
     {
-        public float arrowSpeed = 25;
-        public float destroyTime = 10;
+        [HideInInspector] public float arrowSpeed;
+        [HideInInspector] public float arrowDestroyTime;
         [HideInInspector] public GameObject target;
         [HideInInspector] public GameObject archer;
         [HideInInspector] public int damage = 0;
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Concrete.Combats
             // Z ekseni etrafında rotasyonu ayarla
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-            Destroy(gameObject, destroyTime);
+            Destroy(gameObject, arrowDestroyTime);
         }
         private void Update()
         {

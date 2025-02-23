@@ -212,7 +212,10 @@ MonoBehaviour:
   attackInterval: 0.3
   attackRange: 0.6
   sightRange: 8
-  unitAIPerTime: 0.1
+  arrowSpeed: 25
+  arrowDestroyTime: 10
+  turnDirectionPerTime: 0.1
+  aIPerTime: 0.1
   collectResourcesPerTime: 0.5
   enemiesLayer:
     serializedVersion: 2

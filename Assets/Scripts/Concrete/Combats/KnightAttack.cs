@@ -40,6 +40,8 @@ namespace Assets.Scripts.Concrete.Combats
             arrow.target = knightAI.target;
             arrow.damage = kC.damage;
             arrow.archer = kC.gameObject;
+            arrow.arrowSpeed = kC.arrowSpeed;
+            arrow.arrowDestroyTime = kC.arrowDestroyTime;
         }
 
     }

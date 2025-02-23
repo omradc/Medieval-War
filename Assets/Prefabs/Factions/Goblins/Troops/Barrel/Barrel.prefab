@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 2691220663528679492}
   m_Layer: 13
   m_Name: Barrel
-  m_TagString: Untagged
+  m_TagString: Barrel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -186,7 +186,8 @@ MonoBehaviour:
   sightRange: 15
   attackRange: 1
   reportRange: 3
-  enemyAIPerTime: 0.1
+  turnDirectionPerTime: 0.1
+  aIPerTime: 0.1
   enemiesLayer:
     serializedVersion: 2
     m_Bits: 2880
@@ -217,7 +218,6 @@ MonoBehaviour:
   dynamite: {fileID: 0}
   animator: {fileID: 0}
   goblinCollider: {fileID: 0}
-  canAttack: 0
 --- !u!114 &8106347306641681872
 MonoBehaviour:
   m_ObjectHideFlags: 0

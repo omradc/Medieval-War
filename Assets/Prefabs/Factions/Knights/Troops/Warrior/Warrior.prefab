@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6747969190704152676}
   - component: {fileID: 6455696069564880554}
   - component: {fileID: 675483745330298091}
+  - component: {fileID: -2703747722214115628}
   m_Layer: 6
   m_Name: Warrior
   m_TagString: Warrior
@@ -120,7 +121,7 @@ MonoBehaviour:
   health: 10
   currentHealth: 0
   regeneration: 1
-  regenerationValue: 1
+  regenerationAmount: 1
   takeDamageTime: 5
   regrenationPerTime: 1
   isTakeDamage: 0
@@ -148,7 +149,10 @@ MonoBehaviour:
   attackInterval: 0.1
   attackRange: 0.6
   sightRange: 8
-  unitAIPerTime: 0.1
+  arrowSpeed: 25
+  arrowDestroyTime: 10
+  turnDirectionPerTime: 0.1
+  aIPerTime: 0.1
   collectResourcesPerTime: 1
   enemiesLayer:
     serializedVersion: 2
@@ -226,6 +230,25 @@ MonoBehaviour:
   priority: 0
   maxAttacker: 3
   attackingPersonNumber: 0
+--- !u!114 &-2703747722214115628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195786962051834586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f32b11397b67d4996ff22eea435792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  moveSpeed: 2
+  damage: 3
+  attackSpeed: 1
+  attackInterval: 0.1
+  attackRange: 0.6
+  sightRange: 8
 --- !u!1 &6865075020038010750
 GameObject:
   m_ObjectHideFlags: 0

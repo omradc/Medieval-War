@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 4623027682418449085}
   m_Layer: 13
   m_Name: TNT
-  m_TagString: Untagged
+  m_TagString: TNT
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -309,7 +309,8 @@ MonoBehaviour:
   sightRange: 10
   attackRange: 5
   reportRange: 3
-  enemyAIPerTime: 0.1
+  turnDirectionPerTime: 0.1
+  aIPerTime: 0.1
   enemiesLayer:
     serializedVersion: 2
     m_Bits: 2880
@@ -340,7 +341,6 @@ MonoBehaviour:
   dynamite: {fileID: 2882941088727587294, guid: 4688edc9212076e4ebd96473555dcd61, type: 3}
   animator: {fileID: 0}
   goblinCollider: {fileID: 0}
-  canAttack: 0
 --- !u!114 &-8565848495876418399
 MonoBehaviour:
   m_ObjectHideFlags: 0
