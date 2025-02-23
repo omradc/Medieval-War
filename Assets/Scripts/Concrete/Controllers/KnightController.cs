@@ -171,7 +171,6 @@ namespace Assets.Scripts.Concrete.Controllers
                 AITurnDirection();
             }
         }
-
         void OptimumAI()
         {
             knightAI.GoTower();
@@ -264,13 +263,6 @@ namespace Assets.Scripts.Concrete.Controllers
 
             }
         }
-        void RangeControl()
-        {
-            attackRangePosition = transform.GetChild(0).position;
-
-            if (!aI)
-                sightRangePosition = transform.GetChild(0).position;
-        }
         void AttackOn()
         {
             // Düþman varsa ve saldýrý menzilindeyse, saldýrý aktifleþir
@@ -285,6 +277,13 @@ namespace Assets.Scripts.Concrete.Controllers
             else
                 canAttack = false;
         }
+        void RangeControl()
+        {
+            attackRangePosition = transform.GetChild(0).position;
+
+            if (!aI)
+                sightRangePosition = transform.GetChild(0).position;
+        }
         void ResetPath()
         {
             if (targetEnemies.Length == 0 && pF.agent.velocity.magnitude < 0.1f && pF.agent.velocity.magnitude > 0)
@@ -292,7 +291,6 @@ namespace Assets.Scripts.Concrete.Controllers
                 pF.agent.ResetPath();
             }
         }
-
         void ResetAttack()
         {
             time = 0;
