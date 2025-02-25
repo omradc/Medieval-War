@@ -132,8 +132,6 @@ MonoBehaviour:
   resourceMeat: {fileID: 3246526810110024777, guid: 305c2a09551e4324985e3671a16eaae1, type: 3}
   orderInLayerSpriteAnchor: {fileID: 8044430441647594074}
   visual: {fileID: 6306144715676814428}
-  sheepPoints: []
-  sheepPoint: {fileID: 0}
   currentGrowTime: 0
   currentMeatAmount: 0
   currentTameTime: 0
@@ -278,9 +276,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 8
+  m_SortingLayerID: -662441777
+  m_SortingLayer: 7
+  m_SortingOrder: 0
   m_Sprite: {fileID: -474622303, guid: d0fa158acb24484428855e5bcc88a265, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

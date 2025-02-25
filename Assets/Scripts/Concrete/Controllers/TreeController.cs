@@ -1,10 +1,13 @@
 ﻿using Assets.Scripts.Concrete.Managers;
+using Assets.Scripts.Concrete.Movements;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
     internal class TreeController : MonoBehaviour
     {
+        public SpriteRenderer visual;
+        public Transform orderInLayerSpriteAnchor;
         public GameObject resourceWood;
         public int health;
         public float growTime;
@@ -14,10 +17,13 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool destruct;
         [HideInInspector] public bool isTreeAlreadyCutted;
         Animator animator;
+        DynamicOrderInLayer dynamicOrderInLayer;
         private void Start()
         {
             currentHealth = health;
             animator = transform.GetChild(0).GetComponent<Animator>();
+            dynamicOrderInLayer = new();
+            dynamicOrderInLayer.OrderInLayerInitialize(orderInLayerSpriteAnchor, visual);
         }
         void Update()
         {

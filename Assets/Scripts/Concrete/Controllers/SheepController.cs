@@ -67,7 +67,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         private void Update()
         {
-            dynamicOrderInLayer.OrderInLayerUpdate(orderInLayerSpriteAnchor, visual);
+            dynamicOrderInLayer.OrderInLayerInitialize(orderInLayerSpriteAnchor, visual);
             AnimationControl();
             GrowUp();
         }
