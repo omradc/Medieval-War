@@ -249,48 +249,37 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             switch (index)
             {
-                case 0: // Yatay Duvar 3x
+                case 0: // Yatay Duvar
                     if (wallsPos.Count == 2) //En az 2 duvar varsa
-                    {
-                        float distance = 1.2f;
-                        if (wallsPos[0].x < wallsPos[1].x)
-                            transform.position += new Vector3(distance, 0, 0);
-                        if (wallsPos[0].x > wallsPos[1].x)
-                            transform.position -= new Vector3(distance, 0, 0);
-                    }
+                        CalculateNextWallPos(1.2f, .2f);
                     break;
                 case 1: // Dikey Duvar
                     if (wallsPos.Count == 2) //En az 2 duvar varsa
-                    {
-                        float distanceY = 1f;
-                        if (wallsPos[0].y < wallsPos[1].y)
-                            transform.position += new Vector3(0, distanceY, 0);
-                        if (wallsPos[0].y > wallsPos[1].y)
-                            transform.position -= new Vector3(0, distanceY, 0);
-                    }
+                        CalculateNextWallPos(.4f, 1);
                     break;
                 case 2: // Tekli Duvar
                     if (wallsPos.Count == 2) //En az 2 duvar varsa
                     {
-                        float distanceX = .4f;
-                        if (wallsPos[0].x < wallsPos[1].x)
-                            transform.position += new Vector3(distanceX, 0, 0);
-                        if (wallsPos[0].x > wallsPos[1].x)
-                            transform.position -= new Vector3(distanceX, 0, 0);
+                        CalculateNextWallPos(.4f, .2f);
                     }
                     break;
                 case 3: // Kapı
                     if (wallsPos.Count == 2) //En az 2 duvar varsa
-                    {
-                        float distanceX = 1.2f;
-                        if (wallsPos[0].x < wallsPos[1].x)
-                            transform.position += new Vector3(distanceX, 0, 0);
-                        if (wallsPos[0].x > wallsPos[1].x)
-                            transform.position -= new Vector3(distanceX, 0, 0);
-                    }
+                        CalculateNextWallPos(1.2f, .2f);
                     break;
             }
 
+        }
+        void CalculateNextWallPos(float distanceX, float distanceY)
+        {
+            if (wallsPos[0].x < wallsPos[1].x)
+                transform.position += new Vector3(distanceX, 0, 0);
+            else if (wallsPos[0].x > wallsPos[1].x)
+                transform.position -= new Vector3(distanceX, 0, 0);
+            else if (wallsPos[0].y < wallsPos[1].y)
+                transform.position += new Vector3(0, distanceY, 0);
+            else if (wallsPos[0].y > wallsPos[1].y)
+                transform.position -= new Vector3(0, distanceY, 0);
         }
         void SetOrderInLayer()
         {

@@ -41,9 +41,10 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             healthController = GetComponent<HealthController>();
             interactableObjUIController = GetComponent<InteractableObjUIController>();
-            dynamicOrderInLayer = new();
             visualSprite = visualBuilding.GetComponent<SpriteRenderer>();
             visualDestructedSprite = visualDestructed.GetComponent<SpriteRenderer>();
+            buildingStats = GetComponent<BuildingStats>();
+            dynamicOrderInLayer = new();
         }
         private void Start()
         {
@@ -126,7 +127,10 @@ namespace Assets.Scripts.Concrete.Controllers
                 {
                     visualSprites[i] = visualBuilding.transform.GetChild(i).GetComponent<SpriteRenderer>();
                 }
-                dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, visualSprites, 1);
+                if (gameObject.name.StartsWith("WallVertical"))
+                    dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, visualSprites, -1);
+                else
+                    dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, visualSprites, 1);
             }
             if (wallDestructed != null)
             {

@@ -46,11 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4c004269625724d8ff5b98a5c34d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  damage: 1
   arrowSpeed: 25
-  arrowStabDistance: 0.15
-  isStabbed: 0
+  arrowDestroyTime: 0
+  target: {fileID: 0}
+  archer: {fileID: 0}
+  damage: 1
 --- !u!1 &2123571341802198367
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +100,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -121,8 +124,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -662441777
+  m_SortingLayer: 7
   m_SortingOrder: 7
   m_Sprite: {fileID: 805014300, guid: 2a449d13c01a9cd48b91a9c83b475ebb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -184,6 +187,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -205,8 +211,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -662441777
+  m_SortingLayer: 7
   m_SortingOrder: 8
   m_Sprite: {fileID: -1543497645, guid: 2a449d13c01a9cd48b91a9c83b475ebb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

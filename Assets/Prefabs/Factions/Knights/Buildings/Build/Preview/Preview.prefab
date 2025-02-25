@@ -129,12 +129,12 @@ MonoBehaviour:
   visual: {fileID: 8668321940580897174}
   visualRed: {fileID: 2982536187220490405}
   wallHorizontal: {fileID: 0}
-  wallVertical: {fileID: 0}
-  wallOne: {fileID: 0}
-  wallDoor: {fileID: 0}
   wallHorizontalRed: {fileID: 0}
+  wallVertical: {fileID: 0}
   wallVerticalRed: {fileID: 0}
+  wallOne: {fileID: 0}
   wallOneRed: {fileID: 0}
+  wallDoor: {fileID: 0}
   wallDoorRed: {fileID: 0}
   index: 0
 --- !u!1 &2982536187220490405
@@ -210,11 +210,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -662441777
+  m_SortingLayer: 7
   m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 34c68c60c8dfcfe42b829b739bbbe696, type: 3}
-  m_Color: {r: 1, g: 0.63529414, b: 0.63529414, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -328,8 +328,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -662441777
+  m_SortingLayer: 7
   m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 34c68c60c8dfcfe42b829b739bbbe696, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -473,6 +473,10 @@ PrefabInstance:
     - target: {fileID: 5512352075051475994, guid: fbc2b21c952c70344a96726e9d69fc2c, type: 3}
       propertyPath: m_SortingOrder
       value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 5512352075051475994, guid: fbc2b21c952c70344a96726e9d69fc2c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 647168953
       objectReference: {fileID: 0}
     - target: {fileID: 7374764698236568627, guid: fbc2b21c952c70344a96726e9d69fc2c, type: 3}
       propertyPath: m_fontSize

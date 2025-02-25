@@ -259,8 +259,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -662441777
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 91005a5ac1c041541b7fcf9dae95d059, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -532,8 +532,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -662441777
+  m_SortingLayer: 7
   m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: bb49ec4365feecd4e85238ea41605422, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1314,6 +1314,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2352619709376859486}
     m_Modifications:
+    - target: {fileID: 608040568888024669, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 647168953
+      objectReference: {fileID: 0}
     - target: {fileID: 1739090982765704118, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2

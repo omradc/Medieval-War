@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -662441777
+  m_SortingLayer: 7
   m_SortingOrder: 99
   m_Sprite: {fileID: -6851174550418909867, guid: e0103ef3bc40ca34d8188e48bff18c6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -160,8 +160,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -662441777
+  m_SortingLayer: 7
   m_SortingOrder: 99
   m_Sprite: {fileID: 5831936790779453474, guid: a96496c603925e9419d26e0973530d33, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -247,8 +247,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -662441777
+  m_SortingLayer: 7
   m_SortingOrder: 99
   m_Sprite: {fileID: 4575034486378870654, guid: 4217096a51f51b641a67875ee7377eaf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -360,7 +360,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -563,6 +563,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3813377411152356707}
     m_Modifications:
+    - target: {fileID: 608040568888024669, guid: f616dd75b92f3d1408be6a6e949dbb7d, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 647168953
+      objectReference: {fileID: 0}
     - target: {fileID: 1143163921460813307, guid: f616dd75b92f3d1408be6a6e949dbb7d, type: 3}
       propertyPath: m_Color.b
       value: 0
