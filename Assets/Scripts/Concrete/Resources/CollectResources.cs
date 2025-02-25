@@ -241,8 +241,11 @@ namespace Assets.Scripts.Concrete.Resources
         }
         void DropGold(Vector3 pos, float lifeTime)
         {
-            GameObject gold = Object.Instantiate(vC.resourceGold, pos, Quaternion.identity);
-            Object.Destroy(gold, lifeTime);
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject gold = Object.Instantiate(vC.resourceGold, pos, Quaternion.identity);
+                Object.Destroy(gold, lifeTime);
+            }
         }
         void DropRock(Vector3 pos, float lifeTime)
         {
@@ -251,8 +254,11 @@ namespace Assets.Scripts.Concrete.Resources
         }
         void DropMeat(Vector3 pos, float lifeTime)
         {
-            GameObject meat = Object.Instantiate(vC.resourceMeat, pos, Quaternion.identity);
-            Object.Destroy(meat, lifeTime);
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject meat = Object.Instantiate(vC.resourceMeat, pos, Quaternion.identity);
+                Object.Destroy(meat, lifeTime);
+            }
         }
     }
 }

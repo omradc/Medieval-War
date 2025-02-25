@@ -18,16 +18,25 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool isTreeAlreadyCutted;
         Animator animator;
         DynamicOrderInLayer dynamicOrderInLayer;
-        private void Start()
+
+        private void Awake()
         {
-            currentHealth = health;
             animator = transform.GetChild(0).GetComponent<Animator>();
             dynamicOrderInLayer = new();
-            dynamicOrderInLayer.OrderInLayerInitialize(orderInLayerSpriteAnchor, visual);
+            
         }
-        void Update()
+        private void Start()
         {
-            GrowUp();
+            animator.enabled = false;
+            currentHealth = health;
+            dynamicOrderInLayer.OrderInLayerInitialize(orderInLayerSpriteAnchor, visual);
+            InvokeRepeating(nameof(GrowUp), 0, 1);
+            Invoke(nameof(RandomStartAnimation), Random.Range(0f, .5f));
+        }
+
+        void RandomStartAnimation()
+        {
+            animator.enabled = true;
         }
         public void GetHit(int treeDamagePoint, float collectTime) // Köylü Chop animasyoununda, tam ağaca vurduğu anda event ile tetikler
         {
@@ -66,7 +75,7 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             if (destruct)
             {
-                currentTime += Time.deltaTime;
+                currentTime += 1;
                 if (currentTime > growTime)
                 {
                     currentTime = 0;

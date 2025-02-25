@@ -17,7 +17,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(0.1f, 1f)] public float aIPerTime = 0.5f;
         [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
         public LayerMask enemiesLayer;
-        [SerializeField] Transform orderInLayerSpriteAnchor;
+        public Transform orderInLayerSpriteAnchor;
         public SpriteRenderer visual;
 
         [HideInInspector] public int damage;
@@ -56,7 +56,7 @@ namespace Assets.Scripts.Concrete.Controllers
         float attackSpeed;
         float time;
         bool canAttack;
-      
+
         private void Awake()
         {
             pF = GetComponent<PathFindingController>();

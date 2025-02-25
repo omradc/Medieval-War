@@ -74,7 +74,6 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public IInput ıInput;
         [HideInInspector] public AnimationEventController animationEventController;
         [HideInInspector] public SheepController sheepController;
-        TreeController treeController;
         CollectResources collectResources;
         CollectGoldOrRock collectGoldAndRock;
         CollectWood collectWood;
@@ -86,10 +85,10 @@ namespace Assets.Scripts.Concrete.Controllers
             pF = GetComponent<PathFindingController>();
             villagerSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
             animator = transform.GetChild(0).GetComponent<Animator>();
-            goldIdle = transform.GetChild(1).GetChild(0).gameObject;
-            rockIdle = transform.GetChild(1).GetChild(1).gameObject;
-            woodIdle = transform.GetChild(1).GetChild(2).gameObject;
-            meatIdle = transform.GetChild(1).GetChild(3).gameObject;
+            goldIdle = transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
+            rockIdle = transform.GetChild(0).GetChild(0).GetChild(1).gameObject;
+            woodIdle = transform.GetChild(0).GetChild(0).GetChild(2).gameObject;
+            meatIdle = transform.GetChild(0).GetChild(0).GetChild(3).gameObject;
             ıInput = new PcInput();
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
             collectResources = new(this, pF);
@@ -102,6 +101,8 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             currentChopTreeSightRange = chopTreeSightRange;
             currentTreeDamage = treeDamage;
+            print(kC.orderInLayerSpriteAnchor);
+
             //  Events
             animationEventController.ChopWoodEvent += collectWood.Chop;
             animationEventController.GetHitTreeEvent += collectWood.GetHitTree;
@@ -116,6 +117,15 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             collectResources.ReadyToNextCommand();
             collectResources.SelectResourceType();
+
+            if (transform.hasChanged)
+            {
+                goldIdle.GetComponent<SpriteRenderer>().sortingOrder = kC.visual.sortingOrder + 1;
+                rockIdle.GetComponent<SpriteRenderer>().sortingOrder = kC.visual.sortingOrder + 1;
+                meatIdle.GetComponent<SpriteRenderer>().sortingOrder = kC.visual.sortingOrder + 1;
+                woodIdle.GetComponent<SpriteRenderer>().sortingOrder = kC.visual.sortingOrder + 1;
+                transform.hasChanged = false;
+            }
         }
 
         void OptimumVillager()
