@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
+    [RequireComponent(typeof(PathFinding))]
     internal class KnightController : MonoBehaviour
     {
         [Header("SETTÝNGS")]
@@ -22,11 +23,12 @@ namespace Assets.Scripts.Concrete.Controllers
 
         [HideInInspector] public int damage;
         [HideInInspector] public int towerPosIndex;
-        [HideInInspector] public float attackRange;
+        public float attackRange;
+        public float currentAttackRange;
         [HideInInspector] public float sightRange;
+        [HideInInspector] public float currentSightRange;
         [HideInInspector] public float arrowSpeed = 25;
         [HideInInspector] public float arrowDestroyTime = 10;
-        [HideInInspector] public float currentSightRange;
         [HideInInspector] public bool isSeleceted;
         [HideInInspector] public bool aI = true;
         [HideInInspector] public bool onBuilding;
@@ -44,7 +46,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public GameObject followingObj;
         Animator animator;
         AnimationEventController animationEventController;
-        PathFindingController pF;
+        PathFinding pF;
         VillagerController villagerController;
         DynamicOrderInLayer dynamicOrderInLayer;
         WarriorStats warriorStats;
@@ -56,10 +58,13 @@ namespace Assets.Scripts.Concrete.Controllers
         float attackSpeed;
         float time;
         bool canAttack;
+        public bool obstacle;
+        public bool height;
+        RaycastHit2D hitObj;
 
         private void Awake()
         {
-            pF = GetComponent<PathFindingController>();
+            pF = GetComponent<PathFinding>();
             knightCollider = GetComponent<CircleCollider2D>();
             animator = transform.GetChild(0).GetComponent<Animator>();
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
@@ -78,6 +83,7 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             PowerStatsAssign();
             currentSightRange = sightRange;
+            currentAttackRange = attackRange;
             pF.agent.speed = moveSpeed;
             time = attackInterval;
             animationEventController.ResetAttackEvent += ResetAttack;
@@ -177,7 +183,8 @@ namespace Assets.Scripts.Concrete.Controllers
                 knightAI.UnitBehaviours();
                 DetechEnemies();
                 knightAI.CatchNeraestTarget();
-                ResetPath();
+                //ResetPath();
+                ObsticleControl();
             }
         }
         void DetechEnemies()
@@ -254,9 +261,9 @@ namespace Assets.Scripts.Concrete.Controllers
                 // Aðaç kesme ve kaynak taþýma animasyonu yapmýyorsa, koþabilir veya durabilir
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Sheep") || animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Wood") ||
                     animator.GetCurrentAnimatorStateInfo(0).IsName("Run_0") || animator.GetCurrentAnimatorStateInfo(0).IsName("Build")) return;
-                if (pF.isStoping)  // Durduysan = IdleAnim
+                if (pF.isMovementStopping)  // Durduysan = IdleAnim
                     AnimationManager.Instance.IdleAnim(animator);
-                if (!pF.isStoping) // Durmadýysan = RunAnim
+                if (!pF.isMovementStopping) // Durmadýysan = RunAnim
                     AnimationManager.Instance.RunAnim(animator, 1);
 
             }
@@ -273,16 +280,61 @@ namespace Assets.Scripts.Concrete.Controllers
             // Düþman varsa ve saldýrý menzilindeyse, saldýrý aktifleþir
             if (knightAI.target != null)
             {
-                if (Vector2.Distance(attackRangePosition, knightAI.nearestAttackPoint.position) < attackRange && !pF.isUserControl && !goBuilding)
-                    canAttack = true;
+                float enemyDistance = Vector2.Distance(attackRangePosition, knightAI.nearestAttackPoint.position);
+                if (enemyDistance < attackRange && !pF.isUserControl && !goBuilding) // Saldýrabilir
+                {
+                    if (enemyDistance > 1) // DÜþan çok yakýnsa engel tanýma
+                    {
+                        if (onBuilding) // Kule üstündeyse hiçbir yükselti veya engel atýcýyý engellemez
+                        {
+                            canAttack = true;
+                            currentAttackRange = attackRange;
+                        }
+                        else if (!obstacle && !height) // Arada engel ve yükselti yoksa
+                            canAttack = true;
+                        else
+                            canAttack = false;
+                    }
+                    else
+                        canAttack = true;
+                }
                 else
                     canAttack = false;
             }
-
             else
                 canAttack = false;
         }
-        void ResetPath()
+        void ObsticleControl()
+        {
+            if (knightAI.target == null) return;
+
+            // Yükselti kontrolü
+            if (healthController.elevationFloor >= knightAI.target.GetComponent<HealthController>().elevationFloor)
+                height = false;
+            else
+                height = true;
+
+            // Engel kontrolü
+            hitObj = Physics2D.Raycast(transform.position, (knightAI.nearestAttackPoint.position - transform.position).normalized, attackRange, LayerMask.GetMask("Goblin", "Wall", "House", "Tower", "WoodTower", "WoodTowerFull", "GoblinHouse"));
+            if (hitObj.collider != null)
+            {
+                if (knightAI.target.layer == hitObj.collider.gameObject.layer) // Hedefi engel olabilecek bir obje ise artýk engel deðildir
+                    obstacle = false;
+                else // Engel
+                    obstacle = true;
+            }
+            else
+                obstacle = false;
+
+            if (obstacle || height) // Arada engel veya yükselti varsa, 
+                currentAttackRange = 0;
+            if (!obstacle && !height && currentAttackRange != attackRange) // Arada engel ve yükselti yoksa ve sadece 1 kez çalýþ,
+            {
+                currentAttackRange = attackRange;
+                pF.agent.ResetPath();
+            }
+        }
+        void ResetPath() // SOn düþmaný öldürdüðü noktaya gitmesini engellemek için
         {
             if (targetEnemies.Length == 0 && pF.agent.velocity.magnitude < 0.1f && pF.agent.velocity.magnitude > 0)
             {
@@ -292,6 +344,20 @@ namespace Assets.Scripts.Concrete.Controllers
         void ResetAttack()
         {
             time = 0;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.white;
+            if (knightAI != null)
+                if (knightAI.target != null)
+                    Gizmos.DrawRay(transform.position, (knightAI.nearestAttackPoint.position - transform.position).normalized * attackRange);
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, currentSightRange);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, currentAttackRange);
         }
     }
 }

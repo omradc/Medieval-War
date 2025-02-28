@@ -686,6 +686,7 @@ MonoBehaviour:
   isTakeDamage: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
+  elevationFloor: 0
 --- !u!114 &3416967471483132282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -698,7 +699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51de4870408a204bbe993d8115687ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priority: 15
+  priority: 1
+  currentPriority: 0
   maxAttacker: 3
   attackingPersonNumber: 3
 --- !u!114 &2630437242065980615

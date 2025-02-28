@@ -30,9 +30,8 @@ namespace Assets.Scripts.Concrete.Managers
         public List<GameObject> selectedUnits;
 
         GameObject currentUnit;
-        public Vector2 startPos;
+        Vector2 startPos;
         Vector2 endPos;
-        public bool isDragging;
         float time;
         bool clicked;
         bool openCloseDoor;
@@ -96,10 +95,10 @@ namespace Assets.Scripts.Concrete.Managers
                     // Etkileşim olan obje, inşaat ise,
                     if (interactedObj.layer == 30)
                         interactedConstruction = interactedObj;
-                    // Etkileşim olan obje, duvar kapı ise,
-                    if (interactedObj.layer == 31)
+                    // Etkileşim olan obje, kapı ise,
+                    if (interactedObj.layer == 11 && interactedObj.CompareTag("Door"))
                     {
-                        interactedObj.transform.parent.GetChild(2).GetChild(0).gameObject.SetActive(openCloseDoor);
+                        interactedObj.transform.GetChild(2).GetChild(0).gameObject.SetActive(openCloseDoor);
                         openCloseDoor = !openCloseDoor;
                     }
                 }
@@ -162,13 +161,11 @@ namespace Assets.Scripts.Concrete.Managers
             if (ıInput.GetButtonDown1)
             {
                 startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                isDragging = true;
             }
 
             if (ıInput.GetButtonUp1)
             {
                 endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                isDragging = false;
                 Collider2D[] hits = Physics2D.OverlapAreaAll(startPos, endPos, unitLayer);
                 for (int i = 0; i < hits.Length; i++)
                 {

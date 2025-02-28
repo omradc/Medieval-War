@@ -13,7 +13,7 @@ namespace Assets.Scripts.Concrete.AI
         public GameObject target;
         public Transform nearestAttackPoint;
         readonly KnightController kC;
-        readonly PathFindingController pF;
+        readonly PathFinding pF;
         GameObject tower;
         SpriteRenderer towerVisual;
         BuildingController bC;
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Concrete.AI
         Vector2 pos;
         bool workOnce;
         Transform obj;
-        public KnightAI(KnightController kC, PathFindingController pF)
+        public KnightAI(KnightController kC, PathFinding pF)
         {
             this.kC = kC;
             this.pF = pF;
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Concrete.AI
             {
                 float distance = Vector2.Distance(kC.transform.position, kC.targetEnemies[i].transform.position);
                 TargetPriority targetPriority = kC.targetEnemies[i].GetComponent<TargetPriority>();
-                float currentScore = targetPriority.priority + targetPriority.attackingPersonNumber + distance;
+                float currentScore = targetPriority.attackingPersonNumber + distance - targetPriority.currentPriority;
 
                 if (bestScore > currentScore)
                 {
@@ -58,8 +58,8 @@ namespace Assets.Scripts.Concrete.AI
             if (Vector2.Distance(nearestAttackPoint.position, kC.sightRangePosition) < kC.currentSightRange)
             {
                 // hedef, saldırı menziline girerse; yakalamayı bırak
-                if (Vector2.Distance(nearestAttackPoint.position, kC.attackRangePosition) < kC.attackRange) return;
-                pF.MoveAI(nearestAttackPoint.position, kC.attackRange);
+                if (Vector2.Distance(nearestAttackPoint.position, kC.attackRangePosition) < kC.currentAttackRange) return;
+                pF.MoveAI(nearestAttackPoint.position, kC.currentAttackRange);
             }
 
         }
@@ -134,22 +134,22 @@ namespace Assets.Scripts.Concrete.AI
                 kC.sightRangePosition = kC.followingObj.transform.position;
 
             // Kendi saldırı menzilini geçmeyecek şekilde, görüş menzilinde düşman yoksa hedefi (kendi görüş menzilini) takip et
-            if (kC.targetEnemies.Length == 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) > kC.attackRange)
+            if (kC.targetEnemies.Length == 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) > kC.currentAttackRange)
             {
-                pF.MoveAI(kC.sightRangePosition, kC.attackRange);
+                pF.MoveAI(kC.sightRangePosition, kC.currentAttackRange);
             }
 
             // Görüş menzilde düşman varsa, menzilden çıkmayacak şekilde düşmanı takip et
             if (kC.targetEnemies.Length > 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) < kC.currentSightRange)
             {
                 if (target == null) return;
-                pF.MoveAI(target.transform.position, kC.attackRange);
+                pF.MoveAI(target.transform.position, kC.currentAttackRange);
             }
 
         }
         void Stay()
         {
-            kC.currentSightRange = kC.attackRange;
+            kC.currentSightRange = kC.currentAttackRange;
             kC.sightRangePosition = kC.transform.GetChild(0).position;
         }
         public void SelectTower()  // Update ile çalışır
@@ -206,7 +206,7 @@ namespace Assets.Scripts.Concrete.AI
                 {
                     Debug.Log("Kuledeyim");
                     kC.goBuilding = false;
-                    kC.currentSightRange = kC.attackRange;
+                    kC.currentSightRange = kC.currentAttackRange;
                     kC.unitOrderEnum = KnightOrderEnum.StayOrder;
                     bC.interactableObjUIController.interactablePanel.SetActive(false); // Etkileşim ekranını kapat
 

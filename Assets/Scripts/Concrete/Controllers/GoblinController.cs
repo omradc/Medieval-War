@@ -9,6 +9,7 @@ using Assets.Scripts.Concrete.PowerStats;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
+    [RequireComponent(typeof(PathFinding))]
     internal class GoblinController : MonoBehaviour
     {
 
@@ -33,9 +34,10 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public float dynamiteExplosionRadius = .5f;
         [HideInInspector] public float barrelExplosionRadius = 2;
         [HideInInspector] public float longRange;
-        [HideInInspector] public float sightRange;
-        [HideInInspector] public float attackRange;
-        [HideInInspector] public float currentSightRange;
+        public float sightRange;
+        public float currentSightRange;
+        public float attackRange;
+        public float currentAttackRange;
         [HideInInspector] public float currentLongRange;
         [HideInInspector] public bool aI = true;
         [HideInInspector] public bool onBuilding;
@@ -52,7 +54,7 @@ namespace Assets.Scripts.Concrete.Controllers
         Direction direction;
         Animator animator;
         GoblinAI goblinAI;
-        PathFindingController pF;
+        PathFinding pF;
         AnimationEventController animationEventController;
         DynamicOrderInLayer dynamicOrderInLayer;
         TorchStats torchStats;
@@ -66,12 +68,15 @@ namespace Assets.Scripts.Concrete.Controllers
         float attackInterveal;
         float reportRange;
         bool canAttack;
+        public bool obstacle;
+        public bool height;
+        RaycastHit2D hitObj;
 
         private void Awake()
         {
             animator = transform.GetChild(0).GetComponent<Animator>();
             goblinCollider = GetComponent<CircleCollider2D>();
-            pF = GetComponent<PathFindingController>();
+            pF = GetComponent<PathFinding>();
             healthController = GetComponent<HealthController>();
             direction = new Direction(transform);
             goblinAI = new(this, pF);
@@ -83,6 +88,7 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             PowerStatsAssign();
             pF.agent.speed = moveSpeed;
+            currentAttackRange = attackRange;
             currentSightRange = sightRange;
             gizmosPos = transform.position;
             time = attackInterveal;
@@ -178,7 +184,8 @@ namespace Assets.Scripts.Concrete.Controllers
                 goblinAI.GoblinBehaviour();
                 DetechEnemies();
                 goblinAI.CatchNeraestTarget();
-                ResetPath();
+                //ResetPath();
+                ObsticleControl();
             }
             goblinAI.GoUpToTower();
         }
@@ -240,9 +247,9 @@ namespace Assets.Scripts.Concrete.Controllers
             }
             else
             {
-                if (pF.isStoping) // Durduysan = IdleAnim
+                if (pF.isMovementStopping) // Durduysan = IdleAnim
                     AnimationManager.Instance.IdleAnim(animator);
-                if (!pF.isStoping)                           // Durmadıysan = RunAnim
+                if (!pF.isMovementStopping)                           // Durmadıysan = RunAnim
                     AnimationManager.Instance.RunAnim(animator, 1);
 
             }
@@ -252,14 +259,59 @@ namespace Assets.Scripts.Concrete.Controllers
             // Düşman varsa ve saldırı menzilindeyse, saldırı aktifleşir
             if (goblinAI.target != null)
             {
-                if (Vector2.Distance(transform.position, goblinAI.nearestAttackPoint.position) < attackRange)
-                    canAttack = true;
+                float enemyDistance = Vector2.Distance(transform.position, goblinAI.nearestAttackPoint.position);
+                if (enemyDistance < currentAttackRange && !goBuilding)
+                {
+                    if (enemyDistance > 1) // DÜşan çok yakınsa engel tanıma
+                    {
+                        if (onBuilding) // Kule üstündeyse hiçbir yükselti veya engel atıcıyı engellemez
+                        {
+                            canAttack = true;
+                            currentAttackRange = attackRange;
+                        }
+                        else if (!obstacle && !height) // Arada engel ve yükselti yoksa
+                            canAttack = true;
+                        else
+                            canAttack = false;
+                    }
+                    else
+                        canAttack = true;
+                }
                 else
                     canAttack = false;
             }
-
             else
                 canAttack = false;
+        }
+        void ObsticleControl()
+        {
+            if (goblinAI.target == null) return;
+
+            // Yükselti kontrolü
+            if (healthController.elevationFloor >= goblinAI.target.GetComponent<HealthController>().elevationFloor)
+                height = false;
+            else
+                height = true;
+
+            // Engel kontrolü
+            hitObj = Physics2D.Raycast(transform.position, (goblinAI.nearestAttackPoint.position - transform.position).normalized, attackRange, LayerMask.GetMask("Knight", "Wall", "House", "Tower", "WoodTower", "WoodTowerFull", "GoblinHouse"));
+            if (hitObj.collider != null)
+            {
+                if (goblinAI.target.layer == hitObj.collider.gameObject.layer) // Hedefi engel olabilecek bir obje ise artık engel değildir
+                    obstacle = false;
+                else // Engel
+                    obstacle = true;
+            }
+            else
+                obstacle = false;
+
+            if (obstacle || height) // Arada engel veya yükselti varsa, 
+                currentAttackRange = 0;
+            if (!obstacle && !height && currentAttackRange != attackRange) // Arada engel ve yükselti yoksa ve sadece 1 kez çalış,
+            {
+                currentAttackRange = attackRange;
+                pF.agent.ResetPath();
+            }
         }
         void ResetPath()
         {
@@ -276,6 +328,11 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(gizmosPos, patrollingRadius);
+
+            Gizmos.color = Color.white;
+            if (goblinAI != null)
+                if (goblinAI.target != null)
+                    Gizmos.DrawRay(transform.position, (goblinAI.nearestAttackPoint.position - transform.position).normalized * attackRange);
         }
     }
 }

@@ -9,11 +9,11 @@ namespace Assets.Scripts.Concrete.Resources
     internal class CollectWood
     {
        readonly VillagerController vC;
-       readonly PathFindingController pF;
+       readonly PathFinding pF;
        TreeController tree;
 
 
-        public CollectWood(VillagerController vC, PathFindingController pF)
+        public CollectWood(VillagerController vC, PathFinding pF)
         {
             this.vC = vC;
             this.pF = pF;

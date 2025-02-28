@@ -8,13 +8,12 @@ namespace Assets.Scripts.Concrete.Resources
     internal class CollectResources
     {
         readonly VillagerController vC;
-        readonly PathFindingController pF;
-        public CollectResources(VillagerController collectResourcesController, PathFindingController pF)
+        readonly PathFinding pF;
+        public CollectResources(VillagerController collectResourcesController, PathFinding pF)
         {
             vC = collectResourcesController;
             this.pF = pF;
         }
-
         public void SelectResourceType()
         {
             // UPDATE İLE ÇALIŞIR
@@ -205,7 +204,6 @@ namespace Assets.Scripts.Concrete.Resources
             }
 
         }
-
         public void DropAnyResources()
         {
             if (vC.goldIdle.activeSelf)
@@ -230,7 +228,6 @@ namespace Assets.Scripts.Concrete.Resources
             }
             AnimationManager.Instance.IdleAnim(vC.animator);
         }
-
         void DropWood(Vector3 pos, float lifeTime)
         {
             for (int i = 0; i < 3; i++)
@@ -243,7 +240,7 @@ namespace Assets.Scripts.Concrete.Resources
         {
             for (int i = 0; i < 3; i++)
             {
-                GameObject gold = Object.Instantiate(vC.resourceGold, pos, Quaternion.identity);
+                GameObject gold = Object.Instantiate(vC.resourceGold, pos + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0), Quaternion.identity);
                 Object.Destroy(gold, lifeTime);
             }
         }
@@ -254,11 +251,8 @@ namespace Assets.Scripts.Concrete.Resources
         }
         void DropMeat(Vector3 pos, float lifeTime)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                GameObject meat = Object.Instantiate(vC.resourceMeat, pos, Quaternion.identity);
-                Object.Destroy(meat, lifeTime);
-            }
+            GameObject meat = Object.Instantiate(vC.resourceMeat, pos, Quaternion.identity);
+            Object.Destroy(meat, lifeTime);
         }
     }
 }

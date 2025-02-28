@@ -64,7 +64,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
 
         [HideInInspector] public KnightController kC;
-        [HideInInspector] public PathFindingController pF;
+        [HideInInspector] public PathFinding pF;
         [HideInInspector] public SpriteRenderer villagerSpriteRenderer;
         [HideInInspector] public Animator animator;
         [HideInInspector] public GameObject goldIdle;
@@ -82,7 +82,7 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Awake()
         {
             kC = GetComponent<KnightController>();
-            pF = GetComponent<PathFindingController>();
+            pF = GetComponent<PathFinding>();
             villagerSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
             animator = transform.GetChild(0).GetComponent<Animator>();
             goldIdle = transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
@@ -101,7 +101,6 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             currentChopTreeSightRange = chopTreeSightRange;
             currentTreeDamage = treeDamage;
-            print(kC.orderInLayerSpriteAnchor);
 
             //  Events
             animationEventController.ChopWoodEvent += collectWood.Chop;
@@ -127,7 +126,6 @@ namespace Assets.Scripts.Concrete.Controllers
                 transform.hasChanged = false;
             }
         }
-
         void OptimumVillager()
         {
             if (kC.knightAI.target != null && targetResource != null) //Düşman varsa ve elinde kaynak varsa, onu yere at
@@ -149,6 +147,7 @@ namespace Assets.Scripts.Concrete.Controllers
         void Idle()
         {
             AnimationManager.Instance.IdleAnim(animator);
+            targetResource = null;
         }
         private void OnDrawGizmos()
         {

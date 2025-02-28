@@ -8,9 +8,9 @@ namespace Assets.Scripts.Concrete.Resources
     internal class CollectGoldOrRock
     {
        readonly VillagerController vC;
-       readonly PathFindingController pF;
+       readonly PathFinding pF;
 
-        public CollectGoldOrRock(VillagerController vC, PathFindingController pF)
+        public CollectGoldOrRock(VillagerController vC, PathFinding pF)
         {
             this.vC = vC;
             this.pF = pF;

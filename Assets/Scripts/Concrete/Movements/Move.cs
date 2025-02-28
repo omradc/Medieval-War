@@ -27,7 +27,7 @@ namespace Assets.Scripts.Concrete.Movements
             if (horizontalLineFormation)
             {
                 float xPos = 0;
-                PathFindingController pF;
+                PathFinding pF;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
                 {
@@ -35,14 +35,14 @@ namespace Assets.Scripts.Concrete.Movements
                     if (i == 0)
                     {
 
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos, 0);
                     }
 
                     if (i > 0)
                     {
                         xPos += distance;
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, 0), 0);
                     }
                 }
@@ -53,21 +53,21 @@ namespace Assets.Scripts.Concrete.Movements
             if (verticalLineFormation)
             {
                 float yPos = 0;
-                PathFindingController pF;
+                PathFinding pF;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
                 {
                     GameObject selectedObj = InteractManager.Instance.selectedUnits[i];
                     if (i == 0)
                     {
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos, 0);
                     }
 
                     if (i > 0)
                     {
                         yPos += distance;
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(0, yPos), 0);
                     }
 
@@ -85,7 +85,7 @@ namespace Assets.Scripts.Concrete.Movements
                 float xTroopNumber = Mathf.Ceil(Mathf.Sqrt(InteractManager.Instance.selectedUnits.Count));
                 float firstXtroopNumber = xTroopNumber;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                PathFindingController pF;
+                PathFinding pF;
                 for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
                 {
                     GameObject selectedObj = InteractManager.Instance.selectedUnits[i];
@@ -93,7 +93,7 @@ namespace Assets.Scripts.Concrete.Movements
                     // Yatay sıraya ekle
                     if (i < xTroopNumber)
                     {
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, yPos), 0);
                         xPos += distance;
                     }
@@ -103,7 +103,7 @@ namespace Assets.Scripts.Concrete.Movements
                         xTroopNumber += firstXtroopNumber;
                         xPos = 0;
                         yPos -= distance;
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, yPos), 0);
                         xPos += distance;
                     }
@@ -117,7 +117,7 @@ namespace Assets.Scripts.Concrete.Movements
                 float xPos = 0;
                 float yPos = 0;
                 bool reverse = false;
-                PathFindingController pF;
+                PathFinding pF;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
@@ -127,7 +127,7 @@ namespace Assets.Scripts.Concrete.Movements
 
                     if (i == 0)
                     {
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, yPos), 0);
 
                     }
@@ -136,12 +136,12 @@ namespace Assets.Scripts.Concrete.Movements
                     {
                         xPos -= distance * distance;
                         yPos += distance;
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, yPos), 0);
                     }
                     else if (!reverse)
                     {
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, -yPos), 0);
                     }
 
@@ -156,7 +156,7 @@ namespace Assets.Scripts.Concrete.Movements
                 float xPos = 0;
                 float yPos = 0;
                 bool reverse = false;
-                PathFindingController pF;
+                PathFinding pF;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
@@ -166,7 +166,7 @@ namespace Assets.Scripts.Concrete.Movements
 
                     if (i == 0)
                     {
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, yPos), 0);
 
                     }
@@ -175,14 +175,14 @@ namespace Assets.Scripts.Concrete.Movements
                     {
                         xPos += distance * distance;
                         yPos += distance;
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, yPos), 0);
 
                     }
                     else if (!reverse)
                     {
 
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, -yPos), 0);
 
                     }
@@ -198,7 +198,7 @@ namespace Assets.Scripts.Concrete.Movements
                 float xPos = 0;
                 float yPos = 0;
                 bool reverse = false;
-                PathFindingController pF;
+                PathFinding pF;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
@@ -208,7 +208,7 @@ namespace Assets.Scripts.Concrete.Movements
 
                     if (i == 0)
                     {
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, yPos), 0);
                     }
 
@@ -216,12 +216,12 @@ namespace Assets.Scripts.Concrete.Movements
                     {
                         xPos += distance;
                         yPos -= distance * distance;
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, yPos), 0);
                     }
                     else if (!reverse)
                     {
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(-xPos, yPos), 0);
                     }
 
@@ -238,7 +238,7 @@ namespace Assets.Scripts.Concrete.Movements
                 bool reverse = false;
 
 
-                PathFindingController pF;
+                PathFinding pF;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
                 for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
@@ -247,7 +247,7 @@ namespace Assets.Scripts.Concrete.Movements
 
                     if (i == 0)
                     {
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, yPos), 0);
                     }
 
@@ -255,12 +255,12 @@ namespace Assets.Scripts.Concrete.Movements
                     {
                         xPos += distance;
                         yPos += distance * distance;
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, yPos), 0);
                     }
                     else if (!reverse)
                     {
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(-xPos, yPos), 0);
                     }
 
@@ -275,7 +275,7 @@ namespace Assets.Scripts.Concrete.Movements
                 float xPos = 0.5f;
                 float yPos = 0;
                 bool reverse = false;
-                PathFindingController pF;
+                PathFinding pF;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
@@ -285,7 +285,7 @@ namespace Assets.Scripts.Concrete.Movements
 
                     if (i == 0)
                     {
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, yPos), 0);
                     }
 
@@ -294,12 +294,12 @@ namespace Assets.Scripts.Concrete.Movements
 
                         xPos *= distance;
                         yPos += distance;
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, yPos), 0);
                     }
                     else if (!reverse)
                     {
-                        pF = selectedObj.GetComponent<PathFindingController>();
+                        pF = selectedObj.GetComponent<PathFinding>();
                         pF.Move(mousePos + new Vector2(xPos, -yPos), 0);
                     }
 

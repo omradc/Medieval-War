@@ -66,7 +66,7 @@ namespace Assets.Scripts.Concrete.Combats
                     if (targetHealth.isDead)
                     {
                         dynamite.GetComponent<GoblinController>().nonRangeDetechEnemy = null;
-                        dynamite.GetComponent<PathFindingController>().agent.ResetPath();
+                        dynamite.GetComponent<PathFinding>().agent.ResetPath();
                     }
                 }
 

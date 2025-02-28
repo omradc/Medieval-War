@@ -188,28 +188,31 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void InitializeWallPreview()
         {
-            switch (index)
+            if (gameObject.name == "Preview_Wall(Clone)")
             {
-                case 0: // down_3x
-                    wallHorizontal.SetActive(true);
-                    wallHorizontalRed.SetActive(true);
-                    SetColliderSizeForWalls(1.175f, 0.15f, 0, 0.374f);
-                    break;
-                case 1: // top_1x
-                    wallVertical.SetActive(true);
-                    wallVerticalRed.SetActive(true);
-                    SetColliderSizeForWalls(0.375f, .95f, 0, 0.8f);
-                    break;
-                case 2: // down_1x
-                    wallOne.SetActive(true);
-                    wallOneRed.SetActive(true);
-                    SetColliderSizeForWalls(.375f, .15f, 0, 0.375f);
-                    break;
-                case 3: // door
-                    wallDoor.SetActive(true);
-                    wallDoorRed.SetActive(true);
-                    SetColliderSizeForWalls(1.175f, 0.95f);
-                    break;
+                switch (index)
+                {
+                    case 0: // down_3x
+                        wallHorizontal.SetActive(true);
+                        wallHorizontalRed.SetActive(true);
+                        SetColliderSizeForWalls(1.175f, 0.15f, 0, 0.374f);
+                        break;
+                    case 1: // top_1x
+                        wallVertical.SetActive(true);
+                        wallVerticalRed.SetActive(true);
+                        SetColliderSizeForWalls(0.375f, .95f, 0, 0.8f);
+                        break;
+                    case 2: // down_1x
+                        wallOne.SetActive(true);
+                        wallOneRed.SetActive(true);
+                        SetColliderSizeForWalls(.375f, .15f, 0, 0.375f);
+                        break;
+                    case 3: // door
+                        wallDoor.SetActive(true);
+                        wallDoorRed.SetActive(true);
+                        SetColliderSizeForWalls(1.175f, 0.95f);
+                        break;
+                }
             }
         }
         public void BuildConfirmButton()

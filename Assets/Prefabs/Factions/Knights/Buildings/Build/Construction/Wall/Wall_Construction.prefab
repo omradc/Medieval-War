@@ -286,7 +286,7 @@ Transform:
   m_GameObject: {fileID: 4037280029470601341}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.75, y: -0.65, z: 0}
+  m_LocalPosition: {x: 0, y: -0.316, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -404,7 +404,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5399255641138859855}
-  - component: {fileID: 6049926426677737466}
   - component: {fileID: 8243241822854882813}
   m_Layer: 0
   m_Name: Physical Collider
@@ -428,22 +427,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3813377411152356707}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!208 &6049926426677737466
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5568272997019084612}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.425, y: 0.05, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!61 &8243241822854882813
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -549,7 +532,7 @@ Transform:
   m_GameObject: {fileID: 6735160297140970035}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.487, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0853, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

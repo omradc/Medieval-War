@@ -9,9 +9,9 @@ namespace Assets.Scripts.Concrete.Resources
     internal class Construction
     {
        readonly VillagerController vC;
-        readonly PathFindingController pF;
+        readonly PathFinding pF;
 
-        public Construction(VillagerController vC, PathFindingController pF)
+        public Construction(VillagerController vC, PathFinding pF)
         {
             this.vC = vC;
             this.pF = pF;

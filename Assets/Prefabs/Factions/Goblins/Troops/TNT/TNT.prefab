@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: -6605830254098105541}
   - component: {fileID: -7192940819771496805}
   - component: {fileID: -7459905087863206105}
-  - component: {fileID: -8565848495876418399}
+  - component: {fileID: 8246794199737252729}
   - component: {fileID: 8477463778476505287}
   - component: {fileID: -5524510914778358945}
   - component: {fileID: 4623027682418449085}
@@ -281,7 +281,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-8565848495876418399
+--- !u!114 &8246794199737252729
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,14 +290,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3147751460133698815}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
+  m_Script: {fileID: 11500000, guid: c5de4589c948f4c4b9268be94cba9c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStoping: 1
+  isStoping: 0
+  forMovementStopping: 0
   isUserControl: 0
   agent: {fileID: 0}
   lastMousePos: {x: 0, y: 0}
   moveSpeed: 0
+  insideOrOutsideWalls: 0
 --- !u!114 &8477463778476505287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,8 +336,9 @@ MonoBehaviour:
   barrelExplosionRadius: 2
   longRange: 100
   sightRange: 10
-  attackRange: 5
   currentSightRange: 0
+  attackRange: 5
+  currentAttackRange: 0
   currentLongRange: 0
   aI: 1
   onBuilding: 0
@@ -349,6 +352,8 @@ MonoBehaviour:
   nonRangeDetechEnemy: {fileID: 0}
   explosion: {fileID: 0}
   dynamite: {fileID: 2882941088727587294, guid: 4688edc9212076e4ebd96473555dcd61, type: 3}
+  obstacle: 0
+  height: 0
 --- !u!114 &-5524510914778358945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,6 +377,7 @@ MonoBehaviour:
   isTakeDamage: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
+  elevationFloor: 0
 --- !u!114 &4623027682418449085
 MonoBehaviour:
   m_ObjectHideFlags: 0

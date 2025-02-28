@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -8081813939892308413}
   - component: {fileID: 6197728433067721383}
   - component: {fileID: 6455696069564880554}
-  - component: {fileID: 6747969190704152676}
+  - component: {fileID: 3293881823587794060}
   - component: {fileID: 2140753509579492637}
   - component: {fileID: -5201736685492982202}
   - component: {fileID: 675483745330298091}
@@ -127,7 +127,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6747969190704152676
+--- !u!114 &3293881823587794060
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,14 +136,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 4195786962051834586}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acaf44c248532014281e40881d963ebf, type: 3}
+  m_Script: {fileID: 11500000, guid: c5de4589c948f4c4b9268be94cba9c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStoping: 1
+  isStoping: 0
+  forMovementStopping: 0
   isUserControl: 0
   agent: {fileID: 0}
   lastMousePos: {x: 0, y: 0}
   moveSpeed: 0
+  insideOrOutsideWalls: 0
 --- !u!114 &2140753509579492637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,10 +170,11 @@ MonoBehaviour:
   damage: 1
   towerPosIndex: 0
   attackRange: 0.6
+  currentAttackRange: 0
   sightRange: 8
+  currentSightRange: 0
   arrowSpeed: 25
   arrowDestroyTime: 10
-  currentSightRange: 0
   isSeleceted: 0
   aI: 1
   onBuilding: 0
@@ -185,6 +188,8 @@ MonoBehaviour:
   knightCollider: {fileID: 0}
   arrow: {fileID: 0}
   followingObj: {fileID: 0}
+  obstacle: 0
+  height: 0
 --- !u!114 &-5201736685492982202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +213,7 @@ MonoBehaviour:
   isTakeDamage: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
+  elevationFloor: 0
 --- !u!114 &675483745330298091
 MonoBehaviour:
   m_ObjectHideFlags: 0

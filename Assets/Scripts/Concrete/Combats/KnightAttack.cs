@@ -11,8 +11,8 @@ namespace Assets.Scripts.Concrete.Combats
 
         readonly KnightController kC;
         readonly KnightAI knightAI;
-        readonly PathFindingController pF;
-        public KnightAttack(KnightController kC, KnightAI knightAI, AnimationEventController animationEventController, PathFindingController pF)
+        readonly PathFinding pF;
+        public KnightAttack(KnightController kC, KnightAI knightAI, AnimationEventController animationEventController, PathFinding pF)
         {
             this.kC = kC;
             this.knightAI = knightAI;

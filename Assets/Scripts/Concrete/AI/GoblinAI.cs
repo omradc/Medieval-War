@@ -10,7 +10,7 @@ namespace Assets.Scripts.Concrete.AI
     internal class GoblinAI
     {
         readonly GoblinController gC;
-        readonly PathFindingController pF;
+        readonly PathFinding pF;
         BuildingController bC;
         GameObject nearestWoodTower;
         readonly SpriteRenderer goblinSpriteRenderer;
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Concrete.AI
         float time;
         Transform obj;
 
-        public GoblinAI(GoblinController goblinController, PathFindingController pF)
+        public GoblinAI(GoblinController goblinController, PathFinding pF)
         {
             gC = goblinController;
             this.pF = pF;
@@ -46,7 +46,7 @@ namespace Assets.Scripts.Concrete.AI
                 {
                     float distance = Vector2.Distance(gC.transform.position, gC.sightRangeDetechEnemies[i].transform.position);
                     TargetPriority targetPriority = gC.sightRangeDetechEnemies[i].GetComponent<TargetPriority>();
-                    float currentScore = targetPriority.priority + targetPriority.attackingPersonNumber + distance;
+                    float currentScore = targetPriority.attackingPersonNumber + distance - targetPriority.currentPriority;
                     if (bestScore > currentScore)
                     {
                         bestScore = currentScore;
@@ -107,8 +107,8 @@ namespace Assets.Scripts.Concrete.AI
             CalculateNearestAttackPoint();
 
             // hedef, saldırı menziline girerse; yakalamayı bırak
-            if (Vector2.Distance(nearestAttackPoint.position, gC.transform.position) < gC.attackRange) return;
-            pF.MoveAI(nearestAttackPoint.position, gC.attackRange);
+            if (Vector2.Distance(nearestAttackPoint.position, gC.transform.position) < gC.currentAttackRange) return;
+            pF.MoveAI(nearestAttackPoint.position, gC.currentAttackRange);
 
         }
         public void GoblinBehaviour()
@@ -287,7 +287,7 @@ namespace Assets.Scripts.Concrete.AI
                                 Debug.Log("Kuleye çık");
                                 pF.agent.ResetPath();
                                 goblinSpriteRenderer.sortingOrder = 12;
-                                gC.currentSightRange = gC.attackRange; // Kulede sabit kal
+                                gC.currentSightRange = gC.currentAttackRange; // Kulede sabit kal
                                 gC.aI = true;
                                 gC.onBuilding = true;
                                 gC.goBuilding = false;

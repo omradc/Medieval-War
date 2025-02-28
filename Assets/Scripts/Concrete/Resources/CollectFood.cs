@@ -1,20 +1,18 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using Assets.Scripts.Concrete.Enums;
 using UnityEngine;
 namespace Assets.Scripts.Concrete.Resources
 {
     internal class CollectFood
     {
         readonly VillagerController vC;
-        readonly PathFindingController pF;
-        public CollectFood(VillagerController vC, PathFindingController pF)
+        readonly PathFinding pF;
+        public CollectFood(VillagerController vC, PathFinding pF)
         {
             this.vC = vC;
             this.pF = pF;
         }
-
         public void GoToSheep()
         {
             if (vC.isSheep && vC.targetResource != null && vC.fenceObj != null)
@@ -59,7 +57,7 @@ namespace Assets.Scripts.Concrete.Resources
                             vC.returnHome = true;
                             //Koyunu kes, animasyon ile
                             AnimationManager.Instance.ChopSheepAnim(vC.animator, vC.chopSpeed);
-                            vC.targetResource = null;
+                            // vC.targetResource = null; // kesme animasyonunun bitiminde null a döner. Aksi takdirde koyunu kesmeden önce yanlış yöne bakar
                             vC.tCollect = 0;
 
                         }
@@ -68,18 +66,13 @@ namespace Assets.Scripts.Concrete.Resources
 
             }
         }
-
-        // Kesme animasyonu ile tetiklenir
-        public void GetHitSheep()
+        public void GetHitSheep() // Kesme animasyonu ile tetiklenir
         {
             if (vC.sheepController != null)
             {
                 vC.sheepController.CutSheep();
             }
-
         }
-
-
         public void GoToFences()
         {
             if (vC.returnFences)

@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Concrete.Combats;
 using Assets.Scripts.Concrete.Managers;
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,10 +19,12 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool isTakeDamage;
         [HideInInspector] public bool isDead;
         [HideInInspector] public GoblinHouseController goblinHouseController;
+        [HideInInspector] public int elevationFloor;
         Image fillImage;
         List<GameObject> attackingPersons;
         TargetPriority targetPriority;
         float currentHealth;
+        RaycastHit2D hitElevation;
         private void Awake()
         {
             currentHealth = health;
@@ -40,6 +41,7 @@ namespace Assets.Scripts.Concrete.Controllers
             InvokeRepeating(nameof(Regeneration), 0, 1);
             InvokeRepeating(nameof(WhenHealthIsFullSetVisibility), 0, 5);
             InvokeRepeating(nameof(AttackingPersonsAssignment), 0, 0.5f);
+            InvokeRepeating(nameof(ElevationControl), 0, 1f);
         }
 
         public void GetHit(int attackDamage, GameObject attacker) // Hasar al
@@ -135,6 +137,22 @@ namespace Assets.Scripts.Concrete.Controllers
                 if (attackingPersons[i] == null)
                     attackingPersons.RemoveAt(i);
             }
+        }
+        void ElevationControl()
+        {
+            hitElevation = Physics2D.Raycast(transform.position, transform.forward, .05f, LayerMask.GetMask("GroundElevations1", "GroundElevations2", "GroundElevations3"));
+            if (hitElevation.collider != null)
+            {
+                if (hitElevation.collider.gameObject.layer == 21) //1. yükselti katı
+                    elevationFloor = 1;
+                else if (hitElevation.collider.gameObject.layer == 22) //2. yükselti katı
+                    elevationFloor = 2;
+                else if (hitElevation.collider.gameObject.layer == 23) //3. yükselti katı
+                    elevationFloor = 3;
+            }
+            else
+                elevationFloor = 0;
+
         }
     }
 }

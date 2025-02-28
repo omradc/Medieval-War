@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
+    [RequireComponent(typeof(PathFinding))]
     internal class SheepController : MonoBehaviour
     {
 
@@ -28,9 +29,9 @@ namespace Assets.Scripts.Concrete.Controllers
         [SerializeField] GameObject resourceMeat;
         [SerializeField] Transform orderInLayerSpriteAnchor;
         [SerializeField] SpriteRenderer visual;
-        Transform[] sheepPoints;
-        Transform sheepPoint;
-        
+        public Transform[] sheepPoints;
+        public Transform sheepPoint;
+
         [HideInInspector] public float currentGrowTime;
         [HideInInspector] public int currentMeatAmount;
         [HideInInspector] public float currentTameTime;
@@ -41,7 +42,7 @@ namespace Assets.Scripts.Concrete.Controllers
         Animator animator;
         GameObject villager;
         VillagerController vC;
-        [HideInInspector] public PathFindingController pF;
+        [HideInInspector] public PathFinding pF;
         DynamicOrderInLayer dynamicOrderInLayer;
         Vector3 scale;
         Vector3 firstPoint;
@@ -51,7 +52,7 @@ namespace Assets.Scripts.Concrete.Controllers
         int singleOrDouble;
         private void Awake()
         {
-            pF = GetComponent<PathFindingController>();
+            pF = GetComponent<PathFinding>();
             dynamicOrderInLayer = new();
         }
         private void Start()
@@ -190,7 +191,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         public void CheckFences()
         {
-            for (int i = 1; i < sheepPoints.Length; i++)
+            for (int i = 0; i < sheepPoints.Length; i++)
             {
                 if (sheepPoints[i].transform.gameObject.activeSelf)
                 {
