@@ -87,6 +87,12 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void PanelVisibility()
         {
+            if (buildingController == null)
+            {
+                interactablePanel.SetActive(true);
+                return;
+            }
+
             if (!buildingController.destruct) // Bina yıkılmadıysa
             {
                 if (buildingController.isFull || InteractManager.Instance.selectedUnits.Count > 0)  // üzerinde birim varsa, yıkıldıysa veya 1 birim seçili ise panelleri kapat

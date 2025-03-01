@@ -50,7 +50,6 @@ namespace Assets.Scripts.Concrete.Controllers
         ValueController valueController;
 
         bool obj;
-        bool anyObj;
         bool value = true;
         private void Awake()
         {
@@ -130,9 +129,9 @@ namespace Assets.Scripts.Concrete.Controllers
             else
             {
                 obj = false;
-                anyObj = true;
+     
             }
-            if (!anyObj && obj) return;
+            if (obj) return;
 
             // İnşaa edilemez
             buildConfirmButton.interactable = false;
@@ -141,7 +140,6 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
-            anyObj = false;
             // İnşaa edilebilir
             buildConfirmButton.interactable = true;
             visual.gameObject.SetActive(true);
@@ -226,6 +224,12 @@ namespace Assets.Scripts.Concrete.Controllers
                     wallsPos.Remove(wallsPos[0]);
 
                 StartCoroutine(WallBuildDelay()); // Butona basınca hareket edip yeni bir konuma inşaa yapılmasını engellemek için
+
+                if (gameObject.name != "Preview_Wall(Clone)")
+                {
+                    UIManager.Instance.BuildPanelVisibility(true);
+                    Destroy(gameObject);
+                }
             }
 
             else

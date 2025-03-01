@@ -188,7 +188,7 @@ MonoBehaviour:
     m_Bits: 33554496
   interactableLayers:
     serializedVersion: 2
-    m_Bits: 3221345088
+    m_Bits: 3221347136
   interactedObj: {fileID: 0}
   interactedKnight: {fileID: 0}
   interactedMine: {fileID: 0}
@@ -198,8 +198,6 @@ MonoBehaviour:
   interactedTower: {fileID: 0}
   interactedConstruction: {fileID: 0}
   selectedUnits: []
-  startPos: {x: 0, y: 0}
-  isDragging: 0
 --- !u!114 &1351704705479308060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,7 +232,7 @@ MonoBehaviour:
   canBuild: 1
   previewObj: {fileID: 0}
   canDragPreviewObj: 1
-  gridSize: 0.1
+  gridSize: 0.2
   valuePanel: {fileID: 0}
 --- !u!114 &3724882387064550949
 MonoBehaviour:

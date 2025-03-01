@@ -99,6 +99,18 @@ PrefabInstance:
       propertyPath: constructing
       value: 
       objectReference: {fileID: 2603522970388996191, guid: adea6d347214300418656beba3415810, type: 3}
+    - target: {fileID: 1078735369533717610, guid: 90b65ea4df4648940b072d096889cd1e, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078735369533717610, guid: 90b65ea4df4648940b072d096889cd1e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078735369533717610, guid: 90b65ea4df4648940b072d096889cd1e, type: 3}
+      propertyPath: m_Color.r
+      value: 0.84705883
+      objectReference: {fileID: 0}
     - target: {fileID: 3099735016611306758, guid: 90b65ea4df4648940b072d096889cd1e, type: 3}
       propertyPath: m_Maskable
       value: 1
@@ -153,6 +165,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8864407149210313204, guid: 90b65ea4df4648940b072d096889cd1e, type: 3}
       propertyPath: m_Size.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8878673513202796550, guid: 90b65ea4df4648940b072d096889cd1e, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -1,5 +1,3 @@
-using Assets.Scripts.Concrete.Movements;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class Test : MonoBehaviour
@@ -7,13 +5,13 @@ public class Test : MonoBehaviour
     private void Update()
     {
         // Raycast ýþýný gönder. Yön, oyuncunun baktýðý yönde (transform.right), mesafe ise belirlenen uzunlukta.
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 1, LayerMask.GetMask("Elevations"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.up, 0.1f);
 
         // Çarpan bir nesne varsa
         if (hit.collider != null)
         {
             // Nesne ile etkileþim baþlat
-            Debug.Log("Etkileþim baþlatýldý!");
+            Debug.Log(hit.collider.name);
 
         }
 
@@ -22,7 +20,7 @@ public class Test : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, transform.right * 1);
+        Gizmos.DrawRay(transform.position, -transform.up * .1f);
     }
 }
 
