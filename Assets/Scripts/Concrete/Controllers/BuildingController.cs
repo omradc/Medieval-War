@@ -92,8 +92,8 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 GameObject obj = Instantiate(interactableObjUIController.construct, transform.position, Quaternion.identity);
                 obj.GetComponent<ConstructController>().constructing = interactableObjUIController.upgradedBuilding;
-                Destroy(gameObject, 0);
-
+                //Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
         void SpriteAssingment()

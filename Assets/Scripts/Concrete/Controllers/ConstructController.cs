@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.Concrete.Movements;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,16 +12,18 @@ namespace Assets.Scripts.Concrete.Controllers
         public Transform visual;
         public Image constructionTimerImage;
         public float hitNumber;
+        public GameObject previousBuilding;
         [SerializeField] Transform OrderInLayerSpriteAnchor;
         [HideInInspector] public float currentHitNumber;
         [HideInInspector] public bool isFull;
         SpriteRenderer[] visualSprites;
         DynamicOrderInLayer dynamicOrderInLayer;
+        public List<GameObject> knights;
 
         private void Awake()
         {
             dynamicOrderInLayer = new();
-
+            knights = new();
             if (visual.childCount == 0)
             {
                 visualSprites = new SpriteRenderer[1];
@@ -38,7 +42,8 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Start()
         {
             dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, visualSprites);
-
+            if (previousBuilding != null&& gameObject.CompareTag("HouseConstruction"))
+                knights = previousBuilding.GetComponent<KnightHouseController>().knights;
         }
         void Update()
         {
@@ -49,7 +54,12 @@ namespace Assets.Scripts.Concrete.Controllers
 
         void Build()
         {
-            Instantiate(constructing, transform.position, Quaternion.identity);
+            GameObject constructed = Instantiate(constructing, transform.position, Quaternion.identity);
+            if (constructed.TryGetComponent(out KnightHouseController knightHouseController) && previousBuilding != null)
+            {
+                knightHouseController.knights = previousBuilding.GetComponent<KnightHouseController>().knights;
+            }
+            Destroy(previousBuilding);
             Destroy(gameObject);
         }
 

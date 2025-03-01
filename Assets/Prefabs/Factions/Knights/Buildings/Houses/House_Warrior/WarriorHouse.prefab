@@ -723,9 +723,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af16c09d94a55049a9e529e185596f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 447345125501323559, guid: e2f298f9fe646de4dbf72e23ac4d916c, type: 3}
+  knight: {fileID: 0}
+  maxKnightNumber: 1
   timerFillImage: {fileID: 3266292356291764359}
   trainingTime: 0.1
+  currentTrainedKnightNumber: 0
+  knights: []
 --- !u!114 &4846739352328880325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,6 +750,7 @@ MonoBehaviour:
   upgrade: 0
   construct: {fileID: 0}
   upgradedBuilding: {fileID: 0}
+  currentKnightHouse: {fileID: 0}
   trainTimePanel: {fileID: 8048294403364199782}
 --- !u!114 &-725170031266009311
 MonoBehaviour:
@@ -771,6 +775,8 @@ MonoBehaviour:
   isTakeDamage: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
+  knightHouseController: {fileID: 0}
+  elevationFloor: 0
 --- !u!114 &1866785907170678175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -808,6 +814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 5
+  currentPriority: 0
   maxAttacker: 3
   attackingPersonNumber: 0
 --- !u!114 &5923102275711421257
@@ -1101,6 +1108,34 @@ PrefabInstance:
     - target: {fileID: 1424069325572943682, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: DestroyButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814093202264563820, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814093202264563820, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814093202264563820, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4846739352328880325}
+    - target: {fileID: 1814093202264563820, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TrainUnitButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814093202264563820, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.InteractableObjUIController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814093202264563820, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 8389996312057332968}
+    - target: {fileID: 1814093202264563820, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2459699401766764627, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
       propertyPath: m_AnchorMax.y

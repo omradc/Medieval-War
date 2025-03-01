@@ -19,6 +19,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool isTakeDamage;
         [HideInInspector] public bool isDead;
         [HideInInspector] public GoblinHouseController goblinHouseController;
+        [HideInInspector] public KnightHouseController knightHouseController;
         [HideInInspector] public int elevationFloor;
         Image fillImage;
         List<GameObject> attackingPersons;
@@ -101,7 +102,11 @@ namespace Assets.Scripts.Concrete.Controllers
 
             // Oyuncu birimi
             if (gameObject.layer == 6)
+            {
+                if (knightHouseController != null)
+                    knightHouseController.currentTrainedKnightNumber--;  // Ölmeden önce knight sayısını azaltır 
                 Destroy(gameObject);
+            }
             // Düşman birimi
             if (gameObject.layer == 13)
             {

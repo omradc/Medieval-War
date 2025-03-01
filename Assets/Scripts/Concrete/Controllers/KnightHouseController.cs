@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Concrete.KnightBuildings;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,31 +6,67 @@ namespace Assets.Scripts.Concrete.Controllers
 {
     internal class KnightHouseController : MonoBehaviour
     {
-        [SerializeField] GameObject unit;
+        [Header("House")]
+        [SerializeField] GameObject knight;
+        public int maxKnightNumber = 1;
+
+        [Header("Setup")]
         public Image timerFillImage;
         public float trainingTime;
-
+        public float currentTrainedKnightNumber;
+        [HideInInspector] public List<GameObject> knights;
         Transform trainedUnitPos;
         InteractableObjUIController interactableObjUIController;
-        KnightHouse knightHouse;
-        
+        float currentTime;
+        Vector3 pos;
         private void Awake()
         {
             interactableObjUIController = GetComponent<InteractableObjUIController>();
             trainedUnitPos = transform.GetChild(0);
+            knights = new();
 
         }
         private void Start()
         {
-            knightHouse = new KnightHouse(unit, trainedUnitPos.position, interactableObjUIController, this);
+            InitilizeKnights();
         }
         private void Update()
-        {           
-            knightHouse.TrainUnit();
+        {
+            TrainUnit();
         }
 
+        public void TrainUnit()
+        {
 
+            if (interactableObjUIController.trainUnitButton)
+            {
+                currentTime += Time.deltaTime;
+                timerFillImage.fillAmount = currentTime / trainingTime;
+                if (currentTime >= trainingTime)
+                {
+                    GameObject trainedUnit = Instantiate(knight, trainedUnitPos.position, Quaternion.identity);
+                    trainedUnit.GetComponent<HealthController>().knightHouseController = this;
+                    knights.Add(trainedUnit);
+                    currentTrainedKnightNumber++;
+                    currentTime = 0;
+                    interactableObjUIController.trainUnitButton = false;
+                    interactableObjUIController.TimerPanelVisibility(false);
+                    if (trainedUnit.CompareTag("Pawn"))
+                        trainedUnit.GetComponent<VillagerController>().homePos = pos;
+                }
+            }
 
+        }
+        void InitilizeKnights()
+        {
+            for (int i = 0; i < knights.Count; i++)
+            {
+                GameObject newKnight = Instantiate(knight, knights[i].transform.position, Quaternion.identity);
+                currentTrainedKnightNumber++;
+                Destroy(knights[i]);
+                knights[i] = newKnight;
+            }
+        }
 
 
     }

@@ -158,12 +158,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3452217686441284207}
-  - component: {fileID: 2288799462812149386}
   - component: {fileID: 1963965114541155203}
+  - component: {fileID: 2288799462812149386}
   - component: {fileID: 7295397739301377940}
   m_Layer: 30
   m_Name: House_Construction
-  m_TagString: Building
+  m_TagString: HouseConstruction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -187,25 +187,6 @@ Transform:
   - {fileID: 6602428448599035130}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2288799462812149386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8839615709272474171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8863314c6d5908540b4a1fb3fa6c813d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constructing: {fileID: 0}
-  visual: {fileID: 8915796676944183225}
-  constructionTimerImage: {fileID: 7010826106386042703}
-  hitNumber: 1
-  OrderInLayerSpriteAnchor: {fileID: 6602428448599035130}
-  currentHitNumber: 0
-  isFull: 0
 --- !u!61 &1963965114541155203
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -252,6 +233,27 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1.5}
   m_EdgeRadius: 0
+--- !u!114 &2288799462812149386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8839615709272474171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8863314c6d5908540b4a1fb3fa6c813d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  constructing: {fileID: 0}
+  visual: {fileID: 8915796676944183225}
+  constructionTimerImage: {fileID: 7010826106386042703}
+  hitNumber: 1
+  previousBuilding: {fileID: 0}
+  OrderInLayerSpriteAnchor: {fileID: 6602428448599035130}
+  currentHitNumber: 0
+  isFull: 0
+  knights: []
 --- !u!114 &7295397739301377940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,6 +275,7 @@ MonoBehaviour:
   upgrade: 0
   construct: {fileID: 0}
   upgradedBuilding: {fileID: 0}
+  currentBuilding: {fileID: 0}
   trainTimePanel: {fileID: 0}
 --- !u!1001 &5434200139593561048
 PrefabInstance:

@@ -54,8 +54,8 @@ GameObject:
   - component: {fileID: 3561191684523338778}
   - component: {fileID: 1890159976224534802}
   m_Layer: 6
-  m_Name: Villager
-  m_TagString: Villager
+  m_Name: Pawn
+  m_TagString: Pawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,12 +176,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStoping: 0
-  forMovementStopping: 0
+  isMovementStopping: 0
   isUserControl: 0
   agent: {fileID: 0}
   lastMousePos: {x: 0, y: 0}
   moveSpeed: 0
-  insideOrOutsideWalls: 0
+  isStuck: 0
 --- !u!114 &2195796025414383232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 0
+  currentPriority: 0
   maxAttacker: 3
   attackingPersonNumber: 0
 --- !u!114 &1890159976224534802

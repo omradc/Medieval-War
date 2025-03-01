@@ -47,10 +47,10 @@ namespace Assets.Scripts.Concrete.Managers
         }
         private void Start()
         {
-            totalGold = 99;
-            totalRock = 99;
-            totalWood = 99;
-            totalMeat = 99;
+            totalGold = 1;
+            totalRock = 1;
+            totalWood = 1;
+            totalMeat = 1;
 
             DisplayResources();
         }
@@ -119,6 +119,7 @@ namespace Assets.Scripts.Concrete.Managers
 
         void DisplayPanelColor(ValueController valueController, Value v)
         {
+            print("renk göster");
             if (totalGold >= v.goldPrice)
                 valueController.goldPanel.color = Color.white;
             if (totalGold < v.goldPrice)
@@ -141,7 +142,7 @@ namespace Assets.Scripts.Concrete.Managers
         }
 
         // Nesnelerin  text fiyatını göstermek için
-        public void FirstItemValuesDisplay(string name, out int goldPrice,out int rockPrice, out int woodPrice, out int meatPrice)
+        public void FirstItemValuesDisplay(string name, out int goldPrice, out int rockPrice, out int woodPrice, out int meatPrice)
         {
             // Satın alınan ürünün adını değer listesinde ara, bulunca index sırasını eşitle
             for (int i = 0; i < value.Length; i++)

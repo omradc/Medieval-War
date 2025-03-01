@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Names;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool upgrade;
         [HideInInspector] public GameObject construct;
         [HideInInspector] public GameObject upgradedBuilding;
+        public GameObject currentBuilding;
         BuildingController buildingController;
         [SerializeField] GameObject trainTimePanel;
         ObjNames names;
@@ -35,14 +37,22 @@ namespace Assets.Scripts.Concrete.Controllers
                     interactablePanel.SetActive(false); // etkileşim panelini kapat
 
         }
-        public void TrainUnitButton()
+        public void TrainUnitButton(GameObject knightHouse)
         {
-            if (ResourcesManager.Instance.Buy(names.KnightName(), trainButton))
+            KnightHouseController knightHouseController = knightHouse.GetComponent<KnightHouseController>();
+            if (knightHouseController.currentTrainedKnightNumber < knightHouseController.maxKnightNumber)
             {
-                trainUnitButton = true;
-                interactablePanel.SetActive(false);
-                TimerPanelVisibility(true);
+                if (ResourcesManager.Instance.Buy(names.KnightName(), trainButton))
+                {
+                    trainUnitButton = true;
+                    interactablePanel.SetActive(false);
+                    TimerPanelVisibility(true);
+                }
             }
+        }
+        public void CurrentBuilding(GameObject currentBuilding)
+        {
+            this.currentBuilding = currentBuilding;
         }
         public void Construct(GameObject construct) // Upgrade: yükselecek yapının inşaatı oluşturur
         {
@@ -51,6 +61,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 // Son Seviye
                 if (construct == null) return;
                 // Ev yükseltildiği anda yok edilir
+                construct.GetComponent<ConstructController>().previousBuilding = currentBuilding;
                 upgrade = true;
                 this.construct = construct;
             }
@@ -69,7 +80,22 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         public void DestroyButton()
         {
+            if (gameObject.TryGetComponent(out KnightHouseController knightHouseController))
+            {
+                for (int i = 0; i < knightHouseController.knights.Count; i++)
+                {
+                    Destroy(knightHouseController.knights[i]); // Baraka yok edilirse birimler de yok edilir
+                }
+            }
+            if (gameObject.TryGetComponent(out ConstructController constructController))
+            {
+                for (int i = 0; i < constructController.knights.Count; i++)
+                {
+                    Destroy(constructController.knights[i]); // Baraka yok edilirse birimler de yok edilir
+                }
+            }
             Destroy(gameObject);
+
         }
         public void TimerPanelVisibility(bool visibility)
         {

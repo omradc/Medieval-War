@@ -1005,9 +1005,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af16c09d94a55049a9e529e185596f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 0}
+  knight: {fileID: 0}
+  maxKnightNumber: 1
   timerFillImage: {fileID: 0}
   trainingTime: 0.1
+  currentTrainedKnightNumber: 0
+  knights: []
 --- !u!114 &4591220666811815571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1029,6 +1032,7 @@ MonoBehaviour:
   upgrade: 0
   construct: {fileID: 0}
   upgradedBuilding: {fileID: 0}
+  currentKnightHouse: {fileID: 0}
   trainTimePanel: {fileID: 3141285353596765395}
 --- !u!114 &8191330307033178946
 MonoBehaviour:
@@ -1053,6 +1057,8 @@ MonoBehaviour:
   isTakeDamage: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
+  knightHouseController: {fileID: 0}
+  elevationFloor: 0
 --- !u!114 &3048150471120658330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1090,6 +1096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 5
+  currentPriority: 0
   maxAttacker: 3
   attackingPersonNumber: 0
 --- !u!114 &5923102275711421257
@@ -1277,6 +1284,66 @@ PrefabInstance:
     - target: {fileID: 1424069325572943682, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: DestroyButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814093202264563820, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814093202264563820, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814093202264563820, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4591220666811815571}
+    - target: {fileID: 1814093202264563820, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TrainUnitButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814093202264563820, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.InteractableObjUIController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814093202264563820, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 8389996312057332968}
+    - target: {fileID: 1814093202264563820, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4591220666811815571}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CurrentKnightHouse
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.InteractableObjUIController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 8389996312057332968}
+    - target: {fileID: 1838449135668178184, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2719443045825362817, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
