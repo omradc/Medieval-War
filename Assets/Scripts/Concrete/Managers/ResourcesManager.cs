@@ -47,10 +47,10 @@ namespace Assets.Scripts.Concrete.Managers
         }
         private void Start()
         {
-            totalGold = 1;
-            totalRock = 1;
-            totalWood = 1;
-            totalMeat = 1;
+            totalGold = 99;
+            totalRock = 99;
+            totalWood = 99;
+            totalMeat = 99;
 
             DisplayResources();
         }

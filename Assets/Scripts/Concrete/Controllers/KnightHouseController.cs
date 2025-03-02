@@ -52,7 +52,7 @@ namespace Assets.Scripts.Concrete.Controllers
                     interactableObjUIController.trainUnitButton = false;
                     interactableObjUIController.TimerPanelVisibility(false);
                     if (trainedUnit.CompareTag("Pawn"))
-                        trainedUnit.GetComponent<VillagerController>().homePos = pos;
+                        trainedUnit.GetComponent<VillagerController>().housePos = pos;
                 }
             }
 

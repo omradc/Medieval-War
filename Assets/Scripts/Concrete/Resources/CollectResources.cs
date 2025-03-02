@@ -104,7 +104,7 @@ namespace Assets.Scripts.Concrete.Resources
             if (vC.returnHome)
             {
                 // Eve ulaşınca dur
-                if (Vector2.Distance(vC.transform.position, vC.homePos) > .5f)
+                if (Vector2.Distance(vC.transform.position, vC.housePos) > .5f)
                 {
                     // Kaynak al
                     CollectResource();
@@ -135,14 +135,14 @@ namespace Assets.Scripts.Concrete.Resources
                         vC.goldIdle.SetActive(true);
                     if (mine.CompareTag("RockMine"))
                         vC.rockIdle.SetActive(true);
-                    pF.MoveAI(vC.homePos, 0);
+                    pF.MoveAI(vC.housePos, 0);
                     AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
                     vC.workOnce = false;
                 }
                 if (vC.tCollect > vC.woodCollectTime && vC.isTree)
                 {
                     vC.woodIdle.SetActive(true);
-                    pF.MoveAI(vC.homePos, 0);
+                    pF.MoveAI(vC.housePos, 0);
                     AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
                     vC.workOnce = false;
                     vC.tCollect = 0;
@@ -151,7 +151,7 @@ namespace Assets.Scripts.Concrete.Resources
                 if (vC.tCollect > vC.meatCollectTime && vC.sheepController)
                 {
                     vC.meatIdle.SetActive(true);
-                    pF.MoveAI(vC.homePos, 0);
+                    pF.MoveAI(vC.housePos, 0);
                     AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
                     vC.workOnce = false;
                     vC.tCollect = 0;
@@ -168,25 +168,25 @@ namespace Assets.Scripts.Concrete.Resources
                 if (vC.goldIdle.activeSelf)
                 {
                     ResourcesManager.Instance.totalGold += ResourcesManager.Instance.collectGoldAmount;
-                    DropGold(vC.homePos, vC.dropResourceLifeTime);
+                    DropGold(vC.housePos, vC.dropResourceLifeTime);
                     vC.goldIdle.SetActive(false);
                 }
                 if (vC.rockIdle.activeSelf)
                 {
                     ResourcesManager.Instance.totalRock += ResourcesManager.Instance.collectRockAmount;
-                    DropRock(vC.homePos, vC.dropResourceLifeTime);
+                    DropRock(vC.housePos, vC.dropResourceLifeTime);
                     vC.rockIdle.SetActive(false);
                 }
                 if (vC.woodIdle.activeSelf)
                 {
                     ResourcesManager.Instance.totalWood += ResourcesManager.Instance.collectWoodAmount;
-                    DropWood(vC.homePos, vC.dropResourceLifeTime);
+                    DropWood(vC.housePos, vC.dropResourceLifeTime);
                     vC.woodIdle.SetActive(false);
                 }
                 if (vC.meatIdle.activeSelf)
                 {
                     ResourcesManager.Instance.totalMeat += vC.sheepController.currentMeatAmount;
-                    DropMeat(vC.homePos, vC.dropResourceLifeTime);
+                    DropMeat(vC.housePos, vC.dropResourceLifeTime);
                     vC.meatIdle.SetActive(false);
                     vC.isSheep = false;
                 }

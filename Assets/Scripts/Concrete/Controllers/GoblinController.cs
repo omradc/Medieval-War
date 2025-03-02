@@ -62,7 +62,7 @@ namespace Assets.Scripts.Concrete.Controllers
         BarrelStats barrelStats;
         HealthController healthController;
         Vector3 gizmosPos;
-        [Range(2f, 4f)] float moveSpeed;
+        float moveSpeed;
         float time;
         float attackSpeed;
         float attackInterveal;

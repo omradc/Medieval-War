@@ -46,7 +46,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public ConstructController constructController;
 
 
-        [HideInInspector] public Vector3 homePos;
+        [HideInInspector] public Vector3 housePos;
         [HideInInspector] public float currentChopTreeSightRange;
         [HideInInspector] public int currentTreeDamage;
         [HideInInspector] public float tChop;

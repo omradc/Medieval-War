@@ -24,16 +24,16 @@ namespace Assets.Scripts.Concrete.Controllers
         Image fillImage;
         List<GameObject> attackingPersons;
         TargetPriority targetPriority;
-        float currentHealth;
+        public float currentHealth;
         RaycastHit2D hitElevation;
         private void Awake()
         {
-            currentHealth = health;
             fillImage = healthObj.transform.GetChild(1).GetComponent<Image>();
 
         }
         private void Start()
         {
+            currentHealth = health;
             attackingPersons = new();
             targetPriority = GetComponent<TargetPriority>();
             UpdateHealthBar();

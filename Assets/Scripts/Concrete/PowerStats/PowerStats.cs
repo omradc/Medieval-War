@@ -12,7 +12,7 @@ namespace Assets.Scripts.Concrete.PowerStats
         public float regrenationAfterDamageTime = 5;
 
         [Header("Movement")]
-        [Range(2, 4f)] public float moveSpeed = 1f;
+        [Range(0.5f, 4f)] public float moveSpeed = 1f;
 
         [Header("Attack")]
         public int damage = 1;

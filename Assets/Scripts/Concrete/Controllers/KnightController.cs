@@ -23,8 +23,8 @@ namespace Assets.Scripts.Concrete.Controllers
 
         [HideInInspector] public int damage;
         [HideInInspector] public int towerPosIndex;
-        public float attackRange;
-        public float currentAttackRange;
+        [HideInInspector] public float attackRange;
+        [HideInInspector] public float currentAttackRange;
         [HideInInspector] public float sightRange;
         [HideInInspector] public float currentSightRange;
         [HideInInspector] public float arrowSpeed = 25;
@@ -53,13 +53,13 @@ namespace Assets.Scripts.Concrete.Controllers
         ArcherStats archerStats;
         VillagerStats villagerStats;
         HealthController healthController;
-        [Range(2, 4f)] float moveSpeed = 1f;
+        float moveSpeed = 1f;
         float attackInterval;
         float attackSpeed;
         float time;
         bool canAttack;
-        public bool obstacle;
-        public bool height;
+        bool obstacle;
+        bool height;
         RaycastHit2D hitObj;
 
         private void Awake()
