@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Concrete.Movements;
+﻿using Assets.Scripts.Concrete.Managers;
+using Assets.Scripts.Concrete.Movements;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public Transform visual;
         public Image constructionTimerImage;
         public float hitNumber;
-        public GameObject previousBuilding;
+        [HideInInspector] public GameObject previousBuilding;
         [SerializeField] Transform OrderInLayerSpriteAnchor;
         [HideInInspector] public float currentHitNumber;
         [HideInInspector] public bool isFull;
@@ -42,7 +43,7 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Start()
         {
             dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, visualSprites);
-            if (previousBuilding != null&& gameObject.CompareTag("HouseConstruction"))
+            if (previousBuilding != null && gameObject.CompareTag("HouseConstruction"))
                 knights = previousBuilding.GetComponent<KnightHouseController>().knights;
         }
         void Update()
@@ -55,10 +56,16 @@ namespace Assets.Scripts.Concrete.Controllers
         void Build()
         {
             GameObject constructed = Instantiate(constructing, transform.position, Quaternion.identity);
+            // Yükseltme yapılınca, bir önceki evin bilgisi yükseltilen evin bilgisine eşitlenir.
             if (constructed.TryGetComponent(out KnightHouseController knightHouseController) && previousBuilding != null)
             {
                 knightHouseController.knights = previousBuilding.GetComponent<KnightHouseController>().knights;
             }
+            if (constructed.TryGetComponent(out RepoController repoController) && previousBuilding != null)
+            {
+                repoController.currentRepoCapacity = previousBuilding.GetComponent<RepoController>().currentRepoCapacity;
+            }
+            ResourcesManager.Instance.RemoveRepo(previousBuilding);
             Destroy(previousBuilding);
             Destroy(gameObject);
         }

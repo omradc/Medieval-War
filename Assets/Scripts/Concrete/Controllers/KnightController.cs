@@ -47,7 +47,7 @@ namespace Assets.Scripts.Concrete.Controllers
         Animator animator;
         AnimationEventController animationEventController;
         PathFinding pF;
-        VillagerController villagerController;
+        PawnController pawnController;
         DynamicOrderInLayer dynamicOrderInLayer;
         WarriorStats warriorStats;
         ArcherStats archerStats;
@@ -74,7 +74,7 @@ namespace Assets.Scripts.Concrete.Controllers
             new KnightAttack(this, knightAI, animationEventController, pF);
             dynamicOrderInLayer = new();
             if (factionType == FactionTypeEnum.Villager)
-                villagerController = GetComponent<VillagerController>();
+                pawnController = GetComponent<PawnController>();
 
 
 
@@ -143,8 +143,8 @@ namespace Assets.Scripts.Concrete.Controllers
                 attackInterval = villagerStats.attackInterval;
                 attackRange = villagerStats.attackRange;
                 sightRange = villagerStats.sightRange;
-                villagerController.treeDamage = villagerStats.treeDamage;
-                villagerController.chopSpeed = villagerStats.chopSpeed;
+                pawnController.treeDamage = villagerStats.treeDamage;
+                pawnController.chopSpeed = villagerStats.chopSpeed;
             }
 
         }
@@ -218,12 +218,12 @@ namespace Assets.Scripts.Concrete.Controllers
                     else
                     {
                         // Köylü çalýþmýyorsa, saða bak
-                        if (villagerController.targetResource == null)
+                        if (pawnController.targetResource == null)
                             transform.localScale = Vector3.one;
                         // Köylü çalýþýyorsa, hedefe bakar
                         else
                         {
-                            direction.Turn2DirectionWithPos(villagerController.targetResource.transform.position.x);
+                            direction.Turn2DirectionWithPos(pawnController.targetResource.transform.position.x);
                         }
                     }
                 }

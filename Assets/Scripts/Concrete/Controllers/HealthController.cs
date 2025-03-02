@@ -114,6 +114,10 @@ namespace Assets.Scripts.Concrete.Controllers
                     goblinHouseController.currentGoblinNumber--; // Ölmeden önce goblin sayısını azaltır 
                 Destroy(gameObject);
             }
+            if(gameObject.CompareTag("Repo"))
+            {
+                ResourcesManager.Instance.RemoveRepo(gameObject);
+            }
         }
         void UpdateHealthBar()
         {

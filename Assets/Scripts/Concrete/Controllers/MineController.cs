@@ -16,7 +16,7 @@ namespace Assets.Scripts.Concrete.Controllers
         Collider2D[] colliders;
         public List<GameObject> villagers;
         public Image mineAmountFillValue;
-        VillagerController vC;
+        PawnController pawnController;
         private void Start()
         {
             inactivited = transform.GetChild(0).gameObject;
@@ -52,7 +52,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.CompareTag("Villager"))
+            if (collision.gameObject.CompareTag("Pawn"))
             {
                 if (currentMineAmount <= 0) return;
 
@@ -69,7 +69,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.CompareTag("Villager"))
+            if (collision.gameObject.CompareTag("Pawn"))
             {
                 villagerNumber--;
 
@@ -80,9 +80,9 @@ namespace Assets.Scripts.Concrete.Controllers
                     minePanel.SetActive(false);
                     for (int i = 0; i < villagers.Count; i++)
                     {
-                        vC = villagers[i].GetComponent<VillagerController>();
-                        vC.isMineEmpty = true;
-                        vC.isMine = false;
+                        pawnController = villagers[i].GetComponent<PawnController>();
+                        pawnController.isMineEmpty = true;
+                        pawnController.isMine = false;
                     }
                     for (int i = 0; i < colliders.Length; i++)
                     {

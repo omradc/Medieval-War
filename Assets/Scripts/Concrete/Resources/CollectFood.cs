@@ -6,59 +6,59 @@ namespace Assets.Scripts.Concrete.Resources
 {
     internal class CollectFood
     {
-        readonly VillagerController vC;
+        readonly PawnController pawnController;
         readonly PathFinding pF;
-        public CollectFood(VillagerController vC, PathFinding pF)
+        public CollectFood(PawnController pawnController, PathFinding pF)
         {
-            this.vC = vC;
+            this.pawnController = pawnController;
             this.pF = pF;
         }
         public void GoToSheep()
         {
-            if (vC.isSheep && vC.targetResource != null && vC.fenceObj != null)
+            if (pawnController.isSheep && pawnController.targetResource != null && pawnController.fenceObj != null)
             {
                 // Hedef varsa ona git
-                float distance = Vector2.Distance(vC.transform.position, vC.targetResource.transform.GetChild(1).position);
-                if (vC.targetResource != null && !vC.returnFences && !vC.returnHome)
+                float distance = Vector2.Distance(pawnController.transform.position, pawnController.targetResource.transform.GetChild(1).position);
+                if (pawnController.targetResource != null && !pawnController.returnFences && !pawnController.returnHome)
                 {
                     // Koyuna ulaşınca dur
                     if (distance > .1f)
                     {
-                        pF.MoveAI(vC.targetResource.transform.GetChild(1).position, 0f);
+                        pF.MoveAI(pawnController.targetResource.transform.GetChild(1).position, 0f);
                     }
 
                     //  // Koyun evcil değilse, durdur
-                    if (distance <= 1 && !vC.sheepController.isDomestic)
+                    if (distance <= 1 && !pawnController.sheepController.isDomestic)
                     {
-                        vC.sheepController.pF.agent.ResetPath();
+                        pawnController.sheepController.pF.agent.ResetPath();
                     }
 
                     // Koyuna ulaşıldı
                     if (distance <= .1f)
                     {
                         // Koyunu evcilleştir
-                        if (!vC.sheepController.isDomestic)
+                        if (!pawnController.sheepController.isDomestic)
                         {
-                            if (vC.fenceObj != null)
-                                vC.sheepController.TameSheep(vC.gameObject, vC.fenceObj);
+                            if (pawnController.fenceObj != null)
+                                pawnController.sheepController.TameSheep(pawnController.gameObject, pawnController.fenceObj);
                         }
                         //Koyun evcilleştiyse, çite gönder
-                        if (vC.sheepController.isDomestic && !vC.sheepController.inFence)
+                        if (pawnController.sheepController.isDomestic && !pawnController.sheepController.inFence)
                         {
-                            vC.returnFences = true;
-                            vC.targetResource = null;
+                            pawnController.returnFences = true;
+                            pawnController.targetResource = null;
                             return;
                         }
                         //Koyun çitteyse, tekrar koyunu seçtiğinde kesebilir
-                        if (vC.sheepController.inFence)
+                        if (pawnController.sheepController.inFence)
                         {
-                            vC.workOnce = true;
-                            vC.workOnce2 = true;
-                            vC.returnHome = true;
+                            pawnController.workOnce = true;
+                            pawnController.workOnce2 = true;
+                            pawnController.returnHome = true;
                             //Koyunu kes, animasyon ile
-                            AnimationManager.Instance.ChopSheepAnim(vC.animator, vC.chopSpeed);
+                            AnimationManager.Instance.ChopSheepAnim(pawnController.animator, pawnController.chopSpeed);
                             // vC.targetResource = null; // kesme animasyonunun bitiminde null a döner. Aksi takdirde koyunu kesmeden önce yanlış yöne bakar
-                            vC.tCollect = 0;
+                            pawnController.tCollect = 0;
 
                         }
                     }
@@ -68,28 +68,28 @@ namespace Assets.Scripts.Concrete.Resources
         }
         public void GetHitSheep() // Kesme animasyonu ile tetiklenir
         {
-            if (vC.sheepController != null)
+            if (pawnController.sheepController != null)
             {
-                vC.sheepController.CutSheep();
+                pawnController.sheepController.CutSheep();
             }
         }
         public void GoToFences()
         {
-            if (vC.returnFences)
+            if (pawnController.returnFences)
             {
                 // Çit kapısına git
-                if (Vector2.Distance(vC.transform.position, vC.fenceObj.transform.GetChild(0).position) > .1)
+                if (Vector2.Distance(pawnController.transform.position, pawnController.fenceObj.transform.GetChild(0).position) > .1)
                 {
-                    pF.MoveAI(vC.fenceObj.transform.GetChild(0).position, 0);
+                    pF.MoveAI(pawnController.fenceObj.transform.GetChild(0).position, 0);
                 }
 
                 // Çit kapısının önünde dur ve koyunu çite gönder
-                if (Vector2.Distance(vC.transform.position, vC.fenceObj.transform.GetChild(0).position) < .1)
+                if (Vector2.Distance(pawnController.transform.position, pawnController.fenceObj.transform.GetChild(0).position) < .1)
                 {
-                    vC.sheepController.CheckFences();
-                    vC.sheepController.goFence = true;
-                    vC.returnFences = false;
-                    vC.isSheep = false;
+                    pawnController.sheepController.CheckFences();
+                    pawnController.sheepController.goFence = true;
+                    pawnController.returnFences = false;
+                    pawnController.isSheep = false;
                 }
             }
         }

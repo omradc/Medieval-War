@@ -8,23 +8,23 @@ namespace Assets.Scripts.Concrete.Resources
 {
     internal class Construction
     {
-       readonly VillagerController vC;
+       readonly PawnController pawnController;
         readonly PathFinding pF;
 
-        public Construction(VillagerController vC, PathFinding pF)
+        public Construction(PawnController pawnController, PathFinding pF)
         {
-            this.vC = vC;
+            this.pawnController = pawnController;
             this.pF = pF;
         }
 
         public void GoConstruct()
         {
-            if (vC.isTree || vC.isMine || vC.isSheep) return;
+            if (pawnController.isTree || pawnController.isMine || pawnController.isSheep) return;
             // İnşaat varsa ve boşsa ona git
-            if (vC.constructionObj != null && !vC.constructController.isFull)
+            if (pawnController.constructionObj != null && !pawnController.constructController.isFull)
             {
-                Vector2 constructionPos = vC.constructionObj.transform.GetChild(1).position;
-                float distance = Vector2.Distance(vC.transform.position, constructionPos);
+                Vector2 constructionPos = pawnController.constructionObj.transform.GetChild(1).position;
+                float distance = Vector2.Distance(pawnController.transform.position, constructionPos);
                 if (distance > .1f)
                 {
                     pF.MoveAI(constructionPos, 0);
@@ -32,7 +32,7 @@ namespace Assets.Scripts.Concrete.Resources
 
                 if (distance <= .1f)
                 {
-                    AnimationManager.Instance.BuildAnim(vC.animator, vC.buildSpeed);
+                    AnimationManager.Instance.BuildAnim(pawnController.animator, pawnController.buildSpeed);
                 }
             }
         }
@@ -41,14 +41,14 @@ namespace Assets.Scripts.Concrete.Resources
         // Köylünün vuruş animasyonu ile tetiklenir
         public void Build()
         {
-            vC.constructController.isFull = true;
-            vC.constructController.currentHitNumber++;
-            vC.constructController.UpdateConstructionTimerImage();
+            pawnController.constructController.isFull = true;
+            pawnController.constructController.currentHitNumber++;
+            pawnController.constructController.UpdateConstructionTimerImage();
             // İnşaa Tamamlandı
-            if (vC.constructController.currentHitNumber >= vC.constructController.hitNumber)
+            if (pawnController.constructController.currentHitNumber >= pawnController.constructController.hitNumber)
             {
-                vC.constructionObj = null;
-                AnimationManager.Instance.IdleAnim(vC.animator);
+                pawnController.constructionObj = null;
+                AnimationManager.Instance.IdleAnim(pawnController.animator);
             }
         }
 

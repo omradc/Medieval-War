@@ -215,7 +215,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         public void BuildConfirmButton()
         {
-            if (ResourcesManager.Instance.Buy(names.PrewiewBuildingName(index), valueController))
+            if (ResourcesManager.Instance.Buy(names.PreviewBuildingName(index), valueController))
             {
                 UIManager.Instance.canBuild = true;
 

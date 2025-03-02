@@ -24,7 +24,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.CompareTag("Villager"))
+            if (collision.gameObject.CompareTag("Pawn"))
             {
 
                 villagerNumber++;
@@ -33,7 +33,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.CompareTag("Villager"))
+            if (collision.gameObject.CompareTag("Pawn"))
             {
                 villagerNumber--;
                 if (villagerNumber == 0)

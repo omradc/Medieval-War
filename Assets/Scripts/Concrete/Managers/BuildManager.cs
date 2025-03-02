@@ -11,11 +11,12 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject houseConstructionArcherBlue;
         public GameObject towerConstructionBlue;
         public GameObject castleConstructionBlue;
+        public GameObject repoConstructionBlue;
         public GameObject fence2x2;
-        public GameObject down_3x;
-        public GameObject top_1x;
-        public GameObject down_1x;
-        public GameObject door;
+        public GameObject wallHorizontal;
+        public GameObject wallVertical;
+        public GameObject wallOne;
+        public GameObject wallDoor;
 
 
         private void Awake()
@@ -59,20 +60,23 @@ namespace Assets.Scripts.Concrete.Managers
                     case "Preview_Fence2x2(Clone)":
                         Build(fence2x2);
                         break;
+                    case "Preview_Repo(Clone)":
+                        Build(repoConstructionBlue);
+                        break;
                     case "Preview_Wall(Clone)":
                         switch (UIManager.Instance.previewObj.GetComponent<BuildPreviewController>().index)
                         {
                             case 0:
-                                Build(down_3x);
+                                Build(wallHorizontal);
                                 break;
                             case 1:
-                                Build(top_1x);
+                                Build(wallVertical);
                                 break;
                             case 2:
-                                Build(down_1x);
+                                Build(wallOne);
                                 break;
                             case 3:
-                                Build(door);
+                                Build(wallDoor);
                                 break;
                         }
                         break;

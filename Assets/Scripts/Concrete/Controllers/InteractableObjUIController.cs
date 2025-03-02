@@ -84,7 +84,7 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 for (int i = 0; i < knightHouseController.knights.Count; i++)
                 {
-                    Destroy(knightHouseController.knights[i]); // Baraka yok edilirse birimler de yok edilir
+                    Destroy(knightHouseController.knights[i]); // Kullanıcı evi yok ederse birimler de yok edilir
                 }
             }
             if (gameObject.TryGetComponent(out ConstructController constructController))
@@ -94,6 +94,9 @@ namespace Assets.Scripts.Concrete.Controllers
                     Destroy(constructController.knights[i]); // Baraka yok edilirse birimler de yok edilir
                 }
             }
+
+            if (gameObject.CompareTag("Repo"))
+                ResourcesManager.Instance.RemoveRepo(gameObject);
             Destroy(gameObject);
 
         }

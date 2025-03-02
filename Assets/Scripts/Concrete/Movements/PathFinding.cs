@@ -17,14 +17,15 @@ namespace Assets.Scripts.Concrete.Movements
         float time;
         Vector2 worldCenterPos;
         NavMeshPath path;
-        public bool isStuck;
+        bool isStuck;
         TargetPriority targetPriority;
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             direction = new(transform);
             path = new();
-            targetPriority = GetComponent<TargetPriority>();
+            if (gameObject.layer == 6 || gameObject.layer == 13)
+                targetPriority = GetComponent<TargetPriority>();
         }
         void Start()
         {
@@ -90,6 +91,7 @@ namespace Assets.Scripts.Concrete.Movements
         }
         void CalculateStuck()
         {
+            if (targetPriority == null) return;
             // İç noktadan dış noktaya bir yol olup olmadığını kontrol et
             if (NavMesh.CalculatePath(transform.position, worldCenterPos, NavMesh.AllAreas, path))
             {

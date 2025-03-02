@@ -9,7 +9,7 @@ namespace Assets.Scripts.Concrete.Names
         {
             this.name = name;
         }
-        public string PrewiewBuildingName(int index = 0)
+        public string PreviewBuildingName(int index = 0)
         {
             if (name == "Preview_PawnHouse(Clone)")
                 return "PawnHouse_Blue";
@@ -23,6 +23,8 @@ namespace Assets.Scripts.Concrete.Names
                 return "Castle_Blue";
             if (name == "Preview_Fence2x2(Clone)")
                 return "Fence2x2";
+            if (name == "Preview_Repo(Clone)")
+                return "Repo_Blue";
             if (name == "Preview_Wall(Clone)")
                 switch (index)
                 {
@@ -108,6 +110,13 @@ namespace Assets.Scripts.Concrete.Names
             if (name == "Castle_Red(Clone)")
                 return "Castle_Purple";
 
+            if (name == "Repo_Blue(Clone)")
+                return "Repo_Yellow";
+            if (name == "Repo_Yellow(Clone)")
+                return "Repo_Red";
+            if (name == "Repo_Red(Clone)")
+                return "Repo_Purple";
+
             else
             {
                 Debug.Log("Building Name Not Found");
@@ -134,11 +143,11 @@ namespace Assets.Scripts.Concrete.Names
                 return "WallDoor_Red_Destructed";
             if (name == "WallDoor_Purple(Clone)")
                 return "WallDoor_Purple_Destructed";
-             
+
             if (name == "WallOne_Blue(Clone)")
                 return "WallOne_Blue_Destructed";
             if (name == "WallOne_Yellow(Clone)")
-                return "WallOne_Yellow_Destructed"; 
+                return "WallOne_Yellow_Destructed";
             if (name == "WallOne_Red(Clone)")
                 return "WallOne_Red_Destructed";
             if (name == "WallOne_Purple(Clone)")
@@ -159,7 +168,7 @@ namespace Assets.Scripts.Concrete.Names
                 return "PawnHouse_Yellow_Destructed";
             if (name == "PawnHouse_Red(Clone)")
                 return "PawnHouse_Red_Destructed";
-            if (name == "PawnHouse_Purple(Clone)") 
+            if (name == "PawnHouse_Purple(Clone)")
                 return "PawnHouse_Purple_Destructed";
 
             if (name == "WarriorHouse_Blue(Clone)")
@@ -192,11 +201,20 @@ namespace Assets.Scripts.Concrete.Names
             if (name == "Castle_Blue(Clone)")
                 return "Castle_Blue_Destructed";
             if (name == "Castle_Yellow(Clone)")
-                return "Castle_Yelow_Destructed"; 
+                return "Castle_Yelow_Destructed";
             if (name == "Castle_Red(Clone)")
                 return "Castle_Red_Destructed";
             if (name == "Castle_Purple(Clone)")
                 return "Castle_Purple_Destructed";
+
+            if (name == "Repo_Blue(Clone)")
+                return "Repo_Blue_Destructed";
+            if (name == "Repo_Yellow(Clone)")
+                return "Repo_Yelow_Destructed";
+            if (name == "Repo_Red(Clone)")
+                return "Repo_Red_Destructed";
+            if (name == "Repo_Purple(Clone)")
+                return "Repo_Purple_Destructed";
 
             else
             {
@@ -220,7 +238,7 @@ namespace Assets.Scripts.Concrete.Names
                 return "Warrior_Blue";
             if (name == "WarriorHouse_Yellow(Clone)")
                 return "Warrior_Yellow";
-            if (name == "WarriorHouse_Red(Clone)") 
+            if (name == "WarriorHouse_Red(Clone)")
                 return "Warrior_Red";
             if (name == "WarriorHouse_Purple(Clone)")
                 return "Warrior_Purple";

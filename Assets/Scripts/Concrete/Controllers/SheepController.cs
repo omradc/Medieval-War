@@ -41,7 +41,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool growed;
         Animator animator;
         GameObject villager;
-        VillagerController vC;
+        PawnController pawnController;
         [HideInInspector] public PathFinding pF;
         DynamicOrderInLayer dynamicOrderInLayer;
         Vector3 scale;
@@ -91,7 +91,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 currentTameTime = 0;
                 isDomestic = true;
                 this.villager = villager;
-                vC = villager.GetComponent<VillagerController>();
+                pawnController = villager.GetComponent<PawnController>();
                 sheepPoints = new Transform[fenceObj.transform.GetChild(1).childCount];
                 for (int i = 0; i < sheepPoints.Length; i++)
                 {
@@ -105,7 +105,7 @@ namespace Assets.Scripts.Concrete.Controllers
             if (villager != null)
             {
                 pF.agent.speed = followSpeed;
-                if (vC.kC.isSeleceted)
+                if (pawnController.kC.isSeleceted)
                 {
                     pF.agent.speed = moveSpeed;
                     isDomestic = false;
@@ -185,7 +185,7 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             sheepPoint.gameObject.SetActive(true); // Koyun kesilirse, yerine yeni koyun gelebilmesi için
             GameObject meat = Instantiate(resourceMeat, transform.position, Quaternion.identity);
-            Destroy(meat, vC.meatCollectTime - 1.5f); // Yere düşen et 1 saniye erken yok olur
+            Destroy(meat, pawnController.meatCollectTime - 1.5f); // Yere düşen et 1 saniye erken yok olur
             gameObject.SetActive(false);
             Destroy(gameObject, 1); // Koyunu hemen yok edersen, et toplamaz
         }

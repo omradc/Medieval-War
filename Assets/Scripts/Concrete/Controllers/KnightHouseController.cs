@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Concrete.Managers;
+using System.Collections.Generic;
+using System.Resources;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +20,6 @@ namespace Assets.Scripts.Concrete.Controllers
         Transform trainedUnitPos;
         InteractableObjUIController interactableObjUIController;
         float currentTime;
-        Vector3 pos;
         private void Awake()
         {
             interactableObjUIController = GetComponent<InteractableObjUIController>();
@@ -51,8 +52,6 @@ namespace Assets.Scripts.Concrete.Controllers
                     currentTime = 0;
                     interactableObjUIController.trainUnitButton = false;
                     interactableObjUIController.TimerPanelVisibility(false);
-                    if (trainedUnit.CompareTag("Pawn"))
-                        trainedUnit.GetComponent<VillagerController>().housePos = pos;
                 }
             }
 

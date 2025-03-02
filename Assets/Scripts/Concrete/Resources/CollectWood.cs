@@ -8,124 +8,124 @@ namespace Assets.Scripts.Concrete.Resources
 {
     internal class CollectWood
     {
-       readonly VillagerController vC;
+       readonly PawnController pawnController;
        readonly PathFinding pF;
        TreeController tree;
 
 
-        public CollectWood(VillagerController vC, PathFinding pF)
+        public CollectWood(PawnController pawnController, PathFinding pF)
         {
-            this.vC = vC;
+            this.pawnController = pawnController;
             this.pF = pF;
         }
         void RefreshTrees()
         {
-            vC.trees = Physics2D.OverlapCircleAll(vC.targetResource.transform.position, vC.currentChopTreeSightRange, vC.treeLayer);
-            vC.nearestTree = DetechNearestTree();
-            if (vC.trees.Length == 0)
-                vC.isTree = false;
+            pawnController.trees = Physics2D.OverlapCircleAll(pawnController.targetResource.transform.position, pawnController.currentChopTreeSightRange, pawnController.treeLayer);
+            pawnController.nearestTree = DetechNearestTree();
+            if (pawnController.trees.Length == 0)
+                pawnController.isTree = false;
         }
         public void GoToTree()
         {
 
             // Ağaç seçilmediyse veya maden seçildiyse ağaç kesmeye gitme.
-            if (!vC.isTree) return;
+            if (!pawnController.isTree) return;
 
             // Hedef varsa ona git
-            if (vC.targetResource != null && !vC.returnHome)
+            if (pawnController.targetResource != null && !pawnController.returnHome)
             {
                 // İlk ağacı bulur
-                if (vC.workOnceForTree)
+                if (pawnController.workOnceForTree)
                 {
                     RefreshTrees();
 
-                    if (vC.nearestTree != null)
+                    if (pawnController.nearestTree != null)
                     {
                         // Seçilen ilk ağaca gider
-                        if (vC.isFirstTree)
+                        if (pawnController.isFirstTree)
                         {
-                            vC.treeChopPos = vC.targetResource.transform.GetChild(1).position;
-                            tree = vC.targetResource.GetComponent<TreeController>();
+                            pawnController.treeChopPos = pawnController.targetResource.transform.GetChild(1).position;
+                            tree = pawnController.targetResource.GetComponent<TreeController>();
                         }
 
                         // Sonra en yakın ağaçlara gider
                         else
                         {
-                            vC.treeChopPos = vC.nearestTree.transform.GetChild(1).position;
-                            tree = vC.nearestTree.GetComponent<TreeController>();
-                            vC.targetResource = vC.nearestTree;
+                            pawnController.treeChopPos = pawnController.nearestTree.transform.GetChild(1).position;
+                            tree = pawnController.nearestTree.GetComponent<TreeController>();
+                            pawnController.targetResource = pawnController.nearestTree;
 
                         }
 
                     }
-                    vC.workOnceForTree = false;
+                    pawnController.workOnceForTree = false;
                 }
 
                 // Hedef boşsa çalışma
-                if (vC.nearestTree == null) return;
+                if (pawnController.nearestTree == null) return;
                 // Ağaca doğru gider
-                if (Vector2.Distance(vC.transform.position, vC.treeChopPos) > .1f)
+                if (Vector2.Distance(pawnController.transform.position, pawnController.treeChopPos) > .1f)
                 {
-                    pF.MoveAI(vC.treeChopPos, 0);
+                    pF.MoveAI(pawnController.treeChopPos, 0);
 
                     if (tree.isTreeAlreadyCutted)
                     {
-                        vC.workOnceForTree = true;
+                        pawnController.workOnceForTree = true;
                         return;
                     }
                 }
 
                 // Ağacı Kes
-                if (Vector2.Distance(vC.transform.position, vC.treeChopPos) < .1f && pF.isStoping)
+                if (Vector2.Distance(pawnController.transform.position, pawnController.treeChopPos) < .1f && pF.isStoping)
                 {
-                    AnimationManager.Instance.ChopTreeAnim(vC.animator, vC.chopSpeed);
+                    AnimationManager.Instance.ChopTreeAnim(pawnController.animator, pawnController.chopSpeed);
                 }
             }
         }
         public void Chop()  // Ağaç kesme animasyonu oynadığında; Chop event i ile tetiklenir
         {
             // Ağacı kes
-            if (vC.nearestTree != null)
+            if (pawnController.nearestTree != null)
             {
-                if (!vC.isFirstTree)
+                if (!pawnController.isFirstTree)
                 {
-                    tree = vC.nearestTree.GetComponent<TreeController>();
+                    tree = pawnController.nearestTree.GetComponent<TreeController>();
                 }
-                if (vC.isFirstTree)
+                if (pawnController.isFirstTree)
                 {
-                    tree = vC.targetResource.GetComponent<TreeController>();
+                    tree = pawnController.targetResource.GetComponent<TreeController>();
                 }
 
-                tree.GetHit(vC.currentTreeDamage, vC.woodCollectTime);
+                tree.GetHit(pawnController.currentTreeDamage, pawnController.woodCollectTime);
 
                 //Ağaç yıkıldıysa eve dön
                 if (tree.destruct)
                 {
-                    AnimationManager.Instance.IdleAnim(vC.animator);
-                    vC.isFirstTree = false;
+                    AnimationManager.Instance.IdleAnim(pawnController.animator);
+                    pawnController.isFirstTree = false;
                     if (!tree.isTreeAlreadyCutted)
                     {
-                        vC.returnHome = true;
-                        vC.tCollect = 0;
+                        pawnController.returnHome = true;
+                        pawnController.tCollect = 0;
                         tree.IsTreeAlreadyCutted(true);
                     }
 
                     if (tree.isTreeAlreadyCutted)
                     {
-                        vC.workOnceForTree = true;
+                        pawnController.workOnceForTree = true;
                     }
                 }
 
             }
 
-            vC.workOnce = true;
-            vC.workOnce2 = true;
+            pawnController.workOnce = true;
+            pawnController.workOnce2 = true;
         }
         public void GetHitTree() // Ağaç kesme animasyonu oynadığında; GetHitTree event i ile tetiklenir
         {
-            if (vC.nearestTree != null && !tree.isTreeAlreadyCutted)
+            if (pawnController.nearestTree != null && !tree.isTreeAlreadyCutted)
             {
-                tree.GetHitTreeAnim(vC.chopSpeed);
+                tree.GetHitTreeAnim(pawnController.chopSpeed);
             }
         }
         GameObject DetechNearestTree()
@@ -133,16 +133,16 @@ namespace Assets.Scripts.Concrete.Resources
             GameObject nearestTarget = null;
             float shortestDistance = Mathf.Infinity;
 
-            for (int i = 0; i < vC.trees.Length; i++)
+            for (int i = 0; i < pawnController.trees.Length; i++)
             {
-                if (vC.trees[i] != null)
+                if (pawnController.trees[i] != null)
                 {
-                    float distanceToEnemy = Vector2.Distance(vC.transform.position, vC.trees[i].transform.position);
+                    float distanceToEnemy = Vector2.Distance(pawnController.transform.position, pawnController.trees[i].transform.position);
 
                     if (shortestDistance > distanceToEnemy)
                     {
                         shortestDistance = distanceToEnemy;
-                        nearestTarget = vC.trees[i].gameObject;
+                        nearestTarget = pawnController.trees[i].gameObject;
                     }
                 }
             }

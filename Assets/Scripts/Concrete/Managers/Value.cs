@@ -3,11 +3,12 @@
     [System.Serializable]
     public class Value
     {
+        // İsmi değiştirme, oyun içinde heryerden değişmesi gerekir
         public string name;
-        public int goldPrice;
-        public int rockPrice;
-        public int woodPrice;
-        public int meatPrice;
+        public int goldCost;
+        public int rockCost;
+        public int woodCost;
+        public int meatCost;
     }
 
 

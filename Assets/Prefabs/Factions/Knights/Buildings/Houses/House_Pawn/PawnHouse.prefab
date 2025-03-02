@@ -758,7 +758,7 @@ GameObject:
   - component: {fileID: 5923102275711421257}
   m_Layer: 8
   m_Name: PawnHouse
-  m_TagString: Building
+  m_TagString: PawnHouse
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -844,11 +844,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knight: {fileID: 0}
-  maxTrainedKnightNumber: 1
-  trainedKnights: []
+  maxKnightNumber: 1
   timerFillImage: {fileID: 7757900011624172198}
   trainingTime: 0.1
   currentTrainedKnightNumber: 0
+  knights: []
 --- !u!114 &4081758665823746011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -870,7 +870,7 @@ MonoBehaviour:
   upgrade: 0
   construct: {fileID: 0}
   upgradedBuilding: {fileID: 0}
-  currentKnightHouse: {fileID: 0}
+  currentBuilding: {fileID: 0}
   trainTimePanel: {fileID: 2976002480129324871}
 --- !u!114 &-8989659889299153844
 MonoBehaviour:
@@ -895,7 +895,9 @@ MonoBehaviour:
   isTakeDamage: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
+  knightHouseController: {fileID: 0}
   elevationFloor: 0
+  currentHealth: 0
 --- !u!114 &1947812951077377618
 MonoBehaviour:
   m_ObjectHideFlags: 0

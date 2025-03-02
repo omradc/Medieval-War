@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
-    internal class VillagerController : MonoBehaviour
+    internal class PawnController : MonoBehaviour
     {
         public GameObject targetResource;
         public float dropResourceLifeTime = 3;
@@ -45,8 +45,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public GameObject constructionObj;
         public ConstructController constructController;
 
-
-        [HideInInspector] public Vector3 housePos;
+        public GameObject repo;
         [HideInInspector] public float currentChopTreeSightRange;
         [HideInInspector] public int currentTreeDamage;
         [HideInInspector] public float tChop;
@@ -61,7 +60,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool isTree;
         [HideInInspector] public bool isMine;
         [HideInInspector] public bool isSheep;
-
+        [HideInInspector] public bool isAllReposFull;
 
         [HideInInspector] public KnightController kC;
         [HideInInspector] public PathFinding pF;
@@ -108,7 +107,6 @@ namespace Assets.Scripts.Concrete.Controllers
             animationEventController.ChopSheepEvent += Idle;
             animationEventController.GetHitSheepEvent += collectFood.GetHitSheep;
             animationEventController.BuildEvent += construction.Build;
-
             //Invoke
             InvokeRepeating(nameof(OptimumVillager), 0.1f, kC.collectResourcesPerTime);
         }
@@ -128,7 +126,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void OptimumVillager()
         {
-            if (kC.knightAI.target != null && targetResource != null) //Düşman varsa ve elinde kaynak varsa, onu yere at
+            if (kC.knightAI.target != null && targetResource != null) //Düşman varsa kaynak toplama
             {
                 // Elinde herhangi bir kaynak varsa onu yere at
                 collectResources.DropAnyResources();
@@ -136,12 +134,13 @@ namespace Assets.Scripts.Concrete.Controllers
 
             else //Düşman yoksa kaynak toplayabilir
             {
+                construction.GoConstruct();
+                if (isAllReposFull) return; // Depo yoksa kaynak toplama
                 collectGoldAndRock.GoToMine();
                 collectWood.GoToTree();
                 collectFood.GoToSheep();
                 collectFood.GoToFences();
                 collectResources.GoToHome();
-                construction.GoConstruct();
             }
         }
         void Idle()

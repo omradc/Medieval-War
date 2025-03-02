@@ -7,89 +7,90 @@ namespace Assets.Scripts.Concrete.Resources
 {
     internal class CollectResources
     {
-        readonly VillagerController vC;
+        readonly PawnController pawnController;
         readonly PathFinding pF;
-        public CollectResources(VillagerController collectResourcesController, PathFinding pF)
+
+        public CollectResources(PawnController pawnController, PathFinding pF)
         {
-            vC = collectResourcesController;
+            this.pawnController = pawnController;
             this.pF = pF;
         }
         public void SelectResourceType()
         {
             // UPDATE İLE ÇALIŞIR
             // Eğer köylü seçiliyse ve hedefe tıkladıysa, seçili köylünün hedefi seçili hedeftir
-            if (vC.kC.isSeleceted)
+            if (pawnController.kC.isSeleceted)
             {
-                vC.targetResource = null;
-                vC.nearestTree = null;
-                vC.constructionObj = null;
-                vC.villagerSpriteRenderer.enabled = true;
-                vC.isMine = false;
-                vC.isMineEmpty = false;
-                vC.isTree = false;
-                vC.isSheep = false;
-                vC.returnFences = false;
-                vC.isFirstTree = false;
-                if (vC.constructController != null)
-                    vC.constructController.isFull = false;
+                pawnController.targetResource = null;
+                pawnController.nearestTree = null;
+                pawnController.constructionObj = null;
+                pawnController.villagerSpriteRenderer.enabled = true;
+                pawnController.isMine = false;
+                pawnController.isMineEmpty = false;
+                pawnController.isTree = false;
+                pawnController.isSheep = false;
+                pawnController.returnFences = false;
+                pawnController.isFirstTree = false;
+                if (pawnController.constructController != null)
+                    pawnController.constructController.isFull = false;
                 // Bir yere tıklandıysa
                 if (InteractManager.Instance.interactedObj != null)
                 {
-                    vC.kC.isSeleceted = false;
+                    pawnController.kC.isSeleceted = false;
                 }
                 // Maden
                 if (InteractManager.Instance.interactedMine != null)
                 {
                     // SADECE 1 KEZ ÇALIŞIR
-                    vC.isTree = false;
-                    vC.isSheep = false;
-                    vC.returnHome = false;
-                    vC.targetResource = InteractManager.Instance.interactedMine;
-                    vC.mine = vC.targetResource.GetComponent<MineController>();
-                    vC.isMine = true;
-                    vC.kC.isSeleceted = false;
+                    pawnController.isTree = false;
+                    pawnController.isSheep = false;
+                    pawnController.returnHome = false;
+                    pawnController.targetResource = InteractManager.Instance.interactedMine;
+                    pawnController.mine = pawnController.targetResource.GetComponent<MineController>();
+                    pawnController.isMine = true;
+                    pawnController.kC.isSeleceted = false;
                 }
                 // Ağaç
                 if (InteractManager.Instance.interactedTree != null)
                 {
                     // SADECE 1 KEZ ÇALIŞIR
-                    vC.isMine = false;
-                    vC.isSheep = false;
-                    vC.returnHome = false;
-                    vC.targetResource = InteractManager.Instance.interactedTree;
-                    vC.isTree = true;
-                    vC.workOnceForTree = true;
-                    vC.tCollect = 0;
-                    vC.kC.isSeleceted = false;
-                    vC.isFirstTree = true;
+                    pawnController.isMine = false;
+                    pawnController.isSheep = false;
+                    pawnController.returnHome = false;
+                    pawnController.targetResource = InteractManager.Instance.interactedTree;
+                    pawnController.isTree = true;
+                    pawnController.workOnceForTree = true;
+                    pawnController.tCollect = 0;
+                    pawnController.kC.isSeleceted = false;
+                    pawnController.isFirstTree = true;
                 }
                 //Koyun
                 if (InteractManager.Instance.interactedSheep != null)
                 {
                     // SADECE 1 KEZ ÇALIŞIR
 
-                    vC.isMine = false;
-                    vC.isTree = false;
-                    vC.targetResource = InteractManager.Instance.interactedSheep;
-                    vC.sheepController = vC.targetResource.GetComponent<SheepController>();
-                    vC.isSheep = true;
-                    vC.tCollect = 0;
-                    vC.kC.isSeleceted = false;
+                    pawnController.isMine = false;
+                    pawnController.isTree = false;
+                    pawnController.targetResource = InteractManager.Instance.interactedSheep;
+                    pawnController.sheepController = pawnController.targetResource.GetComponent<SheepController>();
+                    pawnController.isSheep = true;
+                    pawnController.tCollect = 0;
+                    pawnController.kC.isSeleceted = false;
                 }
                 if (InteractManager.Instance.interactedFences != null)
                 {
                     // SADECE 1 KEZ ÇALIŞIR
-                    vC.isMine = false;
-                    vC.isTree = false;
-                    vC.fenceObj = InteractManager.Instance.interactedFences;
-                    vC.fence = vC.fenceObj.GetComponent<FenceController>();
+                    pawnController.isMine = false;
+                    pawnController.isTree = false;
+                    pawnController.fenceObj = InteractManager.Instance.interactedFences;
+                    pawnController.fence = pawnController.fenceObj.GetComponent<FenceController>();
 
                 }
                 if (InteractManager.Instance.interactedConstruction != null)
                 {
                     // SADECE 1 KEZ ÇALIŞIR
-                    vC.constructionObj = InteractManager.Instance.interactedConstruction;
-                    vC.constructController = vC.constructionObj.GetComponent<ConstructController>();
+                    pawnController.constructionObj = InteractManager.Instance.interactedConstruction;
+                    pawnController.constructController = pawnController.constructionObj.GetComponent<ConstructController>();
 
                 }
 
@@ -98,13 +99,14 @@ namespace Assets.Scripts.Concrete.Resources
         public void GoToHome()
         {
             // Köylüyü madende çalışırken maden biterse, tekarar görünür olur
-            if (vC.isMineEmpty)
-                vC.villagerSpriteRenderer.enabled = true;
+            if (pawnController.isMineEmpty)
+                pawnController.villagerSpriteRenderer.enabled = true;
 
-            if (vC.returnHome)
+            if (pawnController.returnHome)
             {
+                FindRepo();
                 // Eve ulaşınca dur
-                if (Vector2.Distance(vC.transform.position, vC.housePos) > .5f)
+                if (Vector2.Distance(pawnController.transform.position, pawnController.repo.transform.GetChild(0).position) > .5f)
                 {
                     // Kaynak al
                     CollectResource();
@@ -114,91 +116,103 @@ namespace Assets.Scripts.Concrete.Resources
                 else
                 {
                     DropResourceToHome();
-                    vC.returnHome = false;
-                    vC.workOnceForTree = true;
+                    pawnController.returnHome = false;
+                    pawnController.workOnceForTree = true;
                 }
             }
         }
         public void CollectResource()
         {
-            if (vC.isTree)
-                vC.tCollect += 1;
-            if (vC.isSheep)
-                vC.tCollect += 1;
+            if (pawnController.isTree)
+                pawnController.tCollect += 1;
+            if (pawnController.isSheep)
+                pawnController.tCollect += 1;
 
-            if (vC.workOnce)
+            if (pawnController.workOnce)
             {
-                if (vC.isMine)
+                if (pawnController.isMine)
                 {
-                    MineController mine = vC.targetResource.GetComponent<MineController>();
+                    MineController mine = pawnController.targetResource.GetComponent<MineController>();
                     if (mine.CompareTag("GoldMine"))
-                        vC.goldIdle.SetActive(true);
+                        pawnController.goldIdle.SetActive(true);
                     if (mine.CompareTag("RockMine"))
-                        vC.rockIdle.SetActive(true);
-                    pF.MoveAI(vC.housePos, 0);
-                    AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
-                    vC.workOnce = false;
+                        pawnController.rockIdle.SetActive(true);
+                    pF.MoveAI(pawnController.repo.transform.GetChild(0).position, 0);
+                    AnimationManager.Instance.RunCarryAnim(pawnController.animator, 1);
+                    pawnController.workOnce = false;
                 }
-                if (vC.tCollect > vC.woodCollectTime && vC.isTree)
+                if (pawnController.tCollect > pawnController.woodCollectTime && pawnController.isTree)
                 {
-                    vC.woodIdle.SetActive(true);
-                    pF.MoveAI(vC.housePos, 0);
-                    AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
-                    vC.workOnce = false;
-                    vC.tCollect = 0;
+                    pawnController.woodIdle.SetActive(true);
+                    pF.MoveAI(pawnController.repo.transform.GetChild(0).position, 0);
+                    AnimationManager.Instance.RunCarryAnim(pawnController.animator, 1);
+                    pawnController.workOnce = false;
+                    pawnController.tCollect = 0;
 
                 }
-                if (vC.tCollect > vC.meatCollectTime && vC.sheepController)
+                if (pawnController.tCollect > pawnController.meatCollectTime && pawnController.sheepController)
                 {
-                    vC.meatIdle.SetActive(true);
-                    pF.MoveAI(vC.housePos, 0);
-                    AnimationManager.Instance.RunCarryAnim(vC.animator, 1);
-                    vC.workOnce = false;
-                    vC.tCollect = 0;
+                    pawnController.meatIdle.SetActive(true);
+                    pF.MoveAI(pawnController.repo.transform.GetChild(0).position, 0);
+                    AnimationManager.Instance.RunCarryAnim(pawnController.animator, 1);
+                    pawnController.workOnce = false;
+                    pawnController.tCollect = 0;
                 }
             }
 
-            if (!vC.workOnce && !vC.rockIdle.activeSelf && !vC.goldIdle.activeSelf && !vC.woodIdle.activeSelf && !vC.meatIdle.activeSelf)
-                vC.returnHome = false;
+            if (!pawnController.workOnce && !pawnController.rockIdle.activeSelf && !pawnController.goldIdle.activeSelf && !pawnController.woodIdle.activeSelf && !pawnController.meatIdle.activeSelf)
+                pawnController.returnHome = false;
         }
         void DropResourceToHome() // Kaynakları depola
         {
-            if (vC.workOnce2)
+            if (pawnController.workOnce2)
             {
-                if (vC.goldIdle.activeSelf)
+                RepoController repo = pawnController.repo.GetComponent<RepoController>();
+                if (pawnController.goldIdle.activeSelf)
                 {
                     ResourcesManager.Instance.totalGold += ResourcesManager.Instance.collectGoldAmount;
-                    DropGold(vC.housePos, vC.dropResourceLifeTime);
-                    vC.goldIdle.SetActive(false);
+                    repo.currentRepoCapacity += ResourcesManager.Instance.collectGoldAmount;
+                    repo.gold += ResourcesManager.Instance.collectGoldAmount;
+                    DropGold(pawnController.repo.transform.GetChild(0).position, pawnController.dropResourceLifeTime);
+                    pawnController.goldIdle.SetActive(false);
                 }
-                if (vC.rockIdle.activeSelf)
+                if (pawnController.rockIdle.activeSelf)
                 {
                     ResourcesManager.Instance.totalRock += ResourcesManager.Instance.collectRockAmount;
-                    DropRock(vC.housePos, vC.dropResourceLifeTime);
-                    vC.rockIdle.SetActive(false);
+                    repo.currentRepoCapacity += ResourcesManager.Instance.collectRockAmount;
+                    repo.rock += ResourcesManager.Instance.collectRockAmount;
+                    DropRock(pawnController.repo.transform.GetChild(0).position, pawnController.dropResourceLifeTime);
+                    pawnController.rockIdle.SetActive(false);
                 }
-                if (vC.woodIdle.activeSelf)
+                if (pawnController.woodIdle.activeSelf)
                 {
                     ResourcesManager.Instance.totalWood += ResourcesManager.Instance.collectWoodAmount;
-                    DropWood(vC.housePos, vC.dropResourceLifeTime);
-                    vC.woodIdle.SetActive(false);
+                    repo.currentRepoCapacity += ResourcesManager.Instance.collectWoodAmount;
+                    repo.wood += ResourcesManager.Instance.collectWoodAmount;
+                    DropWood(pawnController.repo.transform.GetChild(0).position, pawnController.dropResourceLifeTime);
+                    pawnController.woodIdle.SetActive(false);
                 }
-                if (vC.meatIdle.activeSelf)
+                if (pawnController.meatIdle.activeSelf)
                 {
-                    ResourcesManager.Instance.totalMeat += vC.sheepController.currentMeatAmount;
-                    DropMeat(vC.housePos, vC.dropResourceLifeTime);
-                    vC.meatIdle.SetActive(false);
-                    vC.isSheep = false;
+                    ResourcesManager.Instance.totalMeat += pawnController.sheepController.currentMeatAmount;
+                    repo.currentRepoCapacity += ResourcesManager.Instance.collectMeatAmount;
+                    repo.meat += ResourcesManager.Instance.collectMeatAmount;
+                    DropMeat(pawnController.repo.transform.GetChild(0).position, pawnController.dropResourceLifeTime);
+                    pawnController.meatIdle.SetActive(false);
+                    pawnController.isSheep = false;
                 }
-                AnimationManager.Instance.IdleAnim(vC.animator);
+                //if (repo.currentRepoCapacity >= repo.maxRepoCapacity) // Depo max kapasitedeyse kullanım dışıdır
+                //    ResourcesManager.Instance.repos.Remove(repo.gameObject);
+
+                AnimationManager.Instance.IdleAnim(pawnController.animator);
                 ResourcesManager.Instance.DisplayResources();
-                vC.workOnce2 = false;
+                pawnController.workOnce2 = false;
             }
         }
         public void ReadyToNextCommand()
         {
             // Eğer elinde kaynak varken seçip, başka bir yere gönderirsen. Kaynak yere düşer.
-            if (Input.GetMouseButtonDown(0) && vC.kC.isSeleceted)
+            if (Input.GetMouseButtonDown(0) && pawnController.kC.isSeleceted)
             {
                 DropAnyResources();
             }
@@ -206,53 +220,75 @@ namespace Assets.Scripts.Concrete.Resources
         }
         public void DropAnyResources()
         {
-            if (vC.goldIdle.activeSelf)
+            if (pawnController.goldIdle.activeSelf)
             {
-                DropGold(vC.transform.position, vC.dropResourceLifeTime);
-                vC.goldIdle.SetActive(false);
+                DropGold(pawnController.transform.position, pawnController.dropResourceLifeTime);
+                pawnController.goldIdle.SetActive(false);
             }
-            if (vC.rockIdle.activeSelf)
+            if (pawnController.rockIdle.activeSelf)
             {
-                DropRock(vC.transform.position, vC.dropResourceLifeTime);
-                vC.rockIdle.SetActive(false);
+                DropRock(pawnController.transform.position, pawnController.dropResourceLifeTime);
+                pawnController.rockIdle.SetActive(false);
             }
-            if (vC.woodIdle.activeSelf)
+            if (pawnController.woodIdle.activeSelf)
             {
-                DropWood(vC.transform.position, vC.dropResourceLifeTime);
-                vC.woodIdle.SetActive(false);
+                DropWood(pawnController.transform.position, pawnController.dropResourceLifeTime);
+                pawnController.woodIdle.SetActive(false);
             }
-            if (vC.meatIdle.activeSelf)
+            if (pawnController.meatIdle.activeSelf)
             {
-                DropMeat(vC.transform.position, vC.dropResourceLifeTime);
-                vC.meatIdle.SetActive(false);
+                DropMeat(pawnController.transform.position, pawnController.dropResourceLifeTime);
+                pawnController.meatIdle.SetActive(false);
             }
-            AnimationManager.Instance.IdleAnim(vC.animator);
+            AnimationManager.Instance.IdleAnim(pawnController.animator);
         }
         void DropWood(Vector3 pos, float lifeTime)
         {
             for (int i = 0; i < 3; i++)
             {
-                GameObject wood = Object.Instantiate(vC.resourceWood, pos + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0), Quaternion.identity);
+                GameObject wood = Object.Instantiate(pawnController.resourceWood, pos + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0), Quaternion.identity);
                 Object.Destroy(wood, lifeTime);
             }
+
         }
         void DropGold(Vector3 pos, float lifeTime)
         {
             for (int i = 0; i < 3; i++)
             {
-                GameObject gold = Object.Instantiate(vC.resourceGold, pos + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0), Quaternion.identity);
+                GameObject gold = Object.Instantiate(pawnController.resourceGold, pos + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0), Quaternion.identity);
                 Object.Destroy(gold, lifeTime);
             }
         }
         void DropRock(Vector3 pos, float lifeTime)
         {
-            GameObject rock = Object.Instantiate(vC.resourceRock, pos, Quaternion.identity);
+            GameObject rock = Object.Instantiate(pawnController.resourceRock, pos, Quaternion.identity);
             Object.Destroy(rock, lifeTime);
         }
         void DropMeat(Vector3 pos, float lifeTime)
         {
-            GameObject meat = Object.Instantiate(vC.resourceMeat, pos, Quaternion.identity);
+            GameObject meat = Object.Instantiate(pawnController.resourceMeat, pos, Quaternion.identity);
             Object.Destroy(meat, lifeTime);
+        }
+        void FindRepo() // En yakın depoları arar.
+        {
+            GameObject nearestRepo = null;
+            float shortestDistance = Mathf.Infinity;
+
+            for (int i = 0; i < ResourcesManager.Instance.repos.Count; i++)
+            {
+                float distance = Vector2.Distance(pawnController.transform.position, ResourcesManager.Instance.repos[i].transform.position);
+                if (shortestDistance > distance)
+                {
+                    RepoController repo = ResourcesManager.Instance.repos[i].GetComponent<RepoController>();
+                    if (repo.currentRepoCapacity >= repo.maxRepoCapacity)  //Depo dolu ise
+                        pawnController.isAllReposFull = true;
+                    else
+                        pawnController.isAllReposFull = false;
+                    shortestDistance = distance;
+                    nearestRepo = ResourcesManager.Instance.repos[i];
+                }
+            }
+            pawnController.repo = nearestRepo;
         }
     }
 }

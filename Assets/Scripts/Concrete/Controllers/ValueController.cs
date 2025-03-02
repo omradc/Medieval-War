@@ -18,7 +18,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public TextMeshProUGUI meatText;
 
         int gold, wood, rock, meat;
-        public string itemName;
+        public string itemName; // İsmi değiştirme, oyun içinde heryerden değişmesi gerekir
         private void Awake()
         {
             goldPanel = transform.GetChild(0).GetComponent<Image>();
