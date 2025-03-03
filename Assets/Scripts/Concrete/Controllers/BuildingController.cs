@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
 {
-    [RequireComponent(typeof(BuildingStats))]
     class BuildingController : MonoBehaviour
     {
         public GameObject construction;

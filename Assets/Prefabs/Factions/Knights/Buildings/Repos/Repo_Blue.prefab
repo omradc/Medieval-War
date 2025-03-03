@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4792531660301751770, guid: db2103e98d7fa6246a06f3bbd59203c6, type: 3}
+      propertyPath: maxRepoCapacity
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 703168554311755212, guid: db2103e98d7fa6246a06f3bbd59203c6, type: 3}
       propertyPath: itemName
       value: Repo_Blue

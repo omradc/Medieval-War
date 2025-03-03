@@ -136,7 +136,11 @@ namespace Assets.Scripts.Concrete.Controllers
                 construction.GoConstruct();
                 collectFood.GoToFences();
                 collectFood.GoToSheep();
-                if (repo == null) return; // Depo yoksa kaynak toplama
+                if (repo == null)
+                {
+                    print("Repo Not Found");
+                    return; // Depo yoksa kaynak toplama
+                }
                 collectGoldAndRock.GoToMine();
                 collectWood.GoToTree();
                 collectFood.CutSheep();

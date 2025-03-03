@@ -688,6 +688,7 @@ MonoBehaviour:
   goblinHouseController: {fileID: 0}
   knightHouseController: {fileID: 0}
   elevationFloor: 0
+  currentHealth: 0
 --- !u!114 &3416967471483132282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -725,7 +726,6 @@ MonoBehaviour:
   upgrade: 0
   construct: {fileID: 0}
   upgradedBuilding: {fileID: 0}
-  currentBuilding: {fileID: 0}
   trainTimePanel: {fileID: 0}
 --- !u!114 &705407441806878557
 MonoBehaviour:

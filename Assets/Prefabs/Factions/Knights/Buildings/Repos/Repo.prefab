@@ -3707,7 +3707,7 @@ GameObject:
   - component: {fileID: 3593527690828911238}
   - component: {fileID: 1382306689827528308}
   - component: {fileID: 192879217944502079}
-  - component: {fileID: 8711604115289542557}
+  - component: {fileID: -4792531660301751770}
   m_Layer: 10
   m_Name: Repo
   m_TagString: Repo
@@ -3804,7 +3804,6 @@ MonoBehaviour:
   upgrade: 0
   construct: {fileID: 0}
   upgradedBuilding: {fileID: 0}
-  currentBuilding: {fileID: 0}
   trainTimePanel: {fileID: 0}
 --- !u!114 &3019817617558034584
 MonoBehaviour:
@@ -3889,8 +3888,7 @@ MonoBehaviour:
   rock: 0
   wood: 0
   meat: 0
-  resetList: 0
---- !u!114 &8711604115289542557
+--- !u!114 &-4792531660301751770
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3899,7 +3897,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6825630590398595132}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c6a73be2a691364daddd24b13566d73, type: 3}
+  m_Script: {fileID: 11500000, guid: c4c88c9c085138046917654dc34911ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
@@ -3907,6 +3905,7 @@ MonoBehaviour:
   regenerationAmount: 1
   regrenationPerTime: 1
   regrenationAfterDamageTime: 5
+  maxRepoCapacity: 0
 --- !u!1 &6881202407123079017
 GameObject:
   m_ObjectHideFlags: 0

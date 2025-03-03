@@ -48,10 +48,10 @@ namespace Assets.Scripts.Concrete.Managers
         }
         private void Start()
         {
-            totalGold = 8;
-            totalRock = 8;
-            totalWood = 8;
-            totalMeat = 1;
+            totalGold = 250;
+            totalRock = 250;
+            totalWood = 250;
+            totalMeat = 250;
 
             DisplayResources();
         }
@@ -64,7 +64,11 @@ namespace Assets.Scripts.Concrete.Managers
         }
         public bool Buy(string name, ValueController valueController) // Satın alma işlemi
         {
-            if (repos.Count == 0) return false;
+            if (repos.Count == 0)
+            {
+                print("Repo Not Found");
+                return false;
+            }
             // Satın alınan ürünün adını değer listesinde ara, bulunca index sırasını eşitle
             for (int i = 0; i < value.Length; i++)
             {
