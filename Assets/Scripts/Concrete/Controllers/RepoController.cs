@@ -16,9 +16,13 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             ResourcesManager.Instance.repos.Add(gameObject);
         }
-        public int CurrentRepoCapacity()
+
+        public bool CanUseRepo()
         {
-            return gold + rock + wood + meat;
+            if (gold + rock + wood + meat >= maxRepoCapacity)
+                return false;
+            else
+                return true;
         }
     }
 }

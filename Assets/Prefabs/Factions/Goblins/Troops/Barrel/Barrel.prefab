@@ -140,12 +140,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStoping: 0
-  forMovementStopping: 0
+  isMovementStopping: 0
   isUserControl: 0
   agent: {fileID: 0}
   lastMousePos: {x: 0, y: 0}
   moveSpeed: 0
-  insideOrOutsideWalls: 0
 --- !u!114 &6509422717109881787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +162,7 @@ MonoBehaviour:
   aIPerTime: 0.1
   enemiesLayer:
     serializedVersion: 2
-    m_Bits: 2880
+    m_Bits: 3904
   friendsLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -223,7 +222,9 @@ MonoBehaviour:
   isTakeDamage: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
+  knightHouseController: {fileID: 0}
   elevationFloor: 0
+  currentHealth: 0
 --- !u!114 &2691220663528679492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 0
+  currentPriority: 0
   maxAttacker: 3
   attackingPersonNumber: 0
 --- !u!114 &6346517192939227192

@@ -60,8 +60,6 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool isTree;
         [HideInInspector] public bool isMine;
         [HideInInspector] public bool isSheep;
-        [HideInInspector] public bool isAllReposFull;
-
         [HideInInspector] public KnightController kC;
         [HideInInspector] public PathFinding pF;
         [HideInInspector] public SpriteRenderer villagerSpriteRenderer;
@@ -135,7 +133,7 @@ namespace Assets.Scripts.Concrete.Controllers
             else //Düşman yoksa kaynak toplayabilir
             {
                 construction.GoConstruct();
-                if (isAllReposFull) return; // Depo yoksa kaynak toplama
+                if (repo == null) return; // Depo yoksa kaynak toplama
                 collectGoldAndRock.GoToMine();
                 collectWood.GoToTree();
                 collectFood.GoToSheep();

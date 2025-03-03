@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Resources
@@ -18,8 +19,7 @@ namespace Assets.Scripts.Concrete.Resources
         public void SelectResourceType()
         {
             // UPDATE İLE ÇALIŞIR
-            // Eğer köylü seçiliyse ve hedefe tıkladıysa, seçili köylünün hedefi seçili hedeftir
-            if (pawnController.kC.isSeleceted)
+            if (pawnController.kC.isSeleceted) // Eğer köylü seçiliyse ve hedefe tıkladıysa, seçili köylünün hedefi seçili hedeftir
             {
                 pawnController.targetResource = null;
                 pawnController.nearestTree = null;
@@ -33,15 +33,13 @@ namespace Assets.Scripts.Concrete.Resources
                 pawnController.isFirstTree = false;
                 if (pawnController.constructController != null)
                     pawnController.constructController.isFull = false;
-                // Bir yere tıklandıysa
-                if (InteractManager.Instance.interactedObj != null)
+
+                if (InteractManager.Instance.interactedObj != null) // Bir yere tıklandıysa
                 {
                     pawnController.kC.isSeleceted = false;
                 }
-                // Maden
-                if (InteractManager.Instance.interactedMine != null)
+                if (InteractManager.Instance.interactedMine != null) // Maden
                 {
-                    // SADECE 1 KEZ ÇALIŞIR
                     pawnController.isTree = false;
                     pawnController.isSheep = false;
                     pawnController.returnHome = false;
@@ -50,10 +48,8 @@ namespace Assets.Scripts.Concrete.Resources
                     pawnController.isMine = true;
                     pawnController.kC.isSeleceted = false;
                 }
-                // Ağaç
-                if (InteractManager.Instance.interactedTree != null)
+                if (InteractManager.Instance.interactedTree != null) // Ağaç
                 {
-                    // SADECE 1 KEZ ÇALIŞIR
                     pawnController.isMine = false;
                     pawnController.isSheep = false;
                     pawnController.returnHome = false;
@@ -64,11 +60,8 @@ namespace Assets.Scripts.Concrete.Resources
                     pawnController.kC.isSeleceted = false;
                     pawnController.isFirstTree = true;
                 }
-                //Koyun
-                if (InteractManager.Instance.interactedSheep != null)
+                if (InteractManager.Instance.interactedSheep != null) // Koyun
                 {
-                    // SADECE 1 KEZ ÇALIŞIR
-
                     pawnController.isMine = false;
                     pawnController.isTree = false;
                     pawnController.targetResource = InteractManager.Instance.interactedSheep;
@@ -77,23 +70,23 @@ namespace Assets.Scripts.Concrete.Resources
                     pawnController.tCollect = 0;
                     pawnController.kC.isSeleceted = false;
                 }
-                if (InteractManager.Instance.interactedFences != null)
+                if (InteractManager.Instance.interactedFences != null) // Çit
                 {
-                    // SADECE 1 KEZ ÇALIŞIR
                     pawnController.isMine = false;
                     pawnController.isTree = false;
                     pawnController.fenceObj = InteractManager.Instance.interactedFences;
                     pawnController.fence = pawnController.fenceObj.GetComponent<FenceController>();
 
                 }
-                if (InteractManager.Instance.interactedConstruction != null)
+                if (InteractManager.Instance.interactedConstruction != null) // İnşaat
                 {
-                    // SADECE 1 KEZ ÇALIŞIR
                     pawnController.constructionObj = InteractManager.Instance.interactedConstruction;
                     pawnController.constructController = pawnController.constructionObj.GetComponent<ConstructController>();
-
                 }
-
+                if (InteractManager.Instance.interactedRepo != null)
+                {
+                    pawnController.repo = InteractManager.Instance.interactedRepo;
+                }
             }
         }
         public void GoToHome()
@@ -104,7 +97,7 @@ namespace Assets.Scripts.Concrete.Resources
 
             if (pawnController.returnHome)
             {
-                FindRepo();
+                //FindRepo();
                 // Eve ulaşınca dur
                 if (Vector2.Distance(pawnController.transform.position, pawnController.repo.transform.GetChild(0).position) > .5f)
                 {
@@ -197,7 +190,7 @@ namespace Assets.Scripts.Concrete.Resources
                     pawnController.meatIdle.SetActive(false);
                     pawnController.isSheep = false;
                 }
-
+                CheckRepo();
                 AnimationManager.Instance.IdleAnim(pawnController.animator);
                 ResourcesManager.Instance.DisplayResources();
                 pawnController.workOnce2 = false;
@@ -243,7 +236,6 @@ namespace Assets.Scripts.Concrete.Resources
                 GameObject wood = Object.Instantiate(pawnController.resourceWood, pos + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0), Quaternion.identity);
                 Object.Destroy(wood, lifeTime);
             }
-
         }
         void DropGold(Vector3 pos, float lifeTime)
         {
@@ -263,26 +255,10 @@ namespace Assets.Scripts.Concrete.Resources
             GameObject meat = Object.Instantiate(pawnController.resourceMeat, pos, Quaternion.identity);
             Object.Destroy(meat, lifeTime);
         }
-        void FindRepo() // En yakın depoları arar.
+        void CheckRepo()
         {
-            GameObject nearestRepo = null;
-            float shortestDistance = Mathf.Infinity;
-
-            for (int i = 0; i < ResourcesManager.Instance.repos.Count; i++)
-            {
-                float distance = Vector2.Distance(pawnController.transform.position, ResourcesManager.Instance.repos[i].transform.position);
-                if (shortestDistance > distance)
-                {
-                    RepoController repo = ResourcesManager.Instance.repos[i].GetComponent<RepoController>();
-                    if (repo.CurrentRepoCapacity() >= repo.maxRepoCapacity)  //Depo dolu ise
-                        pawnController.isAllReposFull = true;
-                    else
-                        pawnController.isAllReposFull = false;
-                    shortestDistance = distance;
-                    nearestRepo = ResourcesManager.Instance.repos[i];
-                }
-            }
-            pawnController.repo = nearestRepo;
+            if (!pawnController.repo.GetComponent<RepoController>().CanUseRepo())
+                pawnController.repo = null;
         }
     }
 }

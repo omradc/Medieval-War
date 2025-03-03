@@ -24,6 +24,7 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject interactedFences;
         public GameObject interactedTower;
         public GameObject interactedConstruction;
+        public GameObject interactedRepo;
         IInput ıInput;
         Interact ınteract;
 
@@ -101,6 +102,11 @@ namespace Assets.Scripts.Concrete.Managers
                         interactedObj.transform.GetChild(2).GetChild(0).gameObject.SetActive(openCloseDoor);
                         openCloseDoor = !openCloseDoor;
                     }
+                    if (interactedObj.layer == 10)
+                    {
+                        if (interactedObj.GetComponent<RepoController>().CanUseRepo())
+                            interactedRepo = interactedObj;
+                    }
                 }
             }
             if (ıInput.GetButtonUp0)
@@ -113,6 +119,7 @@ namespace Assets.Scripts.Concrete.Managers
                 interactedKnight = null; //follow AI da boşa düşürüldü
                 interactedTower = null;
                 interactedConstruction = null;
+                interactedRepo = null;
             }
 
 

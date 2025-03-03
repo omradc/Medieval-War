@@ -230,11 +230,11 @@ namespace Assets.Scripts.Concrete.Managers
             }
         }
 
-        RepoController FindRepo(string repoType)
+        RepoController FindRepo(string repoType) // en az kaynağa sahip depoları bulur
         {
-            GameObject fullestRepo = null;
+            GameObject leastRepo = null;
             float repoFullness = 0;
-            float currentRepoFullnes = 0;
+            float currentRepoFullnes = Mathf.Infinity;
             for (int i = 0; i < repos.Count; i++)
             {
                 switch (repoType)
@@ -255,12 +255,12 @@ namespace Assets.Scripts.Concrete.Managers
                 if (currentRepoFullnes > repoFullness)
                 {
                     repoFullness = currentRepoFullnes;
-                    fullestRepo = repos[i];
+                    leastRepo = repos[i];
                 }
             }
-            return fullestRepo.GetComponent<RepoController>();
+            return leastRepo.GetComponent<RepoController>();
         }
-        
+
         public void DestroyRepo(GameObject repo)
         {
             RepoController repoController = repo.GetComponent<RepoController>();
