@@ -45,7 +45,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public GameObject constructionObj;
         public ConstructController constructController;
 
-        public GameObject repo;
+        [HideInInspector]public GameObject repo;
         [HideInInspector] public float currentChopTreeSightRange;
         [HideInInspector] public int currentTreeDamage;
         [HideInInspector] public float tChop;
@@ -105,6 +105,7 @@ namespace Assets.Scripts.Concrete.Controllers
             animationEventController.ChopSheepEvent += Idle;
             animationEventController.GetHitSheepEvent += collectFood.GetHitSheep;
             animationEventController.BuildEvent += construction.Build;
+            animationEventController.BuildEndEvent += construction.BuildEnd;
             //Invoke
             InvokeRepeating(nameof(OptimumVillager), 0.1f, kC.collectResourcesPerTime);
         }
@@ -133,11 +134,12 @@ namespace Assets.Scripts.Concrete.Controllers
             else //Düşman yoksa kaynak toplayabilir
             {
                 construction.GoConstruct();
+                collectFood.GoToFences();
+                collectFood.GoToSheep();
                 if (repo == null) return; // Depo yoksa kaynak toplama
                 collectGoldAndRock.GoToMine();
                 collectWood.GoToTree();
-                collectFood.GoToSheep();
-                collectFood.GoToFences();
+                collectFood.CutSheep();
                 collectResources.GoToHome();
             }
         }

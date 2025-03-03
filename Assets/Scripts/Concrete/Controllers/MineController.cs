@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Concrete.Movements;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,40 +9,45 @@ namespace Assets.Scripts.Concrete.Controllers
     {
         int villagerNumber;
         public int mineAmount;
-        public float currentMineAmount;
-        GameObject activated;
-        GameObject inactivited;
-        GameObject destroyed;
-        GameObject minePanel;
+        [SerializeField] public float currentMineAmount;
+        [SerializeField] GameObject inactive;
+        [SerializeField] GameObject active;
+        [SerializeField] GameObject destroyed;
+        [SerializeField] GameObject minePanel;
         Collider2D[] colliders;
         public List<GameObject> villagers;
         public Image mineAmountFillValue;
         PawnController pawnController;
+        DynamicOrderInLayer dynamicOrderInLayer;
+        [SerializeField] Transform orderInLayerSpriteAnchor;
+
+
+        private void Awake()
+        {
+            dynamicOrderInLayer = new();
+            colliders = GetComponents<Collider2D>();
+            dynamicOrderInLayer.OrderInLayerInitialize(orderInLayerSpriteAnchor, inactive.GetComponent<SpriteRenderer>());
+            dynamicOrderInLayer.OrderInLayerInitialize(orderInLayerSpriteAnchor, active.GetComponent<SpriteRenderer>());
+        }
         private void Start()
         {
-            inactivited = transform.GetChild(0).gameObject;
-            activated = transform.GetChild(1).gameObject;
-            destroyed = transform.GetChild(2).gameObject;
-            minePanel = transform.GetChild(3).gameObject;
-            colliders = GetComponents<Collider2D>();
             currentMineAmount = mineAmount;
         }
-
         void CloseAllSprites()
         {
-            activated.SetActive(false);
-            inactivited.SetActive(false);
+            active.SetActive(false);
+            inactive.SetActive(false);
             destroyed.SetActive(false);
         }
         public void Activated()
         {
             CloseAllSprites();
-            activated.SetActive(true);
+            active.SetActive(true);
         }
         public void Inactivated()
         {
             CloseAllSprites();
-            inactivited.SetActive(true);
+            inactive.SetActive(true);
 
         }
         public void Destroyed()

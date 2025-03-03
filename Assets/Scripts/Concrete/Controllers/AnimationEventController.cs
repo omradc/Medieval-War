@@ -12,6 +12,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public System.Action GetHitTreeEvent;
         public System.Action IsTreeBeingCutAlreadyEvent;
         public System.Action BuildEvent;
+        public System.Action BuildEndEvent;
 
         void ResetAttack()
         {
@@ -41,10 +42,13 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             IsTreeBeingCutAlreadyEvent?.Invoke();
         }
-
         void Build()
         {
             BuildEvent?.Invoke();
+        }
+        void BuildEnd()
+        {
+            BuildEndEvent?.Invoke();
         }
 
     }

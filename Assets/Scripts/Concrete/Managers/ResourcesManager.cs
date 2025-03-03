@@ -64,6 +64,7 @@ namespace Assets.Scripts.Concrete.Managers
         }
         public bool Buy(string name, ValueController valueController) // Satın alma işlemi
         {
+            if (repos.Count == 0) return false;
             // Satın alınan ürünün adını değer listesinde ara, bulunca index sırasını eşitle
             for (int i = 0; i < value.Length; i++)
             {

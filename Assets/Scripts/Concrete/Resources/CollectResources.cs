@@ -31,8 +31,6 @@ namespace Assets.Scripts.Concrete.Resources
                 pawnController.isSheep = false;
                 pawnController.returnFences = false;
                 pawnController.isFirstTree = false;
-                if (pawnController.constructController != null)
-                    pawnController.constructController.isFull = false;
 
                 if (InteractManager.Instance.interactedObj != null) // Bir yere tıklandıysa
                 {

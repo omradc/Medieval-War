@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Names;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Controllers
@@ -18,7 +17,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public bool upgrade;
         [HideInInspector] public GameObject construct;
         [HideInInspector] public GameObject upgradedBuilding;
-        public GameObject currentBuilding;
+        GameObject currentBuilding;
         BuildingController buildingController;
         [SerializeField] GameObject trainTimePanel;
         ObjNames names;
@@ -108,7 +107,6 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             if (Time.time - lastClickTime <= doubleClickThreshold)
             {
-                Debug.Log("Çift tıklama algılandı!");
                 PanelVisibility();
             }
 
@@ -134,6 +132,11 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 if (InteractManager.Instance.selectedUnits.Count > 0) // 1 birim seçili ise panelleri kapat
                     destructPanel.SetActive(false);
+                else if (gameObject.TryGetComponent(out ConstructController constructController))
+                {
+                    if (constructController.isConstructing)
+                        destructPanel.SetActive(false);
+                }
                 else
                     destructPanel.SetActive(true);
             }

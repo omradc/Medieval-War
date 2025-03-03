@@ -1,14 +1,13 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Resources
 {
     internal class Construction
     {
-       readonly PawnController pawnController;
+        readonly PawnController pawnController;
         readonly PathFinding pF;
 
         public Construction(PawnController pawnController, PathFinding pF)
@@ -21,7 +20,7 @@ namespace Assets.Scripts.Concrete.Resources
         {
             if (pawnController.isTree || pawnController.isMine || pawnController.isSheep) return;
             // İnşaat varsa ve boşsa ona git
-            if (pawnController.constructionObj != null && !pawnController.constructController.isFull)
+            if (pawnController.constructionObj != null && !pawnController.constructController.isConstructing)
             {
                 Vector2 constructionPos = pawnController.constructionObj.transform.GetChild(1).position;
                 float distance = Vector2.Distance(pawnController.transform.position, constructionPos);
@@ -36,21 +35,23 @@ namespace Assets.Scripts.Concrete.Resources
                 }
             }
         }
-
-
-        // Köylünün vuruş animasyonu ile tetiklenir
-        public void Build()
+        public void Build()  // Köylünün vuruş animasyonu ile tetiklenir
         {
-            pawnController.constructController.isFull = true;
+            pawnController.constructController.isConstructing = true;
             pawnController.constructController.currentHitNumber++;
             pawnController.constructController.UpdateConstructionTimerImage();
             // İnşaa Tamamlandı
             if (pawnController.constructController.currentHitNumber >= pawnController.constructController.hitNumber)
             {
+                pawnController.constructController.isConstructing = false;
                 pawnController.constructionObj = null;
                 AnimationManager.Instance.IdleAnim(pawnController.animator);
             }
         }
-
+        public void BuildEnd()  // Köylünün vuruş animasyonu ile tetiklenir
+        {
+            if (pawnController.constructController != null)
+                pawnController.constructController.isConstructing = false;
+        }
     }
 }

@@ -49,6 +49,21 @@ namespace Assets.Scripts.Concrete.Resources
                             pawnController.targetResource = null;
                             return;
                         }
+                    }
+                }
+
+            }
+        }
+        public void CutSheep()
+        {
+            if (pawnController.isSheep && pawnController.targetResource != null && pawnController.fenceObj != null)
+            {
+                float distance = Vector2.Distance(pawnController.transform.position, pawnController.targetResource.transform.GetChild(1).position);
+                if (pawnController.targetResource != null && !pawnController.returnFences && !pawnController.returnHome)
+                {
+                    // Koyuna ulaşıldı
+                    if (distance <= .1f)
+                    {
                         //Koyun çitteyse, tekrar koyunu seçtiğinde kesebilir
                         if (pawnController.sheepController.inFence)
                         {
@@ -59,12 +74,11 @@ namespace Assets.Scripts.Concrete.Resources
                             AnimationManager.Instance.ChopSheepAnim(pawnController.animator, pawnController.chopSpeed);
                             // vC.targetResource = null; // kesme animasyonunun bitiminde null a döner. Aksi takdirde koyunu kesmeden önce yanlış yöne bakar
                             pawnController.tCollect = 0;
-
                         }
                     }
                 }
-
             }
+
         }
         public void GetHitSheep() // Kesme animasyonu ile tetiklenir
         {

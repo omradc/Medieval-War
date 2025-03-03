@@ -122,11 +122,11 @@ MonoBehaviour:
   growTime: 10
   maxMeatAmount: 100
   tameTime: 0.5
-  moveSpeed: 1
-  followSpeed: 0.1
+  moveSpeed: 0.5
+  followSpeed: 2
   currentSheepScale: 1
   followDistance: 0.5
-  behavior: 0
+  behavior: 2
   patrollingRadius: 3
   waitingTime: 5
   resourceMeat: {fileID: 3246526810110024777, guid: 305c2a09551e4324985e3671a16eaae1, type: 3}
@@ -178,12 +178,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStoping: 0
-  forMovementStopping: 0
+  isMovementStopping: 0
   isUserControl: 0
   agent: {fileID: 0}
   lastMousePos: {x: 0, y: 0}
   moveSpeed: 0
-  insideOrOutsideWalls: 0
 --- !u!1 &8254504473481594639
 GameObject:
   m_ObjectHideFlags: 0

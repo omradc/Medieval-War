@@ -16,11 +16,10 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public GameObject previousBuilding;
         [SerializeField] Transform OrderInLayerSpriteAnchor;
         [HideInInspector] public float currentHitNumber;
-        [HideInInspector] public bool isFull;
+        [HideInInspector] public bool isConstructing;
         SpriteRenderer[] visualSprites;
         DynamicOrderInLayer dynamicOrderInLayer;
         public List<GameObject> knights;
-
         private void Awake()
         {
             dynamicOrderInLayer = new();
