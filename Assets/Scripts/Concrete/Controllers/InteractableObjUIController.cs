@@ -96,7 +96,7 @@ namespace Assets.Scripts.Concrete.Controllers
             }
 
             if (gameObject.CompareTag("Repo"))
-                ResourcesManager.Instance.DestroyRepo(gameObject);
+                ResourcesManager.Instance.RemoveRepo(gameObject);
             Destroy(gameObject);
 
         }

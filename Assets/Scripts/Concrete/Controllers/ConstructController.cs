@@ -61,10 +61,9 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 knightHouseController.knights = previousBuilding.GetComponent<KnightHouseController>().knights;
             }
-            // Yükseltme yapılınca, bir önceki depo bilgisi yükseltilen depo bilgisine eşitlenir.
             if (constructed.TryGetComponent(out RepoController repoController) && previousBuilding != null)
             {
-                repoController.gold = previousBuilding.GetComponent<RepoController>().gold;
+                repoController.currentRepoCapacity = previousBuilding.GetComponent<RepoController>().currentRepoCapacity;
             }
             ResourcesManager.Instance.RemoveRepo(previousBuilding);
             Destroy(previousBuilding);
