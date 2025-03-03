@@ -171,7 +171,6 @@ namespace Assets.Scripts.Concrete.Resources
                 if (pawnController.goldIdle.activeSelf)
                 {
                     ResourcesManager.Instance.totalGold += ResourcesManager.Instance.collectGoldAmount;
-                    repo.currentRepoCapacity += ResourcesManager.Instance.collectGoldAmount;
                     repo.gold += ResourcesManager.Instance.collectGoldAmount;
                     DropGold(pawnController.repo.transform.GetChild(0).position, pawnController.dropResourceLifeTime);
                     pawnController.goldIdle.SetActive(false);
@@ -179,7 +178,6 @@ namespace Assets.Scripts.Concrete.Resources
                 if (pawnController.rockIdle.activeSelf)
                 {
                     ResourcesManager.Instance.totalRock += ResourcesManager.Instance.collectRockAmount;
-                    repo.currentRepoCapacity += ResourcesManager.Instance.collectRockAmount;
                     repo.rock += ResourcesManager.Instance.collectRockAmount;
                     DropRock(pawnController.repo.transform.GetChild(0).position, pawnController.dropResourceLifeTime);
                     pawnController.rockIdle.SetActive(false);
@@ -187,7 +185,6 @@ namespace Assets.Scripts.Concrete.Resources
                 if (pawnController.woodIdle.activeSelf)
                 {
                     ResourcesManager.Instance.totalWood += ResourcesManager.Instance.collectWoodAmount;
-                    repo.currentRepoCapacity += ResourcesManager.Instance.collectWoodAmount;
                     repo.wood += ResourcesManager.Instance.collectWoodAmount;
                     DropWood(pawnController.repo.transform.GetChild(0).position, pawnController.dropResourceLifeTime);
                     pawnController.woodIdle.SetActive(false);
@@ -195,14 +192,11 @@ namespace Assets.Scripts.Concrete.Resources
                 if (pawnController.meatIdle.activeSelf)
                 {
                     ResourcesManager.Instance.totalMeat += pawnController.sheepController.currentMeatAmount;
-                    repo.currentRepoCapacity += ResourcesManager.Instance.collectMeatAmount;
                     repo.meat += ResourcesManager.Instance.collectMeatAmount;
                     DropMeat(pawnController.repo.transform.GetChild(0).position, pawnController.dropResourceLifeTime);
                     pawnController.meatIdle.SetActive(false);
                     pawnController.isSheep = false;
                 }
-                //if (repo.currentRepoCapacity >= repo.maxRepoCapacity) // Depo max kapasitedeyse kullanım dışıdır
-                //    ResourcesManager.Instance.repos.Remove(repo.gameObject);
 
                 AnimationManager.Instance.IdleAnim(pawnController.animator);
                 ResourcesManager.Instance.DisplayResources();
@@ -280,7 +274,7 @@ namespace Assets.Scripts.Concrete.Resources
                 if (shortestDistance > distance)
                 {
                     RepoController repo = ResourcesManager.Instance.repos[i].GetComponent<RepoController>();
-                    if (repo.currentRepoCapacity >= repo.maxRepoCapacity)  //Depo dolu ise
+                    if (repo.CurrentRepoCapacity() >= repo.maxRepoCapacity)  //Depo dolu ise
                         pawnController.isAllReposFull = true;
                     else
                         pawnController.isAllReposFull = false;

@@ -116,7 +116,7 @@ namespace Assets.Scripts.Concrete.Controllers
             }
             if(gameObject.CompareTag("Repo"))
             {
-                ResourcesManager.Instance.RemoveRepo(gameObject);
+                ResourcesManager.Instance.DestroyRepo(gameObject);
             }
         }
         void UpdateHealthBar()

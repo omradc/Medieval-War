@@ -6,7 +6,6 @@ namespace Assets.Scripts.Concrete.Controllers
     public class RepoController : MonoBehaviour
     {
         public int maxRepoCapacity;
-        public int currentRepoCapacity;
         public int gold;
         public int rock;
         public int wood;
@@ -16,6 +15,10 @@ namespace Assets.Scripts.Concrete.Controllers
         void Start()
         {
             ResourcesManager.Instance.repos.Add(gameObject);
+        }
+        public int CurrentRepoCapacity()
+        {
+            return gold + rock + wood + meat;
         }
     }
 }

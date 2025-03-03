@@ -3884,8 +3884,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f8bc3807192994daf235f3c6bbb5b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRepoCapacity: 20
-  currentRepoCapacity: 0
+  maxRepoCapacity: 1000
+  gold: 0
+  rock: 0
+  wood: 0
+  meat: 0
   resetList: 0
 --- !u!114 &8711604115289542557
 MonoBehaviour:

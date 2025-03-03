@@ -777,12 +777,28 @@ PrefabInstance:
       value: Repo_Blue(Clone)
       objectReference: {fileID: 0}
     - target: {fileID: 7422648628979909649, guid: 732377b7974af284882059c1aa966dd6, type: 3}
+      propertyPath: gold
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422648628979909649, guid: 732377b7974af284882059c1aa966dd6, type: 3}
+      propertyPath: meat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422648628979909649, guid: 732377b7974af284882059c1aa966dd6, type: 3}
+      propertyPath: rock
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422648628979909649, guid: 732377b7974af284882059c1aa966dd6, type: 3}
+      propertyPath: wood
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422648628979909649, guid: 732377b7974af284882059c1aa966dd6, type: 3}
       propertyPath: maxRepoCapacity
       value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 7422648628979909649, guid: 732377b7974af284882059c1aa966dd6, type: 3}
       propertyPath: currentRepoCapacity
-      value: 27
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28250,11 +28266,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7417632142025686423, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.99
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7417632142025686423, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.82
+      value: 3.98
       objectReference: {fileID: 0}
     - target: {fileID: 7417632142025686423, guid: dcc37c18218a87d46b2a1396af85beb3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -33528,6 +33544,22 @@ PrefabInstance:
     - target: {fileID: 3415527731126551328, guid: 639f9652ab2a7fb4093455108e872d2e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923174947444017873, guid: 639f9652ab2a7fb4093455108e872d2e, type: 3}
+      propertyPath: collectGoldAmount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923174947444017873, guid: 639f9652ab2a7fb4093455108e872d2e, type: 3}
+      propertyPath: collectMeatAmount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923174947444017873, guid: 639f9652ab2a7fb4093455108e872d2e, type: 3}
+      propertyPath: collectRockAmount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923174947444017873, guid: 639f9652ab2a7fb4093455108e872d2e, type: 3}
+      propertyPath: collectWoodAmount
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4923174947444017873, guid: 639f9652ab2a7fb4093455108e872d2e, type: 3}
       propertyPath: displayResourcesPanel

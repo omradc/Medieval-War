@@ -17,10 +17,10 @@ namespace Assets.Scripts.Concrete.Managers
 
         public List<GameObject> repos;
 
-        public int totalGold;
-        public int totalRock;
-        public int totalWood;
-        public int totalMeat;
+        [HideInInspector] public int totalGold;
+        [HideInInspector] public int totalRock;
+        [HideInInspector] public int totalWood;
+        [HideInInspector] public int totalMeat;
 
         int index;
         bool isObjFound;
@@ -49,8 +49,8 @@ namespace Assets.Scripts.Concrete.Managers
         private void Start()
         {
             totalGold = 8;
-            totalRock = 9;
-            totalWood = 9;
+            totalRock = 8;
+            totalWood = 8;
             totalMeat = 1;
 
             DisplayResources();
@@ -91,7 +91,10 @@ namespace Assets.Scripts.Concrete.Managers
                 totalRock -= v.rockCost;
                 totalWood -= v.woodCost;
                 totalMeat -= v.meatCost;
-                UnloadRepo(v.goldCost + v.rockCost + v.woodCost + v.meatCost);
+                UnloadGoldRepo(v.goldCost);
+                UnloadRockRepo(v.rockCost);
+                UnloadWoodRepo(v.woodCost);
+                UnloadMeatRepo(v.meatCost);
                 DisplayCost(valueController, v);
                 DisplayPanelColor(valueController, v);
 
@@ -154,45 +157,125 @@ namespace Assets.Scripts.Concrete.Managers
             woodPrice = v.woodCost;
             meatPrice = v.meatCost;
         }
-        void UnloadRepo(int totalCostResources)
+        void UnloadGoldRepo(int goldCost)
         {
-            while (totalCostResources > 0) // Maliyet 0 dan büyük olduğu sürece tüm depolar maiyeti karşılayana kadar, kapasitesinden düşer.
+            int protect = 0;
+            while (goldCost > 0 && protect < 5) // Maliyet 0 dan büyük olduğu sürece tüm depolar maiyeti karşılayana kadar, kapasitesinden düşer.
             {
-                GameObject depo = FindFullDepo(); //En dolu depoyu bul
-                int remainingCapacity = depo.GetComponent<RepoController>().currentRepoCapacity -= totalCostResources;
-
+                RepoController repo = FindRepo("Gold"); //En dolu depoyu bul
+                int remainingCapacity = repo.gold -= goldCost;
 
                 if (remainingCapacity < 0) // Kapasite karşılamıyorsa
                 {
-                    depo.GetComponent<RepoController>().currentRepoCapacity -= remainingCapacity; // depodan alınan fazlalığı ekle
-                    totalCostResources = -remainingCapacity; // yeni maliyet 
+                    repo.gold += Mathf.Abs(remainingCapacity); // depodan alınan fazlalığı ekle
+                    goldCost = Mathf.Abs(remainingCapacity); // yeni maliyet 
                 }
                 else // Kapasite karşılıyorsa döngüyü sonlandır
-                    totalCostResources = 0;
+                    goldCost = 0;
+                protect++;
             }
         }
-        GameObject FindFullDepo()
+        void UnloadRockRepo(int rockCost)
+        {
+            int protect = 0;
+            while (rockCost > 0 && protect < 5) // Maliyet 0 dan büyük olduğu sürece tüm depolar maiyeti karşılayana kadar, kapasitesinden düşer.
+            {
+                RepoController repo = FindRepo("Rock"); //En dolu depoyu bul
+                int remainingCapacity = repo.rock -= rockCost;
+
+                if (remainingCapacity < 0) // Kapasite karşılamıyorsa
+                {
+                    repo.rock += Mathf.Abs(remainingCapacity); // depodan alınan fazlalığı ekle
+                    rockCost = Mathf.Abs(remainingCapacity); // yeni maliyet 
+                }
+                else // Kapasite karşılıyorsa döngüyü sonlandır
+                    rockCost = 0;
+                protect++;
+            }
+        }
+        void UnloadWoodRepo(int woodCost)
+        {
+            int protect = 0;
+            while (woodCost > 0 && protect < 5) // Maliyet 0 dan büyük olduğu sürece tüm depolar maiyeti karşılayana kadar, kapasitesinden düşer.
+            {
+                RepoController repo = FindRepo("Wood"); //En dolu depoyu bul
+                int remainingCapacity = repo.wood -= woodCost;
+
+                if (remainingCapacity < 0) // Kapasite karşılamıyorsa
+                {
+                    repo.wood += Mathf.Abs(remainingCapacity); // depodan alınan fazlalığı ekle
+                    woodCost = Mathf.Abs(remainingCapacity); // yeni maliyet 
+                }
+                else // Kapasite karşılıyorsa döngüyü sonlandır
+                    woodCost = 0;
+                protect++;
+            }
+        }
+        void UnloadMeatRepo(int meatCost)
+        {
+            int protect = 0;
+            while (meatCost > 0 && protect < 5) // Maliyet 0 dan büyük olduğu sürece tüm depolar maiyeti karşılayana kadar, kapasitesinden düşer.
+            {
+                RepoController repo = FindRepo("Meat"); //En dolu depoyu bul
+                int remainingCapacity = repo.meat -= meatCost;
+
+                if (remainingCapacity < 0) // Kapasite karşılamıyorsa
+                {
+                    repo.meat += Mathf.Abs(remainingCapacity); // depodan alınan fazlalığı ekle
+                    meatCost = Mathf.Abs(remainingCapacity); // yeni maliyet 
+                }
+                else // Kapasite karşılıyorsa döngüyü sonlandır
+                    meatCost = 0;
+                protect++;
+            }
+        }
+
+        RepoController FindRepo(string repoType)
         {
             GameObject fullestRepo = null;
             float repoFullness = 0;
+            float currentRepoFullnes = 0;
             for (int i = 0; i < repos.Count; i++)
             {
-                float currentRepoFullnes = repos[i].GetComponent<RepoController>().currentRepoCapacity;
+                switch (repoType)
+                {
+                    case "Gold":
+                        currentRepoFullnes = repos[i].GetComponent<RepoController>().gold;
+                        break;
+                    case "Rock":
+                        currentRepoFullnes = repos[i].GetComponent<RepoController>().rock;
+                        break;
+                    case "Wood":
+                        currentRepoFullnes = repos[i].GetComponent<RepoController>().wood;
+                        break;
+                    case "Meat":
+                        currentRepoFullnes = repos[i].GetComponent<RepoController>().meat;
+                        break;
+                }
                 if (currentRepoFullnes > repoFullness)
                 {
                     repoFullness = currentRepoFullnes;
                     fullestRepo = repos[i];
                 }
             }
-            return fullestRepo;
+            return fullestRepo.GetComponent<RepoController>();
+        }
+        
+        public void DestroyRepo(GameObject repo)
+        {
+            RepoController repoController = repo.GetComponent<RepoController>();
+            totalGold -= repoController.gold;
+            totalRock -= repoController.rock;
+            totalWood -= repoController.wood;
+            totalMeat -= repoController.meat;
+            repos.Remove(repo);
+            DisplayResources();
         }
         public void RemoveRepo(GameObject repo)
         {
-            totalGold -= repo.GetComponent<RepoController>().gold;
-            totalRock -= repo.GetComponent<RepoController>().rock;
-            totalWood -= repo.GetComponent<RepoController>().wood;
-            totalMeat -= repo.GetComponent<RepoController>().meat;
             repos.Remove(repo);
         }
+
+
     }
 }

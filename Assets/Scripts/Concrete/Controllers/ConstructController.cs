@@ -63,9 +63,12 @@ namespace Assets.Scripts.Concrete.Controllers
             }
             if (constructed.TryGetComponent(out RepoController repoController) && previousBuilding != null)
             {
-                repoController.currentRepoCapacity = previousBuilding.GetComponent<RepoController>().currentRepoCapacity;
+                repoController.gold = previousBuilding.GetComponent<RepoController>().gold;
+                repoController.rock = previousBuilding.GetComponent<RepoController>().rock;
+                repoController.wood = previousBuilding.GetComponent<RepoController>().wood;
+                repoController.meat = previousBuilding.GetComponent<RepoController>().meat;
+                ResourcesManager.Instance.RemoveRepo(previousBuilding);
             }
-            ResourcesManager.Instance.RemoveRepo(previousBuilding);
             Destroy(previousBuilding);
             Destroy(gameObject);
         }
