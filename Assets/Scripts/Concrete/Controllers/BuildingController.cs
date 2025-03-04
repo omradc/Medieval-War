@@ -104,8 +104,8 @@ namespace Assets.Scripts.Concrete.Controllers
             if (gameObject.name == "WallDoor_Blue(Clone)" || gameObject.name == "WallDoor_Yellow(Clone)" || gameObject.name == "WallDoor_Red(Clone)" || gameObject.name == "WallDoor_Purple(Clone)")
             {
                 wallDoorCloseVisualSprite = transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
-                wallDoorOpen1VisualSprite = transform.GetChild(2).GetChild(1).GetChild(2).GetComponent<SpriteRenderer>();
-                wallDoorOpen2VisualSprite = transform.GetChild(2).GetChild(1).GetChild(3).GetComponent<SpriteRenderer>();
+                wallDoorOpen1VisualSprite = transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<SpriteRenderer>();
+                wallDoorOpen2VisualSprite = transform.GetChild(2).GetChild(1).GetChild(1).GetComponent<SpriteRenderer>();
             }
             if (gameObject.layer == 11)
                 wallDestructed = transform.GetChild(1);
