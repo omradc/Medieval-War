@@ -188,12 +188,16 @@ PrefabInstance:
       value: wallOneLvl3_Destructed
       objectReference: {fileID: 0}
     - target: {fileID: 5533806708739620861, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
+      propertyPath: m_Center.y
+      value: -0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533806708739620861, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: m_Extents.x
-      value: 0.005
+      value: 0.0005
       objectReference: {fileID: 0}
     - target: {fileID: 5533806708739620861, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: m_Extents.y
-      value: 0.05
+      value: 0.0005
       objectReference: {fileID: 0}
     - target: {fileID: 5946407984532429062, guid: 2ee528f87b655de498e2f1e4fbce67c3, type: 3}
       propertyPath: m_LocalPosition.x
