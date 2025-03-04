@@ -16,9 +16,9 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public TextMeshProUGUI rockText;
         [HideInInspector] public TextMeshProUGUI woodText;
         [HideInInspector] public TextMeshProUGUI meatText;
-
         int gold, wood, rock, meat;
         public string itemName; // İsmi değiştirme, oyun içinde heryerden değişmesi gerekir
+
         private void Awake()
         {
             goldPanel = transform.GetChild(0).GetComponent<Image>();
@@ -35,10 +35,21 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Start()
         {
             ResourcesManager.Instance.FirstItemValuesDisplay(itemName, out gold, out rock, out wood, out meat);
+            ResourcesManager.Instance.DisplayPanelColor(this, ResourcesManager.Instance.item);
             goldText.text = gold.ToString();
             rockText.text = rock.ToString();
             woodText.text = wood.ToString();
             meatText.text = meat.ToString();
+            InvokeRepeating(nameof(OptimumDisplayPanelColor), 0, 0.5f);
+        }
+        void OptimumDisplayPanelColor()
+        {
+            if (ResourcesManager.Instance.item.name != "")
+                ResourcesManager.Instance.DisplayPanelColor(this, ResourcesManager.Instance.item);
+            else
+                ResourcesManager.Instance.item = ResourcesManager.Instance.value[0];
+
+
         }
     }
 }

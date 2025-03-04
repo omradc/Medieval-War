@@ -14,14 +14,15 @@ namespace Assets.Scripts.Concrete.Managers
         public int collectWoodAmount;
         public int collectMeatAmount;
         public Value[] value; // Çok pahalı bir dizi**************************
-
+        public Value item; // Value dizisinin 1 elemanına karşılık gelir.
         public List<GameObject> repos;
+        [SerializeField] Color canBuyColor;
+        [SerializeField] Color cantBuyColor;
 
         [HideInInspector] public int totalGold;
         [HideInInspector] public int totalRock;
         [HideInInspector] public int totalWood;
         [HideInInspector] public int totalMeat;
-
         int index;
         bool isObjFound;
         TextMeshProUGUI goldText;
@@ -48,10 +49,10 @@ namespace Assets.Scripts.Concrete.Managers
         }
         private void Start()
         {
-            totalGold = 250;
-            totalRock = 250;
-            totalWood = 250;
-            totalMeat = 250;
+            totalGold = 6;
+            totalRock = 6;
+            totalWood = 6;
+            totalMeat = 6;
 
             DisplayResources();
         }
@@ -64,11 +65,11 @@ namespace Assets.Scripts.Concrete.Managers
         }
         public bool Buy(string name, ValueController valueController) // Satın alma işlemi
         {
-            if (repos.Count == 0)
-            {
-                print("Repo Not Found");
-                return false;
-            }
+            //if (repos.Count == 0)
+            //{
+            //    print("Repo Not Found");
+            //    return false;
+            //}
             // Satın alınan ürünün adını değer listesinde ara, bulunca index sırasını eşitle
             for (int i = 0; i < value.Length; i++)
             {
@@ -88,23 +89,21 @@ namespace Assets.Scripts.Concrete.Managers
                 return false;
             }
 
-            Value v = value[index];
+            item = value[index];
             //Elindeki kaynak ile maliyeti kıyasla
-            if (totalGold >= v.goldCost && totalRock >= v.rockCost && totalWood >= v.woodCost && totalMeat >= v.meatCost)
+            if (totalGold >= item.goldCost && totalRock >= item.rockCost && totalWood >= item.woodCost && totalMeat >= item.meatCost)
             {
-                totalGold -= v.goldCost;
-                totalRock -= v.rockCost;
-                totalWood -= v.woodCost;
-                totalMeat -= v.meatCost;
-                UnloadGoldRepo(v.goldCost);
-                UnloadRockRepo(v.rockCost);
-                UnloadWoodRepo(v.woodCost);
-                UnloadMeatRepo(v.meatCost);
-                DisplayCost(valueController, v);
-                DisplayPanelColor(valueController, v);
-
-                print($"{v.name}:  gold: {v.goldCost}, rock: {v.rockCost}, wood: {v.woodCost}, meat: {v.meatCost}");
+                totalGold -= item.goldCost;
+                totalRock -= item.rockCost;
+                totalWood -= item.woodCost;
+                totalMeat -= item.meatCost;
+                UnloadGoldRepo(item.goldCost);
+                UnloadRockRepo(item.rockCost);
+                UnloadWoodRepo(item.woodCost);
+                UnloadMeatRepo(item.meatCost);
+                DisplayCost(valueController, item);
                 DisplayResources();
+               
                 return true;
             }
 
@@ -120,28 +119,27 @@ namespace Assets.Scripts.Concrete.Managers
             valueController.woodText.text = v.woodCost.ToString();
             valueController.meatText.text = v.meatCost.ToString();
         }
-        void DisplayPanelColor(ValueController valueController, Value v)
+        public void DisplayPanelColor(ValueController valueController, Value v)
         {
-            print("renk göster");
             if (totalGold >= v.goldCost)
-                valueController.goldPanel.color = Color.white;
+                valueController.goldPanel.color = canBuyColor;
             if (totalGold < v.goldCost)
-                valueController.goldPanel.color = Color.red;
+                valueController.goldPanel.color = cantBuyColor;
 
             if (totalRock >= v.rockCost)
-                valueController.rockPanel.color = Color.white;
+                valueController.rockPanel.color = canBuyColor;
             if (totalRock < v.rockCost)
-                valueController.rockPanel.color = Color.red;
+                valueController.rockPanel.color = cantBuyColor;
 
             if (totalWood >= v.woodCost)
-                valueController.woodPanel.color = Color.white;
+                valueController.woodPanel.color = canBuyColor;
             if (totalWood < v.woodCost)
-                valueController.woodPanel.color = Color.red;
+                valueController.woodPanel.color = cantBuyColor;
 
             if (totalMeat >= v.meatCost)
-                valueController.meatPanel.color = Color.white;
+                valueController.meatPanel.color = canBuyColor;
             if (totalMeat < v.meatCost)
-                valueController.meatPanel.color = Color.red;
+                valueController.meatPanel.color = cantBuyColor;
         }
         public void FirstItemValuesDisplay(string name, out int goldPrice, out int rockPrice, out int woodPrice, out int meatPrice)// Nesnelerin  text fiyatını göstermek için
         {
@@ -234,7 +232,6 @@ namespace Assets.Scripts.Concrete.Managers
                 protect++;
             }
         }
-
         RepoController FindRepo(string repoType) // en az kaynağa sahip depoları bulur
         {
             GameObject leastRepo = null;
