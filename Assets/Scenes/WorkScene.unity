@@ -29035,7 +29035,7 @@ MonoBehaviour:
   pinchZoomSpeed: 0.5
   minZoom: 3
   maxZoom: 20
-  dragMove: 0
+  dragMove: 1
   touchMove: 1
   borderThickness: 100
 --- !u!1001 &1203473023
@@ -29610,7 +29610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1380326414
 Transform:
   m_ObjectHideFlags: 0
@@ -35494,6 +35494,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 882360701}
     m_Modifications:
+    - target: {fileID: 1351704705479308060, guid: 639f9652ab2a7fb4093455108e872d2e, type: 3}
+      propertyPath: troopFormation
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1961826129281843446, guid: 639f9652ab2a7fb4093455108e872d2e, type: 3}
       propertyPath: build
       value: 

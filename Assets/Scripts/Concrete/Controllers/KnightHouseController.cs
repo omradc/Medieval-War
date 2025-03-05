@@ -1,6 +1,4 @@
-﻿using Assets.Scripts.Concrete.Managers;
-using System.Collections.Generic;
-using System.Resources;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +23,6 @@ namespace Assets.Scripts.Concrete.Controllers
             interactableObjUIController = GetComponent<InteractableObjUIController>();
             trainedUnitPos = transform.GetChild(0);
             knights = new();
-
         }
         private void Start()
         {
