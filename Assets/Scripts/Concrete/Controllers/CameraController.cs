@@ -7,7 +7,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [Header("Camera")]
         public float cameraSpeed = 30;
         public float currentCameraSpeed;
-        
+
         [Header("Mobile")]
         private float prevDistance = 0f;
         private bool isPinching = false;
@@ -132,12 +132,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 else // Sürekli dokunma sırasında
                 {
                     float zoomAmount = currentDistance - prevDistance; // Mesafe farkını al
-
-                    if (zoomAmount > 0)
-                        Debug.Log("Yakınlaştır! 🔍");
-                    else if (zoomAmount < 0)
-                        Debug.Log("Uzaklaştır! 📉");
-
+                    Debug.Log(zoomAmount);
                     prevDistance = currentDistance; // Önceki mesafeyi güncelle
                 }
             }
