@@ -12,6 +12,8 @@ public class DrawRectangle : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 5; // Kare için 4 köşe ve başlangıç noktasına dönüş
         lineRenderer.loop = true; // Çizgiyi döngüsel hale getir
+
+        print(lineRenderer.sortingLayerName);
     }
 
     void Update()

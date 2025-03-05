@@ -25,16 +25,21 @@ namespace Assets.Scripts.Concrete.Controllers
         SpriteRenderer visualDestructedSprite;
 
         // Kule yapay zekası için gerekli değerler
-        [HideInInspector] public bool isFull;
+        public bool isFull;
         [HideInInspector] public bool destruct;
-        [HideInInspector] public int unitValue;
+        public int unitValue;
 
         [HideInInspector] public InteractableObjUIController interactableObjUIController;
         DynamicOrderInLayer dynamicOrderInLayer;
         HealthController healthController;
         BuildingStats buildingStats;
         bool workOnce = true;
-
+        Color fadedColor;
+        public int goblinNumber;
+        public int knightNumber;
+        public int onGroundKnightNumber;
+        int sheepNumber;
+        [Range(0, 1)] public float fade = 0.5f;
 
         private void Awake()
         {
@@ -48,9 +53,12 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Start()
         {
             PowerStatsAssign();
+            SpriteAssingment();
             dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, visualSprite);
             dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, visualDestructedSprite);
-            SpriteAssingment();
+            fadedColor = visualSprite.color;
+
+            InvokeRepeating(nameof(OptimumSetAlpha), 0, 0.5f);
         }
         void PowerStatsAssign()
         {
@@ -65,7 +73,6 @@ namespace Assets.Scripts.Concrete.Controllers
             if (healthController.isDead)
                 Destruct();
             Upgrade();
-
         }
         void Destruct()
         {
@@ -141,6 +148,45 @@ namespace Assets.Scripts.Concrete.Controllers
                 dynamicOrderInLayer.OrderInLayerInitialize(OrderInLayerSpriteAnchor, destructedVisualSprites);
             }
 
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            CalculateCollidedObjNumber(collision, ref knightNumber, true, 6);
+            CalculateCollidedObjNumber(collision, ref goblinNumber, true, 13);
+            CalculateCollidedObjNumber(collision, ref sheepNumber, true, 16);
+
+        }
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            CalculateCollidedObjNumber(collision, ref knightNumber, false, 6);
+            CalculateCollidedObjNumber(collision, ref goblinNumber, false, 13);
+            CalculateCollidedObjNumber(collision, ref sheepNumber, false, 16);
+        }
+        void CalculateCollidedObjNumber(Collider2D coll, ref int currentObjNumber, bool positive, LayerMask layer)
+        {
+            if (coll.gameObject.layer == layer)
+            {
+                if (positive)
+                    currentObjNumber++;
+                else
+                    currentObjNumber--;
+            }
+        }
+        void OptimumSetAlpha()
+        {
+            if (unitValue > 0) // Kule üstünde birim  varsa
+                onGroundKnightNumber = knightNumber - unitValue; // toplam şovalye sayısından kule üstündeki birim sayısı çıkarılırsa sonuç yerdeki şovalye sayısı kadar olur
+            if (goblinNumber > 0 || onGroundKnightNumber > 0 || sheepNumber > 0)
+                fadedColor.a = fade;
+            else if (knightNumber > 0 && unitValue == 0) // Şovalye varsa ve kule üzerindeki birim yoksa
+                fadedColor.a = fade;
+            else if (unitValue > 0) // Kule dolu
+                fadedColor.a = 1;
+            else
+                fadedColor.a = 1;
+
+            visualSprite.color = fadedColor;
         }
     }
 }
