@@ -6,29 +6,33 @@ public class DrawRectangle : MonoBehaviour
     private LineRenderer lineRenderer;
     private Vector2 startPoint;
     private Vector2 endPoint;
+    Touch touch0;
 
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 5; // Kare için 4 köşe ve başlangıç noktasına dönüş
         lineRenderer.loop = true; // Çizgiyi döngüsel hale getir
-
-        print(lineRenderer.sortingLayerName);
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1)) // Sol fare tuşuna basıldığında
+        if (Input.touchCount == 1)
         {
-            startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition); // İlk fare pozisyonunu al
+            touch0 = Input.GetTouch(0);
+            if (touch0.phase==TouchPhase.Began) // Sol fare tuşuna basıldığında
+            {
+                startPoint = Camera.main.ScreenToWorldPoint(touch0.position); // İlk fare pozisyonunu al
+            }
+            if (touch0.phase == TouchPhase.Moved) // Fare tuşu basılı tutulduğunda
+            {
+                endPoint = Camera.main.ScreenToWorldPoint(touch0.position); // Şu anki fare pozisyonunu al
+                DrawSquare();
+            }
+            if (touch0.phase == TouchPhase.Ended)
+                ResetSquare();
+
         }
-        if (Input.GetMouseButton(1)) // Fare tuşu basılı tutulduğunda
-        {
-            endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Şu anki fare pozisyonunu al
-            DrawSquare();
-        }
-        if (Input.GetMouseButtonUp(1))
-            ResetSquare();
 
     }
 
