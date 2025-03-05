@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Concrete.Controllers;
+﻿using Assets.Scripts.Abstracts.Inputs;
+using Assets.Scripts.Concrete.Controllers;
+using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using Unity.VisualScripting.FullSerializer;
@@ -10,9 +12,10 @@ namespace Assets.Scripts.Concrete.Resources
     {
         readonly PawnController pawnController;
         readonly PathFinding pF;
-
+        IInput ınput;
         public CollectResources(PawnController pawnController, PathFinding pF)
         {
+            new MobileInput();
             this.pawnController = pawnController;
             this.pF = pF;
         }
@@ -197,7 +200,7 @@ namespace Assets.Scripts.Concrete.Resources
         public void ReadyToNextCommand()
         {
             // Eğer elinde kaynak varken seçip, başka bir yere gönderirsen. Kaynak yere düşer.
-            if (Input.GetMouseButtonDown(0) && pawnController.kC.isSeleceted)
+            if (ınput.GetButtonDown0() && pawnController.kC.isSeleceted)
             {
                 DropAnyResources();
             }

@@ -530,6 +530,10 @@ MonoBehaviour:
   destruct: 0
   unitValue: 0
   interactableObjUIController: {fileID: 0}
+  goblinNumber: 0
+  knightNumber: 0
+  onGroundKnightNumber: 0
+  fade: 0.5
 --- !u!114 &-8530563437224599635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,6 +590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactablePanel: {fileID: 414674734560720264}
   destructPanel: {fileID: 1202856553688070551}
+  holdTreshold: 0.2
   trainButton: {fileID: 0}
   upgradeButton: {fileID: 3002457814068815293}
   rebuildButton: {fileID: 6561868187795925463}
@@ -886,19 +891,47 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2630437242065980615}
     - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2630437242065980615}
+    - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DoubleClickForPanelVisibility
+      value: HoldForPanelVisibility
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HoldForPanelVisibility
       objectReference: {fileID: 0}
     - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Assets.Scripts.Concrete.Controllers.InteractableObjUIController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.InteractableObjUIController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419104747285928294, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1511631623436906524, guid: 3c89abd736276cc43a67ddcb3ae55259, type: 3}

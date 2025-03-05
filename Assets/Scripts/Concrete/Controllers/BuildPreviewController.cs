@@ -1,5 +1,6 @@
-﻿using Assets.Scripts.Concrete.Managers;
-using Assets.Scripts.Concrete.Movements;
+﻿using Assets.Scripts.Abstracts.Inputs;
+using Assets.Scripts.Concrete.Inputs;
+using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Names;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,68 +28,31 @@ namespace Assets.Scripts.Concrete.Controllers
         [SerializeField] GameObject wallDoor;
         [SerializeField] GameObject wallDoorRed;
 
-        //SpriteRenderer visualSprite;
-        //SpriteRenderer visualRedSprite;
-        //SpriteRenderer wallHorizontalSprite;
-        //SpriteRenderer wallHorizontalRedSprite;
-        //SpriteRenderer wallVerticalTopSprite;
-        //SpriteRenderer wallVerticalTopRedSprite;
-        //SpriteRenderer wallVerticalDownSprite;
-        //SpriteRenderer wallVerticalDownRedSprite;
-        //SpriteRenderer wallOneSprite;
-        //SpriteRenderer wallOneRedSprite;
-        //SpriteRenderer wallDoorSprite;
-        //SpriteRenderer wallDoorRedSprite;
-        //SpriteRenderer woodenDoorSprite;
-        //SpriteRenderer woodenDoorRedSprite;
         Vector2 firstPos;
         BoxCollider2D coll;
         List<Vector3> wallsPos;
-        //DynamicOrderInLayer dynamicOrderInLayer;
         ObjNames names;
         [HideInInspector] public int index;
         ValueController valueController;
-
+        IInput ınput;
         bool obj;
         bool value = true;
         private void Awake()
         {
             names = new(gameObject.name);
-            // dynamicOrderInLayer = new();
+            ınput = new MobileInput();
             coll = GetComponent<BoxCollider2D>();
             wallsPos = new List<Vector3>();
         }
         private void Start()
         {
             valueController = UIManager.Instance.valuePanel.GetComponent<ValueController>();
-            //if (gameObject.name == "Preview_Wall(Clone)")
-            //{
-            //    wallHorizontalSprite = wallHorizontal.GetComponent<SpriteRenderer>();
-            //    wallHorizontalRedSprite = wallHorizontalRed.GetComponent<SpriteRenderer>();
-            //    wallVerticalTopSprite = wallVertical.transform.GetChild(0).GetComponent<SpriteRenderer>();
-            //    wallVerticalTopRedSprite = wallVerticalRed.transform.GetChild(0).GetComponent<SpriteRenderer>();
-            //    wallVerticalDownSprite = wallVertical.transform.GetChild(1).GetComponent<SpriteRenderer>();
-            //    wallVerticalDownRedSprite = wallVerticalRed.transform.GetChild(1).GetComponent<SpriteRenderer>();
-            //    wallOneSprite = wallOne.GetComponent<SpriteRenderer>();
-            //    wallOneRedSprite = wallOneRed.GetComponent<SpriteRenderer>();
-            //    wallDoorSprite = wallDoor.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
-            //    wallDoorRedSprite = wallDoorRed.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
-            //    woodenDoorSprite = wallDoor.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
-            //    woodenDoorRedSprite = wallDoorRed.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
-            //}
-
-            //else
-            //{
-            //visualSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
-            //visualRedSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
-            //}
 
             InitializeWallPreview();
         }
         void Update()
         {
-            //SetOrderInLayer();
-            if (Input.GetMouseButtonDown(0))
+            if (ınput.GetButtonDown0())
             {
                 if (!InteractManager.Instance.CheckUIElements() || UIManager.Instance.canDragPreviewObj)
                 {
@@ -103,7 +67,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
             }
 
-            if (Input.GetMouseButton(0) && value)
+            if (ınput.GetButtonDown0() && value)
             {
                 Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mouseWorldPos.z = 0;
@@ -112,31 +76,27 @@ namespace Assets.Scripts.Concrete.Controllers
                 transform.position = firstPos + new Vector2(gridX, gridY);
             }
 
-            if (Input.GetMouseButtonUp(0))
+            if (ınput.GetButtonUp0())
             {
                 value = false;
                 UIManager.Instance.canDragPreviewObj = false;
             }
 
         }
-
         private void OnTriggerStay2D(Collider2D collision)
         {
             if (collision.gameObject.layer == 11 || collision.CompareTag("Buildable"))// duvar ise, inşa edilebilir
-            {
                 obj = true;
-            }
             else
-            {
                 obj = false;
-
+            if (!obj)
+            {
+                // İnşaa edilemez
+                buildConfirmButton.interactable = false;
+                visual.gameObject.SetActive(false);
+                visualRed.gameObject.SetActive(true);
             }
-            if (obj) return;
 
-            // İnşaa edilemez
-            buildConfirmButton.interactable = false;
-            visual.gameObject.SetActive(false);
-            visualRed.gameObject.SetActive(true);
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
@@ -145,6 +105,7 @@ namespace Assets.Scripts.Concrete.Controllers
             visual.gameObject.SetActive(true);
             visualRed.gameObject.SetActive(false);
         }
+
         public void BuildChangeButton()
         {
             wallHorizontal.SetActive(false);
@@ -288,30 +249,5 @@ namespace Assets.Scripts.Concrete.Controllers
             else if (wallsPos[0].y > wallsPos[1].y)
                 transform.position -= new Vector3(0, distanceY, 0);
         }
-        //void SetOrderInLayer()
-        //{
-        //    //if (gameObject.name == "Preview_Wall(Clone)")
-        //    //{
-        //    //    dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallHorizontalSprite);
-        //    //    dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallHorizontalRedSprite);
-        //    //    dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallVerticalTopSprite);
-        //    //    dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallVerticalTopRedSprite);
-        //    //    dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallVerticalDownSprite, -1);
-        //    //    dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallVerticalDownRedSprite, -1);
-        //    //    dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallOneSprite);
-        //    //    dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallOneRedSprite);
-        //    //    dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallDoorSprite);
-        //    //    dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, wallDoorRedSprite);
-        //    //    dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, woodenDoorSprite, -1);
-        //    //    dynamicOrderInLayer.OrderInLayerUpdatePreview(OrderInLayerSpriteAnchor, woodenDoorRedSprite, -1);
-        //    //}
-
-        //    //else
-        //    //{
-        //    //dynamicOrderInLayer.OrderInLayerUpdate(OrderInLayerSpriteAnchor, visualSprite);
-        //    //dynamicOrderInLayer.OrderInLayerUpdate(OrderInLayerSpriteAnchor, visualRedSprite);
-        //    //}
-        //}
-
     }
 }

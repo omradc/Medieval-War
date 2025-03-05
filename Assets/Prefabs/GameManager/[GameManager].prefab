@@ -228,6 +228,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   formationDropdown: {fileID: 0}
   orderDropdown: {fileID: 0}
+  addUnitToggle: {fileID: 0}
+  clearUnits: {fileID: 0}
   build: {fileID: 0}
   buildingMovement: {fileID: 0}
   canBuild: 1
@@ -235,6 +237,7 @@ MonoBehaviour:
   canDragPreviewObj: 1
   gridSize: 0.2
   valuePanel: {fileID: 0}
+  isClearUnits: 0
 --- !u!114 &3724882387064550949
 MonoBehaviour:
   m_ObjectHideFlags: 0

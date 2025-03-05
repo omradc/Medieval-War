@@ -1,9 +1,8 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
-using Assets.Scripts.Concrete.Names;
 using TMPro;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.UI;
 
 
 namespace Assets.Scripts.Concrete.Managers
@@ -12,6 +11,8 @@ namespace Assets.Scripts.Concrete.Managers
     {
         public TMP_Dropdown formationDropdown;
         public TMP_Dropdown orderDropdown;
+        public Toggle addUnitToggle;
+        public Button clearUnits;
         public GameObject build;
         public GameObject buildingMovement;
         [HideInInspector] public bool canBuild;
@@ -23,6 +24,7 @@ namespace Assets.Scripts.Concrete.Managers
         Vector3 right;
         Vector3 left;
         [HideInInspector] public GameObject valuePanel;
+        public bool isClearUnits;
         public static UIManager Instance { get; private set; }
         private void Awake()
         {
@@ -43,13 +45,10 @@ namespace Assets.Scripts.Concrete.Managers
             down = new Vector3(0, -gridSize, 0);
             right = new Vector3(gridSize, 0, 0);
             left = new Vector3(-gridSize, 0, 0);
-
-            formationDropdown.onValueChanged.AddListener(FormationDropdown);
-            orderDropdown.onValueChanged.AddListener(OrderDropdown);
         }
-        public void FormationDropdown(int index)
+        public void FormationDropdown()
         {
-            switch (index)
+            switch (formationDropdown.value)
             {
                 case 0:
                     KnightManager.Instance.troopFormation = KnightFormation.RectangleFormation;
@@ -77,9 +76,9 @@ namespace Assets.Scripts.Concrete.Managers
                     break;
             }
         }
-        public void OrderDropdown(int index)
+        public void OrderDropdown()
         {
-            switch (index)
+            switch (orderDropdown.value)
             {
                 case 0:
                     KnightManager.Instance.unitOrderEnum = KnightOrderEnum.AttackOrder;
@@ -95,7 +94,11 @@ namespace Assets.Scripts.Concrete.Managers
                     break;
             }
         }
-
+        public void AddUnitToggle(bool on) { print(addUnitToggle.isOn); }
+        public void ClearUnits()
+        {
+            isClearUnits = true;
+        }
         public void IndexAssing(int index)
         {
             previewObj.GetComponent<BuildPreviewController>().index = index;
@@ -104,7 +107,6 @@ namespace Assets.Scripts.Concrete.Managers
         {
             this.valuePanel = valuePanel;
         }
-
         public void PreviewBuilding(GameObject previewObj)
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

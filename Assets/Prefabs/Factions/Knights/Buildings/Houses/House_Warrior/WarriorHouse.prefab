@@ -743,6 +743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactablePanel: {fileID: 437106437618686433}
   destructPanel: {fileID: 2186299061255786841}
+  holdTreshold: 0.2
   trainButton: {fileID: 8368860497137259240}
   upgradeButton: {fileID: 3446008430632542491}
   rebuildButton: {fileID: 7343471704246963001}
@@ -750,7 +751,6 @@ MonoBehaviour:
   upgrade: 0
   construct: {fileID: 0}
   upgradedBuilding: {fileID: 0}
-  currentKnightHouse: {fileID: 0}
   trainTimePanel: {fileID: 8048294403364199782}
 --- !u!114 &-725170031266009311
 MonoBehaviour:
@@ -777,6 +777,7 @@ MonoBehaviour:
   goblinHouseController: {fileID: 0}
   knightHouseController: {fileID: 0}
   elevationFloor: 0
+  currentHealth: 0
 --- !u!114 &1866785907170678175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,6 +802,10 @@ MonoBehaviour:
   destruct: 0
   unitValue: 0
   interactableObjUIController: {fileID: 0}
+  goblinNumber: 0
+  knightNumber: 0
+  onGroundKnightNumber: 0
+  fade: 0.5
 --- !u!114 &-1033764662110514726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1222,19 +1227,47 @@ PrefabInstance:
       value: -45
       objectReference: {fileID: 0}
     - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4846739352328880325}
     - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4846739352328880325}
+    - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DoubleClickForPanelVisibility
+      value: HoldForPanelVisibility
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HoldForPanelVisibility
       objectReference: {fileID: 0}
     - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Assets.Scripts.Concrete.Controllers.InteractableObjUIController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.InteractableObjUIController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4417848336599178726, guid: 1fc367118f0eba9428ff78945e583391, type: 3}

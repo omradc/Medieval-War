@@ -863,6 +863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactablePanel: {fileID: 4678468840752935872}
   destructPanel: {fileID: 6389165359503014776}
+  holdTreshold: 0.2
   trainButton: {fileID: 3664101791448561865}
   upgradeButton: {fileID: 7579282239575886650}
   rebuildButton: {fileID: 2527904746535543064}
@@ -870,7 +871,6 @@ MonoBehaviour:
   upgrade: 0
   construct: {fileID: 0}
   upgradedBuilding: {fileID: 0}
-  currentBuilding: {fileID: 0}
   trainTimePanel: {fileID: 2976002480129324871}
 --- !u!114 &-8989659889299153844
 MonoBehaviour:
@@ -922,6 +922,10 @@ MonoBehaviour:
   destruct: 0
   unitValue: 0
   interactableObjUIController: {fileID: 0}
+  goblinNumber: 0
+  knightNumber: 0
+  onGroundKnightNumber: 0
+  fade: 0.5
 --- !u!114 &-5046226798649763168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1287,19 +1291,47 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4081758665823746011}
     - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4081758665823746011}
+    - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DoubleClickForPanelVisibility
+      value: HoldForPanelVisibility
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HoldForPanelVisibility
       objectReference: {fileID: 0}
     - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Assets.Scripts.Concrete.Controllers.InteractableObjUIController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Controllers.InteractableObjUIController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299265139451010401, guid: 1fc367118f0eba9428ff78945e583391, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4910078423810504121, guid: 1fc367118f0eba9428ff78945e583391, type: 3}

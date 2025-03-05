@@ -726,6 +726,9 @@ MonoBehaviour:
   isTakeDamage: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
+  knightHouseController: {fileID: 0}
+  elevationFloor: 0
+  currentHealth: 0
 --- !u!114 &6589492766330503689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -740,6 +743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactablePanel: {fileID: 2685635233348694184}
   destructPanel: {fileID: 1764801255294110293}
+  holdTreshold: 0.2
   trainButton: {fileID: 0}
   upgradeButton: {fileID: 661655329498292381}
   rebuildButton: {fileID: 1248776925170995849}
@@ -772,6 +776,10 @@ MonoBehaviour:
   destruct: 0
   unitValue: 0
   interactableObjUIController: {fileID: 0}
+  goblinNumber: 0
+  knightNumber: 0
+  onGroundKnightNumber: 0
+  fade: 0.5
 --- !u!114 &5217879080310407544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,6 +793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 10
+  currentPriority: 0
   maxAttacker: 3
   attackingPersonNumber: 0
 --- !u!114 &103180076739388410
@@ -1208,7 +1217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -1227,8 +1236,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6589492766330503689}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6589492766330503689}
+    - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DoubleClickForPanelVisibility
+      value: HoldForPanelVisibility
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -1236,7 +1249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: InteractablePanelVisibility
+      value: HoldForPanelVisibility
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -1252,7 +1265,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Assets.Scripts.Concrete.Controllers.PanelController, Assembly-CSharp
+      value: Assets.Scripts.Concrete.Controllers.InteractableObjUIController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 95fd6414a896fc44da85bd3947ed93ba, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName

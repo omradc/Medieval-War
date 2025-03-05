@@ -54,7 +54,7 @@ namespace Assets.Scripts.Concrete.Managers
         private void Start()
         {
             ınteract = new Interact(this, interactableLayers);
-            ıInput = new PcInput();
+            ıInput = new MobileInput();
 
         }
         private void Update()
@@ -63,7 +63,7 @@ namespace Assets.Scripts.Concrete.Managers
             SelectMultiple();
             ClearSelectedObjs();
             GiveOrder();
-            if (ıInput.GetButtonDown0)
+            if (ıInput.GetButtonDown0())
             {
                 // mouse ile tıklanan obje ile etkileşime girilir
                 ınteract.InteractClickedObj();
@@ -109,7 +109,7 @@ namespace Assets.Scripts.Concrete.Managers
                     }
                 }
             }
-            if (ıInput.GetButtonUp0)
+            if (ıInput.GetButtonUp0())
             {
                 interactedObj = null;
                 interactedMine = null;
@@ -139,7 +139,7 @@ namespace Assets.Scripts.Concrete.Managers
         }
         public void SelectOneByOne()
         {
-            if (ıInput.GetButtonDown1)
+            if (ıInput.GetButtonDown0())
             {
                 // Ekran koordinatlarını dünya koordinatlarına çevir
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -165,12 +165,12 @@ namespace Assets.Scripts.Concrete.Managers
         }
         public void SelectMultiple()
         {
-            if (ıInput.GetButtonDown1)
+            if (ıInput.GetButtonDown0())
             {
                 startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             }
 
-            if (ıInput.GetButtonUp1)
+            if (ıInput.GetButtonUp0())
             {
                 endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Collider2D[] hits = Physics2D.OverlapAreaAll(startPos, endPos, unitLayer);
@@ -195,7 +195,7 @@ namespace Assets.Scripts.Concrete.Managers
         }
         void GiveOrder()
         {
-            if (ıInput.GetButtonDown0)
+            if (ıInput.GetButtonDown0())
             {
                 for (int i = 0; i < selectedUnits.Count; i++)
                 {
@@ -206,7 +206,7 @@ namespace Assets.Scripts.Concrete.Managers
         void ClearSelectedObjs()
         {
             // Bütün seçili birimleri siler
-            if (ıInput.GetKeyDownEscape)
+            if (UIManager.Instance.isClearUnits)
             {
                 for (int i = 0; i < selectedUnits.Count; i++)
                 {
@@ -215,11 +215,11 @@ namespace Assets.Scripts.Concrete.Managers
                 }
 
                 selectedUnits.Clear();
+                UIManager.Instance.isClearUnits = false;
             }
 
-
-            // Hareket emrinden önce çalışmamamsı 5 frame için bekletilir.
-            if (!ıInput.GetKeyLShift && ıInput.GetButtonDown0)
+            //Hareket emrinden önce çalışmamamsı 5 frame için bekletilir.
+            if (!UIManager.Instance.addUnitToggle.isOn && ıInput.GetButtonDown0())
                 clicked = true;
 
             if (clicked)
@@ -239,22 +239,22 @@ namespace Assets.Scripts.Concrete.Managers
                 time += Time.deltaTime;
             }
 
-            //// Sadece köylüleri siler
-            //if (ıInput.GetButtonDown0)
-            //{
-            //    int j = 0;
-            //    int selectedUnitsCount = selectedUnits.Count;
-            //    for (int i = 0; i < selectedUnitsCount; i++)
-            //    {
-            //        if (selectedUnits[j].GetComponent<KnightController>().troopType == TroopTypeEnum.Villager)
-            //        {
-            //            SelectedObjColor(1, selectedUnits[j]);
-            //            selectedUnits.RemoveAt(j);
-            //        }
-            //        else
-            //            j++;
-            //    }
-            //}
+            ////// Sadece köylüleri siler
+            ////if (ıInput.GetButtonDown0)
+            ////{
+            ////    int j = 0;
+            ////    int selectedUnitsCount = selectedUnits.Count;
+            ////    for (int i = 0; i < selectedUnitsCount; i++)
+            ////    {
+            ////        if (selectedUnits[j].GetComponent<KnightController>().troopType == TroopTypeEnum.Villager)
+            ////        {
+            ////            SelectedObjColor(1, selectedUnits[j]);
+            ////            selectedUnits.RemoveAt(j);
+            ////        }
+            ////        else
+            ////            j++;
+            ////    }
+            ////}
 
 
 

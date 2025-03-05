@@ -739,6 +739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactablePanel: {fileID: 713694371337608218}
   destructPanel: {fileID: 3809785112434550503}
+  holdTreshold: 0.2
   trainButton: {fileID: 0}
   upgradeButton: {fileID: 2705654298846350383}
   rebuildButton: {fileID: 4464841587431980603}
@@ -1507,8 +1508,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      propertyPath: m_Delegates.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
+      propertyPath: m_Delegates.Array.data[0].eventID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
+      propertyPath: m_Delegates.Array.data[1].eventID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -1527,8 +1548,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7651174370483823263}
     - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7651174370483823263}
+    - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DoubleClickForPanelVisibility
+      value: HoldForPanelVisibility
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -1536,7 +1565,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: InteractablePanelVisibility
+      value: HoldForPanelVisibility
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -1552,7 +1581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Assets.Scripts.Concrete.Controllers.PanelController, Assembly-CSharp
+      value: Assets.Scripts.Concrete.Controllers.InteractableObjUIController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7300648357987732740, guid: 0ec5684a89ad7594ea6746924423e7b7, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName

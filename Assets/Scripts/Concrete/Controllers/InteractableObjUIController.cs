@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Concrete.Managers;
+﻿using Assets.Scripts.Abstracts.Inputs;
+using Assets.Scripts.Concrete.Inputs;
+using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Names;
 using UnityEngine;
 
@@ -9,6 +11,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         public GameObject interactablePanel;
         public GameObject destructPanel;
+        public float holdTreshold = .2f;
 
         public ValueController trainButton;
         public ValueController upgradeButton;
@@ -23,15 +26,19 @@ namespace Assets.Scripts.Concrete.Controllers
         ObjNames names;
         float lastClickTime = 0f;
         float doubleClickThreshold = 0.3f;
-
+        IInput ınput;
+        float time;
+        bool hold;
         private void Awake()
         {
             names = new(gameObject.name);
+            ınput = new MobileInput();
             buildingController = GetComponent<BuildingController>();
         }
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0) && interactablePanel.activeSelf) // Etkileşim paneli açıksa ve ekrana tıklandıysa
+            HoldTimer();
+            if (ınput.GetButtonDown0() && interactablePanel.activeSelf) // Etkileşim paneli açıksa ve ekrana tıklandıysa
                 if (!InteractManager.Instance.CheckUIElements()) // uı elemanı yoksa 
                     interactablePanel.SetActive(false); // etkileşim panelini kapat
 
@@ -112,6 +119,13 @@ namespace Assets.Scripts.Concrete.Controllers
 
             lastClickTime = Time.time; // Tıklama zamanını güncelle
         }
+        public void HoldForPanelVisibility(bool value)
+        {
+            if (value)
+                hold = true;
+            else
+                hold = false;
+        }
         void PanelVisibility()
         {
             if (buildingController == null)
@@ -140,6 +154,22 @@ namespace Assets.Scripts.Concrete.Controllers
                 else
                     destructPanel.SetActive(true);
             }
+        }
+
+        void HoldTimer()
+        {
+            if (hold)
+            {
+                time += Time.deltaTime;
+                if (time >= holdTreshold)
+                {
+                    PanelVisibility();
+                    time = 0;
+                    hold = false;
+                }
+            }
+            else
+                time = 0;
         }
     }
 }
