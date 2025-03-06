@@ -9,7 +9,7 @@ namespace Assets.Scripts.Concrete.Inputs
         /// <summary>
         /// Dokunma başladı
         /// </summary>
-        public bool GetButtonDown0(int fingerNumber = 1)
+        public bool GetButtonDown0()
         {
             if (Input.touchCount == 1)
             {
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Concrete.Inputs
         /// <summary>
         /// Dokunma bitti
         /// </summary>
-        public bool GetButtonUp0(int fingerNumber = 1)
+        public bool GetButtonUp0()
         {
             if (Input.touchCount == 1)
             {
@@ -35,15 +35,38 @@ namespace Assets.Scripts.Concrete.Inputs
         /// <summary>
         /// Dokunma devam ediyor
         /// </summary>
-        public bool GetButton0(int fingerNumber = 1)
+        public bool GetButton0()
         {
             if (Input.touchCount == 1)
             {
                 touch = Input.GetTouch(0);
-                return Input.touchCount > 0;
+                return true;
             }
             else
                 return false;
+        }
+
+        public bool Pinch(out Touch touch0, out Touch touch1)
+        {
+            if (Input.touchCount == 2)
+            {
+                touch0 = Input.GetTouch(0);
+                touch1 = Input.GetTouch(1);
+                return true;
+            }
+            touch0 = default;  // Dokunma olmadığı için varsayılan değer
+            touch1 = default;
+            return false;
+        }
+        public bool DragMove(out Touch touch0, int fingerNumber = 0)
+        {
+            if (Input.touchCount == fingerNumber)
+            {
+                touch0 = Input.GetTouch(0);
+                return true;
+            }
+            touch0 = default;
+            return false;
         }
     }
 }
