@@ -6,9 +6,6 @@ namespace Assets.Scripts.Concrete.Inputs
     internal class MobileInput : IInput
     {
         Touch touch;
-        /// <summary>
-        /// Dokunma başladı
-        /// </summary>
         public bool GetButtonDown0()
         {
             if (Input.touchCount == 1)
@@ -19,9 +16,6 @@ namespace Assets.Scripts.Concrete.Inputs
             else
                 return false;
         }
-        /// <summary>
-        /// Dokunma bitti
-        /// </summary>
         public bool GetButtonUp0()
         {
             if (Input.touchCount == 1)
@@ -32,9 +26,6 @@ namespace Assets.Scripts.Concrete.Inputs
             else
                 return false;
         }
-        /// <summary>
-        /// Dokunma devam ediyor
-        /// </summary>
         public bool GetButton0()
         {
             if (Input.touchCount == 1)
@@ -45,7 +36,6 @@ namespace Assets.Scripts.Concrete.Inputs
             else
                 return false;
         }
-
         public bool Pinch(out Touch touch0, out Touch touch1)
         {
             if (Input.touchCount == 2)
