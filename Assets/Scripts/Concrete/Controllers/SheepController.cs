@@ -140,7 +140,7 @@ namespace Assets.Scripts.Concrete.Controllers
                     pF.MoveAI(sheepPoint.position, 0);
                 }
                 // Çit içinde
-                if (Vector2.Distance(transform.position, sheepPoint.position) < 0.1f && pF.isStoping)
+                if (Vector2.Distance(transform.position, sheepPoint.position) < 0.1f && pF.isStopping)
                 {
                     goFence = false;
                     inFence = true;
@@ -214,7 +214,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 pF.MoveAI(targetPoint, 0);
             }
 
-            if (pF.isStoping)
+            if (pF.isStopping)
             {
                 time++;
                 if (time >= waitingTime)
@@ -240,7 +240,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 AnimationManager.Instance.HappyAnim(animator);
                 return;
             }
-            if (pF.isStoping) // Koyun durur
+            if (pF.isStopping) // Koyun durur
                 AnimationManager.Instance.IdleAnim(animator);
             else // Koyun hareket eder
                 AnimationManager.Instance.HappyAnim(animator);

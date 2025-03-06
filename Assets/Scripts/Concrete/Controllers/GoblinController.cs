@@ -205,7 +205,7 @@ namespace Assets.Scripts.Concrete.Controllers
         void AITurnDirection()
         {
             // Hedefte düşman varsa ve durduysan, hedefe yönel.
-            if (goblinAI.target != null && pF.isStoping)
+            if (goblinAI.target != null && pF.isStopping)
             {
                 if (factionType == FactionTypeEnum.Tnt || factionType == FactionTypeEnum.Barrel)
                     direction.Turn2DirectionWithPos(goblinAI.nearestAttackPoint.position.x);

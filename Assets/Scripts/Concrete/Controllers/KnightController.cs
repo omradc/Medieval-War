@@ -22,6 +22,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public SpriteRenderer visual;
 
         [HideInInspector] public int damage;
+        [HideInInspector] public float moveSpeed;
         [HideInInspector] public int towerPosIndex;
         [HideInInspector] public float attackRange;
         [HideInInspector] public float currentAttackRange;
@@ -53,7 +54,6 @@ namespace Assets.Scripts.Concrete.Controllers
         ArcherStats archerStats;
         VillagerStats villagerStats;
         HealthController healthController;
-        float moveSpeed = 1f;
         float attackInterval;
         float attackSpeed;
         float time;
@@ -82,9 +82,9 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Start()
         {
             PowerStatsAssign();
+            pF.agent.speed = moveSpeed;
             currentSightRange = sightRange;
             currentAttackRange = attackRange;
-            pF.agent.speed = moveSpeed;
             time = attackInterval;
             animationEventController.ResetAttackEvent += ResetAttack;
             // Invoke
@@ -194,7 +194,7 @@ namespace Assets.Scripts.Concrete.Controllers
         void AITurnDirection()
         {
             // Durduysan, hedefe yönel.
-            if (pF.isStoping)
+            if (pF.isStopping)
             {
                 // Hedefte düþman varsa;
                 if (knightAI.target != null)

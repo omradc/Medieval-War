@@ -168,7 +168,6 @@ namespace Assets.Scripts.Concrete.Controllers
         #endregion
         float SetSpeedByZoom(float speed)
         {
-            print(cam.orthographicSize * speed);
             return cam.orthographicSize * speed;
         }
     }

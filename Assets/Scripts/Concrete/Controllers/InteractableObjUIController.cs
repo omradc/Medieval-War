@@ -136,7 +136,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
             if (!buildingController.destruct) // Bina yıkılmadıysa
             {
-                if (buildingController.isFull || InteractManager.Instance.selectedUnits.Count > 0)  // üzerinde birim varsa, yıkıldıysa veya 1 birim seçili ise panelleri kapat
+                if (buildingController.isFull || InteractManager.Instance.selectedKnights.Count > 0)  // üzerinde birim varsa, yıkıldıysa veya 1 birim seçili ise panelleri kapat
                     interactablePanel.SetActive(false);
                 else
                     interactablePanel.SetActive(true);
@@ -144,7 +144,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
             if (buildingController.destruct) // Bina yıkıldıysa
             {
-                if (InteractManager.Instance.selectedUnits.Count > 0) // 1 birim seçili ise panelleri kapat
+                if (InteractManager.Instance.selectedKnights.Count > 0) // 1 birim seçili ise panelleri kapat
                     destructPanel.SetActive(false);
                 else if (gameObject.TryGetComponent(out ConstructController constructController))
                 {

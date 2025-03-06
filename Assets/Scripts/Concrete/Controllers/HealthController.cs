@@ -57,7 +57,7 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 // oyucu birimi ise, seçili birimlerden kaldır
                 if (gameObject.layer == 6)
-                    InteractManager.Instance.selectedUnits.Remove(gameObject);
+                    InteractManager.Instance.selectedKnights.Remove(gameObject);
                 fillImage.fillAmount = 0;
                 Dead();
             }

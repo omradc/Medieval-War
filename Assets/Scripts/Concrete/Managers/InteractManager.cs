@@ -27,9 +27,8 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject interactedRepo;
         IInput ıInput;
         Interact ınteract;
-
-        public List<GameObject> selectedUnits;
-
+        public List<GameObject> selectedKnights;
+        public List<GameObject> tempSelectedKnights;
         GameObject currentUnit;
         Vector2 startPos;
         Vector2 endPos;
@@ -137,32 +136,32 @@ namespace Assets.Scripts.Concrete.Managers
 
             return results.Count > 0;
         }
-        public void SelectOneByOne()
-        {
-            if (ıInput.GetButtonDown0())
-            {
-                // Ekran koordinatlarını dünya koordinatlarına çevir
-                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                RaycastHit2D hit = Physics2D.Raycast(worldPosition, Vector2.zero, 1, unitLayer);
-                if (hit.collider != null)
-                {
-                    currentUnit = hit.collider.gameObject;
-                    KnightController kC = currentUnit.GetComponent<KnightController>();
-                    kC.unitOrderEnum = KnightManager.Instance.unitOrderEnum;
-                    kC.workOnce = true;
-                    kC.followingObj = null;
-                    kC.isSeleceted = true;
+        //public void SelectOneByOne()
+        //{
+        //    if (ıInput.GetButtonDown0())
+        //    {
+        //        // Ekran koordinatlarını dünya koordinatlarına çevir
+        //        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //        RaycastHit2D hit = Physics2D.Raycast(worldPosition, Vector2.zero, 1, unitLayer);
+        //        if (hit.collider != null)
+        //        {
+        //            currentUnit = hit.collider.gameObject;
+        //            KnightController kC = currentUnit.GetComponent<KnightController>();
+        //            kC.unitOrderEnum = KnightManager.Instance.unitOrderEnum;
+        //            kC.workOnce = true;
+        //            kC.followingObj = null;
+        //            kC.isSeleceted = true;
 
-                    // Aynı birimi tekrar diziye atma
-                    if (!selectedUnits.Contains(currentUnit))
-                        selectedUnits.Add(currentUnit);
+        //            // Aynı birimi tekrar diziye atma
+        //            if (!selectedKnights.Contains(currentUnit))
+        //                selectedKnights.Add(currentUnit);
 
-                    // Seçili birimi vurgula
-                    SelectedObjColor(0.5f, currentUnit);
+        //            // Seçili birimi vurgula
+        //            SelectedObjColor(0.5f, currentUnit);
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
         public void SelectMultiple()
         {
             if (ıInput.GetButtonDown0())
@@ -179,9 +178,12 @@ namespace Assets.Scripts.Concrete.Managers
                     currentUnit = hits[i].gameObject;
 
                     // Aynı nesneyi tekrar diziye atma
-                    if (!selectedUnits.Contains(currentUnit))
-                        selectedUnits.Add(currentUnit);
-                    KnightController uC = selectedUnits[i].GetComponent<KnightController>();
+                    if (!selectedKnights.Contains(currentUnit))
+                    {
+                        selectedKnights.Add(currentUnit);
+                        tempSelectedKnights.Add(currentUnit);
+                    }
+                    KnightController uC = selectedKnights[i].GetComponent<KnightController>();
                     uC.unitOrderEnum = KnightManager.Instance.unitOrderEnum;
                     uC.workOnce = true;
                     uC.followingObj = null;
@@ -197,9 +199,9 @@ namespace Assets.Scripts.Concrete.Managers
         {
             if (ıInput.GetButtonDown0())
             {
-                for (int i = 0; i < selectedUnits.Count; i++)
+                for (int i = 0; i < selectedKnights.Count; i++)
                 {
-                    selectedUnits[i].GetComponent<KnightController>().unitOrderEnum = KnightManager.Instance.unitOrderEnum;
+                    selectedKnights[i].GetComponent<KnightController>().unitOrderEnum = KnightManager.Instance.unitOrderEnum;
                 }
             }
         }
@@ -208,13 +210,13 @@ namespace Assets.Scripts.Concrete.Managers
             // Bütün seçili birimleri siler
             if (UIManager.Instance.isClearUnits)
             {
-                for (int i = 0; i < selectedUnits.Count; i++)
+                for (int i = 0; i < selectedKnights.Count; i++)
                 {
-                    SelectedObjColor(1, selectedUnits[i]);
-                    selectedUnits[i].GetComponent<KnightController>().isSeleceted = false;
+                    SelectedObjColor(1, selectedKnights[i]);
+                    selectedKnights[i].GetComponent<KnightController>().isSeleceted = false;
                 }
 
-                selectedUnits.Clear();
+                selectedKnights.Clear();
                 UIManager.Instance.isClearUnits = false;
             }
 
@@ -226,13 +228,13 @@ namespace Assets.Scripts.Concrete.Managers
             {
                 if (time > Time.deltaTime * 5) // 5 Frame bekle
                 {
-                    for (int i = 0; i < selectedUnits.Count; i++)
+                    for (int i = 0; i < selectedKnights.Count; i++)
                     {
-                        SelectedObjColor(1, selectedUnits[i]);
-                        selectedUnits[i].GetComponent<KnightController>().isSeleceted = false;
+                        SelectedObjColor(1, selectedKnights[i]);
+                        selectedKnights[i].GetComponent<KnightController>().isSeleceted = false;
                     }
 
-                    selectedUnits.Clear();
+                    selectedKnights.Clear();
                     time = 0;
                     clicked = false;
                 }

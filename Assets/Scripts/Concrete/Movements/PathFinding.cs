@@ -7,7 +7,7 @@ namespace Assets.Scripts.Concrete.Movements
 {
     public class PathFinding : MonoBehaviour
     {
-        [HideInInspector] public bool isStoping;
+        [HideInInspector] public bool isStopping;
         [HideInInspector] public bool isMovementStopping;
         [HideInInspector] public bool isUserControl;
         [HideInInspector] public NavMeshAgent agent;
@@ -29,7 +29,7 @@ namespace Assets.Scripts.Concrete.Movements
         }
         void Start()
         {
-            isStoping = true;
+            isStopping = true;
             agent.updateRotation = false;
             agent.updateUpAxis = false;
             worldCenterPos = new Vector2(0, -2);
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Concrete.Movements
         {
             // Pozisyon verilmediyse veya etkilleşimli bir objeye tıklandıysa çalışma
             if (mousePos == null || InteractManager.Instance.interactedObj != null) return;
-            print("Move");
+            //print("Move");
             lastMousePos = mousePos;
             agent.stoppingDistance = stoppingDistance;
             agent.SetDestination(mousePos);
@@ -77,10 +77,10 @@ namespace Assets.Scripts.Concrete.Movements
         {
             // Durma kontrolü
             if (agent.hasPath && agent.velocity.magnitude > 0.01f)
-                isStoping = false;
+                isStopping = false;
             else
             {
-                isStoping = true;
+                isStopping = true;
                 if (time > Time.deltaTime * 5) // 5 Frame bekle
                 {
                     time = 0;

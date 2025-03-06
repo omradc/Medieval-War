@@ -131,7 +131,7 @@ namespace Assets.Scripts.Concrete.AI
                 pF.MoveAI(targetPoint, 0);
             }
 
-            if (pF.isStoping)
+            if (pF.isStopping)
             {
                 time++;
 
@@ -154,7 +154,7 @@ namespace Assets.Scripts.Concrete.AI
                 pF.MoveAI(targetPoint, 0);
             }
 
-            if (pF.isStoping)
+            if (pF.isStopping)
             {
                 time++;
 
@@ -182,7 +182,7 @@ namespace Assets.Scripts.Concrete.AI
             }
 
             // Devriye naktasına ulaşıldı
-            if (pF.isStoping)
+            if (pF.isStopping)
                 patrol = true;
         }
         void AttackOrder()

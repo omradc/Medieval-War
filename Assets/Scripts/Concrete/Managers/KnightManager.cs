@@ -1,8 +1,8 @@
 ﻿using Assets.Scripts.Abstracts.Inputs;
-using Assets.Scripts.Abstracts.Movements;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Movements;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Managers
@@ -13,16 +13,24 @@ namespace Assets.Scripts.Concrete.Managers
         [Header("Units")]
         public KnightFormation troopFormation;
         public float distanceBetweenUnits;
-
+        [SerializeField] float optimumSendKnight = 0.1f;
         [Header("Setups")]
         public KnightOrderEnum unitOrderEnum;
-        IMove ıMove;
+        Move move;
         IInput ıInput;
+        bool canMove;
+        bool workOnce;
+
         private void Awake()
         {
             Singelton();
-            ıMove = new Move();
+            move = new();
             ıInput = new PcInput();
+        }
+
+        private void Start()
+        {
+            InvokeRepeating(nameof(OptimumSendKnights), 0, optimumSendKnight);
         }
         void Singelton()
         {
@@ -33,15 +41,34 @@ namespace Assets.Scripts.Concrete.Managers
             else
                 Destroy(this);
         }
-
         private void Update()
         {
-            if (ıInput.GetButtonDown0())
+            if (ıInput.GetButton0())
             {
                 if (!InteractManager.Instance.CheckUIElements())
-                    ıMove.MoveCommand();
+                {
+                    move.SendTheLeader();
+                    canMove = true;
+                    workOnce = true;
+                }
             }
 
+        }
+
+        void OptimumSendKnights()
+        {
+            bool reached = move.LeaderReachTheTarget();
+            if (canMove)   //Hareket edebiliyorsa 
+                move.DynamicStayLineFormation(distanceBetweenUnits);
+            if (!canMove && workOnce)  //Hareket edemiyorsa
+            {
+                move.StayLineFormation(distanceBetweenUnits);
+                workOnce = false;
+            }
+            if (!reached)
+                canMove = true;
+            else
+                canMove = false;
         }
     }
 }

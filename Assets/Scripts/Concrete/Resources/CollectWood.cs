@@ -76,7 +76,7 @@ namespace Assets.Scripts.Concrete.Resources
                 }
 
                 // Ağacı Kes
-                if (Vector2.Distance(pawnController.transform.position, pawnController.treeChopPos) < .1f && pF.isStoping)
+                if (Vector2.Distance(pawnController.transform.position, pawnController.treeChopPos) < .1f && pF.isStopping)
                 {
                     AnimationManager.Instance.ChopTreeAnim(pawnController.animator, pawnController.chopSpeed);
                 }
