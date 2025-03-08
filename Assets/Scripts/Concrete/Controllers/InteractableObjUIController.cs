@@ -32,7 +32,7 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Awake()
         {
             names = new(gameObject.name);
-            ınput = new MobileInput();
+            ınput = new PcInput();
             buildingController = GetComponent<BuildingController>();
         }
         private void Update()

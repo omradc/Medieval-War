@@ -107,6 +107,7 @@ namespace Assets.Scripts.Concrete.Movements
                 transform.localScale = rightDirection;
             }
         }
+
         public void Turn8Direction(Vector2 target)
         {
             Vector2 direction = target - (Vector2)transform.position;

@@ -49,8 +49,8 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void Update()
         {
-            //PCControl();
-            MobileControl();
+            PCControl();
+            //MobileControl();
         }
 
         #region Mobile

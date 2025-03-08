@@ -53,7 +53,7 @@ namespace Assets.Scripts.Concrete.Managers
         private void Start()
         {
             ınteract = new Interact(this, interactableLayers);
-            ıInput = new MobileInput();
+            ıInput = new PcInput();
 
         }
         private void Update()
@@ -164,12 +164,14 @@ namespace Assets.Scripts.Concrete.Managers
         //}
         public void SelectMultiple()
         {
-            if (ıInput.GetButtonDown0())
+            //if (ıInput.GetButtonDown0())
+            if (Input.GetMouseButtonDown(1))
             {
                 startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             }
 
-            if (ıInput.GetButtonUp0())
+            //if (ıInput.GetButtonUp0())
+            if (Input.GetMouseButtonUp(1))
             {
                 endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Collider2D[] hits = Physics2D.OverlapAreaAll(startPos, endPos, unitLayer);

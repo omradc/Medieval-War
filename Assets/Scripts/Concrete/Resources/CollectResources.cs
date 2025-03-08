@@ -15,7 +15,7 @@ namespace Assets.Scripts.Concrete.Resources
         IInput ınput;
         public CollectResources(PawnController pawnController, PathFinding pF)
         {
-            new MobileInput();
+            new PcInput();
             this.pawnController = pawnController;
             this.pF = pF;
         }

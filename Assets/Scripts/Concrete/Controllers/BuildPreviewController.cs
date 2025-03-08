@@ -40,7 +40,7 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Awake()
         {
             names = new(gameObject.name);
-            ınput = new MobileInput();
+            ınput = new PcInput();
             coll = GetComponent<BoxCollider2D>();
             wallsPos = new List<Vector3>();
         }

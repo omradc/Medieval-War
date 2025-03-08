@@ -12,7 +12,7 @@ namespace Assets.Scripts.Concrete.Managers
         public static KnightManager Instance { get; private set; }
         [Header("Units")]
         public KnightFormation troopFormation;
-        public float distanceBetweenUnits;
+        public float distance;
         [SerializeField] float optimumSendKnight = 0.1f;
         [Header("Setups")]
         public KnightOrderEnum unitOrderEnum;
@@ -30,6 +30,7 @@ namespace Assets.Scripts.Concrete.Managers
 
         private void Start()
         {
+
             InvokeRepeating(nameof(OptimumSendKnights), 0, optimumSendKnight);
         }
         void Singelton()
@@ -47,7 +48,7 @@ namespace Assets.Scripts.Concrete.Managers
             {
                 if (!InteractManager.Instance.CheckUIElements())
                 {
-                    move.SendTheLeader();
+                    move.SetMousePos();
                     canMove = true;
                     workOnce = true;
                 }
@@ -59,10 +60,10 @@ namespace Assets.Scripts.Concrete.Managers
         {
             bool reached = move.LeaderReachTheTarget();
             if (canMove)   //Hareket edebiliyorsa 
-                move.DynamicStayLineFormation(distanceBetweenUnits);
+                move.LineFormation(distance,true); // dinamik çalışır
             if (!canMove && workOnce)  //Hareket edemiyorsa
             {
-                move.StayLineFormation(distanceBetweenUnits);
+                move.LineFormation(distance,false); // 1 kez çalışır
                 workOnce = false;
             }
             if (!reached)

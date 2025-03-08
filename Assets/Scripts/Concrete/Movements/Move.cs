@@ -2,17 +2,18 @@
 using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Managers;
 using JetBrains.Annotations;
+using System.Collections.Generic;
+using System.Data;
+using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 namespace Assets.Scripts.Concrete.Movements
 {
     internal class Move
     {
-        Vector2 leaderPos;
-        GameObject leader;
-        float leaderDistance;
-        
+
         public void MoveCommand()
         {
             //HorizontalLineFormation(KnightManager.Instance.troopFormation == KnightFormation.HorizontalLineFormation, KnightManager.Instance.distanceBetweenUnits);
@@ -24,101 +25,140 @@ namespace Assets.Scripts.Concrete.Movements
             //DownTriangleFormation(KnightManager.Instance.troopFormation == KnightFormation.DownTriangleFormation, KnightManager.Instance.distanceBetweenUnits);
             //RightCurveFormation(KnightManager.Instance.troopFormation == KnightFormation.RightCurveFormation, KnightManager.Instance.distanceBetweenUnits);
         }
-        public void SendTheLeader()
+        Vector2 mousePos;
+        public void SetMousePos()
         {
-            if (InteractManager.Instance.selectedKnights.Count > 0)
-            {
-                Debug.Log("Send Leader");
-                leader = InteractManager.Instance.selectedKnights[0];
-                PathFinding pF = leader.GetComponent<PathFinding>();
-                leaderPos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Hedef konum
-                pF.Move(leaderPos, 0);
-            }
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Hedef konum
         }
-        public void DynamicStayLineFormation(float distance)
+
+        GameObject leader;
+        public void LineFormation(float distance, bool dynamic)
         {
+            Vector2 targetPos;
             int knightCount = InteractManager.Instance.selectedKnights.Count;
-            if (knightCount > 1)
+            float xPos = distance;
+            if (knightCount > 0)
             {
                 Debug.Log("Dynamic Stay Line Formation");
-                for (int i = 1; i < knightCount; i++)
+                for (int i = 0; i < knightCount; i++)
                 {
                     GameObject knight = InteractManager.Instance.selectedKnights[i];
                     PathFinding pF = knight.GetComponent<PathFinding>();
 
-                    // Önceki birimin hedef konumu
-                    Vector2 previousTarget = InteractManager.Instance.selectedKnights[i - 1].transform.position;
-                    // Çizgi formasyonu için yeni hedef pozisyonu hesapla
-                    Vector2 targetPos = previousTarget + new Vector2(distance, 0);
+                    if (i == 0) // Leader
+                    {
+                        leader = knight;
+                        targetPos = mousePos;
+                    }
+                    else // Followers
+                    {
+                        if (dynamic)
+                        {
+                            Vector2 trackedKnightPos;
+                            if (i == 1 || i == 2)
+                                trackedKnightPos = InteractManager.Instance.selectedKnights[0].transform.position;
+                            else
+                                trackedKnightPos = InteractManager.Instance.selectedKnights[i - 2].transform.position;
 
-                    if ((previousTarget - (Vector2)knight.transform.position).magnitude > distance) // Hedefle arasındaki mesafe açılırsa hareket et
-                        pF.Move(targetPos, 0);
-                }
-            }
-        }
-        public void StayLineFormation(float distance)
-        {
-            float xPos = 0;
-            int knightCount = InteractManager.Instance.selectedKnights.Count;
-            if (knightCount > 1)
-            {
-                Debug.Log("Stay Line Formation");
-                for (int i = 1; i < knightCount; i++)
-                {
-                    GameObject knight = InteractManager.Instance.selectedKnights[i];
-                    PathFinding pF = knight.GetComponent<PathFinding>();
+                            targetPos = trackedKnightPos + new Vector2(SetDistanceForMoving(pF, i, distance, .5f) * CalcDirValue(i), 0); // Çizgi formasyonu için yeni hedef pozisyonu hesapla
 
-                    xPos += distance;
-                    // Çizgi formasyonu için yeni hedef pozisyonu hesapla
-                    Vector2 targetPos = leaderPos + new Vector2(xPos, 0);
+                        }
+                        else
+                        {
+                            targetPos = mousePos + new Vector2(xPos * CalcDirValue(i), 0); // Çizgi formasyonu için yeni hedef pozisyonu hesapla
+                            if (i % 2 == 0)
+                                xPos += distance;
+                        }
+                    }
                     pF.Move(targetPos, 0);
                 }
             }
         }
-        public bool LeaderReachTheTarget()
+        int CalcDirValue(int i)
         {
-            if (leader != null)
+            int dirValue;
+            if (i == 1)
+                dirValue = 1;
+            else if (i == 2)
+                dirValue = -1;
+            else if (i % 2 == 0)
+                dirValue = -1;
+            else
+                dirValue = 1;
+            return dirValue;
+        }
+        float SetDistanceForMoving(PathFinding pF, int i, float distance, float addDistance)
+        {
+            bool isDouble = i % 2 == 0;
+            int dir = CalculateDirections(leader.transform, mousePos);
+            switch (dir)
             {
-                leaderDistance = ((Vector2)leader.transform.position - leaderPos).magnitude;
-                if (leaderDistance < 0.1f)
-                    leaderDistance = 0;
+                case 0: //sol
+                    if (isDouble)
+                        return distance + addDistance;
+                    else
+                        return distance;
+
+                case 1: //yukarı
+                    return distance;
+
+                case 2: //sağ
+                    if (isDouble)
+                        return distance;
+                    else
+                        return distance + addDistance;
+
+                default: //aşağı
+                    return distance;
+            }
+        }
+        int CalculateDirections(Transform transform, Vector2 target)
+        {
+            Vector2 direction = target - (Vector2)transform.position;
+
+            // Açı hesapla (radyan cinsinden)
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            // Açıyı -180 ile 180 arasına çeker
+            angle = (angle + 360) % 360;
+
+            //Left
+            if (angle >= 135 && angle <= 225)
+            {
+                return 0;
             }
 
-            if (leaderDistance == 0f)
-                return true;
+            //Up
+            else if (angle >= 45 && angle <= 135)
+            {
+                return 1;
+            }
+
+            //Down
+            else if (angle >= 225 && angle <= 315)
+            {
+                return 3;
+            }
+
+            //Right
+            //if (angle < 45 && angle > 315) Impossible :D
             else
+            {
+                return 2;
+            }
+        }
+        public bool LeaderReachTheTarget()
+        {
+            float leaderDistance = 1;
+            if (leader != null)
+            {
+                leaderDistance = ((Vector2)leader.transform.position - mousePos).magnitude;
+                if (leaderDistance < 0.1f)
+                    return true;
+            }
                 return false;
 
         }
-        //public void StayFormation(float distance)
-        //{
-        //    Debug.Log("Stay Formation");
-
-        //    if (InteractManager.Instance.selectedKnights.Count == 0)
-        //        return; // Eğer hiç birlik seçili değilse çık.
-
-        //    PathFinding pF;
-        //    Vector2 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        //    for (int i = 0; i < InteractManager.Instance.selectedKnights.Count; i++)
-        //    {
-        //        GameObject selectedKnight = InteractManager.Instance.selectedKnights[i];
-        //        pF = selectedKnight.GetComponent<PathFinding>();
-
-        //        if (i == 0) // Lider birim hedef pozisyona gider.
-        //        {
-        //            pF.Move(targetPosition, 0);
-        //        }
-        //        else // Diğerleri bir önceki birimi takip eder.
-        //        {
-        //            GameObject previousKnight = InteractManager.Instance.selectedKnights[i - 1]; // Önceki birimi al
-        //            Vector2 followPosition = previousKnight.transform.position /*- (previousKnight.transform.up * distance)*/; // Önündeki birimin arkasına geç
-
-        //            pF.Move(followPosition, distance);
-        //        }
-        //    }
-        //}
-
 
         //public void HorizontalLineFormation(bool horizontalLineFormation, float distance)
         //{
