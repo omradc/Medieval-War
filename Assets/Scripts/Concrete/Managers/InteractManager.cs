@@ -59,6 +59,10 @@ namespace Assets.Scripts.Concrete.Managers
             ıInput = new PcInput();
 
         }
+        bool workOnce0;
+        bool workOnce1;
+        bool workOnce2;
+        bool workOnce3;
         private void Update()
         {
             //SelectOneByOne();
@@ -124,10 +128,16 @@ namespace Assets.Scripts.Concrete.Managers
                 interactedRepo = null;
             }
 
-            if (workOnce)
-            {
-                KnightManager.Instance.move.ClearTemp(ref workOnce);
-            }
+            // metotlar workOnce referansını alırlar, her biri işi bitince workOnce ı false yapar
+            if (workOnce0)
+                KnightManager.Instance.move.ClearTemp(ref workOnce0, tempKnights0);
+            if (workOnce1)
+                KnightManager.Instance.move.ClearTemp(ref workOnce1, tempKnights1);
+            if (workOnce2)
+                KnightManager.Instance.move.ClearTemp(ref workOnce2, tempKnights2);
+            if (workOnce3)
+                KnightManager.Instance.move.ClearTemp(ref workOnce3, tempKnights3);
+
         }
 
         public bool CheckUIElements() // Tıklanan yerde UI elemanı olup olmadığını sorgular. Sadece 1 kez kullan
@@ -214,13 +224,15 @@ namespace Assets.Scripts.Concrete.Managers
                 }
             }
         }
-        bool workOnce;
         void ClearSelectedObjs()
         {
             // Bütün seçili birimleri siler
             if (UIManager.Instance.isClearUnits)
             {
-                workOnce = true;
+                workOnce0 = true;
+                workOnce1 = true;
+                workOnce2 = true;
+                workOnce3 = true;
                 for (int i = 0; i < selectedKnights.Count; i++)
                 {
                     SelectedObjColor(1, selectedKnights[i]);
@@ -267,9 +279,6 @@ namespace Assets.Scripts.Concrete.Managers
             //            j++;
             //    }
             //}
-
-
-
         }
         public void SelectedObjColor(float alphaValue, GameObject obj)
         {
@@ -297,7 +306,7 @@ namespace Assets.Scripts.Concrete.Managers
         {
             for (int i = 0; i < selectedKnights.Count; i++)
             {
-                if (IsContains(selectedKnights[i])) return;
+                if (IsContains(selectedKnights[i])) break;
                 switch (listNumber)
                 {
                     case 0:
