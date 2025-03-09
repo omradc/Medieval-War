@@ -63,7 +63,7 @@ namespace Assets.Scripts.Concrete.Movements
         }
         void SetDirection()
         {
-            if (agent.hasPath && agent.velocity.magnitude > 0.05f)
+            if (agent.velocity.magnitude > 0.05f)
                 isMovementStopping = false;
 
             else

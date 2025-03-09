@@ -2,7 +2,6 @@
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Movements;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Managers
@@ -16,10 +15,10 @@ namespace Assets.Scripts.Concrete.Managers
         [SerializeField] float optimumSendKnight = 0.1f;
         [Header("Setups")]
         public KnightOrderEnum unitOrderEnum;
-        Move move;
+        public Move move;
         IInput ıInput;
-        bool canMove;
-        bool workOnce;
+        public bool canMove;
+        public bool workOnce;
 
         private void Awake()
         {
@@ -30,7 +29,7 @@ namespace Assets.Scripts.Concrete.Managers
 
         private void Start()
         {
-
+            canMove = false;
             InvokeRepeating(nameof(OptimumSendKnights), 0, optimumSendKnight);
         }
         void Singelton()
@@ -44,32 +43,36 @@ namespace Assets.Scripts.Concrete.Managers
         }
         private void Update()
         {
+
+            if (UIManager.Instance.isClearUnits)
+            {
+                Debug.Log("Ok");
+            }
             if (ıInput.GetButton0())
             {
-                if (!InteractManager.Instance.CheckUIElements())
+                if (!InteractManager.Instance.CheckUIElements() && InteractManager.Instance.tempKnights0.Count > 0)
                 {
                     move.SetMousePos();
+                    move.LineFormation(distance, false);
                     canMove = true;
                     workOnce = true;
                 }
             }
-
         }
 
         void OptimumSendKnights()
         {
-            bool reached = move.LeaderReachTheTarget();
-            if (canMove)   //Hareket edebiliyorsa 
-                move.LineFormation(distance,true); // dinamik çalışır
-            if (!canMove && workOnce)  //Hareket edemiyorsa
+            bool reached = move.LeaderReachTheTarget(distance);
+            if (canMove)   //Hareket emri; dokunma ile etkinleşir, liderin hedefe ulaşması ile sona erer 
+                move.LineFormation(distance, false); // dinamik çalışır
+            if (!canMove && workOnce && UIManager.Instance.addUnitToggle.isOn)
             {
-                move.LineFormation(distance,false); // 1 kez çalışır
+                move.LineFormation(distance, true); // son kez çalışır
                 workOnce = false;
             }
-            if (!reached)
-                canMove = true;
-            else
+            if (reached)
                 canMove = false;
+
         }
     }
 }

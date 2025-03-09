@@ -28,14 +28,17 @@ namespace Assets.Scripts.Concrete.Managers
         IInput ıInput;
         Interact ınteract;
         public List<GameObject> selectedKnights;
-        public List<GameObject> tempSelectedKnights;
+        public List<GameObject> tempKnights0;
+        public List<GameObject> tempKnights1;
+        public List<GameObject> tempKnights2;
+        public List<GameObject> tempKnights3;
         GameObject currentUnit;
         Vector2 startPos;
         Vector2 endPos;
         float time;
         bool clicked;
         bool openCloseDoor;
-
+        int listNumber;
         private void Awake()
         {
             Singelton();
@@ -121,7 +124,10 @@ namespace Assets.Scripts.Concrete.Managers
                 interactedRepo = null;
             }
 
-
+            if (workOnce)
+            {
+                KnightManager.Instance.move.ClearTemp(ref workOnce);
+            }
         }
 
         public bool CheckUIElements() // Tıklanan yerde UI elemanı olup olmadığını sorgular. Sadece 1 kez kullan
@@ -168,6 +174,7 @@ namespace Assets.Scripts.Concrete.Managers
             if (Input.GetMouseButtonDown(1))
             {
                 startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                SelectEmptyTempList();
             }
 
             //if (ıInput.GetButtonUp0())
@@ -181,15 +188,14 @@ namespace Assets.Scripts.Concrete.Managers
 
                     // Aynı nesneyi tekrar diziye atma
                     if (!selectedKnights.Contains(currentUnit))
-                    {
                         selectedKnights.Add(currentUnit);
-                        tempSelectedKnights.Add(currentUnit);
-                    }
-                    KnightController uC = selectedKnights[i].GetComponent<KnightController>();
-                    uC.unitOrderEnum = KnightManager.Instance.unitOrderEnum;
-                    uC.workOnce = true;
-                    uC.followingObj = null;
-                    uC.isSeleceted = true;
+                    //if (!tempKnights0.Contains(currentUnit))
+                    //    tempKnights0.Add(currentUnit);
+                    KnightController kC = selectedKnights[i].GetComponent<KnightController>();
+                    kC.unitOrderEnum = KnightManager.Instance.unitOrderEnum;
+                    kC.workOnce = true;
+                    kC.followingObj = null;
+                    kC.isSeleceted = true;
 
                     // Seçili birimi vurgula
                     SelectedObjColor(0.5f, currentUnit);
@@ -201,17 +207,20 @@ namespace Assets.Scripts.Concrete.Managers
         {
             if (ıInput.GetButtonDown0())
             {
+                SetEmptyTempList();
                 for (int i = 0; i < selectedKnights.Count; i++)
                 {
                     selectedKnights[i].GetComponent<KnightController>().unitOrderEnum = KnightManager.Instance.unitOrderEnum;
                 }
             }
         }
+        bool workOnce;
         void ClearSelectedObjs()
         {
             // Bütün seçili birimleri siler
             if (UIManager.Instance.isClearUnits)
             {
+                workOnce = true;
                 for (int i = 0; i < selectedKnights.Count; i++)
                 {
                     SelectedObjColor(1, selectedKnights[i]);
@@ -235,7 +244,6 @@ namespace Assets.Scripts.Concrete.Managers
                         SelectedObjColor(1, selectedKnights[i]);
                         selectedKnights[i].GetComponent<KnightController>().isSeleceted = false;
                     }
-
                     selectedKnights.Clear();
                     time = 0;
                     clicked = false;
@@ -243,22 +251,22 @@ namespace Assets.Scripts.Concrete.Managers
                 time += Time.deltaTime;
             }
 
-            ////// Sadece köylüleri siler
-            ////if (ıInput.GetButtonDown0)
-            ////{
-            ////    int j = 0;
-            ////    int selectedUnitsCount = selectedUnits.Count;
-            ////    for (int i = 0; i < selectedUnitsCount; i++)
-            ////    {
-            ////        if (selectedUnits[j].GetComponent<KnightController>().troopType == TroopTypeEnum.Villager)
-            ////        {
-            ////            SelectedObjColor(1, selectedUnits[j]);
-            ////            selectedUnits.RemoveAt(j);
-            ////        }
-            ////        else
-            ////            j++;
-            ////    }
-            ////}
+            //// Sadece köylüleri siler
+            //if (ıInput.GetButtonDown0)
+            //{
+            //    int j = 0;
+            //    int selectedUnitsCount = selectedUnits.Count;
+            //    for (int i = 0; i < selectedUnitsCount; i++)
+            //    {
+            //        if (selectedUnits[j].GetComponent<KnightController>().troopType == TroopTypeEnum.Villager)
+            //        {
+            //            SelectedObjColor(1, selectedUnits[j]);
+            //            selectedUnits.RemoveAt(j);
+            //        }
+            //        else
+            //            j++;
+            //    }
+            //}
 
 
 
@@ -269,6 +277,50 @@ namespace Assets.Scripts.Concrete.Managers
             color.a = alphaValue;
             obj.transform.GetChild(0).GetComponent<SpriteRenderer>().color = color;
         }
-
+        void SelectEmptyTempList()
+        {
+            if (tempKnights0.Count == 0)
+                listNumber = 0;
+            else if (tempKnights1.Count == 0)
+                listNumber = 1;
+            else if (tempKnights2.Count == 0)
+                listNumber = 2;
+            else if (tempKnights3.Count == 0)
+                listNumber = 3;
+            else
+            {
+                Debug.Log("Tüm geçici listeler dolu");
+                listNumber = -1;
+            }
+        }
+        void SetEmptyTempList()
+        {
+            for (int i = 0; i < selectedKnights.Count; i++)
+            {
+                if (IsContains(selectedKnights[i])) return;
+                switch (listNumber)
+                {
+                    case 0:
+                        tempKnights0.Add(selectedKnights[i]);
+                        break;
+                    case 1:
+                        tempKnights1.Add(selectedKnights[i]);
+                        break;
+                    case 2:
+                        tempKnights2.Add(selectedKnights[i]);
+                        break;
+                    case 3:
+                        tempKnights3.Add(selectedKnights[i]);
+                        break;
+                }
+            }
+        }
+        bool IsContains(GameObject knight)
+        {
+            if (tempKnights0.Contains(knight) && tempKnights0.Contains(knight) && tempKnights0.Contains(knight) && tempKnights0.Contains(knight))
+                return true;
+            else
+                return false;
+        }
     }
 }
