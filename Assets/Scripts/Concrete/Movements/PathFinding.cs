@@ -47,7 +47,7 @@ namespace Assets.Scripts.Concrete.Movements
         {
             // Pozisyon verilmediyse veya etkilleşimli bir objeye tıklandıysa çalışma
             if (mousePos == null || InteractManager.Instance.interactedObj != null) return;
-            //print("Move");
+            print("Move");
             lastMousePos = mousePos;
             agent.stoppingDistance = stoppingDistance;
             agent.SetDestination(mousePos);

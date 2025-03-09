@@ -34599,11 +34599,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1351704705479308060, guid: 639f9652ab2a7fb4093455108e872d2e, type: 3}
       propertyPath: distance
-      value: 0.7
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1351704705479308060, guid: 639f9652ab2a7fb4093455108e872d2e, type: 3}
+      propertyPath: troopFormation
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1351704705479308060, guid: 639f9652ab2a7fb4093455108e872d2e, type: 3}
       propertyPath: optimumSendKnight
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1351704705479308060, guid: 639f9652ab2a7fb4093455108e872d2e, type: 3}
       propertyPath: distanceBetweenUnits

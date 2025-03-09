@@ -15,7 +15,6 @@ namespace Assets.Scripts.Concrete.Managers
         [Header("Units")]
         public KnightFormation troopFormation;
         public float distance;
-        [SerializeField] float optimumSendKnight = 0.1f;
         [Header("Setups")]
         public KnightOrderEnum unitOrderEnum;
         public Move move;
@@ -31,8 +30,7 @@ namespace Assets.Scripts.Concrete.Managers
 
         private void Start()
         {
-            canMove = false;
-            InvokeRepeating(nameof(OptimumSendKnights), 0, optimumSendKnight);
+            InvokeRepeating(nameof(Optimum), 0, 0.1f);
         }
         void Singelton()
         {
@@ -45,62 +43,62 @@ namespace Assets.Scripts.Concrete.Managers
         }
         private void Update()
         {
-
-            if (UIManager.Instance.isClearUnits)
-            {
-                Debug.Log("Ok");
-            }
-            if (ıInput.GetButton0())
+            if (ıInput.GetButtonDown0())
             {
                 if (!InteractManager.Instance.CheckUIElements())
                 {
-                    TakeFormation(InteractManager.Instance.tempKnights0, true);
-                    TakeFormation(InteractManager.Instance.tempKnights1, true);
-                    TakeFormation(InteractManager.Instance.tempKnights2, true);
-                    TakeFormation(InteractManager.Instance.tempKnights3, true);
+                    move.MoveCommand();
                 }
             }
-        }
 
-        void OptimumSendKnights()
+        }
+        void Optimum()
         {
-            TakeFormation(InteractManager.Instance.tempKnights0, false);
-            TakeFormation(InteractManager.Instance.tempKnights1, false);
-            TakeFormation(InteractManager.Instance.tempKnights2, false);
-            TakeFormation(InteractManager.Instance.tempKnights3, false);
+            move.SetSpeed();
         }
+        #region Dynamic
+        //private void Update()
+        //{
 
-        bool canMove;
-        bool workOnce;
-        void TakeFormation(List<GameObject> knights, bool initialize)
-        {
-            if (knights.Count > 0)
-            {
-                if (initialize) // First click setup
-                {
-                    move.SetMousePos();
-                    move.LineFormation(distance, false, knights);
-                    canMove = true;
-                    workOnce = true;
-                    return;
-                }
+        //    if (UIManager.Instance.isClearUnits)
+        //    {
+        //        Debug.Log("Ok");
+        //    }
+        //    if (ıInput.GetButton0())
+        //    {
+        //        if (!InteractManager.Instance.CheckUIElements())
+        //        {
+        //            TakeFormation(InteractManager.Instance.tempKnights0, true);
+        //            TakeFormation(InteractManager.Instance.tempKnights1, true);
+        //            TakeFormation(InteractManager.Instance.tempKnights2, true);
+        //            TakeFormation(InteractManager.Instance.tempKnights3, true);
+        //        }
+        //    }
+        //}
 
-                bool reached = move.LeaderReachTheTarget(distance, knights);
-                if (canMove)   //Hareket emri; dokunma ile etkinleşir, liderin hedefe ulaşması ile sona erer 
-                    move.LineFormation(distance, false, knights); // dinamik çalışır
-                if (!canMove && workOnce && UIManager.Instance.addUnitToggle.isOn)
-                {
-                    move.LineFormation(distance, true, knights); // son kez çalışır
-                    workOnce = false;
-                }
-                if (reached)
-                    canMove = false;
-            }
-        }
-        //void TakeFormation(List<GameObject> knights)
+        //void OptimumSendKnights()
+        //{
+        //    TakeFormation(InteractManager.Instance.tempKnights0, false);
+        //    TakeFormation(InteractManager.Instance.tempKnights1, false);
+        //    TakeFormation(InteractManager.Instance.tempKnights2, false);
+        //    TakeFormation(InteractManager.Instance.tempKnights3, false);
+        //}
+
+        //bool canMove;
+        //bool workOnce;
+        //void TakeFormation(List<GameObject> knights, bool initialize)
         //{
         //    if (knights.Count > 0)
         //    {
+        //        if (initialize) // First click setup
+        //        {
+        //            move.SetMousePos();
+        //            move.LineFormation(distance, true, knights);
+        //            canMove = true;
+        //            workOnce = true;
+        //            return;
+        //        }
+
         //        bool reached = move.LeaderReachTheTarget(distance, knights);
         //        if (canMove)   //Hareket emri; dokunma ile etkinleşir, liderin hedefe ulaşması ile sona erer 
         //            move.LineFormation(distance, false, knights); // dinamik çalışır
@@ -113,15 +111,7 @@ namespace Assets.Scripts.Concrete.Managers
         //            canMove = false;
         //    }
         //}
-        //void InitializeFormation(List<GameObject> knights)
-        //{
-        //    if (knights.Count > 0)
-        //    {
-        //        move.SetMousePos();
-        //        move.LineFormation(distance, false, knights);
-        //        canMove = true;
-        //        workOnce = true;
-        //    }
-        //}
+        #endregion
+
     }
 }
