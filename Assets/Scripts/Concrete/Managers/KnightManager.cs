@@ -5,6 +5,7 @@ using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Movements;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Managers
@@ -19,8 +20,7 @@ namespace Assets.Scripts.Concrete.Managers
         public KnightOrderEnum unitOrderEnum;
         public Move move;
         IInput ıInput;
-
-
+        public int value;
         private void Awake()
         {
             Singelton();
@@ -30,7 +30,7 @@ namespace Assets.Scripts.Concrete.Managers
 
         private void Start()
         {
-            InvokeRepeating(nameof(Optimum), 0, 0.1f);
+            //InvokeRepeating(nameof(Optimum), 0, 1f);
         }
         void Singelton()
         {
@@ -50,12 +50,11 @@ namespace Assets.Scripts.Concrete.Managers
                     move.MoveCommand();
                 }
             }
-
         }
-        void Optimum()
-        {
-            move.SetSpeed();
-        }
+        //void Optimum()
+        //{
+        //    move.SetSpeed();
+        //}
         #region Dynamic
         //private void Update()
         //{

@@ -51,28 +51,19 @@ namespace Assets.Scripts.Concrete.Managers
             switch (formationDropdown.value)
             {
                 case 0:
-                    KnightManager.Instance.troopFormation = KnightFormation.RectangleFormation;
+                    KnightManager.Instance.troopFormation = KnightFormation.LineFormation;
                     break;
                 case 1:
-                    KnightManager.Instance.troopFormation = KnightFormation.HorizontalLineFormation;
+                    KnightManager.Instance.troopFormation = KnightFormation.RectangleFormation;
                     break;
                 case 2:
-                    KnightManager.Instance.troopFormation = KnightFormation.VerticalLineFormation;
+                    KnightManager.Instance.troopFormation = KnightFormation.VFormation;
                     break;
                 case 3:
-                    KnightManager.Instance.troopFormation = KnightFormation.RightTriangleFormation;
+                    KnightManager.Instance.troopFormation = KnightFormation.CurveFormation;
                     break;
                 case 4:
-                    KnightManager.Instance.troopFormation = KnightFormation.LeftTriangleFormation;
-                    break;
-                case 5:
-                    KnightManager.Instance.troopFormation = KnightFormation.UpTriangleFormation;
-                    break;
-                case 6:
-                    KnightManager.Instance.troopFormation = KnightFormation.DownTriangleFormation;
-                    break;
-                case 7:
-                    KnightManager.Instance.troopFormation = KnightFormation.RightCurveFormation;
+                    KnightManager.Instance.troopFormation = KnightFormation.SingleLineFormation;
                     break;
             }
         }

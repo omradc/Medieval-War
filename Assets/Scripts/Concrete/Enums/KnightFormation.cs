@@ -2,13 +2,10 @@
 {
     internal enum KnightFormation
     {
-        HorizontalLineFormation,
-        VerticalLineFormation,
+        LineFormation,
         RectangleFormation,
-        RightTriangleFormation,
-        LeftTriangleFormation,
-        UpTriangleFormation,
-        DownTriangleFormation,
-        RightCurveFormation
+        VFormation,
+        CurveFormation,
+        SingleLineFormation
     }
 }

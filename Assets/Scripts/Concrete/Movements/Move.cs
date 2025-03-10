@@ -1,15 +1,26 @@
 ﻿using Assets.Scripts.Concrete.AI;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace Assets.Scripts.Concrete.Movements
 {
     internal class Move
     {
+        DirectionEnum direction;
+        public Move()
+        {
+            direction = new();
+        }
         public void MoveCommand()
         {
-            HorizontalLineFormation(KnightManager.Instance.troopFormation == KnightFormation.HorizontalLineFormation, KnightManager.Instance.distance);
+            LineFormation(KnightManager.Instance.troopFormation == KnightFormation.LineFormation, KnightManager.Instance.distance);
+            RectangleFormation(KnightManager.Instance.troopFormation == KnightFormation.RectangleFormation, KnightManager.Instance.distance);
+            VFormation(KnightManager.Instance.troopFormation == KnightFormation.VFormation, KnightManager.Instance.distance);
+            SingleLineFormation(KnightManager.Instance.troopFormation == KnightFormation.SingleLineFormation, KnightManager.Instance.distance);
             //VerticalLineFormation(KnightManager.Instance.troopFormation == KnightFormation.VerticalLineFormation, KnightManager.Instance.distanceBetweenUnits);
             //RectangleFormation(KnightManager.Instance.troopFormation == KnightFormation.RectangleFormation, KnightManager.Instance.distanceBetweenUnits);
             //RightTriangleFormation(KnightManager.Instance.troopFormation == KnightFormation.RightTriangleFormation, KnightManager.Instance.distanceBetweenUnits);
@@ -20,9 +31,9 @@ namespace Assets.Scripts.Concrete.Movements
 
         }
 
-        int CalculateDirections(Transform transform, Vector2 target)
+        void CalculateDirections(Vector2 curentPos, Vector2 target)
         {
-            Vector2 direction = target - (Vector2)transform.position;
+            Vector2 direction = target - curentPos;
 
             // Açı hesapla (radyan cinsinden)
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -32,28 +43,19 @@ namespace Assets.Scripts.Concrete.Movements
 
             //Left
             if (angle >= 135 && angle <= 225)
-            {
-                return 0;
-            }
-
+                this.direction = DirectionEnum.left;
             //Up
             else if (angle >= 45 && angle <= 135)
-            {
-                return 1;
-            }
+                this.direction = DirectionEnum.up;
 
             //Down
             else if (angle >= 225 && angle <= 315)
-            {
-                return 3;
-            }
+                this.direction = DirectionEnum.down;
 
             //Right
             //if (angle < 45 && angle > 315) Impossible :D
             else
-            {
-                return 2;
-            }
+                this.direction = DirectionEnum.right;
         }
         void SetSpeed(Vector3 followPos, GameObject knight, PathFinding pF, float distance)
         {
@@ -61,7 +63,6 @@ namespace Assets.Scripts.Concrete.Movements
             float speedFactor = Mathf.Clamp(space / distance, 1.5f, 2f);
             pF.agent.speed = Mathf.Lerp(pF.agent.speed, speedFactor, .5f);
         }
-
         int CalcDirValue(int i)
         {
             int dirValue;
@@ -76,91 +77,164 @@ namespace Assets.Scripts.Concrete.Movements
             return dirValue;
         }
 
-        Vector2 targetPos;
-        Vector2 mousePos;
-        Vector2 centerDiff;
-        int knightCount;
-        public void HorizontalLineFormation(bool horizontalLineFormation, float distance)
+        public void LineFormation(bool horizontalLineFormation, float distance)
         {
             if (horizontalLineFormation)
             {
+                int knightCount = InteractManager.Instance.selectedKnights.Count;
+                if (knightCount == 0) return;
+
+                Vector2 targetPos;
+                float formationDiff = ((float)knightCount - 1) / 2 * distance; // 2f veya casting işlemi olmazsa "integer division" yüzünden ondalıklı kısım kayboluyor
                 float xPos = 0;
-                knightCount = InteractManager.Instance.selectedKnights.Count;
-                centerDiff = new Vector2(distance * (knightCount - 1) / 2, 0);
-                mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - centerDiff;
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                if (knightCount % 2 != 0)
+                    CalculateDirections(InteractManager.Instance.selectedKnights[(knightCount - 1) / 2].transform.position, mousePos);
+                else // tek ise: ortanca şovalye + distance /2
+                    CalculateDirections((Vector2)InteractManager.Instance.selectedKnights[Mathf.FloorToInt(knightCount - 1) / 2].transform.position + new Vector2(distance / 2, 0), mousePos);
+
+                if (direction == DirectionEnum.right || direction == DirectionEnum.left)
+                    mousePos -= new Vector2(0, formationDiff);
+                else
+                    mousePos -= new Vector2(formationDiff, 0);
+
                 for (int i = 0; i < knightCount; i++)
                 {
                     GameObject knight = InteractManager.Instance.selectedKnights[i];
-                    if (i == 0)
-                    {
-                        targetPos = mousePos;
-                    }
+                    if (direction == DirectionEnum.right || direction == DirectionEnum.left)
+                        targetPos = mousePos + new Vector2(0, xPos);
                     else
-                    {
-                        xPos += distance;
                         targetPos = mousePos + new Vector2(xPos, 0);
-                    }
-
+                    xPos += distance;
                     knight.GetComponent<PathFinding>().Move(targetPos, 0);
                 }
             }
         }
-
-
-        float CalculateAverageDistance()
+        public void SingleLineFormation(bool horizontalLineFormation, float distance)
         {
-            if (knightCount == 0) return 0;
-            float totalRemainingDistance = 0;
-            for (int i = 0; i < knightCount; i++)
+            if (horizontalLineFormation)
             {
-                PathFinding pF = InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>();
-                totalRemainingDistance += pF.agent.remainingDistance;
-            }
-            return totalRemainingDistance / knightCount;
-        }
+                int knightCount = InteractManager.Instance.selectedKnights.Count;
+                if (knightCount == 0) return;
 
-        public void SetSpeed()
-        {
-            float distance = CalculateAverageDistance();
-            for (int i = 0; i < knightCount; i++)
-            {
-                PathFinding pF = InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>();
-                Debug.Log("pF.agent.remainingDistance: " + pF.agent.remainingDistance + " > " + " distance: " + distance);
-                if (pF.agent.remainingDistance > distance)
-                    pF.agent.speed = 2f;
+                Vector2 targetPos;
+                float formationDiff = ((float)knightCount - 1) / 2 * distance; // 2f veya casting işlemi olmazsa "integer division" yüzünden ondalıklı kısım kayboluyor
+                float xPos = 0;
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                if (knightCount % 2 != 0)
+                    CalculateDirections(InteractManager.Instance.selectedKnights[(knightCount - 1) / 2].transform.position, mousePos);
+                else // tek ise: ortanca şovalye + distance /2
+                    CalculateDirections((Vector2)InteractManager.Instance.selectedKnights[Mathf.FloorToInt(knightCount - 1) / 2].transform.position + new Vector2(distance / 2, 0), mousePos);
+
+                if (direction == DirectionEnum.right || direction == DirectionEnum.left)
+                    mousePos -= new Vector2(formationDiff, 0);
                 else
-                    pF.agent.speed = 1.5f;
+                    mousePos -= new Vector2(0, formationDiff);
+
+                for (int i = 0; i < knightCount; i++)
+                {
+                    GameObject knight = InteractManager.Instance.selectedKnights[i];
+
+                    if (direction == DirectionEnum.right || direction == DirectionEnum.left)
+                        targetPos = mousePos + new Vector2(xPos, 0);
+                    else
+                        targetPos = mousePos + new Vector2(0, xPos);
+                    xPos += distance;
+                    knight.GetComponent<PathFinding>().Move(targetPos, 0);
+                }
             }
         }
-        #region Old
-        //public void VerticalLineFormation(bool verticalLineFormation, float distance)
+        public void RectangleFormation(bool rectangleFormation, float distance)
+        {
+            if (rectangleFormation)
+            {
+                int knightCount = InteractManager.Instance.selectedKnights.Count;
+                if (knightCount == 0) return;
+
+                Vector2 targetPos;
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                int squareRoot = Mathf.CeilToInt(Mathf.Sqrt(InteractManager.Instance.selectedKnights.Count)); // En az kenar uzunluğu
+                float side = (float)squareRoot / 2;
+                float formationDiff = side * distance - 0.5f;
+                mousePos -= new Vector2(formationDiff, formationDiff);
+
+                for (int i = 0; i < InteractManager.Instance.selectedKnights.Count; i++)
+                {
+                    GameObject knight = InteractManager.Instance.selectedKnights[i];
+                    int row = i / squareRoot; // Satır
+                    int col = i % squareRoot; // Sütun
+
+                    targetPos = mousePos + new Vector2(col * distance, row * distance);
+                    knight.GetComponent<PathFinding>().Move(targetPos, 0);
+                }
+            }
+        }
+        public void VFormation(bool rightTriangleFormation, float distance)
+        {
+            if (rightTriangleFormation)
+            {
+                int knightCount = InteractManager.Instance.selectedKnights.Count;
+                if (knightCount == 0) return;
+                Vector2 targetPos = Vector2.zero;
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                CalculateDirections((Vector2)InteractManager.Instance.selectedKnights[0].transform.position, mousePos);
+                float spacing = distance * 0.7f;
+                for (int i = 0; i < InteractManager.Instance.selectedKnights.Count; i++)
+                {
+                    int row = (i + 1) / 2;  // Kaçıncı sırada olduğunu belirler +1 0 ve 1. index çakışmasını önler
+                    float offset = (i % 2 == 0 ? -1 : 1) * row * spacing;  // Sağa ve sola yerleştirme
+
+                    targetPos = mousePos;
+                    if (direction == DirectionEnum.up)
+                    {
+                        targetPos.x += offset;
+                        targetPos.y -= row * spacing;
+                    }
+                    else if (direction == DirectionEnum.down)
+                    {
+                        targetPos.x += offset;
+                        targetPos.y += row * spacing;
+                    }
+                    else if (direction == DirectionEnum.left)
+                    {
+                        targetPos.x += row * spacing;
+                        targetPos.y += offset;
+                    }
+                    else
+                    {
+                        targetPos.x -= row * spacing;
+                        targetPos.y += offset;
+                    }
+                    InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>().Move(targetPos, 0);
+                }
+            }
+        }
+        //public void SetSpeed()
         //{
-        //    if (verticalLineFormation)
+        //    if (knightCount == 0) return;
+        //    float totalRemainingDistance = 0;
+        //    float distance = 0;
+        //    for (int i = 0; i < knightCount; i++)
         //    {
-        //        float yPos = 0;
-        //        PathFinding pF;
-        //        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //        for (int i = 0; i < InteractManager.Instance.selectedUnits.Count; i++)
-        //        {
-        //            GameObject selectedObj = InteractManager.Instance.selectedUnits[i];
-        //            if (i == 0)
-        //            {
-        //                pF = selectedObj.GetComponent<PathFinding>();
-        //                pF.Move(mousePos, 0);
-        //            }
+        //        PathFinding pF = InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>();
+        //        totalRemainingDistance += pF.agent.remainingDistance;
+        //    }
 
-        //            if (i > 0)
-        //            {
-        //                yPos += distance;
-        //                pF = selectedObj.GetComponent<PathFinding>();
-        //                pF.Move(mousePos + new Vector2(0, yPos), 0);
-        //            }
-
-        //        }
-
-
+        //    distance = totalRemainingDistance / knightCount;
+        //    for (int i = 0; i < knightCount; i++)
+        //    {
+        //        PathFinding pF = InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>();
+        //        Debug.Log("pF.agent.remainingDistance: " + pF.agent.remainingDistance + " > " + " distance: " + distance);
+        //        if (pF.agent.remainingDistance > distance)
+        //            pF.agent.speed = 2f;
+        //        else
+        //            pF.agent.speed = 1.5f;
         //    }
         //}
+        #region Old
+
         //public void RectangleFormation(bool rectangleFormation, float distance)
         //{
         //    if (rectangleFormation)
