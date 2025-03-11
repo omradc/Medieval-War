@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Concrete.AI;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI.Table;
@@ -21,14 +22,7 @@ namespace Assets.Scripts.Concrete.Movements
             RectangleFormation(KnightManager.Instance.troopFormation == KnightFormation.RectangleFormation, KnightManager.Instance.distance);
             VFormation(KnightManager.Instance.troopFormation == KnightFormation.VFormation, KnightManager.Instance.distance);
             SingleLineFormation(KnightManager.Instance.troopFormation == KnightFormation.SingleLineFormation, KnightManager.Instance.distance);
-            //VerticalLineFormation(KnightManager.Instance.troopFormation == KnightFormation.VerticalLineFormation, KnightManager.Instance.distanceBetweenUnits);
-            //RectangleFormation(KnightManager.Instance.troopFormation == KnightFormation.RectangleFormation, KnightManager.Instance.distanceBetweenUnits);
-            //RightTriangleFormation(KnightManager.Instance.troopFormation == KnightFormation.RightTriangleFormation, KnightManager.Instance.distanceBetweenUnits);
-            //LeftTriangleFormation(KnightManager.Instance.troopFormation == KnightFormation.LeftTriangleFormation, KnightManager.Instance.distanceBetweenUnits);
-            //UpTriangleFormation(KnightManager.Instance.troopFormation == KnightFormation.UpTriangleFormation, KnightManager.Instance.distanceBetweenUnits);
-            //DownTriangleFormation(KnightManager.Instance.troopFormation == KnightFormation.DownTriangleFormation, KnightManager.Instance.distanceBetweenUnits);
-            //RightCurveFormation(KnightManager.Instance.troopFormation == KnightFormation.RightCurveFormation, KnightManager.Instance.distanceBetweenUnits);
-
+            ArcFormation(KnightManager.Instance.troopFormation == KnightFormation.ArcFormation, KnightManager.Instance.distance);
         }
 
         void CalculateDirections(Vector2 curentPos, Vector2 target)
@@ -76,10 +70,9 @@ namespace Assets.Scripts.Concrete.Movements
                 dirValue = 1;
             return dirValue;
         }
-
-        public void LineFormation(bool horizontalLineFormation, float distance)
+        public void LineFormation(bool lineFormation, float distance)
         {
-            if (horizontalLineFormation)
+            if (lineFormation)
             {
                 int knightCount = InteractManager.Instance.selectedKnights.Count;
                 if (knightCount == 0) return;
@@ -111,9 +104,9 @@ namespace Assets.Scripts.Concrete.Movements
                 }
             }
         }
-        public void SingleLineFormation(bool horizontalLineFormation, float distance)
+        public void SingleLineFormation(bool SingleLineFormation, float distance)
         {
-            if (horizontalLineFormation)
+            if (SingleLineFormation)
             {
                 int knightCount = InteractManager.Instance.selectedKnights.Count;
                 if (knightCount == 0) return;
@@ -171,9 +164,9 @@ namespace Assets.Scripts.Concrete.Movements
                 }
             }
         }
-        public void VFormation(bool rightTriangleFormation, float distance)
+        public void VFormation(bool vFormation, float distance)
         {
-            if (rightTriangleFormation)
+            if (vFormation)
             {
                 int knightCount = InteractManager.Instance.selectedKnights.Count;
                 if (knightCount == 0) return;
@@ -211,6 +204,96 @@ namespace Assets.Scripts.Concrete.Movements
                 }
             }
         }
+        //public void ArcFormation(float arcAngle, float distance)
+        //{
+        //    int knightCount = InteractManager.Instance.selectedKnights.Count;
+        //    if (knightCount == 0) return;
+
+        //    Vector2 targetPos;
+        //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Yayın merkezi
+
+        //    float radius = knightCount / 2;
+        //    float formationDiff = radius / 1.5f;
+        //    float startAngle = 0; // Başlangıç açısını yönlere göre ayarlayacağız
+        //    float angleStep = arcAngle / (knightCount - 1); // Birimler arası açı farkı
+
+        //    if (knightCount % 2 != 0)
+        //        CalculateDirections(InteractManager.Instance.selectedKnights[(knightCount - 1) / 2].transform.position, mousePos);
+        //    else
+        //        CalculateDirections((Vector2)InteractManager.Instance.selectedKnights[Mathf.FloorToInt(knightCount - 1) / 2].transform.position + new Vector2(distance / 2, 0), mousePos);
+
+        //    // **Yönlere Göre Başlangıç Açısını Güncelle**
+        //    switch (direction)
+        //    {
+        //        case DirectionEnum.up:
+        //            startAngle = -arcAngle / 2;
+        //            break;
+        //        case DirectionEnum.down:
+        //            startAngle = 180 - arcAngle / 2;
+        //            break;
+        //        case DirectionEnum.left:
+        //            startAngle = 90 - arcAngle / 2;
+        //            break;
+        //        case DirectionEnum.right:
+        //            startAngle = -90 - arcAngle / 2;
+        //            break;
+        //    }
+
+        //    for (int i = 0; i < knightCount; i++)
+        //    {
+        //        float angle = startAngle + i * angleStep; // Her birimin açısını hesapla
+        //        float radians = angle * Mathf.Deg2Rad; // Dereceyi radyana çevir
+
+        //        // **Yönlere göre pozisyon hesaplama**
+        //        targetPos = new Vector2(mousePos.x + radius * Mathf.Cos(radians),
+        //                                mousePos.y + radius * Mathf.Sin(radians));
+
+        //        InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>().Move(targetPos, 0);
+        //    }
+        //}
+
+        public void ArcFormation(bool arcFormation, float distance)
+        {
+            if (!arcFormation) return;
+            int knightCount = InteractManager.Instance.selectedKnights.Count;
+            if (knightCount == 0) return;
+            Vector2 targetPos;
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Yayın merkezi
+            float radius = knightCount / 2;
+            float formationDiff = radius / 1.5f;
+            float arcAngle = 120; // Açı
+            float startAngle = 30; // Başlangıç açısı (Yayın sol ucu) // arcAngle 90 ise start angle 45
+            float angleStep = arcAngle / (knightCount - 1); // Birimler arası açı farkı
+
+            if (knightCount % 2 != 0)
+                CalculateDirections(InteractManager.Instance.selectedKnights[(knightCount - 1) / 2].transform.position, mousePos);
+            else // tek ise: ortanca şovalye + distance /2
+                CalculateDirections((Vector2)InteractManager.Instance.selectedKnights[Mathf.FloorToInt(knightCount - 1) / 2].transform.position + new Vector2(distance / 2, 0), mousePos);
+
+            for (int i = 0; i < knightCount; i++)
+            {
+                float angle = startAngle + i * angleStep; // Her birimin açısını hesapla
+                float radians = angle * Mathf.Deg2Rad; // Dereceyi radyana çevir
+
+                switch (direction)
+                {
+                    case DirectionEnum.up:
+                        targetPos = new Vector2(mousePos.x + radius * Mathf.Cos(radians), mousePos.y - radius * Mathf.Sin(radians) + formationDiff);
+                        break;
+                    case DirectionEnum.down:
+                        targetPos = new Vector2(mousePos.x + radius * Mathf.Cos(radians), mousePos.y + radius * Mathf.Sin(radians) - formationDiff);
+                        break;
+                    case DirectionEnum.left:
+                        targetPos = new Vector2(mousePos.x + radius * Mathf.Sin(radians) - formationDiff, mousePos.y + radius * Mathf.Cos(radians));
+                        break;
+                    default:
+                        targetPos = new Vector2(mousePos.x - radius * Mathf.Sin(radians) + formationDiff, mousePos.y + radius * Mathf.Cos(radians));
+                        break;
+                }
+                InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>().Move(targetPos, 0);
+            }
+        }
+
         //public void SetSpeed()
         //{
         //    if (knightCount == 0) return;

@@ -20,7 +20,7 @@ namespace Assets.Scripts.Concrete.Managers
         public KnightOrderEnum unitOrderEnum;
         public Move move;
         IInput ıInput;
-        public int value;
+
         private void Awake()
         {
             Singelton();
@@ -46,9 +46,7 @@ namespace Assets.Scripts.Concrete.Managers
             if (ıInput.GetButtonDown0())
             {
                 if (!InteractManager.Instance.CheckUIElements())
-                {
                     move.MoveCommand();
-                }
             }
         }
         //void Optimum()

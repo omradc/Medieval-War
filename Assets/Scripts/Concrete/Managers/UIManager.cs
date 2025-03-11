@@ -60,7 +60,7 @@ namespace Assets.Scripts.Concrete.Managers
                     KnightManager.Instance.troopFormation = KnightFormation.VFormation;
                     break;
                 case 3:
-                    KnightManager.Instance.troopFormation = KnightFormation.CurveFormation;
+                    KnightManager.Instance.troopFormation = KnightFormation.ArcFormation;
                     break;
                 case 4:
                     KnightManager.Instance.troopFormation = KnightFormation.SingleLineFormation;

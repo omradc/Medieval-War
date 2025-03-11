@@ -5,7 +5,7 @@
         LineFormation,
         RectangleFormation,
         VFormation,
-        CurveFormation,
+        ArcFormation,
         SingleLineFormation
     }
 }
