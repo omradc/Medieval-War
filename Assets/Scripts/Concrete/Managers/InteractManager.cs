@@ -5,6 +5,7 @@ using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.SelectSystem;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -28,6 +29,7 @@ namespace Assets.Scripts.Concrete.Managers
         IInput ıInput;
         Interact ınteract;
         public List<GameObject> selectedKnights;
+        public List<KnightController> selectedKnightControllers;
         GameObject currentUnit;
         Vector2 startPos;
         Vector2 endPos;
@@ -150,9 +152,10 @@ namespace Assets.Scripts.Concrete.Managers
 
                     // Aynı nesneyi tekrar diziye atma
                     if (!selectedKnights.Contains(currentUnit))
+                    {
                         selectedKnights.Add(currentUnit);
-                    //if (!tempKnights0.Contains(currentUnit))
-                    //    tempKnights0.Add(currentUnit);
+                        selectedKnightControllers.Add(currentUnit.GetComponent<KnightController>());
+                    }
                     KnightController kC = selectedKnights[i].GetComponent<KnightController>();
                     kC.unitOrderEnum = KnightManager.Instance.unitOrderEnum;
                     kC.workOnce = true;
@@ -162,7 +165,8 @@ namespace Assets.Scripts.Concrete.Managers
                     // Seçili birimi vurgula
                     SelectedObjColor(0.5f, currentUnit);
                 }
-
+                // Birimleri sıralar
+                //selectedKnightControllers.Sort((a, b) => (a.factionType == FactionTypeEnum.Archer ? 1 : 0) - (b.factionType == FactionTypeEnum.Archer ? 1 : 0));
             }
         }
         void GiveOrder()
