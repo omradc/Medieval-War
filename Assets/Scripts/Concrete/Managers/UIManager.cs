@@ -141,10 +141,15 @@ namespace Assets.Scripts.Concrete.Managers
         {
             return Mathf.Round(value * 10) / 10;
         }
+        int index;
+        public void FormationIndex(int index)
+        {
+            this.index = index;
+        }
         public void SaveFormation()
         {
-            InteractManager.Instance.SaveFormation(1);
-            InteractManager.Instance.SelectSavedFormation();
+            InteractManager.Instance.SaveFormation(index);
+            InteractManager.Instance.SelectSavedFormation(index);
         }
         public void ClearSavedFormation(bool value)
         {
@@ -153,6 +158,7 @@ namespace Assets.Scripts.Concrete.Managers
             else
                 hold = false;
         }
+
         void HoldForClearFormationTimer()
         {
             if (hold)
@@ -160,7 +166,7 @@ namespace Assets.Scripts.Concrete.Managers
                 time += 0.1f;
                 if (time >= holdTreshold)
                 {
-                    InteractManager.Instance.ClearSavedFormation(1);
+                    InteractManager.Instance.ClearSavedFormation(index);
                     time = 0;
                     hold = false;
                 }

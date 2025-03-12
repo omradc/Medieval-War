@@ -242,29 +242,105 @@ namespace Assets.Scripts.Concrete.Managers
                 selectedKnights[i].transform.GetChild(0).GetComponent<SpriteRenderer>().color = color;
             }
         }
-        // Save
-        public void SelectSavedFormation() // Kayıtlı Formasyonu seç
+
+
+        public void SelectSavedFormation(int formationIndex) // Kayıtlı Formasyonu seç
         {
-            if (savedFormations[0].savedKnights.Count == 0) return; // kayıtlı birimler silinmeden yeni kayıt yapılamaz
-            print("Selected");
-            SelectedKnightsColor(1f);
-            selectedKnights = new(savedFormations[0].savedKnights); // kayıtlı birimleri eşitle, deep copy
-            KnightManager.Instance.knightFormation = savedFormations[0].knightFormation; // kayıtlı formasyonu eşitle
-            SelectedKnightsColor(0.5f);
+            switch (formationIndex)
+            {
+                case 0:
+                    if (savedFormations[0].savedKnights == null || savedFormations[0].savedKnights.Count == 0) return; // kayıtlı birimler varsa seçilir
+                    print("Selected");
+                    SelectedKnightsColor(1f);
+                    selectedKnights = new(savedFormations[0].savedKnights); // kayıtlı birimleri eşitle, deep copy
+                    KnightManager.Instance.knightFormation = savedFormations[0].knightFormation; // kayıtlı formasyonu eşitle
+                    SelectedKnightsColor(0.5f);
+                    break;
+
+                case 1:
+                    if (savedFormations[0].savedKnights == null || savedFormations[1].savedKnights.Count == 0) return; // kayıtlı birimler varsa seçilir
+                    print("Selected");
+                    SelectedKnightsColor(1f);
+                    selectedKnights = new(savedFormations[1].savedKnights); // kayıtlı birimleri eşitle, deep copy
+                    KnightManager.Instance.knightFormation = savedFormations[1].knightFormation; // kayıtlı formasyonu eşitle
+                    SelectedKnightsColor(0.5f);
+                    break;
+                case 2:
+                    if (savedFormations[0].savedKnights == null || savedFormations[2].savedKnights.Count == 0) return; // kayıtlı birimler varsa seçilir
+                    print("Selected");
+                    SelectedKnightsColor(1f);
+                    selectedKnights = new(savedFormations[2].savedKnights); // kayıtlı birimleri eşitle, deep copy
+                    KnightManager.Instance.knightFormation = savedFormations[2].knightFormation; // kayıtlı formasyonu eşitle
+                    SelectedKnightsColor(0.5f);
+                    break;
+                case 3:
+                    if (savedFormations[0].savedKnights == null || savedFormations[3].savedKnights.Count == 0) return; // kayıtlı birimler varsa seçilir
+                    print("Selected");
+                    SelectedKnightsColor(1f);
+                    selectedKnights = new(savedFormations[3].savedKnights); // kayıtlı birimleri eşitle, deep copy
+                    KnightManager.Instance.knightFormation = savedFormations[3].knightFormation; // kayıtlı formasyonu eşitle
+                    SelectedKnightsColor(0.5f);
+                    break;
+            }
+
 
         }
-        public void SaveFormation(int listNumber) // Seçili formasyonu kaydet
+        public void SaveFormation(int formationIndex) // Seçili formasyonu kaydet
         {
-            if (savedFormations[0].savedKnights != null && savedFormations[0].savedKnights.Count != 0) return;
-            print("Saved");
-            savedFormations[0] = new(new(selectedKnights), KnightManager.Instance.knightFormation); // seçili birimleri ve şimdiki formasyonu kaydet
+            switch (formationIndex)
+            {
+                case 0:
+                    if (savedFormations[0]?.savedKnights.Count != 0) return;
+                    print("Saved");
+                    savedFormations[0] = new(new(selectedKnights), KnightManager.Instance.knightFormation); // seçili birimleri ve şimdiki formasyonu kaydet
+                    break;
+                case 1:
+                    if (savedFormations[1].savedKnights != null && savedFormations[1].savedKnights.Count != 0) return;
+                    print("Saved");
+                    savedFormations[1] = new(new(selectedKnights), KnightManager.Instance.knightFormation); // seçili birimleri ve şimdiki formasyonu kaydet
+                    break;
+                case 2:
+                    if (savedFormations[2].savedKnights != null && savedFormations[2].savedKnights.Count != 0) return;
+                    print("Saved");
+                    savedFormations[2] = new(new(selectedKnights), KnightManager.Instance.knightFormation); // seçili birimleri ve şimdiki formasyonu kaydet
+                    break;
+                case 3:
+                    if (savedFormations[3].savedKnights != null && savedFormations[3].savedKnights.Count != 0) return;
+                    print("Saved");
+                    savedFormations[3] = new(new(selectedKnights), KnightManager.Instance.knightFormation); // seçili birimleri ve şimdiki formasyonu kaydet
+                    break;
+            }
         }
-        public void ClearSavedFormation(int listNumber) // Kaydı sil
+        public void ClearSavedFormation(int formationIndex) // Kaydı sil
         {
-            print("Clear");
-            SelectedKnightsColor(1f);
-            savedFormations[0].savedKnights.Clear();
-            selectedKnights.Clear();
+            switch (formationIndex)
+            {
+                case 0:
+                    print("Clear");
+                    SelectedKnightsColor(1f);
+                    savedFormations[0].savedKnights.Clear();
+                    selectedKnights.Clear();
+                    break;
+                case 1:
+                    print("Clear");
+                    SelectedKnightsColor(1f);
+                    savedFormations[1].savedKnights.Clear();
+                    selectedKnights.Clear();
+                    break;
+                case 2:
+                    print("Clear");
+                    SelectedKnightsColor(1f);
+                    savedFormations[2].savedKnights.Clear();
+                    selectedKnights.Clear();
+                    break;
+                case 3:
+                    print("Clear");
+                    SelectedKnightsColor(1f);
+                    savedFormations[3].savedKnights.Clear();
+                    selectedKnights.Clear();
+                    break;
+            }
+
         }
         void GiveOrder()
         {
