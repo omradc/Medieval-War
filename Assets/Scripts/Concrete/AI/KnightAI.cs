@@ -234,7 +234,7 @@ namespace Assets.Scripts.Concrete.AI
                         kC.isSeleceted = false;
                         kC.visual.sortingOrder = towerVisual.sortingOrder + 1;
                         InteractManager.Instance.selectedKnights.Remove(kC.gameObject); // Kuledeyse seçimi kaldır
-                        InteractManager.Instance.SelectedObjColor(1, kC.gameObject);  // Kuledeyse seçimi kaldır
+                        InteractManager.Instance.SelectedKnightColor(1, kC.gameObject);  // Kuledeyse seçimi kaldır
 
                         tower = null;
                     }

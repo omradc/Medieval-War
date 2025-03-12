@@ -1,11 +1,7 @@
 ﻿using Assets.Scripts.Abstracts.Inputs;
-using Assets.Scripts.Concrete.AI;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Movements;
-using NUnit.Framework;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Managers
@@ -14,7 +10,7 @@ namespace Assets.Scripts.Concrete.Managers
     {
         public static KnightManager Instance { get; private set; }
         [Header("Units")]
-        public KnightFormation troopFormation;
+        public KnightFormation knightFormation;
         public float distance;
         [Header("Setups")]
         public KnightOrderEnum unitOrderEnum;

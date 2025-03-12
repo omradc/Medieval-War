@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ namespace Assets.Scripts.Concrete.Managers
 {
     internal class UIManager : MonoBehaviour
     {
+        public static UIManager Instance { get; private set; }
         public TMP_Dropdown formationDropdown;
         public TMP_Dropdown orderDropdown;
         public Toggle addUnitToggle;
@@ -25,7 +27,9 @@ namespace Assets.Scripts.Concrete.Managers
         Vector3 left;
         [HideInInspector] public GameObject valuePanel;
         public bool isClearUnits;
-        public static UIManager Instance { get; private set; }
+       public float time;
+       public bool hold;
+        float holdTreshold;
         private void Awake()
         {
             Singelton();
@@ -45,25 +49,27 @@ namespace Assets.Scripts.Concrete.Managers
             down = new Vector3(0, -gridSize, 0);
             right = new Vector3(gridSize, 0, 0);
             left = new Vector3(-gridSize, 0, 0);
+            holdTreshold = .3f;
+            InvokeRepeating(nameof(HoldForClearFormationTimer), 0, 0.1f);
         }
         public void FormationDropdown()
         {
             switch (formationDropdown.value)
             {
                 case 0:
-                    KnightManager.Instance.troopFormation = KnightFormation.LineFormation;
+                    KnightManager.Instance.knightFormation = KnightFormation.RectangleFormation;
                     break;
                 case 1:
-                    KnightManager.Instance.troopFormation = KnightFormation.RectangleFormation;
+                    KnightManager.Instance.knightFormation = KnightFormation.LineFormation;
                     break;
                 case 2:
-                    KnightManager.Instance.troopFormation = KnightFormation.VFormation;
+                    KnightManager.Instance.knightFormation = KnightFormation.VFormation;
                     break;
                 case 3:
-                    KnightManager.Instance.troopFormation = KnightFormation.ArcFormation;
+                    KnightManager.Instance.knightFormation = KnightFormation.ArcFormation;
                     break;
                 case 4:
-                    KnightManager.Instance.troopFormation = KnightFormation.SingleLineFormation;
+                    KnightManager.Instance.knightFormation = KnightFormation.SingleLineFormation;
                     break;
             }
         }
@@ -134,6 +140,33 @@ namespace Assets.Scripts.Concrete.Managers
         float TruncateToOneDecimal(float value)
         {
             return Mathf.Round(value * 10) / 10;
+        }
+        public void SaveFormation()
+        {
+            InteractManager.Instance.SaveFormation(1);
+            InteractManager.Instance.SelectSavedFormation();
+        }
+        public void ClearSavedFormation(bool value)
+        {
+            if (value)
+                hold = true;
+            else
+                hold = false;
+        }
+        void HoldForClearFormationTimer()
+        {
+            if (hold)
+            {
+                time += 0.1f;
+                if (time >= holdTreshold)
+                {
+                    InteractManager.Instance.ClearSavedFormation(1);
+                    time = 0;
+                    hold = false;
+                }
+            }
+            else
+                time = 0;
         }
     }
 }

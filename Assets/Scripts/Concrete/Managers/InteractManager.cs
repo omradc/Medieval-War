@@ -3,6 +3,7 @@ using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.SelectSystem;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -29,13 +30,19 @@ namespace Assets.Scripts.Concrete.Managers
         IInput ıInput;
         Interact ınteract;
         public List<GameObject> selectedKnights;
-        public List<KnightController> selectedKnightControllers;
-        GameObject currentUnit;
+
+        public List<GameObject> save2;
+        public List<GameObject> save3;
+        public List<GameObject> save4;
+
         Vector2 startPos;
         Vector2 endPos;
         float time;
         bool clicked;
         bool openCloseDoor;
+
+        public SavedFormation[] savedFormations;
+
         private void Awake()
         {
             Singelton();
@@ -54,12 +61,12 @@ namespace Assets.Scripts.Concrete.Managers
         {
             ınteract = new Interact(this, interactableLayers);
             ıInput = new PcInput();
-
+            savedFormations = new SavedFormation[3];
         }
         private void Update()
         {
-            SelectMultiple();
-            ClearSelectedObjs();
+            SelectMultipleKnight();
+            ClearSelectedKnights();
             GiveOrder();
             if (ıInput.GetButtonDown0())
             {
@@ -133,7 +140,8 @@ namespace Assets.Scripts.Concrete.Managers
 
             return results.Count > 0;
         }
-        public void SelectMultiple()
+        // Select
+        public void SelectMultipleKnight()
         {
             //if (ıInput.GetButtonDown0())
             if (Input.GetMouseButtonDown(1))
@@ -144,6 +152,7 @@ namespace Assets.Scripts.Concrete.Managers
             //if (ıInput.GetButtonUp0())
             if (Input.GetMouseButtonUp(1))
             {
+                GameObject currentUnit;
                 endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Collider2D[] hits = Physics2D.OverlapAreaAll(startPos, endPos, unitLayer);
                 for (int i = 0; i < hits.Length; i++)
@@ -152,44 +161,30 @@ namespace Assets.Scripts.Concrete.Managers
 
                     // Aynı nesneyi tekrar diziye atma
                     if (!selectedKnights.Contains(currentUnit))
-                    {
                         selectedKnights.Add(currentUnit);
-                        selectedKnightControllers.Add(currentUnit.GetComponent<KnightController>());
-                    }
                     KnightController kC = selectedKnights[i].GetComponent<KnightController>();
                     kC.unitOrderEnum = KnightManager.Instance.unitOrderEnum;
                     kC.workOnce = true;
                     kC.followingObj = null;
                     kC.isSeleceted = true;
 
-                    // Seçili birimi vurgula
-                    SelectedObjColor(0.5f, currentUnit);
                 }
+                // Seçili birimi vurgula
+                SelectedKnightsColor(0.5f);
                 // Birimleri sıralar
                 //selectedKnightControllers.Sort((a, b) => (a.factionType == FactionTypeEnum.Archer ? 1 : 0) - (b.factionType == FactionTypeEnum.Archer ? 1 : 0));
             }
         }
-        void GiveOrder()
-        {
-            if (ıInput.GetButtonDown0())
-            {
-                for (int i = 0; i < selectedKnights.Count; i++)
-                {
-                    selectedKnights[i].GetComponent<KnightController>().unitOrderEnum = KnightManager.Instance.unitOrderEnum;
-                }
-            }
-        }
-        void ClearSelectedObjs()
+        void ClearSelectedKnights()
         {
             // Bütün seçili birimleri siler
             if (UIManager.Instance.isClearUnits)
             {
                 for (int i = 0; i < selectedKnights.Count; i++)
                 {
-                    SelectedObjColor(1, selectedKnights[i]);
                     selectedKnights[i].GetComponent<KnightController>().isSeleceted = false;
                 }
-
+                SelectedKnightsColor(1f);
                 selectedKnights.Clear();
                 UIManager.Instance.isClearUnits = false;
             }
@@ -204,9 +199,9 @@ namespace Assets.Scripts.Concrete.Managers
                 {
                     for (int i = 0; i < selectedKnights.Count; i++)
                     {
-                        SelectedObjColor(1, selectedKnights[i]);
                         selectedKnights[i].GetComponent<KnightController>().isSeleceted = false;
                     }
+                    SelectedKnightsColor(1f);
                     selectedKnights.Clear();
                     time = 0;
                     clicked = false;
@@ -232,11 +227,66 @@ namespace Assets.Scripts.Concrete.Managers
             //}
             #endregion
         }
-        public void SelectedObjColor(float alphaValue, GameObject obj)
+        public void SelectedKnightColor(float alphaValue, GameObject obj)
         {
             Color color = obj.transform.GetChild(0).GetComponent<SpriteRenderer>().color;
             color.a = alphaValue;
             obj.transform.GetChild(0).GetComponent<SpriteRenderer>().color = color;
+        }
+        public void SelectedKnightsColor(float alphaValue)
+        {
+            for (int i = 0; i < selectedKnights.Count; i++)
+            {
+                Color color = selectedKnights[i].transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+                color.a = alphaValue;
+                selectedKnights[i].transform.GetChild(0).GetComponent<SpriteRenderer>().color = color;
+            }
+        }
+        // Save
+        public void SelectSavedFormation() // Kayıtlı Formasyonu seç
+        {
+            if (savedFormations[0].savedKnights.Count == 0) return; // kayıtlı birimler silinmeden yeni kayıt yapılamaz
+            print("Selected");
+            SelectedKnightsColor(1f);
+            selectedKnights = new(savedFormations[0].savedKnights); // kayıtlı birimleri eşitle, deep copy
+            KnightManager.Instance.knightFormation = savedFormations[0].knightFormation; // kayıtlı formasyonu eşitle
+            SelectedKnightsColor(0.5f);
+
+        }
+        public void SaveFormation(int listNumber) // Seçili formasyonu kaydet
+        {
+            if (savedFormations[0].savedKnights != null && savedFormations[0].savedKnights.Count != 0) return;
+            print("Saved");
+            savedFormations[0] = new(new(selectedKnights), KnightManager.Instance.knightFormation); // seçili birimleri ve şimdiki formasyonu kaydet
+        }
+        public void ClearSavedFormation(int listNumber) // Kaydı sil
+        {
+            print("Clear");
+            SelectedKnightsColor(1f);
+            savedFormations[0].savedKnights.Clear();
+            selectedKnights.Clear();
+        }
+        void GiveOrder()
+        {
+            if (ıInput.GetButtonDown0())
+            {
+                for (int i = 0; i < selectedKnights.Count; i++)
+                {
+                    selectedKnights[i].GetComponent<KnightController>().unitOrderEnum = KnightManager.Instance.unitOrderEnum;
+                }
+            }
+        }
+
+    }
+    [System.Serializable]
+    class SavedFormation
+    {
+        public List<GameObject> savedKnights;
+        public KnightFormation knightFormation;
+        public SavedFormation(List<GameObject> savedKnights, KnightFormation knightFormation)
+        {
+            this.savedKnights = savedKnights;
+            this.knightFormation = knightFormation;
         }
     }
 }
