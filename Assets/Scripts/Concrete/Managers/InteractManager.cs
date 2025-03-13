@@ -191,8 +191,8 @@ namespace Assets.Scripts.Concrete.Managers
             //Seçildikten sonra birimlerin silinmesi için (ekleme modu kapalı), Hareket emrinden önce çalışmamamsı 5 frame için bekletilir.
             if (!UIManager.Instance.addUnitToggle.isOn && ıInput.GetButtonDown0())
             {
-                if(!CheckUIElements())
-                clicked = true;
+                if (!CheckUIElements())
+                    clicked = true;
             }
 
             if (clicked)
@@ -244,14 +244,14 @@ namespace Assets.Scripts.Concrete.Managers
                 selectedKnights[i].transform.GetChild(0).GetComponent<SpriteRenderer>().color = color;
             }
         }
-        public void SaveFormation(int index) // Seçili formasyonu kaydet
+        public void SaveAndSelectFormation(int index) // Seçili formasyonu kaydet
         {
             if (selectedKnights.Count > 0) // seçili birim varsa kaydet
             {
                 if (savedFormations[index].savedKnights.Count == 0)
                 {
                     print("Saved");
-                    UIManager.Instance.UpdateFormationImage();
+                    UIManager.Instance.UpdateFormationButtonImage();
                     savedFormations[index] = new(new(selectedKnights), KnightManager.Instance.knightFormation); // seçili birimleri ve şimdiki formasyonu kaydet
                 }
             }
@@ -263,6 +263,10 @@ namespace Assets.Scripts.Concrete.Managers
                     print("Selected");
                     SelectedKnightsColor(1f);
                     selectedKnights = new(savedFormations[index].savedKnights); // kayıtlı birimleri eşitle, deep copy
+                    foreach (var item in savedFormations[index].savedKnights)
+                    {
+                        item.GetComponent<KnightController>().isSeleceted = true;
+                    }
                     KnightManager.Instance.knightFormation = savedFormations[index].knightFormation; // kayıtlı formasyonu eşitle
                     UIManager.Instance.formationDropdown.value = (int)savedFormations[index].knightFormation; // formasyon  panelini de güncelle
                     SelectedKnightsColor(0.5f);
@@ -273,8 +277,12 @@ namespace Assets.Scripts.Concrete.Managers
         public void ClearSavedFormation(int index) // Kaydı sil
         {
             print("Clear");
-            UIManager.Instance.UpdateFormationImage(true);
+            UIManager.Instance.UpdateFormationButtonImage(true);
             SelectedKnightsColor(1f);
+            foreach (var item in savedFormations[index].savedKnights)
+            {
+                item.GetComponent<KnightController>().isSeleceted = false;
+            }
             savedFormations[index].savedKnights.Clear();
             selectedKnights.Clear();
         }

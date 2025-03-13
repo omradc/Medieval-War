@@ -153,7 +153,7 @@ namespace Assets.Scripts.Concrete.Managers
         }
         public void SaveFormation()
         {
-            InteractManager.Instance.SaveFormation(index);
+            InteractManager.Instance.SaveAndSelectFormation(index);
         }
         public void ClearSavedFormation(bool value)
         {
@@ -177,7 +177,7 @@ namespace Assets.Scripts.Concrete.Managers
             else
                 time = 0;
         }
-        public void UpdateFormationImage(bool allClose = false)
+        public void UpdateFormationButtonImage(bool allClose = false)
         {
             switch (index) // Hangi liste ile çalışıldığını bulur
             {
@@ -278,7 +278,7 @@ namespace Assets.Scripts.Concrete.Managers
                             break;
                     }
                     break;
-            }            
+            }
         }
         void CloseAllFormationImage()
         {
@@ -288,6 +288,7 @@ namespace Assets.Scripts.Concrete.Managers
             currentSavedFormation.transform.GetChild(3).gameObject.SetActive(false);
             currentSavedFormation.transform.GetChild(4).gameObject.SetActive(false);
         }
+
 
     }
 }

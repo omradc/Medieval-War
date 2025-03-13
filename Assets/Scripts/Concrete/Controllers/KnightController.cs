@@ -30,7 +30,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public float currentSightRange;
         [HideInInspector] public float arrowSpeed = 25;
         [HideInInspector] public float arrowDestroyTime = 10;
-        [HideInInspector] public bool isSeleceted;
+        public bool isSeleceted;
         [HideInInspector] public bool aI = true;
         [HideInInspector] public bool onBuilding;
         [HideInInspector] public bool onBuildingStay;
