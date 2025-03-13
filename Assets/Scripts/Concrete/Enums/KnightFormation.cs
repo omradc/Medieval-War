@@ -2,10 +2,10 @@
 {
     internal enum KnightFormation
     {
-        LineFormation,
         RectangleFormation,
-        VFormation,
         ArcFormation,
+        LineFormation,
+        VFormation,
         SingleLineFormation
     }
 }

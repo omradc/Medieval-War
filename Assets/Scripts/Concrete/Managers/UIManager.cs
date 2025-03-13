@@ -11,12 +11,15 @@ namespace Assets.Scripts.Concrete.Managers
     internal class UIManager : MonoBehaviour
     {
         public static UIManager Instance { get; private set; }
-        public TMP_Dropdown formationDropdown;
-        public TMP_Dropdown orderDropdown;
         public Toggle addUnitToggle;
-        public Button clearUnits;
-        public GameObject build;
-        public GameObject buildingMovement;
+        public TMP_Dropdown formationDropdown;
+        [SerializeField] TMP_Dropdown orderDropdown;
+        [SerializeField] GameObject buildPanel;
+        [SerializeField] GameObject buildingMovement;
+        [SerializeField] GameObject savedFormation0;
+        [SerializeField] GameObject savedFormation1;
+        [SerializeField] GameObject savedFormation2;
+        [SerializeField] GameObject savedFormation3;
         [HideInInspector] public bool canBuild;
         [HideInInspector] public GameObject previewObj;
         public bool canDragPreviewObj = true;
@@ -27,9 +30,11 @@ namespace Assets.Scripts.Concrete.Managers
         Vector3 left;
         [HideInInspector] public GameObject valuePanel;
         public bool isClearUnits;
-       public float time;
-       public bool hold;
+        public float time;
+        public bool hold;
         float holdTreshold;
+        GameObject currentSavedFormation;
+        int index;
         private void Awake()
         {
             Singelton();
@@ -60,13 +65,13 @@ namespace Assets.Scripts.Concrete.Managers
                     KnightManager.Instance.knightFormation = KnightFormation.RectangleFormation;
                     break;
                 case 1:
-                    KnightManager.Instance.knightFormation = KnightFormation.LineFormation;
+                    KnightManager.Instance.knightFormation = KnightFormation.ArcFormation;
                     break;
                 case 2:
-                    KnightManager.Instance.knightFormation = KnightFormation.VFormation;
+                    KnightManager.Instance.knightFormation = KnightFormation.LineFormation;
                     break;
                 case 3:
-                    KnightManager.Instance.knightFormation = KnightFormation.ArcFormation;
+                    KnightManager.Instance.knightFormation = KnightFormation.VFormation;
                     break;
                 case 4:
                     KnightManager.Instance.knightFormation = KnightFormation.SingleLineFormation;
@@ -113,7 +118,7 @@ namespace Assets.Scripts.Concrete.Managers
         }
         public void BuildPanelVisibility(bool visiblity)
         {
-            build.SetActive(visiblity);
+            buildPanel.SetActive(visiblity);
             buildingMovement.SetActive(!visiblity);
         }
         public void Up()
@@ -141,10 +146,14 @@ namespace Assets.Scripts.Concrete.Managers
         {
             return Mathf.Round(value * 10) / 10;
         }
+
+        public void FormationIndex(int index)
+        {
+            this.index = index;
+        }
         public void SaveFormation()
         {
-            InteractManager.Instance.SaveFormation(1);
-            InteractManager.Instance.SelectSavedFormation();
+            InteractManager.Instance.SaveFormation(index);
         }
         public void ClearSavedFormation(bool value)
         {
@@ -160,7 +169,7 @@ namespace Assets.Scripts.Concrete.Managers
                 time += 0.1f;
                 if (time >= holdTreshold)
                 {
-                    InteractManager.Instance.ClearSavedFormation(1);
+                    InteractManager.Instance.ClearSavedFormation(index);
                     time = 0;
                     hold = false;
                 }
@@ -168,5 +177,117 @@ namespace Assets.Scripts.Concrete.Managers
             else
                 time = 0;
         }
+        public void UpdateFormationImage(bool allClose = false)
+        {
+            switch (index) // Hangi liste ile çalışıldığını bulur
+            {
+                case 0:
+                    currentSavedFormation = savedFormation0;
+                    break;
+                case 1:
+                    currentSavedFormation = savedFormation1;
+                    break;
+                case 2:
+                    currentSavedFormation = savedFormation2;
+                    break;
+                case 3:
+                    currentSavedFormation = savedFormation3;
+                    break;
+            }
+            CloseAllFormationImage();
+            if (allClose) return;
+            switch (index)
+            {
+                case 0:
+                    switch (KnightManager.Instance.knightFormation) // seçili listenin formasyon bilgisini gösterir
+                    {
+                        case KnightFormation.RectangleFormation:
+                            currentSavedFormation.transform.GetChild(0).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.ArcFormation:
+                            currentSavedFormation.transform.GetChild(1).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.LineFormation:
+                            currentSavedFormation.transform.GetChild(2).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.VFormation:
+                            currentSavedFormation.transform.GetChild(3).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.SingleLineFormation:
+                            currentSavedFormation.transform.GetChild(4).gameObject.SetActive(true);
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (KnightManager.Instance.knightFormation) // seçili listenin formasyon bilgisini gösterir
+                    {
+                        case KnightFormation.RectangleFormation:
+                            currentSavedFormation.transform.GetChild(0).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.ArcFormation:
+                            currentSavedFormation.transform.GetChild(1).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.LineFormation:
+                            currentSavedFormation.transform.GetChild(2).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.VFormation:
+                            currentSavedFormation.transform.GetChild(3).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.SingleLineFormation:
+                            currentSavedFormation.transform.GetChild(4).gameObject.SetActive(true);
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (KnightManager.Instance.knightFormation) // seçili listenin formasyon bilgisini gösterir
+                    {
+                        case KnightFormation.RectangleFormation:
+                            currentSavedFormation.transform.GetChild(0).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.ArcFormation:
+                            currentSavedFormation.transform.GetChild(1).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.LineFormation:
+                            currentSavedFormation.transform.GetChild(2).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.VFormation:
+                            currentSavedFormation.transform.GetChild(3).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.SingleLineFormation:
+                            currentSavedFormation.transform.GetChild(4).gameObject.SetActive(true);
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (KnightManager.Instance.knightFormation) // seçili listenin formasyon bilgisini gösterir
+                    {
+                        case KnightFormation.RectangleFormation:
+                            currentSavedFormation.transform.GetChild(0).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.ArcFormation:
+                            currentSavedFormation.transform.GetChild(1).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.LineFormation:
+                            currentSavedFormation.transform.GetChild(2).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.VFormation:
+                            currentSavedFormation.transform.GetChild(3).gameObject.SetActive(true);
+                            break;
+                        case KnightFormation.SingleLineFormation:
+                            currentSavedFormation.transform.GetChild(4).gameObject.SetActive(true);
+                            break;
+                    }
+                    break;
+            }            
+        }
+        void CloseAllFormationImage()
+        {
+            currentSavedFormation.transform.GetChild(0).gameObject.SetActive(false);
+            currentSavedFormation.transform.GetChild(1).gameObject.SetActive(false);
+            currentSavedFormation.transform.GetChild(2).gameObject.SetActive(false);
+            currentSavedFormation.transform.GetChild(3).gameObject.SetActive(false);
+            currentSavedFormation.transform.GetChild(4).gameObject.SetActive(false);
+        }
+
     }
 }

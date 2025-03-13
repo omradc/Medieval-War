@@ -6,6 +6,7 @@ using Assets.Scripts.Concrete.SelectSystem;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -30,11 +31,6 @@ namespace Assets.Scripts.Concrete.Managers
         IInput ıInput;
         Interact ınteract;
         public List<GameObject> selectedKnights;
-
-        public List<GameObject> save2;
-        public List<GameObject> save3;
-        public List<GameObject> save4;
-
         Vector2 startPos;
         Vector2 endPos;
         float time;
@@ -61,7 +57,11 @@ namespace Assets.Scripts.Concrete.Managers
         {
             ınteract = new Interact(this, interactableLayers);
             ıInput = new PcInput();
-            savedFormations = new SavedFormation[3];
+            savedFormations = new SavedFormation[4];
+            for (int i = 0; i < savedFormations.Length; i++)
+            {
+                savedFormations[i] = new SavedFormation(new(selectedKnights), KnightManager.Instance.knightFormation);
+            }
         }
         private void Update()
         {
@@ -140,7 +140,6 @@ namespace Assets.Scripts.Concrete.Managers
 
             return results.Count > 0;
         }
-        // Select
         public void SelectMultipleKnight()
         {
             //if (ıInput.GetButtonDown0())
@@ -189,9 +188,12 @@ namespace Assets.Scripts.Concrete.Managers
                 UIManager.Instance.isClearUnits = false;
             }
 
-            //Hareket emrinden önce çalışmamamsı 5 frame için bekletilir.
+            //Seçildikten sonra birimlerin silinmesi için (ekleme modu kapalı), Hareket emrinden önce çalışmamamsı 5 frame için bekletilir.
             if (!UIManager.Instance.addUnitToggle.isOn && ıInput.GetButtonDown0())
+            {
+                if(!CheckUIElements())
                 clicked = true;
+            }
 
             if (clicked)
             {
@@ -242,28 +244,38 @@ namespace Assets.Scripts.Concrete.Managers
                 selectedKnights[i].transform.GetChild(0).GetComponent<SpriteRenderer>().color = color;
             }
         }
-        // Save
-        public void SelectSavedFormation() // Kayıtlı Formasyonu seç
+        public void SaveFormation(int index) // Seçili formasyonu kaydet
         {
-            if (savedFormations[0].savedKnights.Count == 0) return; // kayıtlı birimler silinmeden yeni kayıt yapılamaz
-            print("Selected");
-            SelectedKnightsColor(1f);
-            selectedKnights = new(savedFormations[0].savedKnights); // kayıtlı birimleri eşitle, deep copy
-            KnightManager.Instance.knightFormation = savedFormations[0].knightFormation; // kayıtlı formasyonu eşitle
-            SelectedKnightsColor(0.5f);
+            if (selectedKnights.Count > 0) // seçili birim varsa kaydet
+            {
+                if (savedFormations[index].savedKnights.Count == 0)
+                {
+                    print("Saved");
+                    UIManager.Instance.UpdateFormationImage();
+                    savedFormations[index] = new(new(selectedKnights), KnightManager.Instance.knightFormation); // seçili birimleri ve şimdiki formasyonu kaydet
+                }
+            }
 
+            if (savedFormations[index].savedKnights != null)
+            {
+                if (savedFormations[index].savedKnights.Count > 0)
+                {
+                    print("Selected");
+                    SelectedKnightsColor(1f);
+                    selectedKnights = new(savedFormations[index].savedKnights); // kayıtlı birimleri eşitle, deep copy
+                    KnightManager.Instance.knightFormation = savedFormations[index].knightFormation; // kayıtlı formasyonu eşitle
+                    UIManager.Instance.formationDropdown.value = (int)savedFormations[index].knightFormation; // formasyon  panelini de güncelle
+                    SelectedKnightsColor(0.5f);
+
+                }
+            }
         }
-        public void SaveFormation(int listNumber) // Seçili formasyonu kaydet
-        {
-            if (savedFormations[0].savedKnights != null && savedFormations[0].savedKnights.Count != 0) return;
-            print("Saved");
-            savedFormations[0] = new(new(selectedKnights), KnightManager.Instance.knightFormation); // seçili birimleri ve şimdiki formasyonu kaydet
-        }
-        public void ClearSavedFormation(int listNumber) // Kaydı sil
+        public void ClearSavedFormation(int index) // Kaydı sil
         {
             print("Clear");
+            UIManager.Instance.UpdateFormationImage(true);
             SelectedKnightsColor(1f);
-            savedFormations[0].savedKnights.Clear();
+            savedFormations[index].savedKnights.Clear();
             selectedKnights.Clear();
         }
         void GiveOrder()
@@ -287,6 +299,7 @@ namespace Assets.Scripts.Concrete.Managers
         {
             this.savedKnights = savedKnights;
             this.knightFormation = knightFormation;
+            UIManager.Instance.formationDropdown.value = (int)knightFormation;
         }
     }
 }
