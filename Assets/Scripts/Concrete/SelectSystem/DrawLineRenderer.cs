@@ -1,0 +1,56 @@
+﻿using UnityEngine;
+using static UnityEngine.Rendering.HableCurve;
+
+public class DrawLineRenderer : MonoBehaviour
+{
+    public LineRenderer square;
+    private Vector2 startPoint;
+    private Vector2 endPoint;
+
+    void Start()
+    {
+        InitializeLineRenderer(square, 4, true);
+    }
+    void InitializeLineRenderer(LineRenderer lineRenderer, int positionCount, bool loop)
+    {
+        lineRenderer.positionCount = positionCount;
+        lineRenderer.loop = loop; // Çizgiyi döngüsel hale getir
+    }
+    #region Square
+    public void InitializeDrawSquare()
+    {
+        startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition); // İlk fare pozisyonunu al
+    }
+    public void DrawSquare()
+    {
+        //lineRenderer.startWidth = 1;
+        //lineRenderer.endWidth = 1;
+
+        endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Şu anki fare pozisyonunu al
+        Vector3[] corners = new Vector3[5];
+
+        corners[0] = new Vector3(startPoint.x, startPoint.y, 0);
+        corners[1] = new Vector3(endPoint.x, startPoint.y, 0);
+        corners[2] = new Vector3(endPoint.x, endPoint.y, 0);
+        corners[3] = new Vector3(startPoint.x, endPoint.y, 0);
+        corners[4] = corners[0]; // Başlangıç noktasına geri dön
+
+        square.SetPositions(corners); // Kareyi çiz
+    }
+    public void ResetSquare()
+    {
+        Vector3[] corners = new Vector3[5];
+
+        corners[0] = Vector3.zero;
+        corners[1] = Vector3.zero;
+        corners[2] = Vector3.zero;
+        corners[3] = Vector3.zero;
+        corners[4] = Vector3.zero;
+
+        square.SetPositions(corners); // Kareyi sıfırla
+    }
+    #endregion
+
+
+
+}

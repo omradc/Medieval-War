@@ -139,13 +139,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5de4589c948f4c4b9268be94cba9c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStoping: 0
-  forMovementStopping: 0
+  isStopping: 0
+  isMovementStopping: 0
   isUserControl: 0
   agent: {fileID: 0}
   lastMousePos: {x: 0, y: 0}
   moveSpeed: 0
-  insideOrOutsideWalls: 0
 --- !u!114 &2140753509579492637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +167,7 @@ MonoBehaviour:
   orderInLayerSpriteAnchor: {fileID: 3699232963510252676}
   visual: {fileID: 7307113097883127245}
   damage: 1
+  moveSpeed: 0
   towerPosIndex: 0
   attackRange: 0.6
   currentAttackRange: 0
@@ -188,8 +188,6 @@ MonoBehaviour:
   knightCollider: {fileID: 0}
   arrow: {fileID: 0}
   followingObj: {fileID: 0}
-  obstacle: 0
-  height: 0
 --- !u!114 &-5201736685492982202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,7 +211,9 @@ MonoBehaviour:
   isTakeDamage: 0
   isDead: 0
   goblinHouseController: {fileID: 0}
+  knightHouseController: {fileID: 0}
   elevationFloor: 0
+  currentHealth: 0
 --- !u!114 &675483745330298091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 0
+  currentPriority: 0
   maxAttacker: 3
   attackingPersonNumber: 0
 --- !u!114 &2990742206804797280

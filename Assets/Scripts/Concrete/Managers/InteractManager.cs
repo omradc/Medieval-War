@@ -32,11 +32,13 @@ namespace Assets.Scripts.Concrete.Managers
         bool openCloseDoor;
         float holdTreshold = 0.2f;
         public SavedFormation[] savedFormations;
+        DrawLineRenderer drawSquare;
+
 
         private void Awake()
         {
             Singelton();
-
+            drawSquare = GetComponent<DrawLineRenderer>();
         }
         void Singelton()
         {
@@ -146,11 +148,17 @@ namespace Assets.Scripts.Concrete.Managers
             if (Input.GetMouseButtonDown(1))
             {
                 startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                drawSquare.InitializeDrawSquare();
             }
+
+            //if (ıInput.GetButton0())
+            if (Input.GetMouseButton(1))
+                drawSquare.DrawSquare();
 
             //if (ıInput.GetButtonUp0())
             if (Input.GetMouseButtonUp(1))
             {
+                drawSquare.ResetSquare();
                 GameObject currentUnit;
                 endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Collider2D[] hits = Physics2D.OverlapAreaAll(startPos, endPos, unitLayer);
@@ -162,11 +170,12 @@ namespace Assets.Scripts.Concrete.Managers
                     if (!selectedKnights.Contains(currentUnit))
                     {
                         selectedKnights.Add(currentUnit);
-                        SelectedKnightSetup(selectedKnights, i);
                     }
                 }
-                // Birimleri sıralar
-                //selectedKnightControllers.Sort((a, b) => (a.factionType == FactionTypeEnum.Archer ? 1 : 0) - (b.factionType == FactionTypeEnum.Archer ? 1 : 0));
+                for (int i = 0; i < selectedKnights.Count; i++)
+                {
+                    SelectedKnightSetup(selectedKnights, i);
+                }
             }
         }
         void SelectKnightWhitFaction()

@@ -20,7 +20,6 @@ namespace Assets.Scripts.Concrete.Controllers
         public LayerMask enemiesLayer;
         public Transform orderInLayerSpriteAnchor;
         public SpriteRenderer visual;
-
         [HideInInspector] public int damage;
         [HideInInspector] public float moveSpeed;
         [HideInInspector] public int towerPosIndex;
@@ -30,7 +29,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public float currentSightRange;
         [HideInInspector] public float arrowSpeed = 25;
         [HideInInspector] public float arrowDestroyTime = 10;
-        public bool isSeleceted;
+        [HideInInspector] public bool isSeleceted;
         [HideInInspector] public bool aI = true;
         [HideInInspector] public bool onBuilding;
         [HideInInspector] public bool onBuildingStay;
@@ -61,7 +60,6 @@ namespace Assets.Scripts.Concrete.Controllers
         bool obstacle;
         bool height;
         RaycastHit2D hitObj;
-
         private void Awake()
         {
             pF = GetComponent<PathFinding>();
@@ -84,6 +82,7 @@ namespace Assets.Scripts.Concrete.Controllers
             currentAttackRange = attackRange;
             time = attackInterval;
             animationEventController.ResetAttackEvent += ResetAttack;
+
             // Invoke
             InvokeRepeating(nameof(OptimumTurnDirection), 0, turnDirectionPerTime);
             InvokeRepeating(nameof(OptimumAI), 0, aIPerTime);
@@ -342,7 +341,19 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             time = 0;
         }
+        //public void DrawCircle(LineRenderer lineRenderer, int segments, float radius)
+        //{
+        //    lineRenderer.positionCount = segments + 1;
+        //    float angle = 0f;
 
+        //    for (int i = 0; i < segments + 1; i++)
+        //    {
+        //        float x = Mathf.Cos(angle) * radius;
+        //        float y = Mathf.Sin(angle) * radius;
+        //        lineRenderer.SetPosition(i, new Vector3(x, y, 0) + transform.position);
+        //        angle += 2 * Mathf.PI / segments;
+        //    }
+        //}
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.white;
