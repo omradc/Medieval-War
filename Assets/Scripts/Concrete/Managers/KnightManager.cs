@@ -13,7 +13,7 @@ namespace Assets.Scripts.Concrete.Managers
         public KnightFormation knightFormation;
         public float distance;
         [Header("Setups")]
-        public KnightOrderEnum unitOrderEnum;
+        public KnightOrderEnum knightOrderEnum;
         public Move move;
         IInput ıInput;
 

@@ -13,6 +13,6 @@ namespace Assets.Scripts.Concrete.Enums
         Barrel,
         Warrior,
         Archer,
-        Villager
+        Pawn
     }
 }

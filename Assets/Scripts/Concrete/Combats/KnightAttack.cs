@@ -18,7 +18,7 @@ namespace Assets.Scripts.Concrete.Combats
             this.knightAI = knightAI;
             this.pF = pF;
 
-            if (kC.factionType == FactionTypeEnum.Warrior || kC.factionType == FactionTypeEnum.Villager)
+            if (kC.factionType == FactionTypeEnum.Warrior || kC.factionType == FactionTypeEnum.Pawn)
                 animationEventController.AttackEvent += WorriorOrVillagerAttack;
             if (kC.factionType == FactionTypeEnum.Archer)
                 animationEventController.AttackEvent += ArcherAttack;

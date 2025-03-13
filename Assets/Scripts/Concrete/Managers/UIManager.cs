@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +10,8 @@ namespace Assets.Scripts.Concrete.Managers
     internal class UIManager : MonoBehaviour
     {
         public static UIManager Instance { get; private set; }
-        public Toggle addUnitToggle;
+        public float gridSize = 0.1f;
+        public Toggle addKnightModeToggle;
         public TMP_Dropdown formationDropdown;
         [SerializeField] TMP_Dropdown orderDropdown;
         [SerializeField] GameObject buildPanel;
@@ -22,22 +22,31 @@ namespace Assets.Scripts.Concrete.Managers
         [SerializeField] GameObject savedFormation3;
         [HideInInspector] public bool canBuild;
         [HideInInspector] public GameObject previewObj;
-        public bool canDragPreviewObj = true;
-        public float gridSize = 0.1f;
+        [HideInInspector] public bool canDragPreviewObj;
+        [HideInInspector] public GameObject valuePanel;
+        [HideInInspector] public bool isClearUnits;
+        GameObject currentSavedFormation;
         Vector3 up;
         Vector3 down;
         Vector3 right;
         Vector3 left;
-        [HideInInspector] public GameObject valuePanel;
-        public bool isClearUnits;
-        public float time;
-        public bool hold;
+        float time;
+        bool hold;
         float holdTreshold;
-        GameObject currentSavedFormation;
         int index;
         private void Awake()
         {
             Singelton();
+        }
+        private void Start()
+        {
+            up = new Vector3(0, gridSize, 0);
+            down = new Vector3(0, -gridSize, 0);
+            right = new Vector3(gridSize, 0, 0);
+            left = new Vector3(-gridSize, 0, 0);
+            holdTreshold = .3f;
+            canDragPreviewObj = true;
+            InvokeRepeating(nameof(HoldForClearFormationTimer), 0, 0.1f);
         }
         void Singelton()
         {
@@ -47,15 +56,6 @@ namespace Assets.Scripts.Concrete.Managers
             }
             else
                 Destroy(this);
-        }
-        private void Start()
-        {
-            up = new Vector3(0, gridSize, 0);
-            down = new Vector3(0, -gridSize, 0);
-            right = new Vector3(gridSize, 0, 0);
-            left = new Vector3(-gridSize, 0, 0);
-            holdTreshold = .3f;
-            InvokeRepeating(nameof(HoldForClearFormationTimer), 0, 0.1f);
         }
         public void FormationDropdown()
         {
@@ -83,20 +83,19 @@ namespace Assets.Scripts.Concrete.Managers
             switch (orderDropdown.value)
             {
                 case 0:
-                    KnightManager.Instance.unitOrderEnum = KnightOrderEnum.AttackOrder;
+                    KnightManager.Instance.knightOrderEnum = KnightOrderEnum.AttackOrder;
                     break;
                 case 1:
-                    KnightManager.Instance.unitOrderEnum = KnightOrderEnum.DefendOrder;
+                    KnightManager.Instance.knightOrderEnum = KnightOrderEnum.DefendOrder;
                     break;
                 case 2:
-                    KnightManager.Instance.unitOrderEnum = KnightOrderEnum.FollowOrder;
+                    KnightManager.Instance.knightOrderEnum = KnightOrderEnum.FollowOrder;
                     break;
                 case 3:
-                    KnightManager.Instance.unitOrderEnum = KnightOrderEnum.StayOrder;
+                    KnightManager.Instance.knightOrderEnum = KnightOrderEnum.StayOrder;
                     break;
             }
         }
-        public void AddUnitToggle(bool on) { print(addUnitToggle.isOn); }
         public void ClearUnits()
         {
             isClearUnits = true;
@@ -146,7 +145,6 @@ namespace Assets.Scripts.Concrete.Managers
         {
             return Mathf.Round(value * 10) / 10;
         }
-
         public void FormationIndex(int index)
         {
             this.index = index;

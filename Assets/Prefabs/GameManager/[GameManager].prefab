@@ -198,7 +198,8 @@ MonoBehaviour:
   interactedTower: {fileID: 0}
   interactedConstruction: {fileID: 0}
   interactedRepo: {fileID: 0}
-  selectedUnits: []
+  selectedKnights: []
+  savedFormations: []
 --- !u!114 &1351704705479308060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,8 +212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c85261585c6268428c896c0223b34cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  troopFormation: 2
-  distanceBetweenUnits: 0.8
+  knightFormation: 0
+  distance: 1
   unitOrderEnum: 0
 --- !u!114 &1961826129281843446
 MonoBehaviour:
@@ -226,18 +227,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f5747719410df45a9f91ccc496173b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addUnitToggle: {fileID: 0}
   formationDropdown: {fileID: 0}
   orderDropdown: {fileID: 0}
-  addUnitToggle: {fileID: 0}
-  clearUnits: {fileID: 0}
-  build: {fileID: 0}
+  buildPanel: {fileID: 0}
   buildingMovement: {fileID: 0}
+  savedFormation0: {fileID: 0}
+  savedFormation1: {fileID: 0}
+  savedFormation2: {fileID: 0}
+  savedFormation3: {fileID: 0}
   canBuild: 1
   previewObj: {fileID: 0}
   canDragPreviewObj: 1
   gridSize: 0.2
   valuePanel: {fileID: 0}
   isClearUnits: 0
+  time: 0
+  hold: 0
 --- !u!114 &3724882387064550949
 MonoBehaviour:
   m_ObjectHideFlags: 0

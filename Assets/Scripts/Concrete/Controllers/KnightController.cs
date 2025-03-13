@@ -73,11 +73,8 @@ namespace Assets.Scripts.Concrete.Controllers
             knightAI = new(this, pF);
             new KnightAttack(this, knightAI, animationEventController, pF);
             dynamicOrderInLayer = new();
-            if (factionType == FactionTypeEnum.Villager)
+            if (factionType == FactionTypeEnum.Pawn)
                 pawnController = GetComponent<PawnController>();
-
-
-
         }
         private void Start()
         {
@@ -97,7 +94,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 warriorStats = GetComponent<WarriorStats>();
             if (factionType == FactionTypeEnum.Archer)
                 archerStats = GetComponent<ArcherStats>();
-            if (factionType == FactionTypeEnum.Villager)
+            if (factionType == FactionTypeEnum.Pawn)
                 villagerStats = GetComponent<VillagerStats>();
 
             if (warriorStats != null)
@@ -199,7 +196,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 // Hedefte düþman varsa;
                 if (knightAI.target != null)
                 {
-                    if (factionType == FactionTypeEnum.Villager)
+                    if (factionType == FactionTypeEnum.Pawn)
                         direction.Turn2DirectionWithPos(knightAI.nearestAttackPoint.position.x);
                     if (factionType == FactionTypeEnum.Archer)
                         direction.Turn8Direction(knightAI.nearestAttackPoint.position);
@@ -211,7 +208,7 @@ namespace Assets.Scripts.Concrete.Controllers
                 else
                 {
                     // Köylü deðilse
-                    if (factionType != FactionTypeEnum.Villager)
+                    if (factionType != FactionTypeEnum.Pawn)
                         transform.localScale = Vector3.one;
 
                     // Köylü ise

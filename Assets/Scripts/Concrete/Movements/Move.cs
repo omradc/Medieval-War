@@ -1,11 +1,6 @@
-﻿using Assets.Scripts.Concrete.AI;
-using Assets.Scripts.Concrete.Enums;
+﻿using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace Assets.Scripts.Concrete.Movements
 {
@@ -23,6 +18,7 @@ namespace Assets.Scripts.Concrete.Movements
             VFormation(KnightManager.Instance.knightFormation == KnightFormation.VFormation, KnightManager.Instance.distance);
             SingleLineFormation(KnightManager.Instance.knightFormation == KnightFormation.SingleLineFormation, KnightManager.Instance.distance);
             ArcFormation(KnightManager.Instance.knightFormation == KnightFormation.ArcFormation, KnightManager.Instance.distance);
+            InteractManager.Instance.AddKnightModeStatus(); // seçim durumuna göre seçim dizisini hemen siler veya bekler
         }
 
         void CalculateDirections(Vector2 curentPos, Vector2 target)
@@ -50,25 +46,6 @@ namespace Assets.Scripts.Concrete.Movements
             //if (angle < 45 && angle > 315) Impossible :D
             else
                 this.direction = DirectionEnum.right;
-        }
-        void SetSpeed(Vector3 followPos, GameObject knight, PathFinding pF, float distance)
-        {
-            float space = (followPos - knight.transform.position).magnitude;
-            float speedFactor = Mathf.Clamp(space / distance, 1.5f, 2f);
-            pF.agent.speed = Mathf.Lerp(pF.agent.speed, speedFactor, .5f);
-        }
-        int CalcDirValue(int i)
-        {
-            int dirValue;
-            if (i == 1)
-                dirValue = 1;
-            else if (i == 2)
-                dirValue = -1;
-            else if (i % 2 == 0)
-                dirValue = -1;
-            else
-                dirValue = 1;
-            return dirValue;
         }
         public void LineFormation(bool lineFormation, float distance)
         {
@@ -245,6 +222,7 @@ namespace Assets.Scripts.Concrete.Movements
                 InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>().Move(targetPos, 0);
             }
         }
+
 
         //public void SetSpeed()
         //{

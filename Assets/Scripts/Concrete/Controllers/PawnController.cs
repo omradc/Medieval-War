@@ -111,6 +111,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Update()
         {
+
             collectResources.ReadyToNextCommand();
             collectResources.SelectResourceType();
 

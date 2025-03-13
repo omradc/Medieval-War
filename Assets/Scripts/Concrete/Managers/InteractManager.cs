@@ -3,14 +3,9 @@ using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.SelectSystem;
-using JetBrains.Annotations;
-using System;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.Concrete.Managers
 {
@@ -34,9 +29,8 @@ namespace Assets.Scripts.Concrete.Managers
         Vector2 startPos;
         Vector2 endPos;
         float time;
-        bool clicked;
         bool openCloseDoor;
-
+        float holdTreshold = 0.2f;
         public SavedFormation[] savedFormations;
 
         private void Awake()
@@ -57,8 +51,9 @@ namespace Assets.Scripts.Concrete.Managers
         {
             ınteract = new Interact(this, interactableLayers);
             ıInput = new PcInput();
+            selectedKnights = new();// Başlangıç ataması;
             savedFormations = new SavedFormation[4];
-            for (int i = 0; i < savedFormations.Length; i++)
+            for (int i = 0; i < savedFormations.Length; i++) // Başlangıç ataması;
             {
                 savedFormations[i] = new SavedFormation(new(selectedKnights), KnightManager.Instance.knightFormation);
             }
@@ -66,8 +61,14 @@ namespace Assets.Scripts.Concrete.Managers
         private void Update()
         {
             SelectMultipleKnight();
+            SelectKnightWhitFaction();
             ClearSelectedKnights();
             GiveOrder();
+            InteractableObjects();
+
+        }
+        void InteractableObjects()
+        {
             if (ıInput.GetButtonDown0())
             {
                 // mouse ile tıklanan obje ile etkileşime girilir
@@ -127,7 +128,6 @@ namespace Assets.Scripts.Concrete.Managers
                 interactedRepo = null;
             }
         }
-
         public bool CheckUIElements() // Tıklanan yerde UI elemanı olup olmadığını sorgular. Sadece 1 kez kullan
         {
             PointerEventData eventData = new(EventSystem.current)
@@ -140,7 +140,7 @@ namespace Assets.Scripts.Concrete.Managers
 
             return results.Count > 0;
         }
-        public void SelectMultipleKnight()
+        void SelectMultipleKnight()
         {
             //if (ıInput.GetButtonDown0())
             if (Input.GetMouseButtonDown(1))
@@ -160,19 +160,82 @@ namespace Assets.Scripts.Concrete.Managers
 
                     // Aynı nesneyi tekrar diziye atma
                     if (!selectedKnights.Contains(currentUnit))
+                    {
                         selectedKnights.Add(currentUnit);
-                    KnightController kC = selectedKnights[i].GetComponent<KnightController>();
-                    kC.unitOrderEnum = KnightManager.Instance.unitOrderEnum;
-                    kC.workOnce = true;
-                    kC.followingObj = null;
-                    kC.isSeleceted = true;
-
+                        SelectedKnightSetup(selectedKnights, i);
+                    }
                 }
-                // Seçili birimi vurgula
-                SelectedKnightsColor(0.5f);
                 // Birimleri sıralar
                 //selectedKnightControllers.Sort((a, b) => (a.factionType == FactionTypeEnum.Archer ? 1 : 0) - (b.factionType == FactionTypeEnum.Archer ? 1 : 0));
             }
+        }
+        void SelectKnightWhitFaction()
+        {
+            if (interactedKnight != null)
+            {
+                time += Time.deltaTime;
+                if (time > holdTreshold)
+                {
+                    FactionTypeEnum factionTypeEnum = interactedKnight.GetComponent<KnightController>().factionType;
+
+                    if (factionTypeEnum == FactionTypeEnum.Warrior)
+                    {
+                        GameObject[] knights = GameObject.FindGameObjectsWithTag("Warrior");
+                        for (int i = 0; i < knights.Length; i++)
+                        {
+                            if (!selectedKnights.Contains(knights[i]))
+                            {
+                                selectedKnights.Add(knights[i]);
+                            }
+                        }
+                        for (int i = 0; i < selectedKnights.Count; i++)
+                        {
+                            SelectedKnightSetup(selectedKnights, i);
+                        }
+                    }
+                    if (factionTypeEnum == FactionTypeEnum.Archer)
+                    {
+                        GameObject[] knights = GameObject.FindGameObjectsWithTag("Archer");
+                        for (int i = 0; i < knights.Length; i++)
+                        {
+                            if (!selectedKnights.Contains(knights[i]))
+                            {
+                                selectedKnights.Add(knights[i]);
+                            }
+                        }
+                        for (int i = 0; i < selectedKnights.Count; i++)
+                        {
+                            SelectedKnightSetup(selectedKnights, i);
+                        }
+                    }
+                    if (factionTypeEnum == FactionTypeEnum.Pawn)
+                    {
+                        GameObject[] knights = GameObject.FindGameObjectsWithTag("Pawn");
+                        for (int i = 0; i < knights.Length; i++)
+                        {
+                            if (!selectedKnights.Contains(knights[i]))
+                            {
+                                selectedKnights.Add(knights[i]);
+                            }
+                        }
+                        for (int i = 0; i < selectedKnights.Count; i++)
+                        {
+                            SelectedKnightSetup(selectedKnights, i);
+                        }
+                    }
+
+                    time = 0;
+                }
+            }
+        }
+        void SelectedKnightSetup(List<GameObject> knights, int i)
+        {
+            KnightController kC = knights[i].GetComponent<KnightController>();
+            kC.unitOrderEnum = KnightManager.Instance.knightOrderEnum;
+            kC.workOnce = true;
+            kC.followingObj = null;
+            kC.isSeleceted = true;
+            SelectedKnightColor(.5f, knights[i]);
         }
         void ClearSelectedKnights()
         {
@@ -186,29 +249,6 @@ namespace Assets.Scripts.Concrete.Managers
                 SelectedKnightsColor(1f);
                 selectedKnights.Clear();
                 UIManager.Instance.isClearUnits = false;
-            }
-
-            //Seçildikten sonra birimlerin silinmesi için (ekleme modu kapalı), Hareket emrinden önce çalışmamamsı 5 frame için bekletilir.
-            if (!UIManager.Instance.addUnitToggle.isOn && ıInput.GetButtonDown0())
-            {
-                if (!CheckUIElements())
-                    clicked = true;
-            }
-
-            if (clicked)
-            {
-                if (time > Time.deltaTime * 5) // 5 Frame bekle
-                {
-                    for (int i = 0; i < selectedKnights.Count; i++)
-                    {
-                        selectedKnights[i].GetComponent<KnightController>().isSeleceted = false;
-                    }
-                    SelectedKnightsColor(1f);
-                    selectedKnights.Clear();
-                    time = 0;
-                    clicked = false;
-                }
-                time += Time.deltaTime;
             }
 
             #region Sadece köylüleri siler
@@ -229,13 +269,13 @@ namespace Assets.Scripts.Concrete.Managers
             //}
             #endregion
         }
-        public void SelectedKnightColor(float alphaValue, GameObject obj)
+        public void SelectedKnightColor(float alphaValue, GameObject obj) // 1 Şovalye
         {
             Color color = obj.transform.GetChild(0).GetComponent<SpriteRenderer>().color;
             color.a = alphaValue;
             obj.transform.GetChild(0).GetComponent<SpriteRenderer>().color = color;
         }
-        public void SelectedKnightsColor(float alphaValue)
+        void SelectedKnightsColor(float alphaValue) // Tüm şovalyeler
         {
             for (int i = 0; i < selectedKnights.Count; i++)
             {
@@ -263,14 +303,12 @@ namespace Assets.Scripts.Concrete.Managers
                     print("Selected");
                     SelectedKnightsColor(1f);
                     selectedKnights = new(savedFormations[index].savedKnights); // kayıtlı birimleri eşitle, deep copy
-                    foreach (var item in savedFormations[index].savedKnights)
+                    for (int i = 0; i < savedFormations[index].savedKnights.Count; i++)
                     {
-                        item.GetComponent<KnightController>().isSeleceted = true;
+                        SelectedKnightSetup(savedFormations[index].savedKnights, i);
                     }
                     KnightManager.Instance.knightFormation = savedFormations[index].knightFormation; // kayıtlı formasyonu eşitle
                     UIManager.Instance.formationDropdown.value = (int)savedFormations[index].knightFormation; // formasyon  panelini de güncelle
-                    SelectedKnightsColor(0.5f);
-
                 }
             }
         }
@@ -292,8 +330,20 @@ namespace Assets.Scripts.Concrete.Managers
             {
                 for (int i = 0; i < selectedKnights.Count; i++)
                 {
-                    selectedKnights[i].GetComponent<KnightController>().unitOrderEnum = KnightManager.Instance.unitOrderEnum;
+                    selectedKnights[i].GetComponent<KnightController>().unitOrderEnum = KnightManager.Instance.knightOrderEnum;
                 }
+            }
+        }
+        public void AddKnightModeStatus()
+        {
+            if (!UIManager.Instance.addKnightModeToggle.isOn)
+            {
+                for (int i = 0; i < selectedKnights.Count; i++)
+                {
+                    selectedKnights[i].GetComponent<KnightController>().isSeleceted = false;
+                }
+                SelectedKnightsColor(1f);
+                selectedKnights.Clear();
             }
         }
 

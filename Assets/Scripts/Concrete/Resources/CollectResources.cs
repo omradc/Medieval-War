@@ -3,7 +3,6 @@ using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.Resources
@@ -15,7 +14,7 @@ namespace Assets.Scripts.Concrete.Resources
         IInput ınput;
         public CollectResources(PawnController pawnController, PathFinding pF)
         {
-            new PcInput();
+            ınput = new PcInput();
             this.pawnController = pawnController;
             this.pF = pF;
         }
@@ -204,7 +203,6 @@ namespace Assets.Scripts.Concrete.Resources
             {
                 DropAnyResources();
             }
-
         }
         public void DropAnyResources()
         {

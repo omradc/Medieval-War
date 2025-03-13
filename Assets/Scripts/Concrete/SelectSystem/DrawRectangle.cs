@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Abstracts.Inputs;
+using Assets.Scripts.Concrete.Inputs;
+using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
 public class DrawRectangle : MonoBehaviour
@@ -6,8 +8,13 @@ public class DrawRectangle : MonoBehaviour
     private LineRenderer lineRenderer;
     private Vector2 startPoint;
     private Vector2 endPoint;
+    IInput ınput;
     Touch touch0;
 
+    private void Awake()
+    {
+        ınput = new PcInput();
+    }
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -17,23 +24,15 @@ public class DrawRectangle : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount == 1)
+        if (ınput.GetButtonDown0())
+            startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition); // İlk fare pozisyonunu al
+        if (ınput.GetButton0())
         {
-            touch0 = Input.GetTouch(0);
-            if (touch0.phase==TouchPhase.Began) // Sol fare tuşuna basıldığında
-            {
-                startPoint = Camera.main.ScreenToWorldPoint(touch0.position); // İlk fare pozisyonunu al
-            }
-            if (touch0.phase == TouchPhase.Moved) // Fare tuşu basılı tutulduğunda
-            {
-                endPoint = Camera.main.ScreenToWorldPoint(touch0.position); // Şu anki fare pozisyonunu al
-                DrawSquare();
-            }
-            if (touch0.phase == TouchPhase.Ended)
-                ResetSquare();
-
+            endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Şu anki fare pozisyonunu al
+            DrawSquare();
         }
-
+        if (ınput.GetButtonUp0())
+            ResetSquare();
     }
 
     void DrawSquare()
