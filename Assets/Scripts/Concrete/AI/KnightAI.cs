@@ -39,7 +39,7 @@ namespace Assets.Scripts.Concrete.AI
             {
                 float distance = Vector2.Distance(kC.transform.position, kC.targetEnemies[i].transform.position);
                 TargetPriority targetPriority = kC.targetEnemies[i].GetComponent<TargetPriority>();
-                float currentScore = targetPriority.attackingPersonNumber + distance - targetPriority.currentPriority;
+                float currentScore = targetPriority.currentAttackerNumber + distance - targetPriority.currentPriority;
 
                 if (bestScore > currentScore)
                 {
@@ -147,11 +147,9 @@ namespace Assets.Scripts.Concrete.AI
             if (kC.followingObj != null)
                 kC.sightRangePosition = kC.followingObj.transform.position;
 
-            // Kendi saldırı menzilini geçmeyecek şekilde, görüş menzilinde düşman yoksa hedefi (kendi görüş menzilini) takip et
-            if (kC.targetEnemies.Length == 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) > kC.currentAttackRange)
-            {
-                pF.MoveAI(kC.sightRangePosition, kC.currentAttackRange);
-            }
+            // Takip mesafesini aşmayacak şekilde, görüş menzilinde düşman yoksa hedefi (kendi görüş menzilini) takip et
+            if (kC.targetEnemies.Length == 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) > kC.followDistance)
+                pF.MoveAI(kC.sightRangePosition, kC.followDistance);
 
             // Görüş menzilde düşman varsa, menzilden çıkmayacak şekilde düşmanı takip et
             if (kC.targetEnemies.Length > 0 && Vector2.Distance((Vector3)kC.sightRangePosition, kC.transform.position) < kC.currentSightRange)
@@ -161,7 +159,7 @@ namespace Assets.Scripts.Concrete.AI
             }
             if (KnightManager.Instance.moveCommand)
             {
-                DrawCircle(kC.drawSightRange, kC.currentSightRange, kC.sightRangePosition);
+                kC.drawSightRange.positionCount = 0;
                 DrawCircle(kC.drawAttackRange, kC.currentAttackRange);
             }
         }

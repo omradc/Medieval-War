@@ -4,6 +4,10 @@ namespace Assets.Scripts.Concrete.PowerStats
 {
     public class PowerStats : MonoBehaviour
     {
+        [Header("Target Priority")]
+        public int priority;
+        [Range(0, 10)] public int maxAttacker = 3;
+
         [Header("Health")]
         public int health = 10;
         public bool regrenation = true;

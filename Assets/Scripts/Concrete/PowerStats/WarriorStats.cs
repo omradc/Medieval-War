@@ -5,5 +5,6 @@ namespace Assets.Scripts.Concrete.PowerStats
 {
     public class WarriorStats : PowerStats
     {
+        public float followDistance = 3;
     }
 }

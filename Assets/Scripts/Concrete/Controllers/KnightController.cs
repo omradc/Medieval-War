@@ -21,10 +21,10 @@ namespace Assets.Scripts.Concrete.Controllers
         public LineRenderer drawAttackRange;
         public LineRenderer drawPath;
         public GameObject targetImage;
-        [HideInInspector] public int lineWidth;
-        public LayerMask enemiesLayer;
         public Transform orderInLayerSpriteAnchor;
         public SpriteRenderer visual;
+        public LayerMask enemiesLayer;
+        [HideInInspector] public int lineWidth;
         [HideInInspector] public int damage;
         [HideInInspector] public float moveSpeed;
         [HideInInspector] public int towerPosIndex;
@@ -32,8 +32,9 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public float currentAttackRange;
         [HideInInspector] public float sightRange;
         [HideInInspector] public float currentSightRange;
-        [HideInInspector] public float arrowSpeed = 25;
-        [HideInInspector] public float arrowDestroyTime = 10;
+        [HideInInspector] public float arrowSpeed;
+        [HideInInspector] public float arrowDestroyTime;
+        [HideInInspector] public float followDistance;
         [HideInInspector] public bool isSeleceted;
         [HideInInspector] public bool aI = true;
         [HideInInspector] public bool onBuilding;
@@ -49,6 +50,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public CircleCollider2D knightCollider;
         [HideInInspector] public GameObject arrow;
         [HideInInspector] public GameObject followingObj;
+        [HideInInspector] public Camera cam;
         Animator animator;
         AnimationEventController animationEventController;
         PathFinding pF;
@@ -58,8 +60,7 @@ namespace Assets.Scripts.Concrete.Controllers
         ArcherStats archerStats;
         VillagerStats villagerStats;
         HealthController healthController;
-        [HideInInspector] public Camera cam;
-
+        TargetPriority targetPriority;
         float attackInterval;
         float attackSpeed;
         float time;
@@ -79,6 +80,7 @@ namespace Assets.Scripts.Concrete.Controllers
             new KnightAttack(this, knightAI, animationEventController, pF);
             dynamicOrderInLayer = new();
             cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+            targetPriority = GetComponent<TargetPriority>();
             if (factionType == FactionTypeEnum.Pawn)
                 pawnController = GetComponent<PawnController>();
             Instantiate(targetImage, transform.position, Quaternion.identity);
@@ -119,6 +121,9 @@ namespace Assets.Scripts.Concrete.Controllers
                 attackInterval = warriorStats.attackInterval;
                 attackRange = warriorStats.attackRange;
                 sightRange = warriorStats.sightRange;
+                followDistance = warriorStats.followDistance;
+                targetPriority.priority = warriorStats.priority;
+                targetPriority.maxAttacker = warriorStats.maxAttacker;
             }
             if (archerStats != null)
             {
@@ -135,6 +140,9 @@ namespace Assets.Scripts.Concrete.Controllers
                 sightRange = archerStats.sightRange;
                 arrowSpeed = archerStats.arrowSpeed;
                 arrowDestroyTime = archerStats.arrowDestroyTime;
+                followDistance = archerStats.followDistance;
+                targetPriority.priority = archerStats.priority;
+                targetPriority.maxAttacker = archerStats.maxAttacker;
             }
             if (villagerStats != null)
             {
@@ -151,6 +159,9 @@ namespace Assets.Scripts.Concrete.Controllers
                 sightRange = villagerStats.sightRange;
                 pawnController.treeDamage = villagerStats.treeDamage;
                 pawnController.chopSpeed = villagerStats.chopSpeed;
+                followDistance = villagerStats.followDistance;
+                targetPriority.priority = villagerStats.priority;
+                targetPriority.maxAttacker = villagerStats.maxAttacker;
             }
 
         }

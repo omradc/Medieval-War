@@ -61,6 +61,7 @@ namespace Assets.Scripts.Concrete.Controllers
         TntStats tntStats;
         BarrelStats barrelStats;
         HealthController healthController;
+        TargetPriority targetPriority;
         Vector3 gizmosPos;
         float moveSpeed;
         float time;
@@ -83,6 +84,7 @@ namespace Assets.Scripts.Concrete.Controllers
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
             new EnemyAttack(this, goblinAI, animationEventController, pF);
             dynamicOrderInLayer = new();
+            targetPriority = GetComponent<TargetPriority>();
         }
         private void Start()
         {
@@ -122,6 +124,8 @@ namespace Assets.Scripts.Concrete.Controllers
                 sightRange = torchStats.sightRange;
                 longRange = torchStats.longRange;
                 reportRange = torchStats.reportRange;
+                targetPriority.priority = torchStats.priority;
+                targetPriority.maxAttacker = torchStats.maxAttacker;
             }
 
             if (tntStats != null)
@@ -141,6 +145,8 @@ namespace Assets.Scripts.Concrete.Controllers
                 reportRange = tntStats.reportRange;
                 dynamiteSpeed = tntStats.dynamiteSpeed;
                 dynamiteExplosionRadius = tntStats.dynamiteExplosionRadius;
+                targetPriority.priority = tntStats.priority;
+                targetPriority.maxAttacker = tntStats.maxAttacker;
             }
 
             if (barrelStats != null)
@@ -159,6 +165,8 @@ namespace Assets.Scripts.Concrete.Controllers
                 longRange = barrelStats.longRange;
                 reportRange = barrelStats.reportRange;
                 barrelExplosionRadius = barrelStats.barrelExplosionRadius;
+                targetPriority.priority = barrelStats.priority;
+                targetPriority.maxAttacker = barrelStats.maxAttacker;
             }
 
         }

@@ -8,13 +8,13 @@ namespace Assets.Scripts.Concrete.Combats
         /// <summary>
         /// Değer arttıkça öceliği artar
         /// </summary>
-        public int priority;
-        public int currentPriority;
-        
+        [HideInInspector] public int priority;
+        [HideInInspector] public int currentPriority;
+
         /// <summary>
         /// Maksimum saldırgan sayısına ulaştığında, önceliği azalır
         /// </summary>
-        [Range(0, 10)] public int maxAttacker = 3;
-        [HideInInspector] public int attackingPersonNumber;
+        [HideInInspector][Range(0, 10)] public int maxAttacker = 3;
+        [HideInInspector] public int currentAttackerNumber;
     }
 }

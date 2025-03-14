@@ -5,6 +5,8 @@ namespace Assets.Scripts.Concrete.PowerStats
 {
      class VillagerStats : PowerStats
     {
+        public float followDistance = 3;
+
         [Header("TREE")]
         public int treeDamage = 1;
         public float chopSpeed;

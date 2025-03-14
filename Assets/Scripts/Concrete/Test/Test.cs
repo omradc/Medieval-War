@@ -1,22 +1,13 @@
 using UnityEngine;
 
-public class ChildDontMoveWithParent : MonoBehaviour
+public class Test : MonoBehaviour
 {
-    public Transform child; // Çocuk objesi
-    public Transform parent; // Ana obje (Ebeveyn)
-
-    private Vector3 initialChildPosition; // Çocuðun ilk pozisyonu
-
-    void Start()
-    {
-        // Çocuðun dünya pozisyonunu kaydet
-        initialChildPosition = child.position;
-    }
-
+    public Transform a; // Çocuk objesi
+    public Transform b; // Ana obje (Ebeveyn)
+    public float result;
     void Update()
     {
-        // Ebeveynin hareketinden baðýmsýz olarak, çocuðun pozisyonunu sabit tut
-        child.position = initialChildPosition;
+        result = (a.position - b.position).magnitude;
     }
 }
 

@@ -46,7 +46,7 @@ namespace Assets.Scripts.Concrete.AI
                 {
                     float distance = Vector2.Distance(gC.transform.position, gC.sightRangeDetechEnemies[i].transform.position);
                     TargetPriority targetPriority = gC.sightRangeDetechEnemies[i].GetComponent<TargetPriority>();
-                    float currentScore = targetPriority.attackingPersonNumber + distance - targetPriority.currentPriority;
+                    float currentScore = targetPriority.currentAttackerNumber + distance - targetPriority.currentPriority;
                     if (bestScore > currentScore)
                     {
                         bestScore = currentScore;

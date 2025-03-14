@@ -24,7 +24,7 @@ namespace Assets.Scripts.Concrete.Controllers
         Image fillImage;
         List<GameObject> attackingPersons;
         TargetPriority targetPriority;
-        public float currentHealth;
+        [HideInInspector] public float currentHealth;
         RaycastHit2D hitElevation;
         private void Awake()
         {
@@ -114,7 +114,7 @@ namespace Assets.Scripts.Concrete.Controllers
                     goblinHouseController.currentGoblinNumber--; // Ölmeden önce goblin sayısını azaltır 
                 Destroy(gameObject);
             }
-            if(gameObject.CompareTag("Repo"))
+            if (gameObject.CompareTag("Repo"))
             {
                 ResourcesManager.Instance.DestroyRepo(gameObject);
             }
@@ -138,9 +138,9 @@ namespace Assets.Scripts.Concrete.Controllers
 
 
             if (attackingPersons.Count <= targetPriority.maxAttacker)
-                targetPriority.attackingPersonNumber = 0;
+                targetPriority.currentAttackerNumber = 0;
             else
-                targetPriority.attackingPersonNumber = attackingPersons.Count - targetPriority.maxAttacker;
+                targetPriority.currentAttackerNumber = attackingPersons.Count - targetPriority.maxAttacker;
             for (int i = 0; i < attackingPersons.Count; i++)
             {
                 if (attackingPersons[i] == null)
