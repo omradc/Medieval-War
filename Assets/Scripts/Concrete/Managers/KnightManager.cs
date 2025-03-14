@@ -16,6 +16,7 @@ namespace Assets.Scripts.Concrete.Managers
         public KnightOrderEnum knightOrderEnum;
         public Move move;
         IInput ıInput;
+        public bool moveCommand;
 
         private void Awake()
         {
@@ -42,8 +43,13 @@ namespace Assets.Scripts.Concrete.Managers
             if (ıInput.GetButtonDown0())
             {
                 if (!InteractManager.Instance.CheckUIElements())
+                {
                     move.MoveCommand();
+                    moveCommand = true;
+                }
             }
+            if (ıInput.GetButtonUp0())
+                moveCommand = false;
         }
         //void Optimum()
         //{

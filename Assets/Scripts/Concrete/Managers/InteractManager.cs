@@ -32,13 +32,13 @@ namespace Assets.Scripts.Concrete.Managers
         bool openCloseDoor;
         float holdTreshold = 0.2f;
         public SavedFormation[] savedFormations;
-        DrawLineRenderer drawSquare;
+        DrawLineRenderer drawLine;
 
 
         private void Awake()
         {
             Singelton();
-            drawSquare = GetComponent<DrawLineRenderer>();
+            drawLine = GetComponent<DrawLineRenderer>();
         }
         void Singelton()
         {
@@ -59,6 +59,8 @@ namespace Assets.Scripts.Concrete.Managers
             {
                 savedFormations[i] = new SavedFormation(new(selectedKnights), KnightManager.Instance.knightFormation);
             }
+
+            InvokeRepeating(nameof(OptimumLineWidthnes), 0, 0.1f);
         }
         private void Update()
         {
@@ -148,17 +150,17 @@ namespace Assets.Scripts.Concrete.Managers
             if (Input.GetMouseButtonDown(1))
             {
                 startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                drawSquare.InitializeDrawSquare();
+                drawLine.InitializeDrawSquare();
             }
 
             //if (ıInput.GetButton0())
             if (Input.GetMouseButton(1))
-                drawSquare.DrawSquare();
+                drawLine.DrawSquare();
 
             //if (ıInput.GetButtonUp0())
             if (Input.GetMouseButtonUp(1))
             {
-                drawSquare.ResetSquare();
+                drawLine.ResetSquare();
                 GameObject currentUnit;
                 endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Collider2D[] hits = Physics2D.OverlapAreaAll(startPos, endPos, unitLayer);
@@ -355,7 +357,10 @@ namespace Assets.Scripts.Concrete.Managers
                 selectedKnights.Clear();
             }
         }
-
+        void OptimumLineWidthnes()
+        {
+            drawLine.DynamicLineRendererWidthness();
+        }
     }
     [System.Serializable]
     class SavedFormation

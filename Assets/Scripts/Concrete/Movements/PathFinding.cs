@@ -11,6 +11,7 @@ namespace Assets.Scripts.Concrete.Movements
         [HideInInspector] public bool isMovementStopping;
         [HideInInspector] public bool isUserControl;
         [HideInInspector] public NavMeshAgent agent;
+        [HideInInspector] public Vector2 targetPos;
         [HideInInspector] public Vector2 lastMousePos;
         [HideInInspector] public float moveSpeed;
         Direction direction;
@@ -19,6 +20,7 @@ namespace Assets.Scripts.Concrete.Movements
         NavMeshPath path;
         bool isStuck;
         TargetPriority targetPriority;
+
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -49,6 +51,7 @@ namespace Assets.Scripts.Concrete.Movements
             if (mousePos == null || InteractManager.Instance.interactedObj != null) return;
             print("Move");
             lastMousePos = mousePos;
+            targetPos = mousePos;
             agent.stoppingDistance = stoppingDistance;
             agent.SetDestination(mousePos);
             isUserControl = true;
@@ -58,6 +61,7 @@ namespace Assets.Scripts.Concrete.Movements
             if (pos == null || isUserControl) return;
             if (gameObject.layer == 6 && isStuck) return;//Şovalye surlardayken, düşman takibi yapmaz. 
             print("MoveAI");
+            targetPos = pos;
             agent.stoppingDistance = stoppingDistance;
             agent.SetDestination(pos);
         }

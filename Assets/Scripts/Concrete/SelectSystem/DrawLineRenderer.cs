@@ -6,7 +6,8 @@ public class DrawLineRenderer : MonoBehaviour
     public LineRenderer square;
     private Vector2 startPoint;
     private Vector2 endPoint;
-
+    const float lineWidth=300;
+    [SerializeField] Camera cam;
     void Start()
     {
         InitializeLineRenderer(square, 4, true);
@@ -50,7 +51,10 @@ public class DrawLineRenderer : MonoBehaviour
         square.SetPositions(corners); // Kareyi sıfırla
     }
     #endregion
-
+    public void DynamicLineRendererWidthness()
+    {
+        square.widthMultiplier = cam.orthographicSize / lineWidth;
+    }
 
 
 }

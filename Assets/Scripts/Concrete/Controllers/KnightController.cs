@@ -17,6 +17,11 @@ namespace Assets.Scripts.Concrete.Controllers
         [Range(0.1f, 1f)] public float turnDirectionPerTime = 0.5f;
         [Range(0.1f, 1f)] public float aIPerTime = 0.5f;
         [Range(0.1f, 1f)] public float collectResourcesPerTime = 1f;
+        public LineRenderer drawSightRange;
+        public LineRenderer drawAttackRange;
+        public LineRenderer drawPath;
+        public GameObject targetImage;
+        [HideInInspector] public int lineWidth;
         public LayerMask enemiesLayer;
         public Transform orderInLayerSpriteAnchor;
         public SpriteRenderer visual;
@@ -53,6 +58,8 @@ namespace Assets.Scripts.Concrete.Controllers
         ArcherStats archerStats;
         VillagerStats villagerStats;
         HealthController healthController;
+        [HideInInspector] public Camera cam;
+
         float attackInterval;
         float attackSpeed;
         float time;
@@ -71,12 +78,15 @@ namespace Assets.Scripts.Concrete.Controllers
             knightAI = new(this, pF);
             new KnightAttack(this, knightAI, animationEventController, pF);
             dynamicOrderInLayer = new();
+            cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
             if (factionType == FactionTypeEnum.Pawn)
                 pawnController = GetComponent<PawnController>();
+            Instantiate(targetImage, transform.position, Quaternion.identity);
         }
         private void Start()
         {
             PowerStatsAssign();
+            lineWidth = 500;
             pF.agent.speed = moveSpeed;
             currentSightRange = sightRange;
             currentAttackRange = attackRange;
@@ -146,6 +156,13 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         private void Update()
         {
+            if (!UIManager.Instance.drawRangeToggle.isOn)
+            {
+                drawSightRange.positionCount = 0;
+                drawAttackRange.positionCount = 0;
+            }
+            if (!pF.isStopping)
+                targetImage.transform.position = pF.targetPos;
             if (!onBuilding)
                 dynamicOrderInLayer.OrderInLayerUpdate(orderInLayerSpriteAnchor, visual);
             AttackOn();
@@ -173,7 +190,9 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void OptimumAI()
         {
+            knightAI.DynamicLineRendererWidthness();
             knightAI.GoTower();
+            knightAI.DrawPath(pF.agent.path, drawPath, targetImage);
             if (aI)
             {
                 knightAI.UnitBehaviours();
@@ -341,19 +360,7 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             time = 0;
         }
-        //public void DrawCircle(LineRenderer lineRenderer, int segments, float radius)
-        //{
-        //    lineRenderer.positionCount = segments + 1;
-        //    float angle = 0f;
 
-        //    for (int i = 0; i < segments + 1; i++)
-        //    {
-        //        float x = Mathf.Cos(angle) * radius;
-        //        float y = Mathf.Sin(angle) * radius;
-        //        lineRenderer.SetPosition(i, new Vector3(x, y, 0) + transform.position);
-        //        angle += 2 * Mathf.PI / segments;
-        //    }
-        //}
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.white;

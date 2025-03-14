@@ -3,8 +3,10 @@ using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using System;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 namespace Assets.Scripts.Concrete.AI
 {
@@ -111,10 +113,17 @@ namespace Assets.Scripts.Concrete.AI
             if (kC.unitOrderEnum == KnightOrderEnum.StayOrder)
                 Stay();
         }
+
+
         void Attack()
         {
             kC.sightRangePosition = kC.transform.GetChild(0).position;
             kC.currentSightRange = kC.sightRange;
+            if (KnightManager.Instance.moveCommand)
+            {
+                DrawCircle(kC.drawSightRange, kC.currentSightRange);
+                DrawCircle(kC.drawAttackRange, kC.currentAttackRange);
+            }
         }
         void Defend()
         {
@@ -124,6 +133,11 @@ namespace Assets.Scripts.Concrete.AI
             {
                 pF.MoveAI(kC.sightRangePosition, 0);
                 kC.direction.Turn2DirectionWithPos(kC.sightRangePosition.x);
+            }
+            if (KnightManager.Instance.moveCommand)
+            {
+                DrawCircle(kC.drawSightRange, kC.currentSightRange, kC.sightRangePosition);
+                DrawCircle(kC.drawAttackRange, kC.currentAttackRange);
             }
         }
         void Follow()
@@ -145,12 +159,21 @@ namespace Assets.Scripts.Concrete.AI
                 if (target == null) return;
                 pF.MoveAI(target.transform.position, kC.currentAttackRange);
             }
-
+            if (KnightManager.Instance.moveCommand)
+            {
+                DrawCircle(kC.drawSightRange, kC.currentSightRange, kC.sightRangePosition);
+                DrawCircle(kC.drawAttackRange, kC.currentAttackRange);
+            }
         }
         void Stay()
         {
             kC.currentSightRange = kC.currentAttackRange;
             kC.sightRangePosition = kC.transform.GetChild(0).position;
+            if (KnightManager.Instance.moveCommand)
+            {
+                DrawCircle(kC.drawSightRange, kC.currentSightRange);
+                DrawCircle(kC.drawAttackRange, kC.currentAttackRange);
+            }
         }
         public void SelectTower()  // Update ile çalışır
         {
@@ -321,6 +344,58 @@ namespace Assets.Scripts.Concrete.AI
             }
 
             bC.isFull = false;
+        }
+        public void DrawCircle(LineRenderer lineRenderer, float radius, Vector2 pos = default)
+        {
+            if (!UIManager.Instance.drawRangeToggle.isOn) return;
+
+            int points = Mathf.RoundToInt(Mathf.Sqrt(radius) * 30);
+            Debug.Log(lineRenderer.name + ": " + points);
+            lineRenderer.positionCount = points + 1;
+            float angle = 0f;
+
+            for (int i = 0; i < points + 1; i++)
+            {
+                float x = Mathf.Cos(angle) * radius;
+                float y = Mathf.Sin(angle) * radius;
+                if (pos == Vector2.zero)
+                {
+                    lineRenderer.useWorldSpace = false;
+                    lineRenderer.SetPosition(i, new Vector2(x, y));
+                }
+                else
+                {
+                    lineRenderer.useWorldSpace = true;
+                    lineRenderer.SetPosition(i, new Vector2(x, y) + pos);
+                }
+                angle += 2 * Mathf.PI / points;
+            }
+        }
+        public void DrawPath(NavMeshPath path, LineRenderer lineRenderer, GameObject targetImage)
+        {
+            if (pF.isStopping || !UIManager.Instance.drawPathToggle.isOn)
+            {
+                lineRenderer.positionCount = 0;
+                targetImage.SetActive(false);
+                return;
+            }
+
+            // LineRenderer'ı başlat
+            lineRenderer.positionCount = path.corners.Length;
+
+            // Her köşe için LineRenderer pozisyonlarını ayarla
+            for (int i = 0; i < path.corners.Length; i++)
+            {
+                lineRenderer.SetPosition(i, path.corners[i]);
+            }
+            targetImage.SetActive(true);
+        }
+        public void DynamicLineRendererWidthness()
+        {
+            float width = kC.cam.orthographicSize / kC.lineWidth;
+            kC.drawSightRange.widthMultiplier = width;
+            kC.drawAttackRange.widthMultiplier = width;
+            kC.drawPath.widthMultiplier = width;
         }
     }
 }

@@ -12,6 +12,8 @@ namespace Assets.Scripts.Concrete.Managers
         public static UIManager Instance { get; private set; }
         public float gridSize = 0.1f;
         public Toggle addKnightModeToggle;
+        public Toggle drawRangeToggle;
+        public Toggle drawPathToggle;
         public TMP_Dropdown formationDropdown;
         [SerializeField] TMP_Dropdown orderDropdown;
         [SerializeField] GameObject buildPanel;
