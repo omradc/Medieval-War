@@ -40,7 +40,7 @@ namespace Assets.Scripts.Concrete.Combats
             transform.Translate(direction * arrowSpeed * Time.deltaTime, Space.World);
 
             // Ok hedefe saplandı
-            if (Vector2.Distance(transform.position, target.transform.position) < arrowStabDistance)
+            if ((transform.position - target.transform.position).magnitude < arrowStabDistance)
             {
                 transform.GetChild(0).gameObject.SetActive(false);
                 // Hasar ver

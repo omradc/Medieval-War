@@ -55,7 +55,7 @@ namespace Assets.Scripts.Concrete.Combats
             transform.Translate(direction * dynamiteSpeed * Time.deltaTime, Space.World);
 
             // Dinamit hedefe ulaştı
-            if (Vector2.Distance(transform.position, target.transform.position) < dynamiteExplosionDistance)
+            if ((transform.position- target.transform.position).magnitude < dynamiteExplosionDistance)
             {
                 // Hasar ver
                 hits = Physics2D.OverlapCircleAll(transform.position, radius, targetLayer);

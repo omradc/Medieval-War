@@ -116,7 +116,7 @@ namespace Assets.Scripts.Concrete.Controllers
             if (!goFence && isDomestic && villager != null && !inFence)
             {
                 // Köylüyü takip et
-                if (Vector2.Distance(transform.position, villager.transform.position) > followDistance)
+                if ((transform.position - villager.transform.position).magnitude > followDistance)
                 {
                     pF.agent.stoppingDistance = followDistance;
                     pF.MoveAI(villager.transform.position, followDistance);
@@ -134,13 +134,13 @@ namespace Assets.Scripts.Concrete.Controllers
                     return;
                 }
                 // Çitlere git
-                if (Vector2.Distance(transform.position, sheepPoint.position) >= 0.1f)
+                if ((transform.position- sheepPoint.position).magnitude >= 0.1f)
                 {
                     pF.agent.stoppingDistance = 0;
                     pF.MoveAI(sheepPoint.position, 0);
                 }
                 // Çit içinde
-                if (Vector2.Distance(transform.position, sheepPoint.position) < 0.1f && pF.isStopping)
+                if ((transform.position - sheepPoint.position).magnitude < 0.1f && pF.isStopping)
                 {
                     goFence = false;
                     inFence = true;
