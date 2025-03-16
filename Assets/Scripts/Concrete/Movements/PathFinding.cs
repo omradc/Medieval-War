@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Concrete.Combats;
+using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Managers;
 using UnityEngine;
 using UnityEngine.AI;
@@ -107,6 +108,5 @@ namespace Assets.Scripts.Concrete.Movements
             else
                 targetPriority.currentPriority = targetPriority.priority;
         }
-
     }
 }

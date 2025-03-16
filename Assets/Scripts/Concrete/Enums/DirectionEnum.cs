@@ -8,6 +8,10 @@ namespace Assets.Scripts.Concrete.Enums
 		right,
 		left,
 		up,
-		down
+		down,
+		upRight,
+		upLeft,
+		downRight,
+		downLeft
 	}
 }

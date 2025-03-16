@@ -17,7 +17,9 @@ namespace Assets.Scripts.Concrete.Managers
         public Move move;
         IInput ıInput;
         public bool moveCommand;
-
+        public float formationDiff;
+        public bool create;
+        public GameObject ımg;
         private void Awake()
         {
             Singelton();
