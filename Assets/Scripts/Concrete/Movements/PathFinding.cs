@@ -46,7 +46,7 @@ namespace Assets.Scripts.Concrete.Movements
             CalculateStuck();
         }
 
-        public void Move(Vector3 mousePos, float stoppingDistance) // Kullanıcı hareketi
+        public void Move(Vector3 mousePos, float stoppingDistance = 0) // Kullanıcı hareketi
         {
             // Pozisyon verilmediyse veya etkilleşimli bir objeye tıklandıysa çalışma
             if (mousePos == null || InteractManager.Instance.interactedObj != null) return;

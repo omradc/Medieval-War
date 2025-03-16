@@ -16,10 +16,9 @@ namespace Assets.Scripts.Concrete.Managers
         public KnightOrderEnum knightOrderEnum;
         public Move move;
         IInput ıInput;
-        public bool moveCommand;
-        public float formationDiff;
-        public bool create;
-        public GameObject ımg;
+        [HideInInspector] public bool moveCommand;
+        public float angle;
+        
         private void Awake()
         {
             Singelton();
