@@ -16,7 +16,7 @@ namespace Assets.Scripts.Concrete.Movements
         public void MoveCommand()
         {
             LineFormation(KnightManager.Instance.knightFormation == KnightFormation.LineFormation, KnightManager.Instance.distance);
-            //RectangleFormation(KnightManager.Instance.knightFormation == KnightFormation.RectangleFormation, KnightManager.Instance.distance);
+            RectangleFormation(KnightManager.Instance.knightFormation == KnightFormation.RectangleFormation, KnightManager.Instance.distance);
             //VFormation(KnightManager.Instance.knightFormation == KnightFormation.VFormation, KnightManager.Instance.distance);
             SingleLineFormation(KnightManager.Instance.knightFormation == KnightFormation.SingleLineFormation, KnightManager.Instance.distance);
             //ArcFormation(KnightManager.Instance.knightFormation == KnightFormation.ArcFormation, KnightManager.Instance.distance);
@@ -61,13 +61,12 @@ namespace Assets.Scripts.Concrete.Movements
             float speed = CalculateSpeed();
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = (mousePos - CalculateCenterOfFormation(knightCount)).normalized;  // Mouse yönü
-            Vector2 perpendicular = new Vector2(-direction.y, direction.x); // Dik vektör
-
-            Vector2 startPos = mousePos - (perpendicular * ((knightCount - 1) * distance * 0.5f));
+            Vector2 vertical = new Vector2(-direction.y, direction.x); // Dik vektör
+            Vector2 startPos = mousePos - (vertical * ((knightCount - 1) * distance * 0.5f));
 
             for (int i = 0; i < knightCount; i++)
             {
-                Vector2 unitPosition = startPos + (perpendicular * (i * distance));
+                Vector2 unitPosition = startPos + (vertical * (i * distance));
                 pF = InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>();
                 pF.agent.speed = speed;
                 pF.Move(unitPosition, 0);
@@ -83,13 +82,13 @@ namespace Assets.Scripts.Concrete.Movements
             float speed = CalculateSpeed();
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = (mousePos - CalculateCenterOfFormation(knightCount)).normalized;  // Mouse yönü
-            Vector2 perpendicular = new Vector2(direction.x, direction.y); // Yatay vektör
+            Vector2 horizontal = new Vector2(direction.x, direction.y); // Yatay vektör
 
-            Vector2 startPos = mousePos - (perpendicular * ((knightCount - 1) * distance * 0.5f));
+            Vector2 startPos = mousePos - (horizontal * ((knightCount - 1) * distance * 0.5f));
 
             for (int i = 0; i < knightCount; i++)
             {
-                Vector2 unitPosition = startPos + (perpendicular * (i * distance));
+                Vector2 unitPosition = startPos + (horizontal * (i * distance));
                 pF = InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>();
                 pF.agent.speed = speed;
                 pF.Move(unitPosition, 0);
@@ -131,39 +130,38 @@ namespace Assets.Scripts.Concrete.Movements
         {
             InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>().agent.speed = InteractManager.Instance.selectedKnights[i].GetComponent<KnightController>().moveSpeed;
         }
-        //public void RectangleFormation(bool rectangleFormation, float distance)
-        //{
-        //    if (rectangleFormation)
-        //    {
-        //        int knightCount = InteractManager.Instance.selectedKnights.Count;
-        //        if (knightCount == 0) return;
+        public void RectangleFormation(bool rectangleFormation, float distance)
+        {
+            if (rectangleFormation)
+            {
+                int knightCount = InteractManager.Instance.selectedKnights.Count;
+                if (knightCount == 0) return;
 
-        //        PathFinding pF;
-        //        float speed;
-        //        Vector2 targetPos;
-        //        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //        int squareRoot = Mathf.CeilToInt(Mathf.Sqrt(InteractManager.Instance.selectedKnights.Count)); // En az kenar uzunluğu
-        //        float side = (float)squareRoot / 2;
-        //        float formationDiff = side * distance - 0.5f;
-        //        mousePos -= new Vector2(formationDiff, formationDiff);
-        //        if (knightCount > 1) // Seçili şovalye sayısı 1 den fazla ise en yavaş şovalye hızına ayarla
-        //            speed = CalculateSlowestKnight(InteractManager.Instance.selectedKnights);
-        //        else // şovalye sayısı 1 ise kendi hızına ayarla
-        //            speed = InteractManager.Instance.selectedKnights[0].GetComponent<KnightController>().moveSpeed;
+                PathFinding pF;
+                float speed = CalculateSpeed();
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 direction = (mousePos - (Vector2)InteractManager.Instance.selectedKnights[4].transform.position).normalized;  // Mouse yönü
+                Vector2 vertical = new Vector2(-direction.y, direction.x); // Dik vektör
+                int squareRoot = Mathf.CeilToInt(Mathf.Sqrt(InteractManager.Instance.selectedKnights.Count)); // En az kenar uzunluğu
+                float side = (float)squareRoot / 2;
+                float formationDiff = side * distance - 0.5f;
+                Vector2 startPos = mousePos - (vertical * formationDiff);
+                
+                //mousePos -= new Vector2(formationDiff, formationDiff);
 
-        //        for (int i = 0; i < InteractManager.Instance.selectedKnights.Count; i++)
-        //        {
-        //            GameObject knight = InteractManager.Instance.selectedKnights[i];
-        //            int row = i / squareRoot; // Satır
-        //            int col = i % squareRoot; // Sütun
+                for (int i = 0; i < InteractManager.Instance.selectedKnights.Count; i++)
+                {
+                    GameObject knight = InteractManager.Instance.selectedKnights[i];
+                    int row = i / squareRoot; // Satır
+                    int col = i % squareRoot; // Sütun
 
-        //            targetPos = mousePos + new Vector2(col * distance, row * distance);
-        //            pF = knight.GetComponent<PathFinding>();
-        //            pF.agent.speed = speed;
-        //            pF.Move(targetPos, 0);
-        //        }
-        //    }
-        //}
+
+                    pF = knight.GetComponent<PathFinding>();
+                    pF.agent.speed = speed;
+                    pF.Move(startPos + new Vector2(col * distance, row * distance), 0);
+                }
+            }
+        }
         //public void VFormation(bool vFormation, float distance)
         //{
         //    if (vFormation)
