@@ -348,7 +348,6 @@ namespace Assets.Scripts.Concrete.AI
             if (!UIManager.Instance.drawRangeToggle.isOn) return;
 
             int points = Mathf.RoundToInt(Mathf.Sqrt(radius) * 30);
-            Debug.Log(lineRenderer.name + ": " + points);
             lineRenderer.positionCount = points + 1;
             float angle = 0f;
 

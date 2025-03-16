@@ -1,7 +1,10 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
+
 
 namespace Assets.Scripts.Concrete.Movements
 {
@@ -160,9 +163,6 @@ namespace Assets.Scripts.Concrete.Movements
                 pF.Move(knightPos);
             }
         }
-
-
-
         float CalculateSpeed()
         {
             float slowestKnightSpeed = Mathf.Infinity;
@@ -186,6 +186,21 @@ namespace Assets.Scripts.Concrete.Movements
             InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>().agent.speed = InteractManager.Instance.selectedKnights[i].GetComponent<KnightController>().moveSpeed;
         }
 
+        public void FormationPreview(List<GameObject> targetImages, float distance)
+        {
+            if (InteractManager.Instance.selectedKnights.Count == 0) return;
+            switch (KnightManager.Instance.knightFormation)
+            {
+                case KnightFormation.LineFormation:
+                    for (int i = 0; i < InteractManager.Instance.selectedKnights.Count; i++)
+                    {
+                        targetImages[i].transform.position = new Vector3(0, i * distance);
+                    }
+                    break;
+            }
+        }
+
+        #region
         //Vector2 CalculateCenterOfFormation(int knightCount)
         //{
         //    if (knightCount % 2 == 1) // Tek sayıda şovalyeler varsa
@@ -896,6 +911,7 @@ namespace Assets.Scripts.Concrete.Movements
         //    }
         //}
 
+        #endregion
         #endregion
 
     }

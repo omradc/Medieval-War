@@ -51,6 +51,8 @@ namespace Assets.Scripts.Concrete.Managers
             }
             if (ıInput.GetButtonUp0())
                 moveCommand = false;
+
+            move.FormationPreview(InteractManager.Instance.targetImages,distance);
         }
         //void Optimum()
         //{

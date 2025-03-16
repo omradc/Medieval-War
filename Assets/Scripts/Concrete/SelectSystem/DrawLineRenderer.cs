@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
-using static UnityEngine.Rendering.HableCurve;
 
 public class DrawLineRenderer : MonoBehaviour
 {
     public LineRenderer square;
+    public LineRenderer formationIndicator;
     private Vector2 startPoint;
     private Vector2 endPoint;
-    const float lineWidth=300;
+    const float lineWidth = 300;
     [SerializeField] Camera cam;
     void Start()
     {
@@ -24,9 +24,6 @@ public class DrawLineRenderer : MonoBehaviour
     }
     public void DrawSquare()
     {
-        //lineRenderer.startWidth = 1;
-        //lineRenderer.endWidth = 1;
-
         endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Şu anki fare pozisyonunu al
         Vector3[] corners = new Vector3[5];
 
@@ -51,6 +48,14 @@ public class DrawLineRenderer : MonoBehaviour
         square.SetPositions(corners); // Kareyi sıfırla
     }
     #endregion
+
+    public void DrawFormationIndicator(/*GameObject targetImage,*/ Camera cam, float lineWidth = 500)
+    {
+        formationIndicator.positionCount = 2;
+        formationIndicator.SetPosition(0, (Vector2)cam.transform.position);
+        formationIndicator.SetPosition(1, (Vector2)cam.ScreenToWorldPoint(Input.mousePosition));
+        formationIndicator.widthMultiplier = cam.orthographicSize / lineWidth;
+    }
     public void DynamicLineRendererWidthness()
     {
         square.widthMultiplier = cam.orthographicSize / lineWidth;

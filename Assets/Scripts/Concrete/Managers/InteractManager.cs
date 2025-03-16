@@ -5,6 +5,7 @@ using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.SelectSystem;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Concrete.Managers
@@ -26,6 +27,7 @@ namespace Assets.Scripts.Concrete.Managers
         IInput ıInput;
         Interact ınteract;
         public List<GameObject> selectedKnights;
+        public List<GameObject> targetImages;
         Vector2 startPos;
         Vector2 endPos;
         float time;
@@ -33,7 +35,9 @@ namespace Assets.Scripts.Concrete.Managers
         float holdTreshold = 0.2f;
         public SavedFormation[] savedFormations;
         DrawLineRenderer drawLine;
-
+        [SerializeField] Camera camera;
+        [SerializeField] Transform formationPreview;
+        [SerializeField] GameObject targetImage;
 
         private void Awake()
         {
@@ -59,7 +63,7 @@ namespace Assets.Scripts.Concrete.Managers
             {
                 savedFormations[i] = new SavedFormation(new(selectedKnights), KnightManager.Instance.knightFormation);
             }
-
+            CreateTargetImage();
             InvokeRepeating(nameof(OptimumLineWidthnes), 0, 0.1f);
         }
         private void Update()
@@ -69,7 +73,7 @@ namespace Assets.Scripts.Concrete.Managers
             ClearSelectedKnights();
             GiveOrder();
             InteractableObjects();
-
+            DrawFormationIndicator();
         }
         void InteractableObjects()
         {
@@ -146,19 +150,16 @@ namespace Assets.Scripts.Concrete.Managers
         }
         void SelectMultipleKnight()
         {
-            //if (ıInput.GetButtonDown0())
-            if (Input.GetMouseButtonDown(1))
+            if (ıInput.GetButtonDown0())
             {
                 startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 drawLine.InitializeDrawSquare();
             }
 
-            //if (ıInput.GetButton0())
-            if (Input.GetMouseButton(1))
+            if (ıInput.GetButton0())
                 drawLine.DrawSquare();
 
-            //if (ıInput.GetButtonUp0())
-            if (Input.GetMouseButtonUp(1))
+            if (ıInput.GetButtonUp0())
             {
                 drawLine.ResetSquare();
                 GameObject currentUnit;
@@ -355,6 +356,19 @@ namespace Assets.Scripts.Concrete.Managers
                 }
                 SelectedKnightsColor(1f);
                 selectedKnights.Clear();
+            }
+        }
+        void DrawFormationIndicator()
+        {
+            if (selectedKnights.Count > 0 && UIManager.Instance.dynamicAngleModeToggle.isOn)
+                drawLine.DrawFormationIndicator(camera);
+            //KnightManager.Instance.move.FormationPreview(formationPreview, targetImage, KnightManager.Instance.distance);
+        }
+        public void CreateTargetImage()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                targetImages.Add(Instantiate(targetImage, formationPreview));
             }
         }
         void OptimumLineWidthnes()
