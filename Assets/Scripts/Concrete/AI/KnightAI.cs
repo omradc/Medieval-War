@@ -3,7 +3,6 @@ using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 

@@ -34094,7 +34094,7 @@ GameObject:
   - component: {fileID: 2045416448}
   - component: {fileID: 2045416449}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Angles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34494,6 +34494,38 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1021756746}
+    - target: {fileID: 2114920113068028289, guid: 18582e224bd5bbb43b2d0fca7b5fa152, type: 3}
+      propertyPath: m_IsOn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114920113068028289, guid: 18582e224bd5bbb43b2d0fca7b5fa152, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114920113068028289, guid: 18582e224bd5bbb43b2d0fca7b5fa152, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114920113068028289, guid: 18582e224bd5bbb43b2d0fca7b5fa152, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1021756746}
+    - target: {fileID: 2114920113068028289, guid: 18582e224bd5bbb43b2d0fca7b5fa152, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114920113068028289, guid: 18582e224bd5bbb43b2d0fca7b5fa152, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DynamicAngleToggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114920113068028289, guid: 18582e224bd5bbb43b2d0fca7b5fa152, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Concrete.Managers.UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114920113068028289, guid: 18582e224bd5bbb43b2d0fca7b5fa152, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2175576672254357523, guid: 18582e224bd5bbb43b2d0fca7b5fa152, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -35219,6 +35251,10 @@ PrefabInstance:
       propertyPath: distance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1376407962236483775, guid: 639f9652ab2a7fb4093455108e872d2e, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1178735376}
     - target: {fileID: 1376407962236483775, guid: 639f9652ab2a7fb4093455108e872d2e, type: 3}
       propertyPath: camera
       value: 

@@ -18,7 +18,7 @@ namespace Assets.Scripts.Concrete.Managers
         IInput ıInput;
         [HideInInspector] public bool moveCommand;
         public float angle;
-        
+
         private void Awake()
         {
             Singelton();
@@ -52,7 +52,7 @@ namespace Assets.Scripts.Concrete.Managers
             if (ıInput.GetButtonUp0())
                 moveCommand = false;
 
-            move.FormationPreview(InteractManager.Instance.targetImages,distance);
+            move.FormationPreviewMovement(InteractManager.Instance.targetImages, distance, angle);
         }
         //void Optimum()
         //{

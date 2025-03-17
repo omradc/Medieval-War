@@ -35,8 +35,8 @@ namespace Assets.Scripts.Concrete.Managers
         float holdTreshold = 0.2f;
         public SavedFormation[] savedFormations;
         DrawLineRenderer drawLine;
-        [SerializeField] Camera camera;
-        [SerializeField] Transform formationPreview;
+        [SerializeField] Camera cam;
+        public Transform formationPreview;
         [SerializeField] GameObject targetImage;
 
         private void Awake()
@@ -361,7 +361,7 @@ namespace Assets.Scripts.Concrete.Managers
         void DrawFormationIndicator()
         {
             if (selectedKnights.Count > 0 && UIManager.Instance.dynamicAngleModeToggle.isOn)
-                drawLine.DrawFormationIndicator(camera);
+                drawLine.DrawFormationIndicator(cam);
             //KnightManager.Instance.move.FormationPreview(formationPreview, targetImage, KnightManager.Instance.distance);
         }
         public void CreateTargetImage()

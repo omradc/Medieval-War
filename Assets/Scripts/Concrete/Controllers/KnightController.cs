@@ -83,7 +83,6 @@ namespace Assets.Scripts.Concrete.Controllers
             targetPriority = GetComponent<TargetPriority>();
             if (factionType == FactionTypeEnum.Pawn)
                 pawnController = GetComponent<PawnController>();
-            Instantiate(targetImage, transform.position, Quaternion.identity);
         }
         private void Start()
         {
