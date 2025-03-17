@@ -192,8 +192,7 @@ namespace Assets.Scripts.Concrete.Movements
         public Vector2 savedDynamicDirection = Vector2.zero;
         public void FormationPreviewMovement(List<GameObject> targetImages, float distance, float angle)
         {
-            if (InteractManager.Instance.selectedKnights.Count == 0 || !UIManager.Instance.dynamicAngleModeToggle) return;
-
+            if (InteractManager.Instance.selectedKnights.Count == 0 || !UIManager.Instance.dynamicAngleModeToggle.isOn) return;
             int knightCount = InteractManager.Instance.selectedKnights.Count;
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (UIManager.Instance.dynamicAngleModeToggle.isOn || savedDynamicDirection == Vector2.zero) // Eğer açılar kilitlenmemişse yeni açıyı ata
@@ -209,7 +208,6 @@ namespace Assets.Scripts.Concrete.Movements
                     targetImages[i].transform.position = targetPos;
                 }
             }
-
             else if (KnightManager.Instance.knightFormation == KnightFormation.SingleLineFormation)
             {
                 Vector2 horizontal = new Vector2(savedDynamicDirection.x, savedDynamicDirection.y); // Yatay vektör
@@ -237,7 +235,7 @@ namespace Assets.Scripts.Concrete.Movements
                     targetImages[i].transform.position = targetPos;
                 }
             }
-            if (KnightManager.Instance.knightFormation == KnightFormation.ArcFormation)
+            else if (KnightManager.Instance.knightFormation == KnightFormation.ArcFormation)
             {
                 float spacing = knightCount / 3 * distance;
                 Vector2 center = mousePos; // Formasyonun merkezi olarak mouse tıklanan noktayı al
@@ -258,8 +256,7 @@ namespace Assets.Scripts.Concrete.Movements
 
                 }
             }
-
-            if (KnightManager.Instance.knightFormation == KnightFormation.VFormation)
+            else if (KnightManager.Instance.knightFormation == KnightFormation.VFormation)
             {
                 float baseRotation = Mathf.Atan2(savedDynamicDirection.y, savedDynamicDirection.x) * Mathf.Rad2Deg; // Mouse yönüne göre dönüş açısını belirle
                 Vector2 leftWing = Quaternion.Euler(0, 0, -angle * 0.5f) * savedDynamicDirection; // İki kolun yönünü hesapla (V açısı)
@@ -276,7 +273,6 @@ namespace Assets.Scripts.Concrete.Movements
                     targetImages[i].transform.position = targetPos;
                 }
             }
-
         }
 
         #region

@@ -27,7 +27,7 @@ namespace Assets.Scripts.Concrete.Managers
         IInput ıInput;
         Interact ınteract;
         public List<GameObject> selectedKnights;
-        public List<GameObject> targetImages;
+        public List<GameObject> indicatorImages;
         Vector2 startPos;
         Vector2 endPos;
         float time;
@@ -36,8 +36,7 @@ namespace Assets.Scripts.Concrete.Managers
         public SavedFormation[] savedFormations;
         DrawLineRenderer drawLine;
         [SerializeField] Camera cam;
-        public Transform formationPreview;
-        [SerializeField] GameObject targetImage;
+        [SerializeField] GameObject targetImagesParent;
 
         private void Awake()
         {
@@ -63,7 +62,6 @@ namespace Assets.Scripts.Concrete.Managers
             {
                 savedFormations[i] = new SavedFormation(new(selectedKnights), KnightManager.Instance.knightFormation);
             }
-            CreateTargetImage();
             InvokeRepeating(nameof(OptimumLineWidthnes), 0, 0.1f);
         }
         private void Update()
@@ -248,6 +246,7 @@ namespace Assets.Scripts.Concrete.Managers
             kC.followingObj = null;
             kC.isSeleceted = true;
             SelectedKnightColor(.5f, knights[i]);
+            GetTargetImage();
         }
         void ClearSelectedKnights()
         {
@@ -260,6 +259,7 @@ namespace Assets.Scripts.Concrete.Managers
                 }
                 SelectedKnightsColor(1f);
                 selectedKnights.Clear();
+                ClearTargetImage();
                 UIManager.Instance.isClearUnits = false;
             }
 
@@ -335,6 +335,7 @@ namespace Assets.Scripts.Concrete.Managers
             }
             savedFormations[index].savedKnights.Clear();
             selectedKnights.Clear();
+            ClearTargetImage();
         }
         void GiveOrder()
         {
@@ -356,6 +357,7 @@ namespace Assets.Scripts.Concrete.Managers
                 }
                 SelectedKnightsColor(1f);
                 selectedKnights.Clear();
+                ClearTargetImage();
             }
         }
         void DrawFormationIndicator()
@@ -364,12 +366,30 @@ namespace Assets.Scripts.Concrete.Managers
                 drawLine.DrawFormationIndicator(cam);
             //KnightManager.Instance.move.FormationPreview(formationPreview, targetImage, KnightManager.Instance.distance);
         }
-        public void CreateTargetImage()
+        int j = 0;
+
+        public void GetTargetImage()
         {
-            for (int i = 0; i < 9; i++)
+            while (indicatorImages.Count < selectedKnights.Count) // ön izeme resim sayısı, şovalye sayısı olana kadar ekleme yapar
             {
-                targetImages.Add(Instantiate(targetImage, formationPreview));
+                Debug.Log("GetTargetImage");
+                GameObject obj = targetImagesParent.transform.GetChild(j).gameObject;
+                if (!obj.activeSelf)
+                {
+                    obj.SetActive(true);
+                    indicatorImages.Add(obj);
+                }
+                j++;
             }
+        }
+        public void ClearTargetImage()
+        {
+            for (int i = 0; i < indicatorImages.Count; i++)
+            {
+                indicatorImages[i].SetActive(false);
+            }
+            j = 0;
+            indicatorImages.Clear();
         }
         void OptimumLineWidthnes()
         {

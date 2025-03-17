@@ -37,7 +37,7 @@ namespace Assets.Scripts.Concrete.Managers
         bool hold;
         float holdTreshold;
         int index;
-        [HideInInspector] public bool setImagePositionOnce;
+
         private void Awake()
         {
             Singelton();
@@ -99,11 +99,6 @@ namespace Assets.Scripts.Concrete.Managers
                     KnightManager.Instance.knightOrderEnum = KnightOrderEnum.StayOrder;
                     break;
             }
-        }
-        public void DynamicAngleToggle()
-        {
-            if (dynamicAngleModeToggle.isOn)
-                setImagePositionOnce = true;
         }
         public void ClearUnits()
         {

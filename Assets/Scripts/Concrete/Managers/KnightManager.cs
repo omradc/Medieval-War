@@ -52,7 +52,7 @@ namespace Assets.Scripts.Concrete.Managers
             if (ıInput.GetButtonUp0())
                 moveCommand = false;
 
-            move.FormationPreviewMovement(InteractManager.Instance.targetImages, distance, angle);
+            move.FormationPreviewMovement(InteractManager.Instance.indicatorImages, distance, angle);
         }
         //void Optimum()
         //{
