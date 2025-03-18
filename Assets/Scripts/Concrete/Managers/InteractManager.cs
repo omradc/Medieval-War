@@ -5,7 +5,6 @@ using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.SelectSystem;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Concrete.Managers
@@ -24,20 +23,20 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject interactedTower;
         public GameObject interactedConstruction;
         public GameObject interactedRepo;
-        IInput ıInput;
-        Interact ınteract;
         public List<GameObject> selectedKnights;
+        public SavedFormation[] savedFormations;
         public List<GameObject> indicatorImages;
+        [SerializeField] Camera cam;
+        [SerializeField] GameObject targetImagesParent;
+        Interact ınteract;
+        DrawLineRenderer drawLine;
         Vector2 startPos;
         Vector2 endPos;
+        IInput ıInput;
         float time;
         bool openCloseDoor;
         float holdTreshold = 0.2f;
-        public SavedFormation[] savedFormations;
-        DrawLineRenderer drawLine;
-        [SerializeField] Camera cam;
-        [SerializeField] GameObject targetImagesParent;
-
+        int j = 0;
         private void Awake()
         {
             Singelton();
@@ -71,7 +70,6 @@ namespace Assets.Scripts.Concrete.Managers
             ClearSelectedKnights();
             GiveOrder();
             InteractableObjects();
-            DrawFormationIndicator();
         }
         void InteractableObjects()
         {
@@ -151,7 +149,7 @@ namespace Assets.Scripts.Concrete.Managers
             if (ıInput.GetButtonDown0())
             {
                 startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                drawLine.InitializeDrawSquare();
+                drawLine.InitializeDrawSquare(CheckUIElements());
             }
 
             if (ıInput.GetButton0())
@@ -360,14 +358,6 @@ namespace Assets.Scripts.Concrete.Managers
                 ClearTargetImage();
             }
         }
-        void DrawFormationIndicator()
-        {
-            if (selectedKnights.Count > 0 && UIManager.Instance.dynamicAngleModeToggle.isOn)
-                drawLine.DrawFormationIndicator(cam);
-            //KnightManager.Instance.move.FormationPreview(formationPreview, targetImage, KnightManager.Instance.distance);
-        }
-        int j = 0;
-
         public void GetTargetImage()
         {
             while (indicatorImages.Count < selectedKnights.Count) // ön izeme resim sayısı, şovalye sayısı olana kadar ekleme yapar

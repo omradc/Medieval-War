@@ -336,9 +336,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7490314471804558288}
+  - component: {fileID: 7156048797368147480}
   - component: {fileID: 8778633108490885336}
   - component: {fileID: 5659189621024181204}
-  - component: {fileID: 7156048797368147480}
   - component: {fileID: 7981795032378355210}
   - component: {fileID: 2771415340178364639}
   m_Layer: 27
@@ -371,53 +371,6 @@ Transform:
   - {fileID: 2455767363735097208}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8778633108490885336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3674963534610148226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dc81ccb732316a409f31fe78ccab9a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthObj: {fileID: 7874142146443845015}
-  health: 10
-  regeneration: 0
-  regenerationAmount: 1
-  regrenationAfterDamageTime: 5
-  regrenationPerTime: 1
-  currentregrenationAfterDamageTime: 0
-  currentRegrenationPerTime: 0
-  isTakeDamage: 0
-  isDead: 0
-  goblinHouseController: {fileID: 0}
---- !u!114 &5659189621024181204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3674963534610148226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 932489013aa251545b1856c5d061696e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  construction: {fileID: 0}
-  visualBuilding: {fileID: 8594801951806895824}
-  visualDestructed: {fileID: 8257700348692129232}
-  destroyPermanent: 1
-  destroyTime: 30
-  OrderInLayerSpriteAnchor: {fileID: 2455767363735097208}
-  visualSprites: []
-  destructedVisualSprites: []
-  isFull: 0
-  destruct: 0
-  unitValue: 0
-  interactableObjUIController: {fileID: 0}
 --- !u!61 &7156048797368147480
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -464,6 +417,60 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8778633108490885336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3674963534610148226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc81ccb732316a409f31fe78ccab9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthObj: {fileID: 7874142146443845015}
+  health: 10
+  regeneration: 0
+  regenerationAmount: 1
+  regrenationAfterDamageTime: 5
+  regrenationPerTime: 1
+  currentregrenationAfterDamageTime: 0
+  currentRegrenationPerTime: 0
+  isTakeDamage: 0
+  isDead: 0
+  goblinHouseController: {fileID: 0}
+  knightHouseController: {fileID: 0}
+  elevationFloor: 0
+  currentHealth: 0
+--- !u!114 &5659189621024181204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3674963534610148226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932489013aa251545b1856c5d061696e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  construction: {fileID: 0}
+  visualBuilding: {fileID: 8594801951806895824}
+  visualDestructed: {fileID: 8257700348692129232}
+  destroyPermanent: 1
+  destroyTime: 30
+  OrderInLayerSpriteAnchor: {fileID: 2455767363735097208}
+  visualSprites: []
+  destructedVisualSprites: []
+  isFull: 0
+  destruct: 0
+  unitValue: 0
+  interactableObjUIController: {fileID: 0}
+  goblinNumber: 0
+  knightNumber: 0
+  onGroundKnightNumber: 0
+  fade: 0.5
 --- !u!114 &7981795032378355210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,8 +484,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 10
+  currentPriority: 0
   maxAttacker: 3
-  attackingPersonNumber: 0
+  currentAttackerNumber: 0
 --- !u!114 &2771415340178364639
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ namespace Assets.Scripts.Concrete.Managers
         IInput ıInput;
         [HideInInspector] public bool moveCommand;
         public float angle;
-
+        [SerializeField] Transform cam;
         private void Awake()
         {
             Singelton();
@@ -52,7 +52,7 @@ namespace Assets.Scripts.Concrete.Managers
             if (ıInput.GetButtonUp0())
                 moveCommand = false;
 
-            move.FormationPreviewMovement(InteractManager.Instance.indicatorImages, distance, angle);
+            move.FormationPreviewMovement(InteractManager.Instance.indicatorImages, distance, angle, cam.position);
         }
         //void Optimum()
         //{

@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Enums;
 using TMPro;
+using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Concrete.Managers
         public Toggle addKnightModeToggle;
         public Toggle drawRangeToggle;
         public Toggle drawPathToggle;
-        public Toggle dynamicAngleModeToggle;
+        public Toggle canCameraControlToggle;
         public TMP_Dropdown formationDropdown;
         [SerializeField] TMP_Dropdown orderDropdown;
         [SerializeField] GameObject buildPanel;
@@ -28,6 +29,7 @@ namespace Assets.Scripts.Concrete.Managers
         [HideInInspector] public bool canDragPreviewObj;
         [HideInInspector] public GameObject valuePanel;
         [HideInInspector] public bool isClearUnits;
+        [HideInInspector] public bool isInteractedJoystick;
         GameObject currentSavedFormation;
         Vector3 up;
         Vector3 down;
@@ -37,7 +39,6 @@ namespace Assets.Scripts.Concrete.Managers
         bool hold;
         float holdTreshold;
         int index;
-
         private void Awake()
         {
             Singelton();
@@ -289,6 +290,15 @@ namespace Assets.Scripts.Concrete.Managers
             currentSavedFormation.transform.GetChild(2).gameObject.SetActive(false);
             currentSavedFormation.transform.GetChild(3).gameObject.SetActive(false);
             currentSavedFormation.transform.GetChild(4).gameObject.SetActive(false);
+        }
+        public void Joystick(bool value)
+        {
+            isInteractedJoystick = value;
+        }
+        public float currentTime = 0;
+        public void JoystickCanCameraControl()
+        {
+
         }
 
 

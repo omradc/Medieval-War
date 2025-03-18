@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Abstracts.Inputs;
 using Assets.Scripts.Concrete.Inputs;
+using Assets.Scripts.Concrete.Managers;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -16,10 +17,10 @@ namespace Assets.Scripts.Concrete.Controllers
         [SerializeField] float dragMoveSpeed = 0.1f;
         [SerializeField] float touchMoveSpeed = 0.1f;
         [SerializeField] float pinchZoomSpeed = 0.02f;
+        [SerializeField] float joystickMoveSpeed = 5;
         public float mobileBorderThickness = 150;
         public bool touchMove;
         public bool dragMove;
-
 
         [Header("PC")]
         public float keyMoveSpeed = 30;
@@ -27,7 +28,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public float keyZoomSpeed = 30;
         public float scrollZoomSpeed = 150;
         public float pCBorderThickness = 10;
-        
+
         //Setup
         float pCZoom;
         bool fixedCamera;
@@ -36,7 +37,7 @@ namespace Assets.Scripts.Concrete.Controllers
         PcInput pcInput;
         MobileInput mobileInput;
         Vector3 firstPos = new Vector3(0, 0, -10);
-        
+
         private void Awake()
         {
             cam = GetComponent<Camera>();
@@ -51,6 +52,7 @@ namespace Assets.Scripts.Concrete.Controllers
         {
             PCControl();
             //MobileControl();
+            MovementByJoystick();
         }
 
         #region Mobile
@@ -166,6 +168,12 @@ namespace Assets.Scripts.Concrete.Controllers
                 transform.position = firstPos;
         }
         #endregion
+
+        void MovementByJoystick()
+        {
+            if (!UIManager.Instance.canCameraControlToggle.isOn)
+                transform.Translate(JoystickController.Instance.joyDir * SetSpeedByZoom(joystickMoveSpeed) * Time.deltaTime);
+        }
         float SetSpeedByZoom(float speed)
         {
             return cam.orthographicSize * speed;
