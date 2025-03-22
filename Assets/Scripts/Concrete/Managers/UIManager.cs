@@ -15,7 +15,7 @@ namespace Assets.Scripts.Concrete.Managers
         public Toggle addKnightModeToggle;
         public Toggle drawRangeToggle;
         public Toggle drawPathToggle;
-        public Toggle angleControlToggle;
+        public Toggle canCameraControlToggle;
         public TMP_Dropdown formationDropdown;
         [SerializeField] TMP_Dropdown orderDropdown;
         [SerializeField] GameObject buildPanel;

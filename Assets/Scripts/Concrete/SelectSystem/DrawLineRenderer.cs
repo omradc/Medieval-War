@@ -54,19 +54,12 @@ namespace Assets.Scripts.Concrete.SelectSystem
         }
         #endregion
 
-        public void DrawFormationIndicator(bool angleControl, Camera cam, float lineWidth = 500)
+        public void DrawFormationIndicator(Camera cam, float lineWidth = 500)
         {
-            if (angleControl)
-            {
-                formationIndicator.positionCount = 2;
-                formationIndicator.SetPosition(0, (Vector2)cam.transform.position);
-                formationIndicator.SetPosition(1, (Vector2)cam.ScreenToWorldPoint(Input.mousePosition));
-                formationIndicator.widthMultiplier = cam.orthographicSize / lineWidth;
-            }
-            else
-            {
-                formationIndicator.positionCount = 0;
-            }
+            formationIndicator.positionCount = 2;
+            formationIndicator.SetPosition(0, (Vector2)cam.transform.position);
+            formationIndicator.SetPosition(1, (Vector2)cam.ScreenToWorldPoint(Input.mousePosition));
+            formationIndicator.widthMultiplier = cam.orthographicSize / lineWidth;
         }
         public void DynamicLineRendererWidthness()
         {

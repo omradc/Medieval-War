@@ -24,7 +24,6 @@ namespace Assets.Scripts.Concrete.Managers
         public GameObject interactedConstruction;
         public GameObject interactedRepo;
         public List<GameObject> selectedKnights;
-        public List<Vector2> selectedKnightsTransform;
         public SavedFormation[] savedFormations;
         public List<GameObject> indicatorImages;
         [SerializeField] Camera cam;
@@ -60,13 +59,12 @@ namespace Assets.Scripts.Concrete.Managers
             savedFormations = new SavedFormation[4];
             for (int i = 0; i < savedFormations.Length; i++) // Başlangıç ataması;
             {
-                savedFormations[i] = new SavedFormation(new(selectedKnights), new(selectedKnightsTransform), KnightManager.Instance.knightFormation);
+                savedFormations[i] = new SavedFormation(new(selectedKnights), KnightManager.Instance.knightFormation);
             }
             InvokeRepeating(nameof(OptimumLineWidthnes), 0, 0.1f);
         }
         private void Update()
         {
-            drawLine.DrawFormationIndicator(UIManager.Instance.angleControlToggle.isOn, cam);
             SelectMultipleKnight();
             SelectKnightWhitFaction();
             ClearSelectedKnights();
@@ -259,7 +257,6 @@ namespace Assets.Scripts.Concrete.Managers
                 }
                 SelectedKnightsColor(1f);
                 selectedKnights.Clear();
-                selectedKnightsTransform.Clear();
                 ClearTargetImage();
                 UIManager.Instance.isClearUnits = false;
             }
@@ -305,13 +302,7 @@ namespace Assets.Scripts.Concrete.Managers
                 {
                     print("Saved");
                     UIManager.Instance.UpdateFormationButtonImage();
-
-                    Vector3 formationCenter = selectedKnights[0].transform.position;
-                    for (int i = 0; i < selectedKnights.Count; i++)
-                    {
-                        selectedKnightsTransform.Add(selectedKnights[i].transform.position - formationCenter);
-                    }
-                    savedFormations[index] = new(new(selectedKnights), new(selectedKnightsTransform), KnightManager.Instance.knightFormation); // seçili birimleri ve şimdiki formasyonu kaydet
+                    savedFormations[index] = new(new(selectedKnights), KnightManager.Instance.knightFormation); // seçili birimleri ve şimdiki formasyonu kaydet
                 }
             }
 
@@ -326,9 +317,8 @@ namespace Assets.Scripts.Concrete.Managers
                     {
                         SelectedKnightSetup(savedFormations[index].savedKnights, i);
                     }
-                    //KnightManager.Instance.knightFormation = savedFormations[index].knightFormation; // kayıtlı formasyonu eşitle
-                    KnightManager.Instance.knightFormation = KnightFormation.SavedFormation; // kayıtlı formasyonu eşitle
-                                                                                             // UIManager.Instance.formationDropdown.value = (int)savedFormations[index].knightFormation; // formasyon  panelini de güncelle
+                    KnightManager.Instance.knightFormation = savedFormations[index].knightFormation; // kayıtlı formasyonu eşitle
+                    UIManager.Instance.formationDropdown.value = (int)savedFormations[index].knightFormation; // formasyon  panelini de güncelle
                 }
             }
         }
@@ -342,10 +332,7 @@ namespace Assets.Scripts.Concrete.Managers
                 item.GetComponent<KnightController>().isSeleceted = false;
             }
             savedFormations[index].savedKnights.Clear();
-            savedFormations[index].savedKnightsTransform.Clear();
             selectedKnights.Clear();
-            selectedKnightsTransform.Clear();
-
             ClearTargetImage();
         }
         void GiveOrder()
@@ -403,12 +390,10 @@ namespace Assets.Scripts.Concrete.Managers
     class SavedFormation
     {
         public List<GameObject> savedKnights;
-        public List<Vector2> savedKnightsTransform;
         public KnightFormation knightFormation;
-        public SavedFormation(List<GameObject> savedKnights, List<Vector2> savedKnightsTransform, KnightFormation knightFormation)
+        public SavedFormation(List<GameObject> savedKnights, KnightFormation knightFormation)
         {
             this.savedKnights = savedKnights;
-            this.savedKnightsTransform = savedKnightsTransform;
             this.knightFormation = knightFormation;
             UIManager.Instance.formationDropdown.value = (int)knightFormation;
         }
