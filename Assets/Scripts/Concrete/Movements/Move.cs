@@ -4,19 +4,18 @@ using Assets.Scripts.Concrete.Managers;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace Assets.Scripts.Concrete.Movements
 {
     internal class Move
     {
-        public Vector2 savedDirection = Vector2.zero;
-        public void MoveCommand()
+        public Vector2 formationDir = Vector2.zero;
+        public void MoveCommand(Vector2 camPos)
         {
-            LineFormation(KnightManager.Instance.knightFormation == KnightFormation.LineFormation, KnightManager.Instance.distance);
-            RectangleFormation(KnightManager.Instance.knightFormation == KnightFormation.RectangleFormation, KnightManager.Instance.distance);
-            VFormation(KnightManager.Instance.knightFormation == KnightFormation.VFormation, KnightManager.Instance.distance, KnightManager.Instance.angle);
-            SingleLineFormation(KnightManager.Instance.knightFormation == KnightFormation.SingleLineFormation, KnightManager.Instance.distance);
-            ArcFormation(KnightManager.Instance.knightFormation == KnightFormation.ArcFormation, KnightManager.Instance.distance, KnightManager.Instance.angle);
+            LineFormation(KnightManager.Instance.knightFormation == KnightFormation.LineFormation, KnightManager.Instance.distanceBetweenKnights);
+            RectangleFormation(KnightManager.Instance.knightFormation == KnightFormation.RectangleFormation, KnightManager.Instance.distanceBetweenKnights);
+            VFormation(KnightManager.Instance.knightFormation == KnightFormation.VFormation, KnightManager.Instance.distanceBetweenKnights, UIManager.Instance.formationAngleSlider.value);
+            SingleLineFormation(KnightManager.Instance.knightFormation == KnightFormation.SingleLineFormation, KnightManager.Instance.distanceBetweenKnights);
+            ArcFormation(KnightManager.Instance.knightFormation == KnightFormation.ArcFormation, KnightManager.Instance.distanceBetweenKnights, UIManager.Instance.formationAngleSlider.value);
 
             InteractManager.Instance.AddKnightModeStatus(); // seçim durumuna göre seçim dizisini hemen siler veya bekler
         }
@@ -29,7 +28,9 @@ namespace Assets.Scripts.Concrete.Movements
             PathFinding pF;
             float speed = CalculateSpeed();
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 vertical = new Vector2(-savedDirection.y, savedDirection.x); // Dik vektör
+            if (formationDir == Vector2.zero || !UIManager.Instance.lockFormationAngle.isOn)
+                formationDir = (mousePos - CalculateCenterOfFormation(knightCount)).normalized;
+            Vector2 vertical = new Vector2(-formationDir.y, formationDir.x).normalized; // Dik vektör
             Vector2 startPos = mousePos - (vertical * ((knightCount - 1) * distance * 0.5f));
 
             for (int i = 0; i < knightCount; i++)
@@ -48,8 +49,10 @@ namespace Assets.Scripts.Concrete.Movements
 
             PathFinding pF;
             float speed = CalculateSpeed();
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Mouse pozisyonunu al
-            Vector2 horizontal = new Vector2(savedDirection.x, savedDirection.y); // Yatay vektör
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (formationDir == Vector2.zero || !UIManager.Instance.lockFormationAngle.isOn)
+                formationDir = (mousePos - CalculateCenterOfFormation(knightCount)).normalized;
+            Vector2 horizontal = new Vector2(formationDir.x, formationDir.y).normalized; // Yatay vektör
             Vector2 startPos = mousePos - (horizontal * ((knightCount - 1) * distance * 0.5f));
 
             for (int i = 0; i < knightCount; i++)
@@ -69,19 +72,20 @@ namespace Assets.Scripts.Concrete.Movements
 
             float speed = CalculateSpeed();
             int gridSize = Mathf.CeilToInt(Mathf.Sqrt(knightCount)); // Kare formasyonundaki satır sayısını hesapla (n x n formasyonu) // En küçük kare sayıyı al
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Mouse pozisyonunu 
             int rowCount = Mathf.CeilToInt(Mathf.Sqrt(knightCount));  // Satır sayısı
             int columnCount = Mathf.CeilToInt((float)knightCount / rowCount); // Sütun sayısı
-
-            Vector2 vertical = new Vector2(-savedDirection.y, savedDirection.x); // Dik vektör
-            Vector2 startPos = mousePos - ((vertical * (columnCount - 1) * distance * 0.5f) + (savedDirection * (rowCount - 1) * distance * 0.5f));
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (formationDir == Vector2.zero || !UIManager.Instance.lockFormationAngle.isOn)
+                formationDir = (mousePos - CalculateCenterOfFormation(knightCount)).normalized;
+            Vector2 vertical = new Vector2(-formationDir.y, formationDir.x).normalized; // Dik vektör
+            Vector2 startPos = mousePos - ((vertical * (columnCount - 1) * distance * 0.5f) + (formationDir * (rowCount - 1) * distance * 0.5f));
 
             for (int i = 0; i < knightCount; i++)
             {
                 int row = i / columnCount;  // Satır İndeksi
                 int col = i % columnCount;  // Sütun İndeksi
 
-                Vector2 targetPos = startPos + (vertical * (col * distance)) + (savedDirection * (row * distance));
+                Vector2 targetPos = startPos + (vertical * (col * distance)) + (formationDir * (row * distance));
 
                 pF = InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>();
                 pF.agent.speed = speed;
@@ -96,10 +100,12 @@ namespace Assets.Scripts.Concrete.Movements
 
             PathFinding pF;
             float speed = CalculateSpeed();
-            float spacing = knightCount / 3 * distance;
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Mouse pozisyonunu al
-            Vector2 center = mousePos; // Formasyonun merkezi olarak mouse tıklanan noktayı al
-            float baseRotation = Mathf.Atan2(savedDirection.y, savedDirection.x) * Mathf.Rad2Deg; // Mouse yönüne dik bir eksen belirle (yay bu eksene göre dönecek)
+            float spacing = CalculateSpacing(angle, distance, knightCount);
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (formationDir == Vector2.zero || !UIManager.Instance.lockFormationAngle.isOn)
+                formationDir = (mousePos - CalculateCenterOfFormation(knightCount)).normalized;
+            Vector2 center = mousePos + (formationDir.normalized * CalculateSpacing(angle, distance, knightCount));// Formasyonun merkezi olarak mouse tıklanan noktayı al
+            float baseRotation = Mathf.Atan2(-formationDir.y, -formationDir.x) * Mathf.Rad2Deg; // Mouse yönüne dik bir eksen belirle (yay bu eksene göre dönecek)
             float startAngle = baseRotation - (angle * 0.5f);  // Yayın başlangıç açısını belirle (mouse yönü merkez olacak şekilde)
 
             // Birimleri yerleştir
@@ -124,14 +130,16 @@ namespace Assets.Scripts.Concrete.Movements
         {
             if (!v) return;
             int knightCount = InteractManager.Instance.selectedKnights.Count;
-            if (knightCount == 0) return;
+            if (knightCount < 2) return;
 
             PathFinding pF;
             float speed = CalculateSpeed();
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            float baseRotation = Mathf.Atan2(savedDirection.y, savedDirection.x) * Mathf.Rad2Deg; // Mouse yönüne göre dönüş açısını belirle
-            Vector2 leftWing = Quaternion.Euler(0, 0, -angle * 0.5f) * savedDirection; // İki kolun yönünü hesapla (V açısı)
-            Vector2 rightWing = Quaternion.Euler(0, 0, angle * 0.5f) * savedDirection; // İki kolun yönünü hesapla (V açısı)
+            if (formationDir == Vector2.zero || !UIManager.Instance.lockFormationAngle.isOn)
+                formationDir = (mousePos - (Vector2)InteractManager.Instance.selectedKnights[0].transform.position).normalized;
+            float baseRotation = Mathf.Atan2(-formationDir.y, -formationDir.x) * Mathf.Rad2Deg; // Mouse yönüne göre dönüş açısını belirle
+            Vector2 leftWing = Quaternion.Euler(0, 0, -angle * 0.5f) * formationDir; // İki kolun yönünü hesapla (V açısı)
+            Vector2 rightWing = Quaternion.Euler(0, 0, angle * 0.5f) * formationDir; // İki kolun yönünü hesapla (V açısı)
 
             // ilk birimi gönder
             pF = InteractManager.Instance.selectedKnights[0].GetComponent<PathFinding>();
@@ -144,7 +152,7 @@ namespace Assets.Scripts.Concrete.Movements
                 int side = (i % 2 == 1) ? 1 : -1; // 1 = Sağ, -1 = Sol
 
                 Vector2 offsetDirection = (side == 1) ? rightWing : leftWing;
-                Vector2 knightPos = mousePos + offsetDirection * (index + 1) * distance;
+                Vector2 knightPos = mousePos - offsetDirection * (index + 1) * distance;
 
                 pF = InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>();
                 pF.agent.speed = speed;
@@ -173,28 +181,21 @@ namespace Assets.Scripts.Concrete.Movements
         {
             InteractManager.Instance.selectedKnights[i].GetComponent<PathFinding>().agent.speed = InteractManager.Instance.selectedKnights[i].GetComponent<KnightController>().moveSpeed;
         }
-        public void FormationPreviewMovement(List<GameObject> indicatorImages, float distance, float angle, Vector2 camPos)
+        public void FormationPreviewMovement(GameObject indicatorImagesParent, List<GameObject> indicatorImages, float distance, float angle, Vector2 camPos)
         {
-            if (InteractManager.Instance.selectedKnights.Count == 0 || !UIManager.Instance.isInteractedJoystick || !UIManager.Instance.canCameraControlToggle.isOn)
+            if (!UIManager.Instance.sliderHasClicked)
             {
-                for (int i = 0; i < indicatorImages.Count; i++)
-                {
-                    indicatorImages[i].SetActive(false);
-                }
+                indicatorImagesParent.SetActive(false);
                 return;
             }
-            for (int i = 0; i < indicatorImages.Count; i++)
-            {
-                indicatorImages[i].SetActive(true);
-            }
-            int knightCount = InteractManager.Instance.selectedKnights.Count;
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+            indicatorImagesParent.SetActive(true);
+            int imgCount = indicatorImages.Count;
             if (KnightManager.Instance.knightFormation == KnightFormation.LineFormation)
             {
-                Vector2 vertical = new Vector2(-savedDirection.y, savedDirection.x); // Dik vektör
-                Vector2 startPos = camPos - (vertical * ((knightCount - 1) * distance * 0.5f));
-                for (int i = 0; i < knightCount; i++)
+                Vector2 vertical = Vector2.right;
+                Vector2 startPos = camPos - (vertical * ((imgCount - 1) * distance * 0.5f));
+                for (int i = 0; i < imgCount; i++)
                 {
                     Vector2 targetPos = startPos + (vertical * (i * distance));
                     indicatorImages[i].transform.position = targetPos;
@@ -202,9 +203,9 @@ namespace Assets.Scripts.Concrete.Movements
             }
             else if (KnightManager.Instance.knightFormation == KnightFormation.SingleLineFormation)
             {
-                Vector2 horizontal = new Vector2(savedDirection.x, savedDirection.y); // Yatay vektör
-                Vector2 startPos = camPos - (horizontal * ((knightCount - 1) * distance * 0.5f));
-                for (int i = 0; i < knightCount; i++)
+                Vector2 horizontal = Vector2.right;
+                Vector2 startPos = camPos - (horizontal * ((imgCount - 1) * distance * 0.5f));
+                for (int i = 0; i < imgCount; i++)
                 {
                     Vector2 targetPos = startPos + (horizontal * (i * distance));
                     indicatorImages[i].transform.position = targetPos;
@@ -212,33 +213,32 @@ namespace Assets.Scripts.Concrete.Movements
             }
             else if (KnightManager.Instance.knightFormation == KnightFormation.RectangleFormation)
             {
-                int rowCount = Mathf.CeilToInt(Mathf.Sqrt(knightCount));  // Satır sayısı
-                int columnCount = Mathf.CeilToInt((float)knightCount / rowCount); // Sütun sayısı
+                int rowCount = Mathf.CeilToInt(Mathf.Sqrt(imgCount));  // Satır sayısı
+                int columnCount = Mathf.CeilToInt((float)imgCount / rowCount); // Sütun sayısı
 
-                Vector2 vertical = new Vector2(-savedDirection.y, savedDirection.x); // Dik vektör
-                Vector2 startPos = camPos - ((vertical * (columnCount - 1) * distance * 0.5f) + (savedDirection * (rowCount - 1) * distance * 0.5f));
+                Vector2 vertical = new Vector2(0, 1); // Dik vektör
+                Vector2 startPos = camPos - ((vertical * (columnCount - 1) * distance * 0.5f) + (Vector2.right * (rowCount - 1) * distance * 0.5f));
 
-                for (int i = 0; i < knightCount; i++)
+                for (int i = 0; i < imgCount; i++)
                 {
                     int row = i / columnCount;  // Satır İndeksi
                     int col = i % columnCount;  // Sütun İndeksi
 
-                    Vector2 targetPos = startPos + (vertical * (col * distance)) + (savedDirection * (row * distance));
+                    Vector2 targetPos = startPos + (vertical * (col * distance)) + (Vector2.right * (row * distance));
                     indicatorImages[i].transform.position = targetPos;
                 }
             }
             else if (KnightManager.Instance.knightFormation == KnightFormation.ArcFormation)
             {
-                float spacing = knightCount / 3 * distance;
-                Vector2 center = camPos; // Formasyonun merkezi olarak mouse tıklanan noktayı al
-                float baseRotation = Mathf.Atan2(savedDirection.y, savedDirection.x) * Mathf.Rad2Deg; // Mouse yönüne dik bir eksen belirle (yay bu eksene göre dönecek)
+                float spacing = CalculateSpacing(angle, distance, imgCount);
+                Vector2 center = camPos + (Vector2.right * CalculateSpacing(angle, distance, imgCount)); // Formasyonun merkezi olarak mouse tıklanan noktayı al
+                float baseRotation = Mathf.Atan2(0, -1) * Mathf.Rad2Deg; // Mouse yönüne dik bir eksen belirle (yay bu eksene göre dönecek)
                 float startAngle = baseRotation - (angle * 0.5f);  // Yayın başlangıç açısını belirle (mouse yönü merkez olacak şekilde)
-
                 // Birimleri yerleştir
-                for (int i = 0; i < knightCount; i++)
+                for (int i = 0; i < imgCount; i++)
                 {
                     // Her bir birimin açısını belirle
-                    float currentAngle = startAngle + (angle / (knightCount - 1)) * i;
+                    float currentAngle = startAngle + (angle / (imgCount - 1)) * i;
                     float radian = currentAngle * Mathf.Deg2Rad;
 
                     // Birimin yeni pozisyonunu hesapla
@@ -250,38 +250,44 @@ namespace Assets.Scripts.Concrete.Movements
             }
             else if (KnightManager.Instance.knightFormation == KnightFormation.VFormation)
             {
-                float baseRotation = Mathf.Atan2(savedDirection.y, savedDirection.x) * Mathf.Rad2Deg; // Mouse yönüne göre dönüş açısını belirle
-                Vector2 leftWing = Quaternion.Euler(0, 0, -angle * 0.5f) * savedDirection; // İki kolun yönünü hesapla (V açısı)
-                Vector2 rightWing = Quaternion.Euler(0, 0, angle * 0.5f) * savedDirection; // İki kolun yönünü hesapla (V açısı)
+                float baseRotation = Mathf.Atan2(0, -1) * Mathf.Rad2Deg; // Mouse yönüne göre dönüş açısını belirle
+                Vector2 leftWing = Quaternion.Euler(0, 0, -angle * 0.5f) * Vector2.right; // İki kolun yönünü hesapla (V açısı)
+                Vector2 rightWing = Quaternion.Euler(0, 0, angle * 0.5f) * Vector2.right; // İki kolun yönünü hesapla (V açısı)
                 indicatorImages[0].transform.position = camPos; // İlk birimi V'nin ucuna koy (mouse noktasına)
 
-                for (int i = 1; i < knightCount; i++)
+                for (int i = 1; i < imgCount; i++)
                 {
                     int index = (i - 1) / 2; // Kanattaki sıra numarası
                     int side = (i % 2 == 1) ? 1 : -1; // 1 = Sağ, -1 = Sol
 
                     Vector2 offsetDirection = (side == 1) ? rightWing : leftWing;
-                    Vector2 targetPos = camPos + offsetDirection * (index + 1) * distance;
+                    Vector2 targetPos = camPos - offsetDirection * (index + 1) * distance;
                     indicatorImages[i].transform.position = targetPos;
                 }
             }
         }
+        float CalculateSpacing(float angle, float distance, int knightCount)
+        {
+            return 120 / angle * knightCount / 3 * distance;
+        }
+        Vector2 CalculateCenterOfFormation(int knightCount)
+        {
+            if (knightCount % 2 == 1) // Tek sayıda şovalyeler varsa
+            {
+                // Ortada olan şovalyeyi al (indeksin tam ortasında olanı)
+                Debug.Log(InteractManager.Instance.selectedKnights[knightCount / 2].name);
+                return InteractManager.Instance.selectedKnights[knightCount / 2].transform.position;
+            }
+            else // Çift sayıda şovalyeler varsa
+            {
+                // Ortadaki iki şovalyenin ortasını al
+                return (InteractManager.Instance.selectedKnights[knightCount / 2 - 1].transform.position +
+                         InteractManager.Instance.selectedKnights[knightCount / 2].transform.position) / 2;
+            }
+        }
+
 
         #region
-        //Vector2 CalculateCenterOfFormation(int knightCount)
-        //{
-        //    if (knightCount % 2 == 1) // Tek sayıda şovalyeler varsa
-        //    {
-        //        // Ortada olan şovalyeyi al (indeksin tam ortasında olanı)
-        //        return InteractManager.Instance.selectedKnights[knightCount / 2].transform.position;
-        //    }
-        //    else // Çift sayıda şovalyeler varsa
-        //    {
-        //        // Ortadaki iki şovalyenin ortasını al
-        //        return (InteractManager.Instance.selectedKnights[knightCount / 2 - 1].transform.position +
-        //                 InteractManager.Instance.selectedKnights[knightCount / 2].transform.position) / 2;
-        //    }
-        //}
         // DirectionEnum direction;
         //public Move()
         //{

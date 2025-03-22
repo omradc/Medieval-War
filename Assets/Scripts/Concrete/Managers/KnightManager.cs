@@ -9,16 +9,19 @@ namespace Assets.Scripts.Concrete.Managers
     internal class KnightManager : MonoBehaviour
     {
         public static KnightManager Instance { get; private set; }
+
         [Header("Units")]
         public KnightFormation knightFormation;
-        public float distance;
+        public float distanceBetweenKnights;
+
         [Header("Setups")]
         public KnightOrderEnum knightOrderEnum;
-        public Move move;
-        IInput ıInput;
-        [HideInInspector] public bool moveCommand;
-        public float angle;
         [SerializeField] Transform cam;
+
+        IInput ıInput;
+        [HideInInspector] public Move move;
+        [HideInInspector] public bool moveCommand;
+        public float value;
         private void Awake()
         {
             Singelton();
@@ -26,10 +29,6 @@ namespace Assets.Scripts.Concrete.Managers
             ıInput = new PcInput();
         }
 
-        private void Start()
-        {
-            //InvokeRepeating(nameof(Optimum), 0, 1f);
-        }
         void Singelton()
         {
             if (Instance == null)
@@ -45,19 +44,16 @@ namespace Assets.Scripts.Concrete.Managers
             {
                 if (!InteractManager.Instance.CheckUIElements())
                 {
-                    move.MoveCommand();
+                    move.MoveCommand(cam.position);
                     moveCommand = true;
                 }
             }
             if (ıInput.GetButtonUp0())
                 moveCommand = false;
 
-            move.FormationPreviewMovement(InteractManager.Instance.indicatorImages, distance, angle, cam.position);
+            move.FormationPreviewMovement(InteractManager.Instance.indicatorImagesParent, InteractManager.Instance.indicatorImages, distanceBetweenKnights, UIManager.Instance.formationAngleSlider.value, cam.position);
         }
-        //void Optimum()
-        //{
-        //    move.SetSpeed();
-        //}
+
         #region Dynamic
         //private void Update()
         //{

@@ -27,7 +27,7 @@ namespace Assets.Scripts.Concrete.Managers
         public SavedFormation[] savedFormations;
         public List<GameObject> indicatorImages;
         [SerializeField] Camera cam;
-        [SerializeField] GameObject targetImagesParent;
+        public GameObject indicatorImagesParent;
         Interact ınteract;
         DrawLineRenderer drawLine;
         Vector2 startPos;
@@ -35,8 +35,7 @@ namespace Assets.Scripts.Concrete.Managers
         IInput ıInput;
         float time;
         bool openCloseDoor;
-        float holdTreshold = 0.2f;
-        int j = 0;
+        float holdTreshold = 0.3f;
         private void Awake()
         {
             Singelton();
@@ -235,6 +234,8 @@ namespace Assets.Scripts.Concrete.Managers
                     time = 0;
                 }
             }
+            else
+                time = 0;
         }
         void SelectedKnightSetup(List<GameObject> knights, int i)
         {
@@ -244,7 +245,6 @@ namespace Assets.Scripts.Concrete.Managers
             kC.followingObj = null;
             kC.isSeleceted = true;
             SelectedKnightColor(.5f, knights[i]);
-            GetTargetImage();
         }
         void ClearSelectedKnights()
         {
@@ -257,7 +257,6 @@ namespace Assets.Scripts.Concrete.Managers
                 }
                 SelectedKnightsColor(1f);
                 selectedKnights.Clear();
-                ClearTargetImage();
                 UIManager.Instance.isClearUnits = false;
             }
 
@@ -333,7 +332,6 @@ namespace Assets.Scripts.Concrete.Managers
             }
             savedFormations[index].savedKnights.Clear();
             selectedKnights.Clear();
-            ClearTargetImage();
         }
         void GiveOrder()
         {
@@ -355,31 +353,7 @@ namespace Assets.Scripts.Concrete.Managers
                 }
                 SelectedKnightsColor(1f);
                 selectedKnights.Clear();
-                ClearTargetImage();
             }
-        }
-        public void GetTargetImage()
-        {
-            while (indicatorImages.Count < selectedKnights.Count) // ön izeme resim sayısı, şovalye sayısı olana kadar ekleme yapar
-            {
-                Debug.Log("GetTargetImage");
-                GameObject obj = targetImagesParent.transform.GetChild(j).gameObject;
-                if (!obj.activeSelf)
-                {
-                    obj.SetActive(true);
-                    indicatorImages.Add(obj);
-                }
-                j++;
-            }
-        }
-        public void ClearTargetImage()
-        {
-            for (int i = 0; i < indicatorImages.Count; i++)
-            {
-                indicatorImages[i].SetActive(false);
-            }
-            j = 0;
-            indicatorImages.Clear();
         }
         void OptimumLineWidthnes()
         {

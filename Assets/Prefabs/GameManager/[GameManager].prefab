@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 3724882387064550949}
   - component: {fileID: 4436064059946293415}
   - component: {fileID: 4923174947444017873}
+  - component: {fileID: 3032775996144087369}
   m_Layer: 0
   m_Name: '[GameManager]'
   m_TagString: Untagged
@@ -235,10 +236,19 @@ MonoBehaviour:
   interactedConstruction: {fileID: 0}
   interactedRepo: {fileID: 0}
   selectedKnights: []
-  indicatorImages: []
   savedFormations: []
+  indicatorImages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   cam: {fileID: 0}
-  targetImagesParent: {fileID: 0}
+  indicatorImagesParent: {fileID: 0}
 --- !u!114 &1351704705479308060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,10 +262,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knightFormation: 0
-  distance: 1
+  distanceBetweenKnights: 1
   knightOrderEnum: 0
+  cam: {fileID: 0}
   moveCommand: 0
-  angle: 120
+  value: 3
 --- !u!114 &1961826129281843446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,12 +279,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f5747719410df45a9f91ccc496173b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 0.2
   addKnightModeToggle: {fileID: 0}
   drawRangeToggle: {fileID: 0}
   drawPathToggle: {fileID: 0}
-  dynamicAngleModeToggle: {fileID: 0}
+  lockFormationAngle: {fileID: 0}
   formationDropdown: {fileID: 0}
+  formationAngleSlider: {fileID: 0}
+  distanceBetweenKnightsSlider: {fileID: 0}
+  gridSize: 0.2
   orderDropdown: {fileID: 0}
   buildPanel: {fileID: 0}
   buildingMovement: {fileID: 0}
@@ -286,6 +299,8 @@ MonoBehaviour:
   canDragPreviewObj: 1
   valuePanel: {fileID: 0}
   isClearUnits: 0
+  isInteractedJoystick: 0
+  sliderHasClicked: 0
 --- !u!114 &3724882387064550949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -822,6 +837,20 @@ MonoBehaviour:
   totalRock: 0
   totalWood: 0
   totalMeat: 0
+--- !u!114 &3032775996144087369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6696413502318872325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef2c0fecfbde034f9f66535383532be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fixedJoystick: {fileID: 0}
+  joyDir: {x: 0, y: 0}
 --- !u!1 &7010456622691565138
 GameObject:
   m_ObjectHideFlags: 0

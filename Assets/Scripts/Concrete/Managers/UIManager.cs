@@ -11,12 +11,14 @@ namespace Assets.Scripts.Concrete.Managers
     internal class UIManager : MonoBehaviour
     {
         public static UIManager Instance { get; private set; }
-        public float gridSize = 0.1f;
         public Toggle addKnightModeToggle;
         public Toggle drawRangeToggle;
         public Toggle drawPathToggle;
-        public Toggle canCameraControlToggle;
+        public Toggle lockFormationAngle;
         public TMP_Dropdown formationDropdown;
+        public Slider formationAngleSlider;
+        public Slider distanceBetweenKnightsSlider;
+        [SerializeField] float gridSize = 0.1f;
         [SerializeField] TMP_Dropdown orderDropdown;
         [SerializeField] GameObject buildPanel;
         [SerializeField] GameObject buildingMovement;
@@ -30,6 +32,9 @@ namespace Assets.Scripts.Concrete.Managers
         [HideInInspector] public GameObject valuePanel;
         [HideInInspector] public bool isClearUnits;
         [HideInInspector] public bool isInteractedJoystick;
+        [HideInInspector]public bool sliderHasClicked;
+        TextMeshProUGUI formationAnglesText;
+        TextMeshProUGUI distanceBetweenKnightsText;
         GameObject currentSavedFormation;
         Vector3 up;
         Vector3 down;
@@ -42,6 +47,8 @@ namespace Assets.Scripts.Concrete.Managers
         private void Awake()
         {
             Singelton();
+            formationAnglesText = formationAngleSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+            distanceBetweenKnightsText = distanceBetweenKnightsSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         }
         private void Start()
         {
@@ -164,6 +171,19 @@ namespace Assets.Scripts.Concrete.Managers
                 hold = true;
             else
                 hold = false;
+        }
+        public void FormationAngles()
+        {
+            formationAnglesText.text = $"{formationAngleSlider.value} °";
+        }
+        public void DistanceBetweenKnights()
+        {
+            KnightManager.Instance.distanceBetweenKnights = distanceBetweenKnightsSlider.value;
+            distanceBetweenKnightsText.text = distanceBetweenKnightsSlider.value.ToString("F1");
+        }
+        public void SliderHasClicked(bool click)
+        {
+            sliderHasClicked = click;
         }
         void HoldForClearFormationTimer()
         {
@@ -295,7 +315,6 @@ namespace Assets.Scripts.Concrete.Managers
         {
             isInteractedJoystick = value;
         }
-        public float currentTime = 0;
         public void JoystickCanCameraControl()
         {
 
