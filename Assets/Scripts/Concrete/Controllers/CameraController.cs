@@ -171,8 +171,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
         void MovementByJoystick()
         {
-            if (!UIManager.Instance.canCameraControlToggle.isOn)
-                transform.Translate(JoystickController.Instance.joyDir * SetSpeedByZoom(joystickMoveSpeed) * Time.deltaTime);
+            transform.Translate(JoystickController.Instance.joyDir * SetSpeedByZoom(joystickMoveSpeed) * Time.deltaTime);
         }
         float SetSpeedByZoom(float speed)
         {

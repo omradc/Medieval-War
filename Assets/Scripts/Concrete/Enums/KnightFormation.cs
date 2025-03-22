@@ -6,6 +6,7 @@
         ArcFormation,
         LineFormation,
         VFormation,
-        SingleLineFormation
+        SingleLineFormation,
+        SavedFormation
     }
 }
