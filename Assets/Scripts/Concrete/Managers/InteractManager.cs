@@ -39,10 +39,6 @@ namespace Assets.Scripts.Concrete.Managers
         private void Awake()
         {
             Singelton();
-            ınteract = new Interact(this, interactableLayers);
-            ıInput = new PcInput();
-            savedFormations = new SavedFormation[4];
-            selectedKnights = new();// Başlangıç ataması;
             drawLine = GetComponent<DrawLineRenderer>();
         }
         void Singelton()
@@ -56,6 +52,10 @@ namespace Assets.Scripts.Concrete.Managers
         }
         private void Start()
         {
+            ınteract = new Interact(this, interactableLayers);
+            ıInput = new PcInput();
+            selectedKnights = new();// Başlangıç ataması;
+            savedFormations = new SavedFormation[4];
             for (int i = 0; i < savedFormations.Length; i++) // Başlangıç ataması;
             {
                 savedFormations[i] = new SavedFormation(new(selectedKnights), KnightManager.Instance.knightFormation);
@@ -64,11 +64,11 @@ namespace Assets.Scripts.Concrete.Managers
         }
         private void Update()
         {
-            InteractableObjects();
             SelectMultipleKnight();
             SelectKnightWhitFaction();
             ClearSelectedKnights();
             GiveOrder();
+            InteractableObjects();
         }
         void InteractableObjects()
         {

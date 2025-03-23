@@ -29,7 +29,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public float miningTime;
         public GameObject resourceGold;
         public GameObject resourceRock;
-        public MineController mine;
+        [HideInInspector] public MineController mine;
 
 
         [Header("SHEEP")]
@@ -45,12 +45,12 @@ namespace Assets.Scripts.Concrete.Controllers
         public GameObject constructionObj;
         public ConstructController constructController;
 
-         public GameObject repo;
+        [HideInInspector]public GameObject repo;
         [HideInInspector] public float currentChopTreeSightRange;
         [HideInInspector] public int currentTreeDamage;
         [HideInInspector] public float tChop;
         [HideInInspector] public float tCollect;
-        public float tMining;
+        [HideInInspector] public float tMining;
         [HideInInspector] public bool returnHome;
         [HideInInspector] public bool returnFences;
         [HideInInspector] public bool workOnce;
@@ -71,7 +71,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public IInput ıInput;
         [HideInInspector] public AnimationEventController animationEventController;
         [HideInInspector] public SheepController sheepController;
-        public CollectResources collectResources;
+        CollectResources collectResources;
         CollectGoldOrRock collectGoldAndRock;
         CollectWood collectWood;
         CollectFood collectFood;
