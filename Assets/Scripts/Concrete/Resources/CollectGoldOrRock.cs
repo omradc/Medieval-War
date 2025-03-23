@@ -17,19 +17,24 @@ namespace Assets.Scripts.Concrete.Resources
         }
         public void GoToMine()
         {
-            if (pawnController.isMineEmpty || !pawnController.isMine) return;
+            Debug.Log("GoToMine");
+            if (pawnController.isMineEmpty) return;
+            Debug.Log("-1");
             // Hedef varsa ona git
             if (pawnController.targetResource != null && !pawnController.returnHome && pawnController.mine.currentMineAmount > 0)
             {
+                Debug.Log("0");
                 // Hedefe ulaşınca dur
                 if (Vector2.Distance(pawnController.transform.position, pawnController.targetResource.transform.position) > .1f)
                 {
+                    Debug.Log("1");
                     pF.MoveAI(pawnController.targetResource.transform.position, 0);
                 }
 
                 // Hedefe ulaşıldı
                 else
                 {
+                    Debug.Log("2");
                     AnimationManager.Instance.RunCarryAnim(pawnController.animator, 1);
                     if (pawnController.mine.currentMineAmount == 0) return;
                     pawnController.villagerSpriteRenderer.enabled = false;
@@ -39,6 +44,7 @@ namespace Assets.Scripts.Concrete.Resources
                         // Madenden alınan kaynakları eksilt
                         if (pawnController.mine.CompareTag("GoldMine"))
                         {
+                            Debug.Log("3");
                             pawnController.mine.currentMineAmount -= ResourcesManager.Instance.collectGoldAmount;
                             pawnController.mine.mineAmountFillValue.fillAmount = pawnController.mine.currentMineAmount / pawnController.mine.mineAmount;
                         }
