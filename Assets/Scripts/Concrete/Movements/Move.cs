@@ -275,7 +275,6 @@ namespace Assets.Scripts.Concrete.Movements
             if (knightCount % 2 == 1) // Tek sayıda şovalyeler varsa
             {
                 // Ortada olan şovalyeyi al (indeksin tam ortasında olanı)
-                Debug.Log(InteractManager.Instance.selectedKnights[knightCount / 2].name);
                 return InteractManager.Instance.selectedKnights[knightCount / 2].transform.position;
             }
             else // Çift sayıda şovalyeler varsa
