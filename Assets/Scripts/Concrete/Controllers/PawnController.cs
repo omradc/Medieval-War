@@ -29,7 +29,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public float miningTime;
         public GameObject resourceGold;
         public GameObject resourceRock;
-        public MineController mine;
+        [HideInInspector] public MineController mine;
 
 
         [Header("SHEEP")]
@@ -45,7 +45,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public GameObject constructionObj;
         public ConstructController constructController;
 
-        public GameObject repo;
+        [HideInInspector]public GameObject repo;
         [HideInInspector] public float currentChopTreeSightRange;
         [HideInInspector] public int currentTreeDamage;
         [HideInInspector] public float tChop;
@@ -139,7 +139,6 @@ namespace Assets.Scripts.Concrete.Controllers
                 collectFood.GoToSheep();
                 if (repo == null)
                     return; // Depo yoksa kaynak toplama
-                Debug.Log("OptimumVillager");
                 collectGoldAndRock.GoToMine();
                 collectWood.GoToTree();
                 collectFood.CutSheep();

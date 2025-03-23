@@ -23,16 +23,16 @@ namespace Assets.Scripts.Concrete.Resources
             // UPDATE İLE ÇALIŞIR
             if (pawnController.kC.isSeleceted) // Eğer köylü seçiliyse ve hedefe tıkladıysa, seçili köylünün hedefi seçili hedeftir
             {
-                //pawnController.targetResource = null;
-                //pawnController.nearestTree = null;
-                //pawnController.constructionObj = null;
-                //pawnController.villagerSpriteRenderer.enabled = true;
-                //pawnController.isMine = false;
-                //pawnController.isMineEmpty = false;
-                //pawnController.isTree = false;
-                //pawnController.isSheep = false;
-                //pawnController.returnFences = false;
-                //pawnController.isFirstTree = false;
+                pawnController.targetResource = null;
+                pawnController.nearestTree = null;
+                pawnController.constructionObj = null;
+                pawnController.villagerSpriteRenderer.enabled = true;
+                pawnController.isMine = false;
+                pawnController.isMineEmpty = false;
+                pawnController.isTree = false;
+                pawnController.isSheep = false;
+                pawnController.returnFences = false;
+                pawnController.isFirstTree = false;
 
                 if (InteractManager.Instance.interactedObj != null) // Bir yere tıklandıysa
                 {
@@ -40,56 +40,53 @@ namespace Assets.Scripts.Concrete.Resources
                 }
                 if (InteractManager.Instance.interactedMine != null) // Maden
                 {
-                    //pawnController.isTree = false;
-                    //pawnController.isSheep = false;
-                    //pawnController.returnHome = false;
+                    pawnController.isTree = false;
+                    pawnController.isSheep = false;
+                    pawnController.returnHome = false;
                     pawnController.targetResource = InteractManager.Instance.interactedMine;
                     pawnController.mine = pawnController.targetResource.GetComponent<MineController>();
-                    //pawnController.isMine = true;
+                    pawnController.isMine = true;
                     pawnController.kC.isSeleceted = false;
+                }
+                if (InteractManager.Instance.interactedTree != null) // Ağaç
+                {
+                    pawnController.isMine = false;
+                    pawnController.isSheep = false;
+                    pawnController.returnHome = false;
+                    pawnController.targetResource = InteractManager.Instance.interactedTree;
+                    pawnController.isTree = true;
+                    pawnController.workOnceForTree = true;
+                    pawnController.tCollect = 0;
+                    pawnController.kC.isSeleceted = false;
+                    pawnController.isFirstTree = true;
+                }
+                if (InteractManager.Instance.interactedSheep != null) // Koyun
+                {
+                    pawnController.isMine = false;
+                    pawnController.isTree = false;
+                    pawnController.targetResource = InteractManager.Instance.interactedSheep;
+                    pawnController.sheepController = pawnController.targetResource.GetComponent<SheepController>();
+                    pawnController.isSheep = true;
+                    pawnController.tCollect = 0;
+                    pawnController.kC.isSeleceted = false;
+                }
+                if (InteractManager.Instance.interactedFences != null) // Çit
+                {
+                    pawnController.isMine = false;
+                    pawnController.isTree = false;
+                    pawnController.fenceObj = InteractManager.Instance.interactedFences;
+                    pawnController.fence = pawnController.fenceObj.GetComponent<FenceController>();
+
+                }
+                if (InteractManager.Instance.interactedConstruction != null) // İnşaat
+                {
+                    pawnController.constructionObj = InteractManager.Instance.interactedConstruction;
+                    pawnController.constructController = pawnController.constructionObj.GetComponent<ConstructController>();
                 }
                 if (InteractManager.Instance.interactedRepo != null)
                 {
                     pawnController.repo = InteractManager.Instance.interactedRepo;
                 }
-                #region
-                //if (InteractManager.Instance.interactedTree != null) // Ağaç
-                //{
-                //    pawnController.isMine = false;
-                //    pawnController.isSheep = false;
-                //    pawnController.returnHome = false;
-                //    pawnController.targetResource = InteractManager.Instance.interactedTree;
-                //    pawnController.isTree = true;
-                //    pawnController.workOnceForTree = true;
-                //    pawnController.tCollect = 0;
-                //    pawnController.kC.isSeleceted = false;
-                //    pawnController.isFirstTree = true;
-                //}
-                //if (InteractManager.Instance.interactedSheep != null) // Koyun
-                //{
-                //    pawnController.isMine = false;
-                //    pawnController.isTree = false;
-                //    pawnController.targetResource = InteractManager.Instance.interactedSheep;
-                //    pawnController.sheepController = pawnController.targetResource.GetComponent<SheepController>();
-                //    pawnController.isSheep = true;
-                //    pawnController.tCollect = 0;
-                //    pawnController.kC.isSeleceted = false;
-                //}
-                //if (InteractManager.Instance.interactedFences != null) // Çit
-                //{
-                //    pawnController.isMine = false;
-                //    pawnController.isTree = false;
-                //    pawnController.fenceObj = InteractManager.Instance.interactedFences;
-                //    pawnController.fence = pawnController.fenceObj.GetComponent<FenceController>();
-
-                //}
-                //if (InteractManager.Instance.interactedConstruction != null) // İnşaat
-                //{
-                //    pawnController.constructionObj = InteractManager.Instance.interactedConstruction;
-                //    pawnController.constructController = pawnController.constructionObj.GetComponent<ConstructController>();
-                //}
-
-                #endregion
             }
         }
         public void GoToHome()
