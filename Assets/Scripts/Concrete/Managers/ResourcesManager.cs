@@ -13,7 +13,7 @@ namespace Assets.Scripts.Concrete.Managers
         public int collectRockAmount;
         public int collectWoodAmount;
         public int collectMeatAmount;
-        public Value[] value; // Çok pahalı bir dizi**************************
+        public Value[] value; // İSim değişikliği için çok masraflı bir dizi**************************
         public Value item; // Value dizisinin 1 elemanına karşılık gelir.
         public List<GameObject> repos;
         [SerializeField] Color canBuyColor;

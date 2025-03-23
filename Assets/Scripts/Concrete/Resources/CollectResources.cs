@@ -23,7 +23,7 @@ namespace Assets.Scripts.Concrete.Resources
             // UPDATE İLE ÇALIŞIR
             if (pawnController.kC.isSeleceted) // Eğer köylü seçiliyse ve hedefe tıkladıysa, seçili köylünün hedefi seçili hedeftir
             {
-                pawnController.targetResource = null;
+                //pawnController.targetResource = null;
                 pawnController.nearestTree = null;
                 pawnController.constructionObj = null;
                 pawnController.villagerSpriteRenderer.enabled = true;
@@ -89,15 +89,16 @@ namespace Assets.Scripts.Concrete.Resources
                 }
             }
         }
+
         public void GoToHome()
         {
-            // Köylüyü madende çalışırken maden biterse, tekarar görünür olur
+            // Köylü madende çalışırken maden biterse, tekarar görünür olur
             if (pawnController.isMineEmpty)
                 pawnController.villagerSpriteRenderer.enabled = true;
 
             if (pawnController.returnHome)
             {
-                //FindRepo();
+                Debug.Log("GoToHome");
                 // Eve ulaşınca dur
                 if (Vector2.Distance(pawnController.transform.position, pawnController.repo.transform.GetChild(0).position) > .5f)
                 {
@@ -116,6 +117,7 @@ namespace Assets.Scripts.Concrete.Resources
         }
         public void CollectResource()
         {
+            Debug.Log("CollectResource");
             if (pawnController.isTree)
                 pawnController.tCollect += 1;
             if (pawnController.isSheep)
@@ -123,8 +125,10 @@ namespace Assets.Scripts.Concrete.Resources
 
             if (pawnController.workOnce)
             {
+                Debug.Log("CollectResource2");
                 if (pawnController.isMine)
                 {
+                    Debug.Log("CollectResource3");
                     MineController mine = pawnController.targetResource.GetComponent<MineController>();
                     if (mine.CompareTag("GoldMine"))
                         pawnController.goldIdle.SetActive(true);
