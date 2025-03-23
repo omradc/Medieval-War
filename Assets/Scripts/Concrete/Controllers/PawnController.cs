@@ -29,7 +29,7 @@ namespace Assets.Scripts.Concrete.Controllers
         public float miningTime;
         public GameObject resourceGold;
         public GameObject resourceRock;
-        [HideInInspector] public MineController mine;
+        public MineController mineController;
 
 
         [Header("SHEEP")]
@@ -45,20 +45,20 @@ namespace Assets.Scripts.Concrete.Controllers
         public GameObject constructionObj;
         public ConstructController constructController;
 
-        [HideInInspector]public GameObject repo;
+        public GameObject repo;
         [HideInInspector] public float currentChopTreeSightRange;
         [HideInInspector] public int currentTreeDamage;
         [HideInInspector] public float tChop;
         [HideInInspector] public float tCollect;
-        [HideInInspector] public float tMining;
+        public float tMining;
         [HideInInspector] public bool returnHome;
         [HideInInspector] public bool returnFences;
         [HideInInspector] public bool workOnce;
         [HideInInspector] public bool workOnce2;
         [HideInInspector] public bool workOnceForTree = true;
-        [HideInInspector] public bool isMineEmpty;
+        public bool isMineEmpty;
         [HideInInspector] public bool isTree;
-        [HideInInspector] public bool isMine;
+        public bool isMine;
         [HideInInspector] public bool isSheep;
         [HideInInspector] public KnightController kC;
         [HideInInspector] public PathFinding pF;
@@ -134,15 +134,17 @@ namespace Assets.Scripts.Concrete.Controllers
 
             else //Düşman yoksa kaynak toplayabilir
             {
+                Debug.Log("OptimumVillager");
                 construction.GoConstruct();
                 collectFood.GoToFences();
                 collectFood.GoToSheep();
-                if (repo == null)
-                    return; // Depo yoksa kaynak toplama
-                collectGoldAndRock.GoToMine();
-                collectWood.GoToTree();
-                collectFood.CutSheep();
                 collectResources.GoToHome();
+                if (repo != null) // Depo varsa kaynak topla
+                {
+                    collectGoldAndRock.GoToMine();
+                    collectWood.GoToTree();
+                    collectFood.CutSheep();
+                }
             }
         }
         void Idle()
