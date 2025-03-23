@@ -44,7 +44,7 @@ namespace Assets.Scripts.Concrete.Resources
                     pawnController.isSheep = false;
                     pawnController.returnHome = false;
                     pawnController.targetResource = InteractManager.Instance.interactedMine;
-                    pawnController.mineController = pawnController.targetResource.GetComponent<MineController>();
+                    pawnController.mine = pawnController.targetResource.GetComponent<MineController>();
                     pawnController.isMine = true;
                     pawnController.kC.isSeleceted = false;
                 }
@@ -91,20 +91,16 @@ namespace Assets.Scripts.Concrete.Resources
         }
         public void GoToHome()
         {
-            Debug.Log("GoToHome");
             // Köylüyü madende çalışırken maden biterse, tekarar görünür olur
             if (pawnController.isMineEmpty)
                 pawnController.villagerSpriteRenderer.enabled = true;
-            Debug.Log("GoToHome2");
 
             if (pawnController.returnHome)
             {
-                Debug.Log("GoToHome3");
                 //FindRepo();
                 // Eve ulaşınca dur
                 if (Vector2.Distance(pawnController.transform.position, pawnController.repo.transform.GetChild(0).position) > .5f)
                 {
-                    Debug.Log("GoToHome4");
                     // Kaynak al
                     CollectResource();
                 }
@@ -127,14 +123,12 @@ namespace Assets.Scripts.Concrete.Resources
 
             if (pawnController.workOnce)
             {
-                Debug.Log("CollectResource");
-                if (pawnController.mineController != null)
+                if (pawnController.isMine)
                 {
-                    Debug.Log("CollectResource2");
-                    //MineController mineController = pawnController.targetResource.GetComponent<MineController>();
-                    if (pawnController.mineController.CompareTag("GoldMine"))
+                    MineController mine = pawnController.targetResource.GetComponent<MineController>();
+                    if (mine.CompareTag("GoldMine"))
                         pawnController.goldIdle.SetActive(true);
-                    if (pawnController.mineController.CompareTag("RockMine"))
+                    if (mine.CompareTag("RockMine"))
                         pawnController.rockIdle.SetActive(true);
                     pF.MoveAI(pawnController.repo.transform.GetChild(0).position, 0);
                     AnimationManager.Instance.RunCarryAnim(pawnController.animator, 1);

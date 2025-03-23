@@ -262,6 +262,7 @@ namespace Assets.Scripts.Concrete.Managers
             }
             return leastRepo.GetComponent<RepoController>();
         }
+
         public void DestroyRepo(GameObject repo)
         {
             RepoController repoController = repo.GetComponent<RepoController>();

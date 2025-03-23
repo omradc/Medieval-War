@@ -17,41 +17,35 @@ namespace Assets.Scripts.Concrete.Resources
         }
         public void GoToMine()
         {
-            Debug.Log("GoToMine");
-            if (pawnController.isMineEmpty || pawnController.mineController==null) return;
-            Debug.Log("GoToMine2");
-
-            if (!pawnController.returnHome && pawnController.mineController.currentMineAmount > 0)
+            if (pawnController.isMineEmpty || !pawnController.isMine) return;
+            // Hedef varsa ona git
+            if (pawnController.targetResource != null && !pawnController.returnHome && pawnController.mine.currentMineAmount > 0)
             {
-                Debug.Log("GoToMine3");
                 // Hedefe ulaşınca dur
-                if (Vector2.Distance(pawnController.transform.position, pawnController.mineController.transform.position) > .1f)
+                if (Vector2.Distance(pawnController.transform.position, pawnController.targetResource.transform.position) > .1f)
                 {
-                    Debug.Log("GoToMine4");
-                    pF.MoveAI(pawnController.mineController.transform.position, 0);
+                    pF.MoveAI(pawnController.targetResource.transform.position, 0);
                 }
 
                 // Hedefe ulaşıldı
                 else
                 {
-                    Debug.Log("GoToMine5");
                     AnimationManager.Instance.RunCarryAnim(pawnController.animator, 1);
-                    if (pawnController.mineController.currentMineAmount == 0) return;
+                    if (pawnController.mine.currentMineAmount == 0) return;
                     pawnController.villagerSpriteRenderer.enabled = false;
                     pawnController.tMining += 1;
                     if (pawnController.tMining > pawnController.miningTime)
                     {
-                        Debug.Log("GoToMine6");
                         // Madenden alınan kaynakları eksilt
-                        if (pawnController.mineController.CompareTag("GoldMine"))
+                        if (pawnController.mine.CompareTag("GoldMine"))
                         {
-                            pawnController.mineController.currentMineAmount -= ResourcesManager.Instance.collectGoldAmount;
-                            pawnController.mineController.mineAmountFillValue.fillAmount = pawnController.mineController.currentMineAmount / pawnController.mineController.mineAmount;
+                            pawnController.mine.currentMineAmount -= ResourcesManager.Instance.collectGoldAmount;
+                            pawnController.mine.mineAmountFillValue.fillAmount = pawnController.mine.currentMineAmount / pawnController.mine.mineAmount;
                         }
-                        if (pawnController.mineController.CompareTag("RockMine"))
+                        if (pawnController.mine.CompareTag("RockMine"))
                         {
-                            pawnController.mineController.currentMineAmount -= ResourcesManager.Instance.collectRockAmount;
-                            pawnController.mineController.mineAmountFillValue.fillAmount = pawnController.mineController.currentMineAmount / pawnController.mineController.mineAmount;
+                            pawnController.mine.currentMineAmount -= ResourcesManager.Instance.collectRockAmount;
+                            pawnController.mine.mineAmountFillValue.fillAmount = pawnController.mine.currentMineAmount / pawnController.mine.mineAmount;
                         }
                         pawnController.villagerSpriteRenderer.enabled = true;
                         pawnController.returnHome = true;
