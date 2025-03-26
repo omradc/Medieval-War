@@ -3707,7 +3707,7 @@ GameObject:
   - component: {fileID: 3593527690828911238}
   - component: {fileID: 1382306689827528308}
   - component: {fileID: 192879217944502079}
-  - component: {fileID: -4792531660301751770}
+  - component: {fileID: -2282223016621402776}
   m_Layer: 10
   m_Name: Repo
   m_TagString: Repo
@@ -3875,7 +3875,7 @@ MonoBehaviour:
   priority: 5
   currentPriority: 0
   maxAttacker: 3
-  attackingPersonNumber: 0
+  currentAttackerNumber: 0
 --- !u!114 &192879217944502079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3892,7 +3892,7 @@ MonoBehaviour:
   rock: 0
   wood: 0
   meat: 0
---- !u!114 &-4792531660301751770
+--- !u!114 &-2282223016621402776
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3909,7 +3909,7 @@ MonoBehaviour:
   regenerationAmount: 1
   regrenationPerTime: 1
   regrenationAfterDamageTime: 5
-  maxRepoCapacity: 0
+  maxRepoCapacity: 2000
 --- !u!1 &6881202407123079017
 GameObject:
   m_ObjectHideFlags: 0
@@ -4971,7 +4971,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8605331197633781820}
   m_Layer: 8
-  m_Name: Knight Spawn Point
+  m_Name: ResourceDropPoint
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

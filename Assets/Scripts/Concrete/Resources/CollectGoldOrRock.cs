@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Concrete.Controllers;
-using Assets.Scripts.Concrete.Managers;
+﻿using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using UnityEngine;
 

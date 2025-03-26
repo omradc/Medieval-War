@@ -1,10 +1,10 @@
 using Assets.Scripts.Concrete.AI;
+using Assets.Scripts.Concrete.CollectResource;
 using Assets.Scripts.Concrete.Combats;
 using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using Assets.Scripts.Concrete.PowerStats;
-using Assets.Scripts.Concrete.Resources;
 using UnityEngine;
 
 
@@ -36,7 +36,7 @@ namespace Assets.Scripts.Concrete.Controllers
         [HideInInspector] public float arrowSpeed;
         [HideInInspector] public float arrowDestroyTime;
         [HideInInspector] public float followDistance;
-        [HideInInspector] public bool isSeleceted;
+        public bool isSeleceted;
         [HideInInspector] public bool aI = true;
         [HideInInspector] public bool onBuilding;
         [HideInInspector] public bool onBuildingStay;
@@ -55,13 +55,14 @@ namespace Assets.Scripts.Concrete.Controllers
         Animator animator;
         AnimationEventController animationEventController;
         PathFinding pF;
-        PawnController pawnController;
+        //PawnController pawnController;
         DynamicOrderInLayer dynamicOrderInLayer;
         WarriorStats warriorStats;
         ArcherStats archerStats;
         VillagerStats villagerStats;
         HealthController healthController;
         TargetPriority targetPriority;
+        CollectResourceController cRC;
         float attackInterval;
         float attackSpeed;
         float time;
@@ -83,7 +84,7 @@ namespace Assets.Scripts.Concrete.Controllers
             cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
             targetPriority = GetComponent<TargetPriority>();
             if (factionType == FactionTypeEnum.Pawn)
-                pawnController = GetComponent<PawnController>();
+                cRC = GetComponent<CollectResourceController>();
         }
         private void Start()
         {
@@ -98,6 +99,11 @@ namespace Assets.Scripts.Concrete.Controllers
             // Invoke
             InvokeRepeating(nameof(OptimumTurnDirection), 0, turnDirectionPerTime);
             InvokeRepeating(nameof(OptimumAI), 0, aIPerTime);
+            if (factionType == FactionTypeEnum.Pawn)
+            {
+                InvokeRepeating(nameof(OptimumCollectResource), 0, collectResourcesPerTime);
+
+            }
         }
         void PowerStatsAssign()
         {
@@ -157,8 +163,8 @@ namespace Assets.Scripts.Concrete.Controllers
                 attackInterval = villagerStats.attackInterval;
                 attackRange = villagerStats.attackRange;
                 sightRange = villagerStats.sightRange;
-                pawnController.treeDamage = villagerStats.treeDamage;
-                pawnController.chopSpeed = villagerStats.chopSpeed;
+                //pawnController.treeDamage = villagerStats.treeDamage;
+                //pawnController.chopSpeed = villagerStats.chopSpeed;
                 followDistance = villagerStats.followDistance;
                 targetPriority.priority = villagerStats.priority;
                 targetPriority.maxAttacker = villagerStats.maxAttacker;
@@ -191,6 +197,11 @@ namespace Assets.Scripts.Concrete.Controllers
 
             knightAI.SelectTower();
             knightAI.DestructTower();
+
+            if (factionType == FactionTypeEnum.Pawn)
+            {
+                cRC.SelectResourceType();
+            }
         }
         void OptimumTurnDirection()
         {
@@ -244,12 +255,12 @@ namespace Assets.Scripts.Concrete.Controllers
                     else
                     {
                         // Köylü çalýþmýyorsa, saða bak
-                        if (pawnController.targetResource == null)
+                        if (cRC.targetResource == null)
                             transform.localScale = Vector3.one;
                         // Köylü çalýþýyorsa, hedefe bakar
                         else
                         {
-                            direction.Turn2DirectionWithPos(pawnController.targetResource.transform.position.x);
+                            direction.Turn2DirectionWithPos(cRC.targetResource.transform.position.x);
                         }
                     }
                 }
@@ -370,6 +381,14 @@ namespace Assets.Scripts.Concrete.Controllers
         void ResetAttack()
         {
             time = 0;
+        }
+        public void OptimumCollectResource() // Optimum Kaynak toplama
+        {
+            if (cRC.repo != null) // Eðer repo varsa
+            {
+                cRC.GoRepo();
+                cRC.CollectOre();
+            }
         }
 
         private void OnDrawGizmos()

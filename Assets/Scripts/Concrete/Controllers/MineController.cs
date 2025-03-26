@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Concrete.Movements;
+﻿using Assets.Scripts.Concrete.CollectResource;
+using Assets.Scripts.Concrete.Movements;
 using Assets.Scripts.Concrete.Resources;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace Assets.Scripts.Concrete.Controllers
         Collider2D[] colliders;
         public List<GameObject> villagers;
         public Image mineAmountFillValue;
-        PawnController pawnController;
+        CollectResourceController cRC;
         DynamicOrderInLayer dynamicOrderInLayer;
         [SerializeField] Transform orderInLayerSpriteAnchor;
 
@@ -80,23 +81,23 @@ namespace Assets.Scripts.Concrete.Controllers
             {
                 villagerNumber--;
 
-                //Maden bittiyse
-                if (currentMineAmount <= 0)
-                {
-                    Destroyed();
-                    minePanel.SetActive(false);
-                    for (int i = 0; i < villagers.Count; i++)
-                    {
-                        pawnController = villagers[i].GetComponent<PawnController>();
-                        pawnController.isMineEmpty = true;
-                        pawnController.isMine = false;
-                    }
-                    for (int i = 0; i < colliders.Length; i++)
-                    {
-                        Destroy(colliders[i]);
-                    }
-                    return;
-                }
+                ////Maden bittiyse
+                //if (currentMineAmount <= 0)
+                //{
+                //    Destroyed();
+                //    minePanel.SetActive(false);
+                //    for (int i = 0; i < villagers.Count; i++)
+                //    {
+                //        cRC = villagers[i].GetComponent<PawnController>();
+                //        cRC.isMineEmpty = true;
+                //        cRC.isMine = false;
+                //    }
+                //    for (int i = 0; i < colliders.Length; i++)
+                //    {
+                //        Destroy(colliders[i]);
+                //    }
+                //    return;
+                //}
 
                 // Köylü kalmadıysa
                 if (villagerNumber <= 0)

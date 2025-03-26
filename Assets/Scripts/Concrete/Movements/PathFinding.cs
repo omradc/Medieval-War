@@ -49,15 +49,17 @@ namespace Assets.Scripts.Concrete.Movements
         public void Move(Vector3 mousePos, float stoppingDistance = 0) // Kullanıcı hareketi
         {
             // Pozisyon verilmediyse veya etkilleşimli bir objeye tıklandıysa çalışma
-            if (mousePos == null || InteractManager.Instance.interactedObj != null) return;
-            print("Move");
-            lastMousePos = mousePos;
-            targetPos = mousePos;
-            agent.stoppingDistance = stoppingDistance;
-            agent.SetDestination(mousePos);
-            isUserControl = true;
+            if (InteractManager.Instance.interactedObj == null)
+            {
+                print("Move");
+                lastMousePos = mousePos;
+                targetPos = mousePos;
+                agent.stoppingDistance = stoppingDistance;
+                agent.SetDestination(mousePos);
+                isUserControl = true;
+            }
         }
-        public void MoveAI(Vector3 pos, float stoppingDistance)  // AI hareketi
+        public void MoveAI(Vector3 pos, float stoppingDistance = 0)  // AI hareketi
         {
             if (pos == null || isUserControl) return;
             if (gameObject.layer == 6 && isStuck) return;//Şovalye surlardayken, düşman takibi yapmaz. 

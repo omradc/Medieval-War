@@ -349,7 +349,9 @@ namespace Assets.Scripts.Concrete.Managers
             {
                 for (int i = 0; i < selectedKnights.Count; i++)
                 {
-                    selectedKnights[i].GetComponent<KnightController>().isSeleceted = false;
+                    KnightController kC = selectedKnights[i].GetComponent<KnightController>();
+                    if (kC.factionType != FactionTypeEnum.Pawn)
+                        kC.isSeleceted = false;
                 }
                 SelectedKnightsColor(1f);
                 selectedKnights.Clear();
