@@ -1,11 +1,11 @@
 ﻿using Assets.Scripts.Abstracts.Inputs;
+using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using Assets.Scripts.Concrete.Resources;
 using UnityEngine;
 
-namespace Assets.Scripts.Concrete.Controllers
+namespace Assets.Scripts.Concrete.Resources
 {
     internal class PawnController : MonoBehaviour
     {

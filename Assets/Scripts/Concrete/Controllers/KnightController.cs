@@ -4,6 +4,7 @@ using Assets.Scripts.Concrete.Enums;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using Assets.Scripts.Concrete.PowerStats;
+using Assets.Scripts.Concrete.Resources;
 using UnityEngine;
 
 

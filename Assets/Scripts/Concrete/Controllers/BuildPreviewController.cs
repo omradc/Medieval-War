@@ -67,7 +67,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
             }
 
-            if (ınput.GetButtonDown0() && value)
+            if (ınput.GetButton0() && value)
             {
                 Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mouseWorldPos.z = 0;
