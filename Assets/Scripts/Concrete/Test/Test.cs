@@ -1,13 +1,11 @@
+using Assets.Scripts.Concrete.Managers;
 using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    public Transform a; // Çocuk objesi
-    public Transform b; // Ana obje (Ebeveyn)
-    public float result;
-    void Update()
+    private void Start()
     {
-        result = (a.position - b.position).magnitude;
+        AnimationManager.Instance.RunAnim(GetComponent<Animator>());
     }
 }
 

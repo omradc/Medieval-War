@@ -3,6 +3,7 @@ using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
+using Assets.Scripts.Concrete.Resources;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.CollectResource
@@ -65,7 +66,11 @@ namespace Assets.Scripts.Concrete.CollectResource
             animationEventController = transform.GetChild(0).GetComponent<AnimationEventController>();
         }
 
-
+        public void UpdatePawnWork()
+        {
+            SelectResourceType();
+            PawnHandStatus();
+        }
         public void SelectResourceType()
         {
             // UPDATE İLE ÇALIŞIR
@@ -104,7 +109,6 @@ namespace Assets.Scripts.Concrete.CollectResource
                 }
             }
         }
-
         public void CollectOre() // Maden Topla
         {
             if (targetResource != null && !goRepo && !kC.isSeleceted && mineControler.currentMineAmount != 0) // Hedef varsa ve depoya gitmiyorsa ve köylü seçili değilse ve madenin miktarı 0 değilse
@@ -156,6 +160,22 @@ namespace Assets.Scripts.Concrete.CollectResource
             }
         }
 
+        public void PawnHandStatus()
+        {
+            if (ınput.GetButtonDown0() && kC.isSeleceted)
+            {
+                DropAnyResources();
+            }
+
+        }
+        public void PawnIdleCarryStateAnim() // Köylü dururken kaynak taşıma animasyonu
+        {
+            if (goldIdle.activeSelf || rockIdle.activeSelf || woodIdle.activeSelf || meatIdle.activeSelf)
+            {
+                if (kC.isSeleceted)
+                    AnimationManager.Instance.IdleCarryAnim(animator);
+            }
+        }
         void PawnHandResourceVisibility(bool visibility) // Köylünün elindeki kaynakların görünürlüğünü ayarla
         {
             if (mineControler != null)
@@ -209,17 +229,17 @@ namespace Assets.Scripts.Concrete.CollectResource
                 DropGold(transform.position, dropResourceLifeTime);
                 goldIdle.SetActive(false);
             }
-            if (rockIdle.activeSelf)
+            else if (rockIdle.activeSelf)
             {
                 DropRock(transform.position, dropResourceLifeTime);
                 rockIdle.SetActive(false);
             }
-            if (woodIdle.activeSelf)
+            else if (woodIdle.activeSelf)
             {
                 DropWood(transform.position, dropResourceLifeTime);
                 woodIdle.SetActive(false);
             }
-            if (meatIdle.activeSelf)
+            else if (meatIdle.activeSelf)
             {
                 DropMeat(transform.position, dropResourceLifeTime);
                 meatIdle.SetActive(false);

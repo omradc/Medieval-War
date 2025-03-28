@@ -200,7 +200,7 @@ namespace Assets.Scripts.Concrete.Controllers
 
             if (factionType == FactionTypeEnum.Pawn)
             {
-                cRC.SelectResourceType();
+                cRC.UpdatePawnWork();
             }
         }
         void OptimumTurnDirection()
@@ -270,7 +270,7 @@ namespace Assets.Scripts.Concrete.Controllers
         }
         void AnimationControl()
         {
-            if (canAttack)
+            if (canAttack) // Saldýrý yapabilirse
             {
                 time += Time.deltaTime;
                 if (time >= attackInterval)
@@ -286,18 +286,24 @@ namespace Assets.Scripts.Concrete.Controllers
                         AnimationManager.Instance.AttackUpFrontAnim(animator, attackSpeed);
                     else if (direction.downRight || direction.downLeft)
                         AnimationManager.Instance.AttackDownFrontAnim(animator, attackSpeed);
-                    // time = 0; // Animasyon bittiðinde süre sýfýrlanýr.
+                    // time = 0; // Animasyon bittiðinde event ile süre sýfýrlanýr.
                 }
 
                 else
                     AnimationManager.Instance.IdleAnim(animator);
 
             }
-            else
+            else // Saldýrý yapamazsa
             {
-                // Aðaç kesme ve kaynak taþýma animasyonu yapmýyorsa, koþabilir veya durabilir
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Sheep") || animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Wood") ||
-                    animator.GetCurrentAnimatorStateInfo(0).IsName("Run_0") || animator.GetCurrentAnimatorStateInfo(0).IsName("Build")) return;
+                if (factionType == FactionTypeEnum.Pawn)
+                {
+                    cRC.PawnIdleCarryStateAnim();
+                    // Aðaç kesme, koyun kesme, kaynak taþýma, kaynakla bekleme, inþaa yapma animasyonu yapmýyorsa, koþabilir veya durabilir
+                    if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Sheep") || animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Wood") ||
+                        animator.GetCurrentAnimatorStateInfo(0).IsName("Run_0") || animator.GetCurrentAnimatorStateInfo(0).IsName("Build") ||
+                        animator.GetCurrentAnimatorStateInfo(0).IsName("Idle_0")) return;
+                }
+
                 if (pF.isMovementStopping)  // Durduysan = IdleAnim
                     AnimationManager.Instance.IdleAnim(animator);
                 if (!pF.isMovementStopping) // Durmadýysan = RunAnim

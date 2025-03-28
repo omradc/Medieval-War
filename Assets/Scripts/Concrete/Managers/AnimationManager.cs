@@ -25,6 +25,7 @@ namespace Assets.Scripts.Concrete.Managers
                 Destroy(this);
         }
 
+        //Factions
         public void IdleAnim(Animator animator)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
@@ -32,18 +33,16 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.speed = 1f;
                 animator.Play("Idle");
             }
-
         }
-        public void RunAnim(Animator animator, float speed)
+        public void RunAnim(Animator animator, float speed = 1)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
             {
                 animator.speed = speed;
                 animator.Play("Run");
             }
-
         }
-        public void AttackUpAnim(Animator animator, float speed)
+        public void AttackUpAnim(Animator animator, float speed = 1)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Up"))
             {
@@ -51,7 +50,7 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.Play("Attack_Up");
             }
         }
-        public void AttackUpFrontAnim(Animator animator, float speed)
+        public void AttackUpFrontAnim(Animator animator, float speed = 1)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_UpFront"))
             {
@@ -59,7 +58,7 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.Play("Attack_UpFront");
             }
         }
-        public void AttackFrontAnim(Animator animator, float speed)
+        public void AttackFrontAnim(Animator animator, float speed = 1)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Front"))
             {
@@ -67,7 +66,7 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.Play("Attack_Front");
             }
         }
-        public void AttackDownFrontAnim(Animator animator, float speed)
+        public void AttackDownFrontAnim(Animator animator, float speed = 1)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_DownFront"))
             {
@@ -75,7 +74,7 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.Play("Attack_DownFront");
             }
         }
-        public void AttackDownAnim(Animator animator, float speed)
+        public void AttackDownAnim(Animator animator, float speed = 1)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Down"))
             {
@@ -92,7 +91,7 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.speed = 1f;
                 animator.Play("Destroyed");
             }
-        } 
+        }
         public void IdleTreeAnim(Animator animator)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
@@ -101,7 +100,7 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.Play("Idle");
             }
         }
-        public void GetHitTreeAnim(Animator animator, float speed)
+        public void GetHitTreeAnim(Animator animator, float speed = 1)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"))
             {
@@ -110,8 +109,8 @@ namespace Assets.Scripts.Concrete.Managers
             }
         }
 
-        //Villager
-        public void RunCarryAnim(Animator animator, float speed)
+        //Pawn
+        public void RunCarryAnim(Animator animator, float speed = 1)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Run_0"))
             {
@@ -119,7 +118,7 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.Play("Run_0");
             }
         }
-        public void ChopTreeAnim(Animator animator, float speed)
+        public void ChopTreeAnim(Animator animator, float speed = 1)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Wood"))
             {
@@ -127,7 +126,7 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.Play("Chop_Wood");
             }
         }
-        public void ChopSheepAnim(Animator animator, float speed)
+        public void ChopSheepAnim(Animator animator, float speed = 1)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Chop_Sheep"))
             {
@@ -135,12 +134,20 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.Play("Chop_Sheep");
             }
         }
-        public void BuildAnim(Animator animator, float speed)
+        public void BuildAnim(Animator animator, float speed = 1)
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Build"))
             {
                 animator.speed = speed;
                 animator.Play("Build");
+            }
+        }
+        public void IdleCarryAnim(Animator animator)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle_0"))
+            {
+                animator.speed = 1;
+                animator.Play("Idle_0");
             }
         }
 
@@ -152,6 +159,6 @@ namespace Assets.Scripts.Concrete.Managers
                 animator.speed = 1f;
                 animator.Play("Happy");
             }
-        } 
+        }
     }
 }
