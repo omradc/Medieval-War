@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Concrete.Controllers;
+﻿using Assets.Scripts.Abstracts.Inputs;
+using Assets.Scripts.Concrete.Controllers;
+using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
 using UnityEngine;
@@ -14,6 +16,7 @@ namespace Assets.Scripts.Concrete.CollectResource
         public RepoController repoController;
         public bool goRepo;
         public float dropResourceLifeTime = 1;
+
         [Header("MİNE")]
         public float miningTime;
         public GameObject resourceGold;
@@ -45,11 +48,15 @@ namespace Assets.Scripts.Concrete.CollectResource
         [HideInInspector] public GameObject woodIdle;
         [HideInInspector] public GameObject meatIdle;
         AnimationEventController animationEventController;
+        public bool workOnce;
+
+        IInput ınput;
         private void Awake()
         {
             kC = GetComponent<KnightController>();
             pF = GetComponent<PathFinding>();
             pawnSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+            ınput = new PcInput();
             animator = transform.GetChild(0).GetComponent<Animator>();
             goldIdle = transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
             rockIdle = transform.GetChild(0).GetChild(0).GetChild(1).gameObject;
@@ -64,38 +71,51 @@ namespace Assets.Scripts.Concrete.CollectResource
             // UPDATE İLE ÇALIŞIR
             if (kC.isSeleceted) // Eğer köylü seçiliyse ve hedefe tıkladıysa, seçili köylünün hedefi seçili hedeftir
             {
+                if (workOnce)
+                {
+                    pF.agent.ResetPath(); // Yol bulma işlemi sıfırlanır
+                    workOnce = false;
+                }
+
                 if (InteractManager.Instance.interactedMine != null) // Maden
                 {
                     targetResource = InteractManager.Instance.interactedMine;
                     mineControler = targetResource.GetComponent<MineController>();
                     kC.isSeleceted = false;
+                    workOnce = true;
                 }
 
-                else if (InteractManager.Instance.interactedRepo != null)
+                else if (InteractManager.Instance.interactedRepo != null) // Depo
                 {
                     repo = InteractManager.Instance.interactedRepo;
                     repoController = repo.GetComponent<RepoController>();
                     resourceDropPoint = repo.transform.GetChild(0);
                     kC.isSeleceted = false;
+                    workOnce = true;
+                }
+
+                else if (InteractManager.Instance.interactedObj == null && ınput.GetButtonUp0()) // Hedef yoksa
+                {
+                    targetResource = null;   // Hedefi sıfırla
+                    mineControler = null;    // Maden kontrolcüsünü sıfırla
+                    kC.isSeleceted = false;  // Seçili köylüyü sıfırla
+                    workOnce = true;         // Tek seferlik çalıştırma işlemini sıfırla
+                    goRepo = false;          // Depoya gitme işlemini sıfırla
                 }
             }
-
         }
 
-        public void CollectOre()
+        public void CollectOre() // Maden Topla
         {
-            if (targetResource != null && !goRepo)
+            if (targetResource != null && !goRepo && !kC.isSeleceted && mineControler.currentMineAmount != 0) // Hedef varsa ve depoya gitmiyorsa ve köylü seçili değilse ve madenin miktarı 0 değilse
             {
-                // Hedefe ulaşınca dur
-                if ((targetResource.transform.position - transform.position).magnitude > .1f)
+                if ((targetResource.transform.position - transform.position).magnitude > .1f) // Hedefe ulaşınca dur
                 {
                     print("Go Mine");
                     pF.MoveAI(targetResource.transform.position, 0);
-
                 }
                 else
                 {
-                    if (mineControler.currentMineAmount == 0) return;
                     pawnSpriteRenderer.enabled = false;
 
                     currentTime += 1;
@@ -119,17 +139,16 @@ namespace Assets.Scripts.Concrete.CollectResource
                 }
             }
         }
-        public void GoRepo()
+        public void GoRepo() // Depoya git
         {
-            if (goRepo)
+            if (goRepo && !kC.isSeleceted)
             {
                 pawnSpriteRenderer.enabled = true;
                 PawnHandResourceVisibility(true);
                 pF.MoveAI(resourceDropPoint.position);
                 AnimationManager.Instance.RunCarryAnim(animator, 1);
 
-                // Depaya ulaşıldığında kaynakları bırak
-                if ((resourceDropPoint.position - transform.position).magnitude < 0.1f)
+                if ((resourceDropPoint.position - transform.position).magnitude < 0.1f)  // Depaya ulaşıldığında kaynakları bırak
                 {
                     DropResourceToRepo();
                     goRepo = false;
@@ -137,7 +156,7 @@ namespace Assets.Scripts.Concrete.CollectResource
             }
         }
 
-        public void PawnHandResourceVisibility(bool visibility)
+        void PawnHandResourceVisibility(bool visibility) // Köylünün elindeki kaynakların görünürlüğünü ayarla
         {
             if (mineControler != null)
             {
@@ -147,7 +166,6 @@ namespace Assets.Scripts.Concrete.CollectResource
                     rockIdle.SetActive(visibility);
             }
         }
-
         void DropResourceToRepo() // Kaynakları depola
         {
             if (goldIdle.activeSelf)
@@ -184,8 +202,7 @@ namespace Assets.Scripts.Concrete.CollectResource
             ResourcesManager.Instance.DisplayResources();
 
         }
-
-        public void DropAnyResources() // Elindeki kaynakları yere bırak
+        void DropAnyResources() // Elindeki kaynakları yere bırak
         {
             if (goldIdle.activeSelf)
             {

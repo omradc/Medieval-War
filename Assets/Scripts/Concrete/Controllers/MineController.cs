@@ -16,7 +16,8 @@ namespace Assets.Scripts.Concrete.Controllers
         [SerializeField] GameObject active;
         [SerializeField] GameObject destroyed;
         [SerializeField] GameObject minePanel;
-        Collider2D[] colliders;
+        [SerializeField] GameObject navmeshObstacle;
+        CircleCollider2D coll;
         public List<GameObject> villagers;
         public Image mineAmountFillValue;
         CollectResourceController cRC;
@@ -27,9 +28,10 @@ namespace Assets.Scripts.Concrete.Controllers
         private void Awake()
         {
             dynamicOrderInLayer = new();
-            colliders = GetComponents<Collider2D>();
+            coll = GetComponent<CircleCollider2D>();
             dynamicOrderInLayer.OrderInLayerInitialize(orderInLayerSpriteAnchor, inactive.GetComponent<SpriteRenderer>());
             dynamicOrderInLayer.OrderInLayerInitialize(orderInLayerSpriteAnchor, active.GetComponent<SpriteRenderer>());
+            dynamicOrderInLayer.OrderInLayerInitialize(orderInLayerSpriteAnchor, destroyed.GetComponent<SpriteRenderer>());
         }
         private void Start()
         {
@@ -80,27 +82,15 @@ namespace Assets.Scripts.Concrete.Controllers
             if (collision.gameObject.CompareTag("Pawn"))
             {
                 villagerNumber--;
-
-                ////Maden bittiyse
-                //if (currentMineAmount <= 0)
-                //{
-                //    Destroyed();
-                //    minePanel.SetActive(false);
-                //    for (int i = 0; i < villagers.Count; i++)
-                //    {
-                //        cRC = villagers[i].GetComponent<PawnController>();
-                //        cRC.isMineEmpty = true;
-                //        cRC.isMine = false;
-                //    }
-                //    for (int i = 0; i < colliders.Length; i++)
-                //    {
-                //        Destroy(colliders[i]);
-                //    }
-                //    return;
-                //}
-
-                // Köylü kalmadıysa
-                if (villagerNumber <= 0)
+                if (currentMineAmount <= 0) //Maden bittiyse
+                {
+                    Destroyed();
+                    minePanel.SetActive(false);
+                    coll.enabled = false;
+                    navmeshObstacle.SetActive(false);
+                    return;
+                }
+                if (villagerNumber <= 0) // Köylü kalmadıysa
                     Inactivated();
             }
         }
