@@ -61,7 +61,7 @@ namespace Assets.Scripts.Concrete.Movements
         }
         public void MoveAI(Vector3 pos, float stoppingDistance = 0)  // AI hareketi
         {
-            if (pos == null || isUserControl) return;
+            if (isUserControl) return;
             if (gameObject.layer == 6 && isStuck) return;//Şovalye surlardayken, düşman takibi yapmaz. 
             print("MoveAI");
             targetPos = pos;

@@ -78,44 +78,37 @@ namespace Assets.Scripts.Concrete.Managers
                 ınteract.InteractClickedObj();
                 if (interactedObj != null)
                 {
-                    // Etkileşim olan obje, şovalye ise,
-                    if (interactedObj.layer == 6)
+                    if (interactedObj.layer == 6) // Knight
                         interactedKnight = interactedObj;
 
-                    // Etkileşim olan obje, maden ise,
-                    if (interactedObj.layer == 14)
+                    if (interactedObj.layer == 14) // Mine
                         interactedMine = interactedObj;
 
-                    // Etkileşim olan obje, ağaç ise,
-                    if (interactedObj.layer == 15)
+                    if (interactedObj.layer == 15) // Tree
                         interactedTree = interactedObj;
 
-                    // Etkileşim olan obje, koyun ise,
-                    if (interactedObj.layer == 16)
+                    if (interactedObj.layer == 16) // Sheep
                         interactedSheep = interactedObj;
 
-                    // Etkileşim olan obje, çitler ise,
-                    if (interactedObj.layer == 12)
+                    if (interactedObj.layer == 12) // Fences
                         interactedFences = interactedObj;
 
-                    // Etkileşim olan obje, kule ise,
-                    if (interactedObj.layer == 9)
+                    if (interactedObj.layer == 9) // Tower
                         interactedTower = interactedObj;
 
-                    // Etkileşim olan obje, inşaat ise,
-                    if (interactedObj.layer == 30)
+                    if (interactedObj.layer == 30) // Construction
                         interactedConstruction = interactedObj;
-                    // Etkileşim olan obje, kapı ise,
-                    if (interactedObj.layer == 11 && interactedObj.CompareTag("Door"))
+
+                    if (interactedObj.layer == 11 && interactedObj.CompareTag("Door")) // Door
                     {
                         interactedObj.transform.GetChild(2).GetChild(0).gameObject.SetActive(openCloseDoor);
                         openCloseDoor = !openCloseDoor;
                     }
-                    if (interactedObj.layer == 10)
-                    {
+
+                    if (interactedObj.layer == 10) // Repo
                         if (interactedObj.GetComponent<RepoController>().CanUseRepo())
                             interactedRepo = interactedObj;
-                    }
+
                 }
             }
             if (ıInput.GetButtonUp0())

@@ -3,7 +3,6 @@ using Assets.Scripts.Concrete.Controllers;
 using Assets.Scripts.Concrete.Inputs;
 using Assets.Scripts.Concrete.Managers;
 using Assets.Scripts.Concrete.Movements;
-using Assets.Scripts.Concrete.Resources;
 using UnityEngine;
 
 namespace Assets.Scripts.Concrete.CollectResource
@@ -76,7 +75,7 @@ namespace Assets.Scripts.Concrete.CollectResource
             // UPDATE İLE ÇALIŞIR
             if (kC.isSeleceted) // Eğer köylü seçiliyse ve hedefe tıkladıysa, seçili köylünün hedefi seçili hedeftir
             {
-                if (workOnce)
+                if (workOnce) // Köylü seçiliyken onu durdurur
                 {
                     pF.agent.ResetPath(); // Yol bulma işlemi sıfırlanır
                     workOnce = false;
@@ -97,6 +96,11 @@ namespace Assets.Scripts.Concrete.CollectResource
                     resourceDropPoint = repo.transform.GetChild(0);
                     kC.isSeleceted = false;
                     workOnce = true;
+                    //if (goldIdle.activeSelf || rockIdle.activeSelf || woodIdle.activeSelf || meatIdle.activeSelf)
+                    //{
+                    //    kC.isSeleceted = false;
+                    //    goRepo = true;
+                    //}
                 }
 
                 else if (InteractManager.Instance.interactedObj == null && ınput.GetButtonUp0()) // Hedef yoksa
@@ -147,6 +151,7 @@ namespace Assets.Scripts.Concrete.CollectResource
         {
             if (goRepo && !kC.isSeleceted)
             {
+                print("Go Repo0");
                 pawnSpriteRenderer.enabled = true;
                 PawnHandResourceVisibility(true);
                 pF.MoveAI(resourceDropPoint.position);
@@ -159,14 +164,12 @@ namespace Assets.Scripts.Concrete.CollectResource
                 }
             }
         }
-
         public void PawnHandStatus()
         {
-            if (ınput.GetButtonDown0() && kC.isSeleceted)
-            {
-                DropAnyResources();
-            }
-
+            //if (ınput.GetButtonDown0() && kC.isSeleceted)
+            //{
+            //    DropAnyResources();
+            //}
         }
         public void PawnIdleCarryStateAnim() // Köylü dururken kaynak taşıma animasyonu
         {

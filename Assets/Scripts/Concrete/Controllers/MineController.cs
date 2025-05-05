@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Concrete.CollectResource;
 using Assets.Scripts.Concrete.Movements;
-using Assets.Scripts.Concrete.Resources;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
